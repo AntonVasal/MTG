@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MTG</string>
+    <string name="main">Main</string>
+    <string name="results">Results</string>
+    <string name="profile">Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="natural">Natural</string>
+    <string name="integers">Integers</string>
+    <string name="decimals">Decimals</string>
+</resources>
