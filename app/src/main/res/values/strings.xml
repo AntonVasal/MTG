@@ -8,4 +8,15 @@
     <string name="natural">Natural</string>
     <string name="integers">Integers</string>
     <string name="decimals">Decimals</string>
+    <string-array name="types_of_number">
+        <item>Natural numbers</item>
+        <item>Integer numbers</item>
+        <item>Decimal numbers</item>
+    </string-array>
+    <string-array name="types_of_task">
+        <item>Addition</item>
+        <item>Subtraction</item>
+        <item>Multiplication</item>
+        <item>Division</item>
+    </string-array>
 </resources>
