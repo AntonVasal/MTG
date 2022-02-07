@@ -1,4 +1,4 @@
-package com.example.mtg;
+package com.example.mtg.MainFragments.Home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.mtg.MainFragments.Home.Adapters.MainAdapter;
+import com.example.mtg.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 

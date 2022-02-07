@@ -5,6 +5,9 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.mtg.MainFragments.Home.HomeFragment;
+import com.example.mtg.MainFragments.Profile.ProfileFragment;
+import com.example.mtg.MainFragments.Results.ResultFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 

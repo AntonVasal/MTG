@@ -1,9 +1,13 @@
-package com.example.mtg;
+package com.example.mtg.MainFragments.Home.Adapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+
+import com.example.mtg.MainFragments.Home.TypeTaskFragments.DecimalsFragment;
+import com.example.mtg.MainFragments.Home.TypeTaskFragments.IntegerFragment;
+import com.example.mtg.MainFragments.Home.TypeTaskFragments.NaturalFragment;
 
 public class MainAdapter extends FragmentStateAdapter {
 

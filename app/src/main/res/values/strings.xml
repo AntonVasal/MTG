@@ -8,6 +8,13 @@
     <string name="natural">Natural</string>
     <string name="integers">Integers</string>
     <string name="decimals">Decimals</string>
+    <string name="division">Division</string>
+    <string name="multi">Multi</string>
+    <string name="div">Div</string>
+    <string name="sub">Sub</string>
+    <string name="add">Add</string>
+    <string name="user_photo">user_photo</string>
+    <string name="more_results">More results</string>
     <string-array name="types_of_number">
         <item>Natural numbers</item>
         <item>Integer numbers</item>
