@@ -43,6 +43,8 @@ public class CountFragment extends Fragment {
 
 
     private void buttonEnabledFalse() {
+        binding.deleteButton.setEnabled(false);
+        binding.button0.setEnabled(false);
         binding.button1.setEnabled(false);
         binding.button2.setEnabled(false);
         binding.button3.setEnabled(false);
@@ -55,6 +57,8 @@ public class CountFragment extends Fragment {
     }
 
     private void buttonEnabledTrue(){
+        binding.deleteButton.setEnabled(true);
+        binding.button0.setEnabled(true);
         binding.button1.setEnabled(true);
         binding.button2.setEnabled(true);
         binding.button3.setEnabled(true);
