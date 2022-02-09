@@ -23,7 +23,7 @@ public class CountFragment extends Fragment {
     }
 
     int typeNumber;
-    String userAnswer;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class CountFragment extends Fragment {
 
 
 
-    private void buttonEnabledFalse() {
+    public void buttonEnabledFalse() {
         binding.deleteButton.setEnabled(false);
         binding.button0.setEnabled(false);
         binding.button1.setEnabled(false);
@@ -56,7 +56,7 @@ public class CountFragment extends Fragment {
         binding.button9.setEnabled(false);
     }
 
-    private void buttonEnabledTrue(){
+    public void buttonEnabledTrue(){
         binding.deleteButton.setEnabled(true);
         binding.button0.setEnabled(true);
         binding.button1.setEnabled(true);
@@ -70,17 +70,17 @@ public class CountFragment extends Fragment {
         binding.button9.setEnabled(true);
     }
 
-    private void initListeners() {
-        binding.button0.setOnClickListener(view -> binding.userAnswerText.setText(userAnswer.concat("0")));
-        binding.button1.setOnClickListener(view -> binding.userAnswerText.setText(userAnswer.concat("1")));
-        binding.button2.setOnClickListener(view -> binding.userAnswerText.setText(userAnswer.concat("2")));
-        binding.button3.setOnClickListener(view -> binding.userAnswerText.setText(userAnswer.concat("3")));
-        binding.button4.setOnClickListener(view -> binding.userAnswerText.setText(userAnswer.concat("4")));
-        binding.button5.setOnClickListener(view -> binding.userAnswerText.setText(userAnswer.concat("5")));
-        binding.button6.setOnClickListener(view -> binding.userAnswerText.setText(userAnswer.concat("6")));
-        binding.button7.setOnClickListener(view -> binding.userAnswerText.setText(userAnswer.concat("7")));
-        binding.button8.setOnClickListener(view -> binding.userAnswerText.setText(userAnswer.concat("8")));
-        binding.button9.setOnClickListener(view -> binding.userAnswerText.setText(userAnswer.concat("9")));
+    public void initListeners() {
+        binding.button0.setOnClickListener(view -> binding.userAnswerText.setText(binding.userAnswerText.getText().toString().concat("0")));
+        binding.button1.setOnClickListener(view -> binding.userAnswerText.setText(binding.userAnswerText.getText().toString().concat("1")));
+        binding.button2.setOnClickListener(view -> binding.userAnswerText.setText(binding.userAnswerText.getText().toString().concat("2")));
+        binding.button3.setOnClickListener(view -> binding.userAnswerText.setText(binding.userAnswerText.getText().toString().concat("3")));
+        binding.button4.setOnClickListener(view -> binding.userAnswerText.setText(binding.userAnswerText.getText().toString().concat("4")));
+        binding.button5.setOnClickListener(view -> binding.userAnswerText.setText(binding.userAnswerText.getText().toString().concat("5")));
+        binding.button6.setOnClickListener(view -> binding.userAnswerText.setText(binding.userAnswerText.getText().toString().concat("6")));
+        binding.button7.setOnClickListener(view -> binding.userAnswerText.setText(binding.userAnswerText.getText().toString().concat("7")));
+        binding.button8.setOnClickListener(view -> binding.userAnswerText.setText(binding.userAnswerText.getText().toString().concat("8")));
+        binding.button9.setOnClickListener(view -> binding.userAnswerText.setText(binding.userAnswerText.getText().toString().concat("9")));
     }
 
     @Override

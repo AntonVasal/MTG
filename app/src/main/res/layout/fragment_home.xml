@@ -11,6 +11,7 @@
 
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
+        android:background="@color/blue_bright"
         android:id="@+id/main_tabs"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_height="wrap_content">

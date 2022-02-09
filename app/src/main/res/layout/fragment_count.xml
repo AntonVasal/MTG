@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/user_answer_text"
             android:layout_weight="50"
-            android:text="@string/user_answer"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="30sp"/>
 

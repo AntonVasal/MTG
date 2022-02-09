@@ -21,7 +21,6 @@ public class AddFragment extends Fragment {
     Button natButton;
     Button intButton;
     Button decButton;
-    Button moreResultButton;
 
 
     RecyclerView recyclerView;
@@ -43,7 +42,6 @@ public class AddFragment extends Fragment {
         natButton = view.findViewById(R.id.nat_button);
         intButton = view.findViewById(R.id.int_button);
         decButton = view.findViewById(R.id.dec_button);
-        moreResultButton = view.findViewById(R.id.more_results_button);
         natButton.setEnabled(false);
         initListeners();
 
@@ -58,10 +56,10 @@ public class AddFragment extends Fragment {
 
     private void generateItem() {
         List<UserResultsModel> itemList = new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 15; i++) {
             itemList.add(new UserResultsModel(
                     "Anton ",
-                    "https://image.shutterstock.com/z/stock-photo-heart-pizza-with-mozzarella-and-tomatoes-on-a-slate-valentine-s-day-date-food-concept-1569808198.jpg",
+                    "",
                     "10000"));
         }
         adapter = new ResultsRecyclerViewAdapter(itemList,getContext());
@@ -76,19 +74,48 @@ public class AddFragment extends Fragment {
             natButton.setEnabled(false);
             intButton.setEnabled(true);
             decButton.setEnabled(true);
+
+            List<UserResultsModel> itemList = new ArrayList<>();
+            for (int i = 0; i < 15; i++) {
+                itemList.add(new UserResultsModel(
+                        "Anton ",
+                        "",
+                        "10000"));
+            }
+            adapter = new ResultsRecyclerViewAdapter(itemList,getContext());
+            recyclerView.setAdapter(adapter);
         });
+
         intButton.setOnClickListener(view -> {
             natButton.setEnabled(true);
             intButton.setEnabled(false);
             decButton.setEnabled(true);
+
+            List<UserResultsModel> itemList = new ArrayList<>();
+            for (int i = 0; i < 15; i++) {
+                itemList.add(new UserResultsModel(
+                        "Mr. Man ",
+                        "",
+                        "31212"));
+            }
+            adapter = new ResultsRecyclerViewAdapter(itemList,getContext());
+            recyclerView.setAdapter(adapter);
         });
+
         decButton.setOnClickListener(view -> {
             natButton.setEnabled(true);
             intButton.setEnabled(true);
             decButton.setEnabled(false);
-        });
-        moreResultButton.setOnClickListener(view -> {
 
+            List<UserResultsModel> itemList = new ArrayList<>();
+            for (int i = 0; i < 15; i++) {
+                itemList.add(new UserResultsModel(
+                        "Antonio ",
+                        "",
+                        "24664"));
+            }
+            adapter = new ResultsRecyclerViewAdapter(itemList,getContext());
+            recyclerView.setAdapter(adapter);
         });
     }
 }

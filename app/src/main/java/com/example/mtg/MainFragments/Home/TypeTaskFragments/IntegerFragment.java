@@ -29,6 +29,7 @@ public class IntegerFragment extends Fragment {
         Multi = view.findViewById(R.id.multi_text);
         Sub = view.findViewById(R.id.sub_text);
         Div = view.findViewById(R.id.div_text);
+
         initListeners();
         return view;
     }

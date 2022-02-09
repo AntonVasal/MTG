@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="4dp"
     android:layout_margin="5dp"
-    android:backgroundTint="@color/design_default_color_primary"
+    android:backgroundTint="@color/yellow"
     app:cardCornerRadius="15dp">
 
     <LinearLayout
@@ -40,7 +40,7 @@
                 android:id="@+id/user_results_name"
                 android:textSize="24sp"
                 android:layout_weight="30"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="8dp"
                 android:text="Anton"/>
@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/user_score"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="24sp"
                 android:layout_weight="30"
                 android:text="10000"
