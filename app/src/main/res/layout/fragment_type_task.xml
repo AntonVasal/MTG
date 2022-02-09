@@ -19,15 +19,16 @@
             android:layout_height="0dp"
             android:layout_weight="50"
             android:orientation="horizontal"
-            android:weightSum="100">
+            android:weightSum="50">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="50"
+                android:layout_weight="25"
                 android:background="@color/yellow"
                 android:gravity="center"
-                android:text="Addition"
+                android:id="@+id/add_text"
+                android:text="@string/addition"
                 android:textColor="@color/teal_700"
                 android:textSize="30sp"
                 android:textStyle="italic" />
@@ -35,10 +36,11 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="50"
+                android:layout_weight="25"
                 android:background="@color/purple_700"
                 android:gravity="center"
-                android:text="Subtraction"
+                android:id="@+id/sub_text"
+                android:text="@string/subtraction"
                 android:textColor="@color/yellow"
                 android:textSize="30sp"
                 android:textStyle="italic" />
@@ -50,25 +52,27 @@
             android:layout_height="0dp"
             android:orientation="horizontal"
             android:layout_weight="50"
-            android:weightSum="100">
+            android:weightSum="50">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="50"
+                android:layout_weight="25"
                 android:background="@color/purple_700"
                 android:gravity="center"
-                android:text="Multiplication"
+                android:id="@+id/multi_text"
+                android:text="@string/multiplication"
                 android:textColor="@color/yellow"
                 android:textSize="30sp" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="50"
+                android:layout_weight="25"
                 android:background="@color/yellow"
                 android:gravity="center"
-                android:text="Division"
+                android:id="@+id/div_text"
+                android:text="@string/division"
                 android:textColor="@color/teal_700"
                 android:textSize="30sp" />
         </LinearLayout>

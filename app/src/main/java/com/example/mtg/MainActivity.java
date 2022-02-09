@@ -3,12 +3,10 @@ package com.example.mtg;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.mtg.MainFragments.Home.HomeFragment;
-import com.example.mtg.MainFragments.Profile.ProfileFragment;
-import com.example.mtg.MainFragments.Results.ResultFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.mtg.MainFragments.MainFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -20,25 +18,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BottomNavigationView bottomNavigationView = findViewById(R.id.main_bottom_navigation);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, new HomeFragment()).commit();
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            Fragment selectedFragment = null;
-            switch (item.getItemId()){
-                case R.id.HomeFragment:
-                    selectedFragment = new HomeFragment();
-                    break;
-                case R.id.ResultFragment:
-                    selectedFragment = new ResultFragment();
-                    break;
-                case R.id.ProfileFragment:
-                    selectedFragment = new ProfileFragment();
-                    break;
-            }
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView,selectedFragment).commit();
-            return true;
-        });
-
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.main_app_container, new MainFragment()).commit();
     }
 
 //    @Override
