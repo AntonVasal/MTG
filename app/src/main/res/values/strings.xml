@@ -59,6 +59,8 @@
     <string name="new_account">New account?</string>
     <string name="register">Register</string>
     <string name="back_button">back button</string>
+    <string name="reset_your_password">Reset your password</string>
+    <string name="log_out_button">log out button</string>
     <string-array name="types_of_number">
         <item>Natural numbers</item>
         <item>Integer numbers</item>

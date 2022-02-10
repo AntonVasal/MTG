@@ -1,4 +1,4 @@
-package com.example.mtg.LogActivity;
+package com.example.mtg.LogActivity.LogFragments;
 
 import android.os.Bundle;
 

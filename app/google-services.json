@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "911068454314",
+    "project_id": "mtg-52174",
+    "storage_bucket": "mtg-52174.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:911068454314:android:9b7ce6ebfaf2563cf21fd3",
+        "android_client_info": {
+          "package_name": "com.example.mtg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "911068454314-1uog4nrr04eje419gb42qnoosoh30jed.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mtg",
+            "certificate_hash": "acbd8b9920dad5c3489d119337eb62cb113ff888"
+          }
+        },
+        {
+          "client_id": "911068454314-0d7pu54291p0foah8unqd675762taahn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCCq-nNKp6NWmJ0fK002PADySH_CYY6Ys"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "911068454314-0d7pu54291p0foah8unqd675762taahn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
