@@ -19,10 +19,14 @@ public class LogActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null){
             startActivity(new Intent(LogActivity.this, MainActivity.class));
             finish();
+        } else{
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.log_activity_container,new SignInFragment()).commit();
         }
     }
 
@@ -30,7 +34,5 @@ public class LogActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.log_activity_container,new SignInFragment());
     }
 }

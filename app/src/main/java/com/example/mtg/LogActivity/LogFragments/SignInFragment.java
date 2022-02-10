@@ -44,10 +44,9 @@ public class SignInFragment extends Fragment {
 
     private void initListeners() {
         binding.registerTextView.setOnClickListener(view ->
-                getActivity().getSupportFragmentManager()
+                requireActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.log_activity_container, new RegisterFragment())
-                        .addToBackStack("")
                         .commit()
                 );
 
