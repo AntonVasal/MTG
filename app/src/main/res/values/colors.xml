@@ -13,5 +13,6 @@
     <color name="orange_light">@android:color/holo_orange_light</color>
     <color name="green_light">@android:color/holo_green_light</color>
     <color name="red">#F44336</color>
+    <color name="transparent">@android:color/transparent</color>
     <color name="green">#4CAF50</color>
 </resources>

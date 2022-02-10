@@ -3,7 +3,6 @@
     <string name="main">Main</string>
     <string name="results">Results</string>
     <string name="profile">Profile</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="natural">Natural</string>
     <string name="integers">Integers</string>
@@ -52,15 +51,14 @@
     <string name="settings">settings</string>
     <string name="log_out">log out</string>
     <string name="mtg">MTG</string>
-    <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="made_by_vai">Made by VAI</string>
     <string name="sign_in">Sign in</string>
     <string name="reset_password">Reset password</string>
     <string name="forget_password">Forget password?</string>
     <string name="new_account">New account?</string>
-    <string name="nickname">Nickname</string>
     <string name="register">Register</string>
+    <string name="back_button">back button</string>
     <string-array name="types_of_number">
         <item>Natural numbers</item>
         <item>Integer numbers</item>
