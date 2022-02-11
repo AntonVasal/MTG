@@ -2,23 +2,18 @@ package com.example.mtg.LogActivity.LogFragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.mtg.LogActivity.LogActivity;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import com.example.mtg.MainActivity.MainActivity;
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentSignInBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -54,8 +49,8 @@ public class SignInFragment extends Fragment {
     }
 
     private void userLogin() {
-        String email = Objects.requireNonNull(binding.signInEmailEditText.getEditText()).toString().trim();
-        String password = Objects.requireNonNull(binding.signInPasswordEditText.getEditText()).toString().trim();
+        String email = Objects.requireNonNull(binding.email.getText()).toString().trim();
+        String password = Objects.requireNonNull(binding.password.getText()).toString().trim();
 
         if(email.isEmpty()){
             binding.signInEmailEditText.setError("Email is required!");
@@ -78,24 +73,21 @@ public class SignInFragment extends Fragment {
             return;
         }
 
-        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
+        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
 
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-                    if (user.isEmailVerified()){
-                        startActivity(new Intent(getActivity(), MainActivity.class));
-                        getActivity().finish();
-                    }else {
-                        user.sendEmailVerification();
-                        Toast.makeText(getContext(),"Please, check your email to verify your account!", Toast.LENGTH_LONG).show();
-                    }
-
-                } else {
-                    Toast.makeText(getContext(),"Authentication if failed! Please, try again!", Toast.LENGTH_LONG).show();
+                if (user.isEmailVerified()){
+                    startActivity(new Intent(getActivity(), MainActivity.class));
+                    requireActivity().finish();
+                }else {
+                    user.sendEmailVerification();
+                    Toast.makeText(getContext(),"Please, check your email to verify your account!", Toast.LENGTH_LONG).show();
                 }
+
+            } else {
+                Toast.makeText(getContext(),"Authentication is failed! Please, try again!", Toast.LENGTH_LONG).show();
             }
         });
     }

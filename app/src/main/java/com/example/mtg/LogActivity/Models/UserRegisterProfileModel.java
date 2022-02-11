@@ -2,11 +2,31 @@ package com.example.mtg.LogActivity.Models;
 
 public class UserRegisterProfileModel {
 
-    String name = null;
-    String surname = null;
-    String nickname = null;
-    String email = null;
-    String country = null;
+    private String name = null;
+    private String surname = null;
+    private String nickname = null;
+    private String email = null;
+    private String country = null;
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getCountry() {
+        return country;
+    }
 
     public UserRegisterProfileModel() {
 

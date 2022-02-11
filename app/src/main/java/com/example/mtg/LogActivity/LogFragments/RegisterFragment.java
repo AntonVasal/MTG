@@ -1,25 +1,21 @@
 package com.example.mtg.LogActivity.LogFragments;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import com.example.mtg.LogActivity.Models.UserRegisterProfileModel;
+import com.example.mtg.MainActivity.MainActivity;
 import com.example.mtg.databinding.FragmentRegisterBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firestore.v1.WriteResult;
 
 import java.util.Objects;
 
@@ -48,11 +44,11 @@ public class RegisterFragment extends Fragment {
     }
 
     private void registerUser() {
-        String email = Objects.requireNonNull(binding.registerEmailEditText.getEditText()).toString().trim();
-        String password = Objects.requireNonNull(binding.registerPasswordEditText.getEditText()).toString().trim();
-        String name = Objects.requireNonNull(binding.registerUserNameEditText.getEditText()).toString().trim();
-        String surname = Objects.requireNonNull(binding.registerUserSurnameEditText.getEditText()).toString().trim();
-        String nickname = Objects.requireNonNull(binding.registerUserNicknameEditText.getEditText()).toString().trim();
+        String email = Objects.requireNonNull(binding.email.getText()).toString().trim();
+        String password = Objects.requireNonNull(binding.password.getText()).toString().trim();
+        String name = Objects.requireNonNull(binding.name.getText()).toString().trim();
+        String surname = Objects.requireNonNull(binding.surname.getText()).toString().trim();
+        String nickname = Objects.requireNonNull(binding.nickname.getText()).toString().trim();
         String country = binding.countryPicker.getSelectedCountryName();
 
         //valid email
@@ -119,6 +115,20 @@ public class RegisterFragment extends Fragment {
                                         Toast.makeText(getContext(),"Something went wrong. Please try again.",Toast.LENGTH_LONG).show();
                                     }
                                 }
+                        );
+
+                        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(
+                                task12 -> {
+                                    if (task12.isSuccessful()){
+
+                                            startActivity(new Intent(getActivity(), MainActivity.class));
+                                            requireActivity().finish();
+
+                                    } else {
+                                        Toast.makeText(getContext(),"Auto-authentication is failed! Please, try again!", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+
                         );
 
                     }else{
