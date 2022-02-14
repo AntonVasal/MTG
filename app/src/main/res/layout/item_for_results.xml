@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="4dp"
     android:layout_margin="5dp"
-    android:backgroundTint="@color/yellow"
+    android:backgroundTint="@color/black"
     app:cardCornerRadius="15dp">
 
     <LinearLayout
@@ -25,6 +25,7 @@
                 android:layout_height="50dp"
                 android:id="@+id/user_results_img"
                 android:scaleType="fitXY"
+                android:background="@color/yellow"
                 android:contentDescription="@string/user_photo"
                 android:src="@drawable/ic_launcher_background"/>
         </androidx.cardview.widget.CardView>
@@ -40,18 +41,18 @@
                 android:id="@+id/user_results_name"
                 android:textSize="24sp"
                 android:layout_weight="30"
-                android:textColor="@color/black"
+                android:textColor="@color/yellow"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="8dp"
-                android:text="Anton"/>
+                android:text="@string/anton"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/user_score"
-                android:textColor="@color/black"
+                android:textColor="@color/yellow"
                 android:textSize="24sp"
                 android:layout_weight="30"
-                android:text="10000"
+                android:text="@string/_10000"
                 android:layout_gravity="center_vertical"/>
         </LinearLayout>
     </LinearLayout>

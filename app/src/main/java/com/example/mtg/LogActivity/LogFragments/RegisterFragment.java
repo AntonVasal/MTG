@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mtg.LogActivity.Models.UserRegisterProfileModel;
 import com.example.mtg.MainActivity.MainActivity;
+import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentRegisterBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -41,6 +42,12 @@ public class RegisterFragment extends Fragment {
 
     private void initListeners() {
         binding.registerButton.setOnClickListener(view -> registerUser());
+        binding.backRegisterButton.setOnClickListener(view ->
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.log_activity_container, new SignInFragment())
+                        .commit()
+        );
     }
 
     private void registerUser() {
