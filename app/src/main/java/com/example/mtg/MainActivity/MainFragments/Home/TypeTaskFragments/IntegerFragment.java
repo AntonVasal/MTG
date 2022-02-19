@@ -13,7 +13,7 @@ import com.example.mtg.R;
 
 
 public class IntegerFragment extends Fragment {
-    TextView Add, Multi, Sub, Div;
+    private TextView Add, Multi, Sub, Div;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,29 +35,17 @@ public class IntegerFragment extends Fragment {
     }
 
     private void initListeners() {
-        Add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        Add.setOnClickListener(view -> {
 
-            }
         });
-        Multi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        Multi.setOnClickListener(view -> {
 
-            }
         });
-        Sub.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        Sub.setOnClickListener(view -> {
 
-            }
         });
-        Div.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        Div.setOnClickListener(view -> {
 
-            }
         });
     }
 }

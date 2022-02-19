@@ -15,10 +15,12 @@ import com.example.mtg.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.util.Objects;
+
 
 public class HomeFragment extends Fragment {
 
-    ViewPager2 mainViewPager;
+    private ViewPager2 mainViewPager;
     TabLayout mainTabs;
 
 
@@ -33,13 +35,13 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mainViewPager = view.findViewById(R.id.main_view_pager);
         mainViewPager.setAdapter(
-                new MainAdapter(getActivity())
+                new MainAdapter(requireActivity())
         );
         mainTabs = view.findViewById(R.id.main_tabs);
         new TabLayoutMediator(
                 mainTabs,
                 mainViewPager,
-                (tab, position) -> tab.setText(((MainAdapter)(mainViewPager.getAdapter())).fragmentNames[position])
+                (tab, position) -> tab.setText(((MainAdapter)(Objects.requireNonNull(mainViewPager.getAdapter()))).fragmentNames[position])
         ).attach();
 
     }

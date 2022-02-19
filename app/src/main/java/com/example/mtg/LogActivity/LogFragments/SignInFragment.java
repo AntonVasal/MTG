@@ -38,6 +38,7 @@ public class SignInFragment extends Fragment {
     }
 
     private void initListeners() {
+
         binding.registerTextView.setOnClickListener(view ->
                 requireActivity().getSupportFragmentManager()
                         .beginTransaction()
@@ -46,7 +47,16 @@ public class SignInFragment extends Fragment {
                 );
 
         binding.signInButton.setOnClickListener(view -> userLogin());
+
+        binding.resetPassword.setOnClickListener(view ->
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.log_activity_container, new ResetPasswordFragment())
+                        .commit()
+                );
     }
+
+
 
     private void userLogin() {
         String email = Objects.requireNonNull(binding.email.getText()).toString().trim();

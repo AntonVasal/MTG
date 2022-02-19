@@ -15,8 +15,10 @@ import com.example.mtg.MainActivity.MainFragments.Results.Adapters.ResultsAdapte
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.util.Objects;
+
 public class ResultFragment extends Fragment {
-    ViewPager2 resultsViewPager;
+    private ViewPager2 resultsViewPager;
     TabLayout resultsTabs;
 
 
@@ -32,13 +34,13 @@ public class ResultFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         resultsViewPager = view.findViewById(R.id.results_view_pager);
         resultsViewPager.setAdapter(
-                new ResultsAdapter(getActivity())
+                new ResultsAdapter(requireActivity())
         );
         resultsTabs = view.findViewById(R.id.result_tabs);
         new TabLayoutMediator(
                 resultsTabs,
                 resultsViewPager,
-                (tab, position) -> tab.setText(((ResultsAdapter)(resultsViewPager.getAdapter())).fragmentResultsNames[position])
+                (tab, position) -> tab.setText(((ResultsAdapter)(Objects.requireNonNull(resultsViewPager.getAdapter()))).fragmentResultsNames[position])
         ).attach();
     }
     @Override

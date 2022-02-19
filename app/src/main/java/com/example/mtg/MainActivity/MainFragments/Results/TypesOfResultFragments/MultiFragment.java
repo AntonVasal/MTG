@@ -18,12 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MultiFragment extends Fragment {
-    Button natButton;
-    Button intButton;
-    Button decButton;
+    private Button natButton;
+    private Button intButton;
+    private Button decButton;
 
-    RecyclerView recyclerView;
-    ResultsRecyclerViewAdapter adapter;
+    private RecyclerView recyclerView;
+    private ResultsRecyclerViewAdapter adapter;
     LinearLayoutManager layoutManager;
     @Override
     public void onCreate(Bundle savedInstanceState) {
