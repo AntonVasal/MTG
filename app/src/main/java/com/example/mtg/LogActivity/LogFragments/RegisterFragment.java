@@ -2,8 +2,6 @@ package com.example.mtg.LogActivity.LogFragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +37,7 @@ public class RegisterFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         initListeners();
-        textChanged();
+        textSelected();
         return view;
     }
 
@@ -150,61 +148,26 @@ public class RegisterFragment extends Fragment {
 
     }
 
-    private void textChanged() {
-        binding.email.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                binding.registerEmailEditText.setError(null);
-                binding.registerEmailEditText.clearFocus();
-            }
-            @Override
-            public void afterTextChanged(Editable editable) { }
+    private void textSelected() {
+        binding.email.setOnClickListener(view -> {
+            binding.registerEmailEditText.setError(null);
+            binding.registerEmailEditText.clearFocus();
         });
-        binding.password.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                binding.registerPasswordEditText.setError(null);
-                binding.registerPasswordEditText.clearFocus();
-            }
-            @Override
-            public void afterTextChanged(Editable editable) { }
+        binding.password.setOnClickListener(view -> {
+            binding.registerPasswordEditText.setError(null);
+            binding.registerPasswordEditText.clearFocus();
         });
-        binding.name.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                binding.registerUserNameEditText.setError(null);
-                binding.registerUserNameEditText.clearFocus();
-            }
-            @Override
-            public void afterTextChanged(Editable editable) { }
+        binding.name.setOnClickListener(view -> {
+            binding.registerUserNameEditText.setError(null);
+            binding.registerUserNameEditText.clearFocus();
         });
-        binding.nickname.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                binding.registerUserNicknameEditText.setError(null);
-                binding.registerUserNicknameEditText.clearFocus();
-            }
-            @Override
-            public void afterTextChanged(Editable editable) { }
+        binding.nickname.setOnClickListener(view -> {
+            binding.registerUserNicknameEditText.setError(null);
+            binding.registerUserNicknameEditText.clearFocus();
         });
-        binding.surname.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                binding.registerUserSurnameEditText.setError(null);
-                binding.registerUserSurnameEditText.clearFocus();
-            }
-            @Override
-            public void afterTextChanged(Editable editable) { }
+        binding.surname.setOnClickListener(view -> {
+            binding.registerUserSurnameEditText.setError(null);
+            binding.registerUserSurnameEditText.clearFocus();
         });
     }
 }
