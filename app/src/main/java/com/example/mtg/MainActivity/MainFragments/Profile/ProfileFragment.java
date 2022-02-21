@@ -8,21 +8,20 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mtg.LogActivity.LogActivity;
-import com.example.mtg.LogActivity.Models.UserRegisterProfileModel;
+import com.example.mtg.MainActivity.MainFragments.Profile.ViewModel.ProfileViewModel;
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentProfileBinding;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.Objects;
 
 public class ProfileFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private FragmentProfileBinding binding;
-    private FirebaseFirestore mFirebaseFirestore;
+//    private FirebaseFirestore mFirebaseFirestore;
+    private ProfileViewModel profileViewModel;
 
 
     @Override
@@ -37,30 +36,51 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentProfileBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
+
         mAuth = FirebaseAuth.getInstance();
-        mFirebaseFirestore = FirebaseFirestore.getInstance();
+//        mFirebaseFirestore = FirebaseFirestore.getInstance();
+        profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
+
+
         binding.userProfileImage.setImageResource(R.drawable.ic_baseline_person_150);
         binding.profileProgressBar.setVisibility(View.VISIBLE);
+
         setData();
         initListeners();
+
+
+
         return view;
     }
 
     private void setData() {
-        String userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
-        mFirebaseFirestore.collection("users").document(userId).get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    UserRegisterProfileModel user = documentSnapshot.toObject(UserRegisterProfileModel.class);
-                    assert user != null;
-                    binding.userNickname.setText(user.getNickname());
-                    binding.userEmail.setText(user.getEmail());
-                    binding.infoCountry.setText(user.getCountry());
-                    binding.infoEmail.setText(user.getEmail());
-                    binding.infoName.setText(user.getName());
-                    binding.infoSurname.setText(user.getSurname());
-                    binding.infoNickname.setText(user.getNickname());
-                    binding.profileProgressBar.setVisibility(View.GONE);
-                });
+        profileViewModel.getUser().observe(requireActivity(), userRegisterProfileModel -> {
+            binding.userNickname.setText(userRegisterProfileModel.getNickname());
+            binding.userEmail.setText(userRegisterProfileModel.getEmail());
+            binding.infoCountry.setText(userRegisterProfileModel.getCountry());
+            binding.infoEmail.setText(userRegisterProfileModel.getEmail());
+            binding.infoName.setText(userRegisterProfileModel.getName());
+            binding.infoSurname.setText(userRegisterProfileModel.getSurname());
+            binding.infoNickname.setText(userRegisterProfileModel.getNickname());
+            binding.profileProgressBar.setVisibility(View.GONE);
+
+        });
+
+//        String userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+//        mFirebaseFirestore.collection("users").document(userId).get()
+//                .addOnSuccessListener(documentSnapshot -> {
+//                    UserRegisterProfileModel user = documentSnapshot.toObject(UserRegisterProfileModel.class);
+//                    assert user != null;
+//
+////                    binding.userNickname.setText(user.getNickname());
+////                    binding.userEmail.setText(user.getEmail());
+////                    binding.infoCountry.setText(user.getCountry());
+////                    binding.infoEmail.setText(user.getEmail());
+////                    binding.infoName.setText(user.getName());
+////                    binding.infoSurname.setText(user.getSurname());
+////                    binding.infoNickname.setText(user.getNickname());
+////                    binding.profileProgressBar.setVisibility(View.GONE);
+//                });
 
     }
 
