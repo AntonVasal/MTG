@@ -1,6 +1,8 @@
 package com.example.mtg.LogActivity.LogFragments;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,9 +32,23 @@ public class ResetPasswordFragment extends Fragment {
         View view = binding.getRoot();
         mAuth = FirebaseAuth.getInstance();
         initListeners();
+        textChanged();
         return view;
     }
 
+    private void textChanged() {
+        binding.emailForReset.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                binding.resetEmailEditText.setError(null);
+                binding.resetEmailEditText.clearFocus();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) { }
+        });
+    }
 
 
     private void initListeners() {

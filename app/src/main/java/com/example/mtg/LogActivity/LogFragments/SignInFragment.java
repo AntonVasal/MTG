@@ -2,6 +2,8 @@ package com.example.mtg.LogActivity.LogFragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +36,33 @@ public class SignInFragment extends Fragment {
         View view = binding.getRoot();
         mAuth = FirebaseAuth.getInstance();
         initListeners();
+        textChanged();
         return view;
+    }
+
+    private void textChanged() {
+        binding.email.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                binding.signInEmailEditText.setError(null);
+                binding.signInEmailEditText.clearFocus();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) { }
+        });
+        binding.password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                binding.signInPasswordEditText.setError(null);
+                binding.signInPasswordEditText.clearFocus();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) { }
+        });
     }
 
     private void initListeners() {

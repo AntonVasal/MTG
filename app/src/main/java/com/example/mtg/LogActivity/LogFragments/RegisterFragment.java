@@ -2,6 +2,8 @@ package com.example.mtg.LogActivity.LogFragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +39,7 @@ public class RegisterFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         initListeners();
+        textChanged();
         return view;
     }
 
@@ -57,6 +60,7 @@ public class RegisterFragment extends Fragment {
         String surname = Objects.requireNonNull(binding.surname.getText()).toString().trim();
         String nickname = Objects.requireNonNull(binding.nickname.getText()).toString().trim();
         String country = binding.countryPicker.getSelectedCountryName();
+
 
         //valid email
         if(email.isEmpty()){
@@ -144,5 +148,63 @@ public class RegisterFragment extends Fragment {
                 });
 
 
+    }
+
+    private void textChanged() {
+        binding.email.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                binding.registerEmailEditText.setError(null);
+                binding.registerEmailEditText.clearFocus();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) { }
+        });
+        binding.password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                binding.registerPasswordEditText.setError(null);
+                binding.registerPasswordEditText.clearFocus();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) { }
+        });
+        binding.name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                binding.registerUserNameEditText.setError(null);
+                binding.registerUserNameEditText.clearFocus();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) { }
+        });
+        binding.nickname.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                binding.registerUserNicknameEditText.setError(null);
+                binding.registerUserNicknameEditText.clearFocus();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) { }
+        });
+        binding.surname.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                binding.registerUserSurnameEditText.setError(null);
+                binding.registerUserSurnameEditText.clearFocus();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) { }
+        });
     }
 }

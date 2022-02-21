@@ -24,12 +24,13 @@ public class ProfileViewModel extends ViewModel {
 
 
     private void loadData(){
-        FirebaseFirestore.getInstance()
+        new Thread(() -> FirebaseFirestore.getInstance()
                 .collection("users")
                 .document(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
                 .get().addOnSuccessListener(documentSnapshot -> {
-                    UserRegisterProfileModel userProfile = documentSnapshot.toObject(UserRegisterProfileModel.class);
-                    user.postValue(userProfile);
-        });
+            UserRegisterProfileModel userProfile = documentSnapshot.toObject(UserRegisterProfileModel.class);
+            user.postValue(userProfile);
+        })).start();
+
     }
 }
