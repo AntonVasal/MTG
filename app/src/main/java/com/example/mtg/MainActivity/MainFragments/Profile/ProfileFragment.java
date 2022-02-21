@@ -62,9 +62,8 @@ public class ProfileFragment extends Fragment {
             binding.infoName.setText(userRegisterProfileModel.getName());
             binding.infoSurname.setText(userRegisterProfileModel.getSurname());
             binding.infoNickname.setText(userRegisterProfileModel.getNickname());
-            binding.profileProgressBar.setVisibility(View.GONE);
-
         });
+        binding.profileProgressBar.setVisibility(View.GONE);
 
 //        String userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 //        mFirebaseFirestore.collection("users").document(userId).get()
@@ -91,4 +90,5 @@ public class ProfileFragment extends Fragment {
             requireActivity().finish();
         });
     }
+
 }
