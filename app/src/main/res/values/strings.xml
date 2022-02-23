@@ -62,6 +62,11 @@
     <string name="reset_your_password">Reset your password</string>
     <string name="log_out_button">log out button</string>
     <string name="_10000">10000</string>
+    <string name="dialog_image">dialog_image</string>
+    <string name="cancel">Cancel</string>
+    <string name="exit">Exit</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="naturals">naturals</string>
 
     <string-array name="types_of_number">
         <item>Natural numbers</item>

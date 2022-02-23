@@ -1,5 +1,6 @@
 package com.example.mtg.MainActivity.MainFragments.Profile;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import com.example.mtg.LogActivity.LogActivity;
 import com.example.mtg.MainActivity.MainFragments.Profile.ViewModel.ProfileViewModel;
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentProfileBinding;
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileFragment extends Fragment {
@@ -84,11 +86,26 @@ public class ProfileFragment extends Fragment {
     }
 
     private void initListeners() {
-        binding.logOutButton.setOnClickListener(view1 -> {
+        binding.logOutButton.setOnClickListener(view1 -> showExitDialog());
+    }
+
+    private void showExitDialog() {
+        Dialog dialog = new Dialog(requireActivity());
+        dialog.setContentView(R.layout.exit_dialog);
+
+        MaterialButton cancel = dialog.findViewById(R.id.cancel_dialog_button);
+        cancel.setOnClickListener(view -> {
+            dialog.dismiss();
+        });
+
+        MaterialButton exit = dialog.findViewById(R.id.exit_dialog_button);
+        exit.setOnClickListener(view -> {
             mAuth.signOut();
             startActivity(new Intent(getActivity(), LogActivity.class));
             requireActivity().finish();
         });
+
+        dialog.show();
     }
 
 }

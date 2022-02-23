@@ -26,7 +26,7 @@
                 android:layout_marginStart="15dp"
                 android:textColor="@color/black"
                 android:layout_weight="30"
-                android:text="@string/natural" />
+                android:text="@string/naturals" />
 
             <Button
                 android:id="@+id/int_button"
@@ -53,6 +53,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/result_recycler"
             android:layout_width="0dp"
+            android:background="@color/darker_grey"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/change_type_in_result_container"
             app:layout_constraintStart_toStartOf="parent"
