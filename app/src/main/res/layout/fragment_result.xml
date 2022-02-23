@@ -6,13 +6,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity.MainFragments.Results.ResultFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/result_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/black"
         app:tabTextColor="@color/yellow"
+        app:tabSelectedTextColor="@color/orange_dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

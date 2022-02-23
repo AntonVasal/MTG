@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity.MainFragments.Home.TypeTaskFragments.IntegerFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:id="@+id/count_layout"
         android:layout_width="match_parent"
@@ -25,25 +24,23 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="25"
-                android:background="@color/yellow"
+                android:background="@color/yellow_light"
                 android:gravity="center"
                 android:id="@+id/add_text"
                 android:text="@string/addition"
                 android:textColor="@color/black"
-                android:textSize="30sp"
-                android:textStyle="italic" />
+                android:textSize="30sp"/>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="25"
-                android:background="@color/black"
+                android:background="@color/darker_grey"
                 android:gravity="center"
                 android:id="@+id/sub_text"
                 android:text="@string/subtraction"
-                android:textColor="@color/yellow"
-                android:textSize="30sp"
-                android:textStyle="italic" />
+                android:textColor="@color/yellow_light"
+                android:textSize="30sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -58,18 +55,18 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="25"
-                android:background="@color/black"
+                android:background="@color/darker_grey"
                 android:gravity="center"
                 android:id="@+id/multi_text"
                 android:text="@string/multiplication"
-                android:textColor="@color/yellow"
+                android:textColor="@color/yellow_light"
                 android:textSize="30sp" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="25"
-                android:background="@color/yellow"
+                android:background="@color/yellow_light"
                 android:gravity="center"
                 android:id="@+id/div_text"
                 android:text="@string/division"
