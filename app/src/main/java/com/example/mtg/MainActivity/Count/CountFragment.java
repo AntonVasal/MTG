@@ -7,7 +7,6 @@ import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Chronometer;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -55,7 +54,7 @@ public class CountFragment extends Fragment {
         initListeners();
         buttonEnabledFalse();
         binding.countTimer.setOnChronometerTickListener(chronometer -> {
-          if(binding.countTimer.getDrawingTime() == 0 ){
+          if (SystemClock.elapsedRealtime() - binding.countTimer.getBase() > 0 ){
               buttonEnabledFalse();
               binding.startButton.setVisibility(View.VISIBLE);
               binding.finishButton.setVisibility(View.GONE);
@@ -166,6 +165,12 @@ public class CountFragment extends Fragment {
                     case 2:
                         k = a * b;
                         break;
+                    case 3:
+                        if(a>b){
+                            k = a-b;
+                        }else{
+                            k = b-a;
+                        }
                     default:
                 }
                 if(k==g){
@@ -231,6 +236,17 @@ public class CountFragment extends Fragment {
     }
 
     private void generateNaturalSubTask() {
+        Random random = new Random();
+        int a = random.nextInt(10000);
+        int b = random.nextInt(10000);
+        String task;
+        if (a>b) {
+            task = a + " - " + b + " = ";
+        }else{
+            task = b + " - " + a + " = ";
+        }
+        binding.taskText.setText(task);
+
     }
 
     private void generateNaturalMultiTask() {
