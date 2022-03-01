@@ -2,9 +2,12 @@ package com.example.mtg.MainActivity.Count;
 
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Chronometer;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +22,9 @@ public class CountFragment extends Fragment {
     private FragmentCountBinding binding;
     int taskType;
     int typeNumber;
+    int resultCounter;
+    private String[] answers;
+    private int k;
 
     public CountFragment( int taskType, int typeNumber) {
         this.taskType = taskType;
@@ -48,6 +54,20 @@ public class CountFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initListeners();
         buttonEnabledFalse();
+        binding.countTimer.setOnChronometerTickListener(chronometer -> {
+          if(binding.countTimer.getDrawingTime() == 0 ){
+              buttonEnabledFalse();
+              binding.startButton.setVisibility(View.VISIBLE);
+              binding.finishButton.setVisibility(View.GONE);
+              binding.notRightImg.setVisibility(View.GONE);
+              binding.userAnswerText.setText("");
+              binding.taskText.setText("");
+              resultCounter = 0;
+              binding.scoreText.setText("");
+              binding.countTimer.stop();
+              binding.countTimer.setBase(SystemClock.elapsedRealtime());
+          }
+        });
     }
 
 
@@ -107,16 +127,82 @@ public class CountFragment extends Fragment {
             binding.startButton.setVisibility(View.GONE);
             binding.finishButton.setVisibility(View.VISIBLE);
             generateTask(taskType,typeNumber);
+            binding.countTimer.setBase(SystemClock.elapsedRealtime()+240240);
+            binding.countTimer.setCountDown(true);
+            binding.countTimer.start();
         });
 
         binding.finishButton.setOnClickListener(view -> {
             buttonEnabledFalse();
             binding.startButton.setVisibility(View.VISIBLE);
             binding.finishButton.setVisibility(View.GONE);
+            binding.notRightImg.setVisibility(View.GONE);
             binding.userAnswerText.setText("");
             binding.taskText.setText("");
+            resultCounter = 0;
+            binding.scoreText.setText("");
+            binding.countTimer.stop();
+            binding.countTimer.setBase(SystemClock.elapsedRealtime());
         });
 
+
+
+
+        binding.okButton.setOnClickListener(view -> {
+
+            if (binding.userAnswerText.getText().toString().length() != 0 ){
+                int g = Integer.parseInt(binding.userAnswerText.getText().toString());
+                answers = binding.taskText.getText().toString().split(" ");
+                int a = Integer.parseInt(answers[0]);
+                int b = Integer.parseInt(answers[2]);
+
+                binding.userAnswerText.setText("");
+                binding.taskText.setText("");
+
+                switch (taskType){
+                    case 1:
+                        k = a + b;
+                        break;
+                    case 2:
+                        k = a * b;
+                        break;
+                    default:
+                }
+                if(k==g){
+                    setResults(true);
+                    generateTask(taskType,typeNumber);
+                }else{
+                    setResults(false);
+
+                    binding.userAnswerText.setVisibility(View.GONE);
+                    binding.taskText.setVisibility(View.GONE);
+                    binding.notRightImg.setVisibility(View.VISIBLE);
+
+                    Handler handler = new Handler();
+                    handler.postDelayed(() -> {
+                        binding.notRightImg.setVisibility(View.GONE);
+                        binding.userAnswerText.setVisibility(View.VISIBLE);
+                        binding.taskText.setVisibility(View.VISIBLE);
+
+                        generateTask(taskType,typeNumber);
+                    },1000);
+                }
+
+            }
+
+
+        });
+
+    }
+
+    private void setResults(boolean b) {
+        if (b){
+            resultCounter = resultCounter + 50;
+        } else{
+            resultCounter = resultCounter - 10;
+        }
+        String score = Integer.toString(resultCounter);
+        binding.scoreText.setText(score);
     }
 
     private void generateTask(int taskType, int typeNumber) {

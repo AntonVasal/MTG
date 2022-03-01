@@ -18,6 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30sp"
+        android:id="@+id/score_text"
         android:text="@string/score"
         android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="parent"
@@ -34,20 +35,28 @@
         android:id="@+id/task_generate_container"
         android:orientation="horizontal"
         android:weightSum="100">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/not_right_img"
+            android:visibility="gone"
+            android:src="@drawable/ic_baseline_close_24"
+            android:contentDescription="@string/not_right"
+            android:layout_gravity="center"/>
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/task_text"
-            android:layout_weight="50"
             android:text=""
             android:textSize="30sp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginEnd="0dp"
             android:textColor="@color/black"/>
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:maxLines="1"
             android:layout_height="wrap_content"
             android:id="@+id/user_answer_text"
-            android:layout_weight="50"
             android:text=""
             android:textColor="@color/black"
             android:textSize="30sp"/>

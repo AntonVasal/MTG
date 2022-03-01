@@ -70,6 +70,7 @@
     <string name="start">Start</string>
     <string name="finish">Finish</string>
     <string name="score">Score:</string>
+    <string name="not_right">not right</string>
 
     <string-array name="types_of_number">
         <item>Natural numbers</item>
