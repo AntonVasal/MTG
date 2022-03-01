@@ -94,9 +94,7 @@ public class ProfileFragment extends Fragment {
         dialog.setContentView(R.layout.exit_dialog);
 
         MaterialButton cancel = dialog.findViewById(R.id.cancel_dialog_button);
-        cancel.setOnClickListener(view -> {
-            dialog.dismiss();
-        });
+        cancel.setOnClickListener(view -> dialog.dismiss());
 
         MaterialButton exit = dialog.findViewById(R.id.exit_dialog_button);
         exit.setOnClickListener(view -> {

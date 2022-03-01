@@ -67,6 +67,9 @@
     <string name="exit">Exit</string>
     <string name="are_you_sure">Are you sure?</string>
     <string name="naturals">naturals</string>
+    <string name="start">Start</string>
+    <string name="finish">Finish</string>
+    <string name="score">Score:</string>
 
     <string-array name="types_of_number">
         <item>Natural numbers</item>

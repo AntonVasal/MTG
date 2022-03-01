@@ -5,6 +5,27 @@
     android:background="@color/yellow"
     android:layout_height="match_parent">
 
+    <Chronometer
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:id="@+id/count_timer"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:text="@string/score"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"/>
+
+
     <LinearLayout
         android:padding="15dp"
         android:layout_width="match_parent"
@@ -18,11 +39,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/task_text"
             android:layout_weight="50"
-            android:text="@string/task"
+            android:text=""
             android:textSize="30sp"
             android:textColor="@color/black"/>
         <TextView
             android:layout_width="0dp"
+            android:maxLines="1"
             android:layout_height="wrap_content"
             android:id="@+id/user_answer_text"
             android:layout_weight="50"
@@ -130,6 +152,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/ok_container"
+        android:layout_marginBottom="150dp"
         android:weightSum="90"
         android:padding="15dp">
        <Button
@@ -152,6 +175,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -163,5 +187,31 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:layout_width="0dp"
+        android:layout_marginHorizontal="130dp"
+        android:layout_height="wrap_content"
+        android:text="@string/start"
+        app:layout_constraintTop_toBottomOf="@+id/ok_container"
+        android:textColor="@color/blue_bright"
+        android:backgroundTint="@color/white"
+        android:textStyle="bold"
+        android:id="@+id/start_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    <Button
+        android:layout_width="0dp"
+        android:layout_marginHorizontal="130dp"
+        android:layout_height="wrap_content"
+        android:text="@string/finish"
+        app:layout_constraintTop_toBottomOf="@+id/ok_container"
+        android:textStyle="bold"
+        android:id="@+id/finish_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"
+        android:backgroundTint="@color/red"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
