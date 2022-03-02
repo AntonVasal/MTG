@@ -49,6 +49,7 @@ public class CountFragment extends Fragment {
             binding.buttonForDecimals.setVisibility(View.VISIBLE);
         }
         countViewsOperator.buttonEnabledFalse(typeNumber);
+        binding.countTimer.setFormat("Time: " + "%s");
         binding.countTimer.setOnChronometerTickListener(chronometer -> {
           if (SystemClock.elapsedRealtime() - binding.countTimer.getBase() > 0 ){
               finishCount();
@@ -61,7 +62,6 @@ public class CountFragment extends Fragment {
     public void initListeners() {
 
         countViewsOperator.typeInButtons(typeNumber);
-
         binding.startButton.setOnClickListener(view -> {
             countViewsOperator.buttonEnabledTrue(typeNumber);
             binding.startButton.setVisibility(View.GONE);
@@ -71,11 +71,9 @@ public class CountFragment extends Fragment {
             binding.countTimer.setCountDown(true);
             binding.countTimer.start();
         });
-
         binding.finishButton.setOnClickListener(view -> finishCount());
 
         binding.okButton.setOnClickListener(view -> {
-
             if (binding.userAnswerText.getText().toString().length() != 0 ){
                 int a;
                 int b;
@@ -120,17 +118,16 @@ public class CountFragment extends Fragment {
                     taskGenerator.generateTask(taskType,typeNumber);
                 }else{
                     setResults(false);
-
+                    countViewsOperator.buttonEnabledFalse(typeNumber);
                     binding.userAnswerText.setVisibility(View.GONE);
                     binding.taskText.setVisibility(View.GONE);
                     binding.notRightImg.setVisibility(View.VISIBLE);
-
                     Handler handler = new Handler();
                     handler.postDelayed(() -> {
                         binding.notRightImg.setVisibility(View.GONE);
                         binding.userAnswerText.setVisibility(View.VISIBLE);
                         binding.taskText.setVisibility(View.VISIBLE);
-
+                        countViewsOperator.buttonEnabledTrue(typeNumber);
                         taskGenerator.generateTask(taskType,typeNumber);
                     },1000);
                 }
@@ -156,7 +153,8 @@ public class CountFragment extends Fragment {
         binding.userAnswerText.setText("");
         binding.taskText.setText("");
         resultCounter = 0;
-        binding.scoreText.setText("");
+        String score = "Score:";
+        binding.scoreText.setText(score);
         binding.countTimer.stop();
         binding.countTimer.setBase(SystemClock.elapsedRealtime());
     }
