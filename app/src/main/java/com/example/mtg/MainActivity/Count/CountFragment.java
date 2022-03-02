@@ -144,7 +144,7 @@ public class CountFragment extends Fragment {
         } else{
             resultCounter = resultCounter - 10;
         }
-        String score = "Score " + resultCounter;
+        String score = "Score: " + resultCounter;
         binding.scoreText.setText(score);
     }
 
