@@ -71,6 +71,8 @@
     <string name="finish">Finish</string>
     <string name="score">Score:</string>
     <string name="not_right">not right</string>
+    <string name="minus">-</string>
+    <string name="for_decimals">,</string>
 
     <string-array name="types_of_number">
         <item>Natural numbers</item>
