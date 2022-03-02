@@ -144,7 +144,7 @@ public class CountFragment extends Fragment {
         } else{
             resultCounter = resultCounter - 10;
         }
-        String score = Integer.toString(resultCounter);
+        String score = "Score " + resultCounter;
         binding.scoreText.setText(score);
     }
 
@@ -159,11 +159,6 @@ public class CountFragment extends Fragment {
         binding.scoreText.setText("");
         binding.countTimer.stop();
         binding.countTimer.setBase(SystemClock.elapsedRealtime());
-        Handler handler = new Handler();
-        handler.postDelayed(() -> {
-            binding.userAnswerText.setText("");
-            binding.taskText.setText("");
-        },1000);
     }
 
     @Override
