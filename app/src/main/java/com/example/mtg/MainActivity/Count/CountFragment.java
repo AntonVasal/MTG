@@ -24,6 +24,7 @@ public class CountFragment extends Fragment {
     int resultCounter;
     private String[] answers;
     private int k;
+    private TaskGenerator taskGenerator;
 
     public CountFragment( int taskType, int typeNumber) {
         this.taskType = taskType;
@@ -44,6 +45,7 @@ public class CountFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentCountBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+        taskGenerator = new TaskGenerator(binding);
         return view;
     }
 
@@ -162,15 +164,23 @@ public class CountFragment extends Fragment {
                     case 1:
                         k = a + b;
                         break;
+
                     case 2:
                         k = a * b;
                         break;
+
                     case 3:
-                        if(a>b){
+                        if (typeNumber == 2){
                             k = a-b;
                         }else{
-                            k = b-a;
+                            if(a>b){
+                                k = a-b;
+                            }else{
+                                k = b-a;
+                            }
                         }
+                        break;
+
                     default:
                 }
                 if(k==g){
@@ -210,21 +220,46 @@ public class CountFragment extends Fragment {
         binding.scoreText.setText(score);
     }
 
+
+
+
+
+
+
+
+
+
     private void generateTask(int taskType, int typeNumber) {
         switch (typeNumber){
             case 1:
                 switch (taskType){
                     case 1:
-                        generateNaturalAddTask();
+                        taskGenerator.generateNaturalAddTask();
                         break;
                     case 2:
-                        generateNaturalMultiTask();
+                        taskGenerator.generateNaturalMultiTask();
                         break;
                     case 3:
-                        generateNaturalSubTask();
+                        taskGenerator.generateNaturalSubTask();
                         break;
                     case 4:
-                        generateNaturalDivTask();
+                        taskGenerator.generateNaturalDivTask();
+                        break;
+                }
+                break;
+            case 2:
+                switch (taskType){
+                    case 1:
+                        taskGenerator.generateIntegerAddTask();
+                        break;
+                    case 2:
+                        taskGenerator.generateIntegerMultiTask();
+                        break;
+                    case 3:
+                        taskGenerator.generateIntegerSubTask();
+                        break;
+                    case 4:
+                        taskGenerator.generateIntegerDivTask();
                         break;
                 }
                 break;
@@ -232,38 +267,76 @@ public class CountFragment extends Fragment {
         }
     }
 
-    private void generateNaturalDivTask() {
-    }
 
-    private void generateNaturalSubTask() {
-        Random random = new Random();
-        int a = random.nextInt(10000);
-        int b = random.nextInt(10000);
-        String task;
-        if (a>b) {
-            task = a + " - " + b + " = ";
-        }else{
-            task = b + " - " + a + " = ";
-        }
-        binding.taskText.setText(task);
 
-    }
-
-    private void generateNaturalMultiTask() {
-        Random random = new Random();
-        int a = random.nextInt(100);
-        int b = random.nextInt(100);
-        String task = a + " x " + b + " = ";
-        binding.taskText.setText(task);
-    }
-
-    private void generateNaturalAddTask() {
-        Random random = new Random();
-        int a = random.nextInt(10000);
-        int b = random.nextInt(10000);
-        String task = a + " + " + b + " = ";
-        binding.taskText.setText(task);
-    }
+//
+//    private void generateIntegerDivTask() {
+//
+//    }
+//
+//
+//    private void generateIntegerMultiTask() {
+//        Random random = new Random();
+//        int a = random.nextInt(20000) - 10000;
+//        int b = random.nextInt(20000) - 10000;
+//        String task = a + " x " + b + " = ";
+//        binding.taskText.setText(task);
+//    }
+//
+//    private void generateIntegerSubTask() {
+//        Random random = new Random();
+//        int a = random.nextInt(20000) - 10000;
+//        int b = random.nextInt(20000) - 10000;
+//        String task = a + " - " + b + " = ";
+//        binding.taskText.setText(task);
+//    }
+//
+//    private void generateIntegerAddTask() {
+//        Random random = new Random();
+//        int a = random.nextInt(20000) - 10000;
+//        int b = random.nextInt(20000) - 10000;
+//        String task = a + " + " + b + " = ";
+//        binding.taskText.setText(task);
+//    }
+//
+//
+//
+//
+//
+//
+//
+//    private void generateNaturalDivTask() {
+//    }
+//
+//    private void generateNaturalSubTask() {
+//        Random random = new Random();
+//        int a = random.nextInt(10000);
+//        int b = random.nextInt(10000);
+//        String task;
+//        if (a>b) {
+//            task = a + " - " + b + " = ";
+//        }else{
+//            task = b + " - " + a + " = ";
+//        }
+//        binding.taskText.setText(task);
+//
+//    }
+//
+//    private void generateNaturalMultiTask() {
+//        Random random = new Random();
+//        int a = random.nextInt(100);
+//        int b = random.nextInt(100);
+//        String task = a + " x " + b + " = ";
+//        binding.taskText.setText(task);
+//    }
+//
+//    private void generateNaturalAddTask() {
+//        Random random = new Random();
+//        int a = random.nextInt(10000);
+//        int b = random.nextInt(10000);
+//        String task = a + " + " + b + " = ";
+//        binding.taskText.setText(task);
+//    }
 
     @Override
     public void onDestroyView() {
