@@ -16,8 +16,8 @@ public class TaskGenerator {
 
     public void generateIntegerMultiTask() {
         Random random = new Random();
-        int a = random.nextInt(20000) - 10000;
-        int b = random.nextInt(20000) - 10000;
+        int a = random.nextInt(200) - 100;
+        int b = random.nextInt(200) - 100;
         String task;
         if(a>=0 && b>=0){
             task = a + " x " + b + " = ";
