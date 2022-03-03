@@ -2,8 +2,8 @@ package com.example.mtg.MainActivity.Count;
 
 import com.example.mtg.databinding.FragmentCountBinding;
 
+import java.util.Locale;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class TaskGenerator {
 
@@ -133,12 +133,36 @@ public class TaskGenerator {
     }
 
     private void generateDecimalSubTask() {
+        double random1 = new Random().nextDouble();
+        double a = 0.0 + (random1*(1000.0-0.0));
+        a = Double.parseDouble(String.format(Locale.getDefault(),"%.3f",a));
+        double random2 = new Random().nextDouble();
+        double b = 0.0 +(random2*(1000.0-0.0));
+        b = Double.parseDouble(String.format(Locale.getDefault(),"%.3f",b));
+        String task = a + " - " + b + " = ";
+        binding.taskText.setText(task);
     }
 
     private void generateDecimalMultiTask() {
+        double random1 = new Random().nextDouble();
+        double a = 0.0 + (random1*(50.0-0.0));
+        a = Double.parseDouble(String.format(Locale.getDefault(),"%.1f",a));
+        double random2 = new Random().nextDouble();
+        double b = 0.0 +(random2*(10.0-0.0));
+        b = Double.parseDouble(String.format(Locale.getDefault(),"%.1f",b));
+        String task = a + " * " + b + " = ";
+        binding.taskText.setText(task);
     }
 
     private void generateDecimalAddTask() {
+        double random1 = new Random().nextDouble();
+        double a = 0.0 + (random1*(1000.0-0.0));
+        a = Double.parseDouble(String.format(Locale.getDefault(),"%.3f",a));
+        double random2 = new Random().nextDouble();
+        double b = 0.0 + (random2*(1000.0-0.0));
+        b = Double.parseDouble(String.format(Locale.getDefault(),"%.3f",b));
+        String task = a + " + " + b + " = ";
+        binding.taskText.setText(task);
     }
 
     public void generateTask(int taskType, int typeNumber) {
