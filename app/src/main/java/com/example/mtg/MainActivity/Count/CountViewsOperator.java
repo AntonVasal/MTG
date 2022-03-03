@@ -68,18 +68,18 @@ public class CountViewsOperator {
         }else if(typeNumber == 3){
             binding.buttonForDecimals.setOnClickListener(view -> {
                 if(binding.userAnswerText.getText().toString().length() == 0){
-                    binding.userAnswerText.setText("0,");
+                    binding.userAnswerText.setText("0.");
                 }else{
                    String answer =  binding.userAnswerText.getText().toString();
                    char[] answerChars = answer.toCharArray();
                    int k = 0;
                     for (char answerChar : answerChars) {
-                        if (answerChar == ',') {
+                        if (answerChar == '.') {
                             k++;
                         }
                     }
                    if(k==0){
-                       binding.userAnswerText.setText(binding.userAnswerText.getText().toString().concat(","));
+                       binding.userAnswerText.setText(binding.userAnswerText.getText().toString().concat("."));
                    }
                 }
             });

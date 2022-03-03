@@ -19,12 +19,18 @@ public class CountFragment extends Fragment {
     int taskType;
     int typeNumber;
     int resultCounter;
-    private String[] answers;
     private int k;
+    private double z;
+    int a;
+    int b;
+    int g;
+    double c;
+    double d;
+    double l;
     private TaskGenerator taskGenerator;
     private CountViewsOperator countViewsOperator;
 
-    public CountFragment( int taskType, int typeNumber) {
+    public CountFragment(int taskType, int typeNumber) {
         this.taskType = taskType;
         this.typeNumber = typeNumber;
     }
@@ -59,8 +65,9 @@ public class CountFragment extends Fragment {
 
 
     public void initListeners() {
-
+        ////////////////////////////////////////////////////////////////////////
         countViewsOperator.typeInButtons(typeNumber);
+        ////////////////////////////////////////////////////////////////////////
         binding.startButton.setOnClickListener(view -> {
             countViewsOperator.buttonEnabledTrue(typeNumber);
             binding.startButton.setVisibility(View.GONE);
@@ -70,71 +77,124 @@ public class CountFragment extends Fragment {
             binding.countTimer.setCountDown(true);
             binding.countTimer.start();
         });
+        /////////////////////////////////////////////////////////////////////////
         binding.finishButton.setOnClickListener(view -> finishCount());
-
+        ////////////////////////////////////////////////////////////////////////
         binding.okButton.setOnClickListener(view -> {
             if (binding.userAnswerText.getText().toString().length() != 0 ){
-                int a;
-                int b;
-                int g;
-                if (typeNumber == 2) {
-                    g = Integer.parseInt(binding.userAnswerText.getText().toString());
-                    answers = binding.taskText.getText().toString().split(" ");
-                    a = Integer.parseInt(answers[0].replace("(","").replace(")",""));
-                    b = Integer.parseInt(answers[2].replace("(","").replace(")",""));
-                } else {
-                    g = Integer.parseInt(binding.userAnswerText.getText().toString());
-                    answers = binding.taskText.getText().toString().split(" ");
-                    a = Integer.parseInt(answers[0]);
-                    b = Integer.parseInt(answers[2]);
-                }
-
+                parseTask();
                 binding.userAnswerText.setText("");
                 binding.taskText.setText("");
-
-                switch (taskType){
-                    case 1:
-                        k = a + b;
-                        break;
-                    case 2:
-                        k = a * b;
-                        break;
-                    case 3:
-                        if (typeNumber == 2){
-                            k = a-b;
-                        }else{
-                            if(a>b){
-                                k = a-b;
-                            }else{
-                                k = b-a;
-                            }
-                        }
-                        break;
-                    case 4:
-                        k = a / b;
-                        break;
-                }
-                if(k==g){
-                    setResults(true);
-                    taskGenerator.generateTask(taskType,typeNumber);
-                }else{
-                    setResults(false);
-                    countViewsOperator.buttonEnabledFalse(typeNumber);
-                    binding.userAnswerText.setVisibility(View.GONE);
-                    binding.taskText.setVisibility(View.GONE);
-                    binding.notRightImg.setVisibility(View.VISIBLE);
-                    Handler handler = new Handler();
-                    handler.postDelayed(() -> {
-                        binding.notRightImg.setVisibility(View.GONE);
-                        binding.userAnswerText.setVisibility(View.VISIBLE);
-                        binding.taskText.setVisibility(View.VISIBLE);
-                        countViewsOperator.buttonEnabledTrue(typeNumber);
+                calculateTaskRight();
+                if(typeNumber == 3){
+                    if(z==l){
+                        setResults(true);
                         taskGenerator.generateTask(taskType,typeNumber);
-                    },1000);
+                    }else{
+                       mistakeMethod();
+                    }
+                }else{
+                    if(k==g){
+                        setResults(true);
+                        taskGenerator.generateTask(taskType,typeNumber);
+                    }else{
+                        mistakeMethod();
+                    }
                 }
             }
         });
     }
+
+
+
+
+    private void mistakeMethod() {
+        setResults(false);
+        countViewsOperator.buttonEnabledFalse(typeNumber);
+        binding.userAnswerText.setVisibility(View.GONE);
+        binding.taskText.setVisibility(View.GONE);
+        binding.notRightImg.setVisibility(View.VISIBLE);
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            binding.notRightImg.setVisibility(View.GONE);
+            binding.userAnswerText.setVisibility(View.VISIBLE);
+            binding.taskText.setVisibility(View.VISIBLE);
+            countViewsOperator.buttonEnabledTrue(typeNumber);
+            taskGenerator.generateTask(taskType,typeNumber);
+        },1000);
+    }
+
+
+
+
+    private void parseTask() {
+        String[] answers;
+        if (typeNumber == 2) {
+            g = Integer.parseInt(binding.userAnswerText.getText().toString());
+            answers = binding.taskText.getText().toString().split(" ");
+            a = Integer.parseInt(answers[0].replace("(","").replace(")",""));
+            b = Integer.parseInt(answers[2].replace("(","").replace(")",""));
+        } else if (typeNumber == 1){
+            g = Integer.parseInt(binding.userAnswerText.getText().toString());
+            answers = binding.taskText.getText().toString().split(" ");
+            a = Integer.parseInt(answers[0]);
+            b = Integer.parseInt(answers[2]);
+        } else{
+            l = Double.parseDouble(binding.userAnswerText.getText().toString());
+            answers = binding.taskText.getText().toString().split(" ");
+            c = Double.parseDouble(answers[0]);
+            d = Double.parseDouble(answers[2]);
+        }
+    }
+
+
+
+
+    private void calculateTaskRight() {
+        switch (taskType){
+            case 1:
+                if(typeNumber == 3){
+                    z = c + d;
+                }else{
+                    k = a + b;
+                }
+                break;
+            case 2:
+                if(typeNumber == 3){
+                    z = c * d;
+                }else{
+                    k = a * b;
+                }
+                break;
+            case 3:
+                if (typeNumber == 2){
+                    k = a-b;
+                }else if(typeNumber == 1){
+                    if(a>b){
+                        k = a-b;
+                    }else{
+                        k = b-a;
+                    }
+                }else{
+                    if (c>d){
+                        z = c - d;
+                    }else{
+                        z = d - c;
+                    }
+                }
+                break;
+            case 4:
+                if (typeNumber ==3){
+                    z = c / d;
+                }else{
+                    k = a / b;
+                }
+                break;
+        }
+    }
+
+
+
 
     private void setResults(boolean b) {
         if (b){
@@ -145,6 +205,9 @@ public class CountFragment extends Fragment {
         String score = "Score: " + resultCounter;
         binding.scoreText.setText(score);
     }
+
+
+
 
     public void finishCount(){
         countViewsOperator.buttonEnabledFalse(typeNumber);
@@ -160,9 +223,16 @@ public class CountFragment extends Fragment {
         binding.countTimer.setBase(SystemClock.elapsedRealtime());
     }
 
+
+
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
+
+
+
+
 }

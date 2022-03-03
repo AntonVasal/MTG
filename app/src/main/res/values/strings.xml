@@ -75,6 +75,7 @@
     <string name="for_decimals">,</string>
     <string name="time">Time:</string>
     <string name="score_0">Score: 0</string>
+    <string name="dot">.</string>
 
     <string-array name="types_of_number">
         <item>Natural numbers</item>

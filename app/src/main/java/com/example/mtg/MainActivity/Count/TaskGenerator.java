@@ -3,6 +3,7 @@ package com.example.mtg.MainActivity.Count;
 import com.example.mtg.databinding.FragmentCountBinding;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class TaskGenerator {
 
@@ -138,7 +139,6 @@ public class TaskGenerator {
     }
 
     private void generateDecimalAddTask() {
-
     }
 
     public void generateTask(int taskType, int typeNumber) {
