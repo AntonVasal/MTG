@@ -72,8 +72,11 @@ public class AddFragment extends Fragment {
     private void initListeners() {
         natButton.setOnClickListener(view -> {
             natButton.setEnabled(false);
+            natButton.setTextColor(getResources().getColor(R.color.orange_dark,null));
             intButton.setEnabled(true);
+            intButton.setTextColor(getResources().getColor(R.color.black,null));
             decButton.setEnabled(true);
+            decButton.setTextColor(getResources().getColor(R.color.black,null));
 
             List<UserResultsModel> itemList = new ArrayList<>();
             for (int i = 0; i < 15; i++) {
@@ -88,8 +91,11 @@ public class AddFragment extends Fragment {
 
         intButton.setOnClickListener(view -> {
             natButton.setEnabled(true);
+            natButton.setTextColor(getResources().getColor(R.color.black,null));
             intButton.setEnabled(false);
+            intButton.setTextColor(getResources().getColor(R.color.orange_dark,null));
             decButton.setEnabled(true);
+            decButton.setTextColor(getResources().getColor(R.color.black,null));
 
             List<UserResultsModel> itemList = new ArrayList<>();
             for (int i = 0; i < 15; i++) {
@@ -104,8 +110,11 @@ public class AddFragment extends Fragment {
 
         decButton.setOnClickListener(view -> {
             natButton.setEnabled(true);
+            natButton.setTextColor(getResources().getColor(R.color.black,null));
             intButton.setEnabled(true);
+            intButton.setTextColor(getResources().getColor(R.color.black,null));
             decButton.setEnabled(false);
+            decButton.setTextColor(getResources().getColor(R.color.orange_dark,null));
 
             List<UserResultsModel> itemList = new ArrayList<>();
             for (int i = 0; i < 15; i++) {

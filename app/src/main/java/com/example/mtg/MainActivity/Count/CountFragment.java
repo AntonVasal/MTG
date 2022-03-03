@@ -49,7 +49,6 @@ public class CountFragment extends Fragment {
             binding.buttonForDecimals.setVisibility(View.VISIBLE);
         }
         countViewsOperator.buttonEnabledFalse(typeNumber);
-        binding.countTimer.setFormat("Time: " + "%s");
         binding.countTimer.setOnChronometerTickListener(chronometer -> {
           if (SystemClock.elapsedRealtime() - binding.countTimer.getBase() > 0 ){
               finishCount();
@@ -155,7 +154,7 @@ public class CountFragment extends Fragment {
         binding.userAnswerText.setText("");
         binding.taskText.setText("");
         resultCounter = 0;
-        String score = "Score:";
+        String score = "Score: 0";
         binding.scoreText.setText(score);
         binding.countTimer.stop();
         binding.countTimer.setBase(SystemClock.elapsedRealtime());
