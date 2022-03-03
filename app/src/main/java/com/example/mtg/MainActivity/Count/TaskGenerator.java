@@ -14,12 +14,13 @@ public class TaskGenerator {
 
     public void generateIntegerDivTask() {
         Random random = new Random();
-        int a = random.nextInt(20000)-10000;
-        int b = random.nextInt(199)+1;
-        while (a % b != 0) {
-             b = random.nextInt(199)+1;
-        }
-        b = b - 100;
+        int a;
+        int b;
+        do {
+            a = random.nextInt(20000)-10000;
+            b = random.nextInt(199)+1;
+            b = b - 100;
+        }while (a % b != 0);
         String task;
         if(a>=0 && b>=0){
             task = a + " : " + b + " = ";
@@ -86,11 +87,12 @@ public class TaskGenerator {
 
     public void generateNaturalDivTask() {
         Random random = new Random();
-        int a = random.nextInt(10000);
-        int b = random.nextInt(99)+1;
-        while (a % b != 0 ){
-             b = random.nextInt(99)+1;
-        }
+        int a;
+        int b;
+        do{
+            a = random.nextInt(10000);
+            b = random.nextInt(99)+1;
+        } while (a % b != 0 );
         String task = a + " : " + b + " = ";
         binding.taskText.setText(task);
     }
