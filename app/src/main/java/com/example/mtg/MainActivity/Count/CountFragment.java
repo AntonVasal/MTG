@@ -111,7 +111,9 @@ public class CountFragment extends Fragment {
                             }
                         }
                         break;
-                    default:
+                    case 4:
+                        k = a / b;
+                        break;
                 }
                 if(k==g){
                     setResults(true);

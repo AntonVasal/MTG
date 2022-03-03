@@ -12,7 +12,26 @@ public class TaskGenerator {
         this.binding = binding;
     }
 
-    public void generateIntegerDivTask() {}
+    public void generateIntegerDivTask() {
+        Random random = new Random();
+        int a = random.nextInt(20000)-10000;
+        int b = random.nextInt(200)-100;
+        while (a % b != 0) {
+             a = random.nextInt(20000)-10000;
+             b = random.nextInt(200)-100;
+        }
+        String task;
+        if(a>=0 && b>=0){
+            task = a + " : " + b + " = ";
+        } else if (a>=0){
+            task = a + " : " + "(" + b + ")" + " = ";
+        } else if (b>=0){
+            task = "(" + a + ")" + " : " + b + " = ";
+        } else{
+            task = "(" + a + ")" + " : " + "(" + b + ")" + " = ";
+        }
+        binding.taskText.setText(task);
+    }
 
     public void generateIntegerMultiTask() {
         Random random = new Random();
@@ -65,7 +84,17 @@ public class TaskGenerator {
         binding.taskText.setText(task);
     }
 
-    public void generateNaturalDivTask() {}
+    public void generateNaturalDivTask() {
+        Random random = new Random();
+        int a = random.nextInt(10000);
+        int b = random.nextInt(100);
+        while (a % b != 0 ){
+             a = random.nextInt(10000);
+             b = random.nextInt(100);
+        }
+        String task = a + " : " + b + " = ";
+        binding.taskText.setText(task);
+    }
 
     public void generateNaturalSubTask() {
         Random random = new Random();
