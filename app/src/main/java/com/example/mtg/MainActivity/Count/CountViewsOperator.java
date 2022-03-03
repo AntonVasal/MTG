@@ -55,18 +55,34 @@ public class CountViewsOperator {
                 if (binding.userAnswerText.getText().toString().length() == 0){
                     binding.userAnswerText.setText("-");
                 }else{
-                    String task = binding.userAnswerText.getText().toString().substring(0,1);
-                    if (!task.equals("-")){
-                        String taskForText = "-" + binding.userAnswerText.getText().toString();
-                        binding.userAnswerText.setText(taskForText);
+                    String answer = binding.userAnswerText.getText().toString().substring(0,1);
+                    if (!answer.equals("-")){
+                        String answerForText = "-" + binding.userAnswerText.getText().toString();
+                        binding.userAnswerText.setText(answerForText);
                     }else {
                         binding.userAnswerText.setText(binding.userAnswerText.getText().toString()
                                 .substring(1));
                     }
                 }
             });
-        }else{
-
+        }else if(typeNumber == 3){
+            binding.buttonForDecimals.setOnClickListener(view -> {
+                if(binding.userAnswerText.getText().toString().length() == 0){
+                    binding.userAnswerText.setText("0,");
+                }else{
+                   String answer =  binding.userAnswerText.getText().toString();
+                   char[] answerChars = answer.toCharArray();
+                   int k = 0;
+                    for (char answerChar : answerChars) {
+                        if (answerChar == ',') {
+                            k++;
+                        }
+                    }
+                   if(k==0){
+                       binding.userAnswerText.setText(binding.userAnswerText.getText().toString().concat(","));
+                   }
+                }
+            });
         }
         binding.button0.setOnClickListener(view -> binding.userAnswerText.setText(binding.userAnswerText.getText().toString().concat("0")));
         binding.button1.setOnClickListener(view -> binding.userAnswerText.setText(binding.userAnswerText.getText().toString().concat("1")));

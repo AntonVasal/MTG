@@ -128,6 +128,19 @@ public class TaskGenerator {
         binding.taskText.setText(task);
     }
 
+    private void generateDecimalDivTask() {
+    }
+
+    private void generateDecimalSubTask() {
+    }
+
+    private void generateDecimalMultiTask() {
+    }
+
+    private void generateDecimalAddTask() {
+
+    }
+
     public void generateTask(int taskType, int typeNumber) {
         switch (typeNumber){
             case 1:
@@ -162,8 +175,25 @@ public class TaskGenerator {
                         break;
                 }
                 break;
-            default:
+            case 3:
+                switch (taskType){
+                    case 1:
+                        generateDecimalAddTask();
+                        break;
+                    case 2:
+                        generateDecimalMultiTask();
+                        break;
+                    case 3:
+                        generateDecimalSubTask();
+                        break;
+                    case 4:
+                        generateDecimalDivTask();
+                        break;
+                }
+                break;
         }
     }
+
+
 
 }
