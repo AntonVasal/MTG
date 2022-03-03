@@ -19,7 +19,9 @@ public class TaskGenerator {
         do {
             a = random.nextInt(20000)-10000;
             b = random.nextInt(199)+1;
-            b = b - 100;
+            if(b !=100 ){
+                b = b - 100;
+            }
         }while (a % b != 0);
         String task;
         if(a>=0 && b>=0){
