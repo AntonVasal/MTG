@@ -44,7 +44,7 @@
     <string name="country">Country</string>
     <string name="ukraine">Ukraine</string>
     <string name="_0">0</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="delete">delete</string>
     <string name="user_nickname_image">user nickname image</string>
     <string name="nickname">Nickname</string>
@@ -76,6 +76,9 @@
     <string name="time">Time:</string>
     <string name="score_0">Score: 0</string>
     <string name="dot">.</string>
+    <string name="your_results">Your results</string>
+    <string name="tasks">Tasks:</string>
+    <string name="congratulations">Congratulations!</string>
 
     <string-array name="types_of_number">
         <item>Natural numbers</item>

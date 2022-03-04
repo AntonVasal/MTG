@@ -1,16 +1,20 @@
 package com.example.mtg.MainActivity.Count;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentCountBinding;
 
 public class CountFragment extends Fragment {
@@ -18,6 +22,7 @@ public class CountFragment extends Fragment {
     private FragmentCountBinding binding;
     int taskType;
     int typeNumber;
+    int amountOfTask = 0;
     int resultCounter;
     private int k;
     private double z;
@@ -82,6 +87,7 @@ public class CountFragment extends Fragment {
         ////////////////////////////////////////////////////////////////////////
         binding.okButton.setOnClickListener(view -> {
             if (binding.userAnswerText.getText().toString().length() != 0 ){
+                amountOfTask++;
                 parseTask();
                 binding.userAnswerText.setText("");
                 binding.taskText.setText("");
@@ -216,6 +222,10 @@ public class CountFragment extends Fragment {
         binding.notRightImg.setVisibility(View.GONE);
         binding.userAnswerText.setText("");
         binding.taskText.setText("");
+        int scoreForDialog = resultCounter;
+        int amountForDialog = amountOfTask;
+        userFinishDialog(scoreForDialog,amountForDialog);
+        amountOfTask = 0;
         resultCounter = 0;
         String score = "Score: 0";
         binding.scoreText.setText(score);
@@ -223,7 +233,29 @@ public class CountFragment extends Fragment {
         binding.countTimer.setBase(SystemClock.elapsedRealtime());
     }
 
+    private void userFinishDialog(int scoreForDialog, int amountForDialog) {
 
+        Dialog dialog = new Dialog(requireActivity());
+        dialog.setContentView(R.layout.finish_count_dialog);
+
+        TextView score = dialog.findViewById(R.id.score_in_dialog);
+        TextView tasks = dialog.findViewById(R.id.amount_in_dialog);
+
+        if (scoreForDialog < 0){
+            scoreForDialog = 0;
+        }
+
+        String scoreForText = getResources().getString(R.string.score) + " " + scoreForDialog;
+        score.setText(scoreForText);
+
+        String tasksForText = getResources().getString(R.string.tasks) + " " + amountForDialog;
+        tasks.setText(tasksForText);
+
+        ImageButton closeDialogButton = dialog.findViewById(R.id.close_dialog_button);
+        closeDialogButton.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
+    }
 
 
     @Override
