@@ -130,6 +130,7 @@ public class TaskGenerator {
     }
 
     private void generateDecimalDivTask() {
+
     }
 
     private void generateDecimalSubTask() {
@@ -150,7 +151,7 @@ public class TaskGenerator {
 
     private void generateDecimalMultiTask() {
         double random1 = new Random().nextDouble();
-        double a = 0.0 + (random1*(50.0-0.0));
+        double a = 0.0 + (random1*(10.0-0.0));
         a = Double.parseDouble(String.format(Locale.US,"%.1f",a));
         double random2 = new Random().nextDouble();
         double b = 0.0 +(random2*(10.0-0.0));

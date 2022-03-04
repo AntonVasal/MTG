@@ -16,6 +16,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentCountBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class CountFragment extends Fragment {
 
@@ -26,6 +28,8 @@ public class CountFragment extends Fragment {
     int resultCounter;
     private int k;
     private double z;
+    private FirebaseFirestore mFirebaseFirestore;
+    private FirebaseAuth mAuth;
     int a;
     int b;
     int g;
@@ -45,6 +49,8 @@ public class CountFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentCountBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+        mFirebaseFirestore = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         countViewsOperator = new CountViewsOperator(binding);
         taskGenerator = new TaskGenerator(binding);
         return view;
@@ -216,6 +222,7 @@ public class CountFragment extends Fragment {
 
 
     public void finishCount(){
+        resultsToFirestore();
         countViewsOperator.buttonEnabledFalse(typeNumber);
         binding.startButton.setVisibility(View.VISIBLE);
         binding.finishButton.setVisibility(View.GONE);
@@ -231,6 +238,10 @@ public class CountFragment extends Fragment {
         binding.scoreText.setText(score);
         binding.countTimer.stop();
         binding.countTimer.setBase(SystemClock.elapsedRealtime());
+    }
+
+    private void resultsToFirestore() {
+
     }
 
     private void userFinishDialog(int scoreForDialog, int amountForDialog) {
