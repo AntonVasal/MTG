@@ -19,8 +19,8 @@ public class TaskGenerator {
         int b;
         do {
             a = random.nextInt(20000)-10000;
-            b = random.nextInt(199)+1;
-            if(b !=100 ){
+            b = random.nextInt(198)+2;
+            if(b !=100 && b !=101 ){
                 b = b - 100;
             }
         }while (a % b != 0);
@@ -94,7 +94,7 @@ public class TaskGenerator {
         int b;
         do{
             a = random.nextInt(10000);
-            b = random.nextInt(99)+1;
+            b = random.nextInt(98)+2;
         } while (a % b != 0 );
         String task = a + " : " + b + " = ";
         binding.taskText.setText(task);
@@ -135,21 +135,26 @@ public class TaskGenerator {
     private void generateDecimalSubTask() {
         double random1 = new Random().nextDouble();
         double a = 0.0 + (random1*(1000.0-0.0));
-        a = Double.parseDouble(String.format(Locale.getDefault(),"%.3f",a));
+        a = Double.parseDouble(String.format(Locale.US,"%.3f",a));
         double random2 = new Random().nextDouble();
         double b = 0.0 +(random2*(1000.0-0.0));
-        b = Double.parseDouble(String.format(Locale.getDefault(),"%.3f",b));
-        String task = a + " - " + b + " = ";
+        b = Double.parseDouble(String.format(Locale.US,"%.3f",b));
+        String task;
+        if(a>b){
+            task = a + " - " + b + " = ";
+        }else{
+            task = b + " - " + a + " = ";
+        }
         binding.taskText.setText(task);
     }
 
     private void generateDecimalMultiTask() {
         double random1 = new Random().nextDouble();
         double a = 0.0 + (random1*(50.0-0.0));
-        a = Double.parseDouble(String.format(Locale.getDefault(),"%.1f",a));
+        a = Double.parseDouble(String.format(Locale.US,"%.1f",a));
         double random2 = new Random().nextDouble();
         double b = 0.0 +(random2*(10.0-0.0));
-        b = Double.parseDouble(String.format(Locale.getDefault(),"%.1f",b));
+        b = Double.parseDouble(String.format(Locale.US,"%.1f",b));
         String task = a + " * " + b + " = ";
         binding.taskText.setText(task);
     }
@@ -157,10 +162,10 @@ public class TaskGenerator {
     private void generateDecimalAddTask() {
         double random1 = new Random().nextDouble();
         double a = 0.0 + (random1*(1000.0-0.0));
-        a = Double.parseDouble(String.format(Locale.getDefault(),"%.3f",a));
+        a = Double.parseDouble(String.format(Locale.US,"%.3f",a));
         double random2 = new Random().nextDouble();
         double b = 0.0 + (random2*(1000.0-0.0));
-        b = Double.parseDouble(String.format(Locale.getDefault(),"%.3f",b));
+        b = Double.parseDouble(String.format(Locale.US,"%.3f",b));
         String task = a + " + " + b + " = ";
         binding.taskText.setText(task);
     }
