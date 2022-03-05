@@ -18,20 +18,20 @@ public class TaskGenerator {
         int a;
         int b;
         do {
-            a = random.nextInt(20000)-10000;
-            b = random.nextInt(198)+2;
-            if(b !=100 && b !=101 ){
+            a = random.nextInt(20000) - 10000;
+            b = random.nextInt(198) + 2;
+            if (b != 100 && b != 101) {
                 b = b - 100;
             }
-        }while (a % b != 0);
+        } while (a % b != 0);
         String task;
-        if(a>=0 && b>=0){
+        if (a >= 0 && b >= 0) {
             task = a + " : " + b + " = ";
-        } else if (a>=0){
+        } else if (a >= 0) {
             task = a + " : " + "(" + b + ")" + " = ";
-        } else if (b>=0){
+        } else if (b >= 0) {
             task = "(" + a + ")" + " : " + b + " = ";
-        } else{
+        } else {
             task = "(" + a + ")" + " : " + "(" + b + ")" + " = ";
         }
         binding.taskText.setText(task);
@@ -42,13 +42,13 @@ public class TaskGenerator {
         int a = random.nextInt(200) - 100;
         int b = random.nextInt(200) - 100;
         String task;
-        if(a>=0 && b>=0){
+        if (a >= 0 && b >= 0) {
             task = a + " x " + b + " = ";
-        } else if (a>=0){
+        } else if (a >= 0) {
             task = a + " x " + "(" + b + ")" + " = ";
-        } else if (b>=0){
+        } else if (b >= 0) {
             task = "(" + a + ")" + " x " + b + " = ";
-        } else{
+        } else {
             task = "(" + a + ")" + " x " + "(" + b + ")" + " = ";
         }
         binding.taskText.setText(task);
@@ -59,13 +59,13 @@ public class TaskGenerator {
         int a = random.nextInt(20000) - 10000;
         int b = random.nextInt(20000) - 10000;
         String task;
-        if(a>=0 && b>=0){
+        if (a >= 0 && b >= 0) {
             task = a + " - " + b + " = ";
-        } else if (a>=0){
+        } else if (a >= 0) {
             task = a + " - " + "(" + b + ")" + " = ";
-        } else if (b>=0){
+        } else if (b >= 0) {
             task = "(" + a + ")" + " - " + b + " = ";
-        } else{
+        } else {
             task = "(" + a + ")" + " - " + "(" + b + ")" + " = ";
         }
         binding.taskText.setText(task);
@@ -76,13 +76,13 @@ public class TaskGenerator {
         int a = random.nextInt(20000) - 10000;
         int b = random.nextInt(20000) - 10000;
         String task;
-        if(a>=0 && b>=0){
+        if (a >= 0 && b >= 0) {
             task = a + " + " + b + " = ";
-        } else if (a>=0){
+        } else if (a >= 0) {
             task = a + " + " + "(" + b + ")" + " = ";
-        } else if (b>=0){
+        } else if (b >= 0) {
             task = "(" + a + ")" + " + " + b + " = ";
-        } else{
+        } else {
             task = "(" + a + ")" + " + " + "(" + b + ")" + " = ";
         }
         binding.taskText.setText(task);
@@ -92,10 +92,10 @@ public class TaskGenerator {
         Random random = new Random();
         int a;
         int b;
-        do{
+        do {
             a = random.nextInt(10000);
-            b = random.nextInt(98)+2;
-        } while (a % b != 0 );
+            b = random.nextInt(98) + 2;
+        } while (a % b != 0);
         String task = a + " : " + b + " = ";
         binding.taskText.setText(task);
     }
@@ -105,9 +105,9 @@ public class TaskGenerator {
         int a = random.nextInt(10000);
         int b = random.nextInt(10000);
         String task;
-        if (a>b) {
+        if (a > b) {
             task = a + " - " + b + " = ";
-        }else{
+        } else {
             task = b + " - " + a + " = ";
         }
         binding.taskText.setText(task);
@@ -130,20 +130,39 @@ public class TaskGenerator {
     }
 
     private void generateDecimalDivTask() {
-
+        double a;
+        double b;
+        double random1;
+        double random2;
+        double c;
+        String doubleForTask;
+        String[] doubles;
+        do {
+            random1 = new Random().nextDouble();
+            a = 0.0 + (random1 * (1000.0 - 0.0));
+            a = Double.parseDouble(String.format(Locale.US, "%.1f", a));
+            random2 = new Random().nextDouble();
+            b = 0.0 + (random2 * (100.0 - 0.0));
+            b = Double.parseDouble(String.format(Locale.US, "%.1f", b));
+            c = a / b;
+            doubleForTask = String.valueOf(c);
+            doubles = doubleForTask.split("\\.");
+        } while (doubles.length ==1 || doubles[1].length() != 1);
+        String task = a + " : " + b + " = ";
+        binding.taskText.setText(task);
     }
 
     private void generateDecimalSubTask() {
         double random1 = new Random().nextDouble();
-        double a = 0.0 + (random1*(1000.0-0.0));
-        a = Double.parseDouble(String.format(Locale.US,"%.3f",a));
+        double a = 0.0 + (random1 * (1000.0 - 0.0));
+        a = Double.parseDouble(String.format(Locale.US, "%.3f", a));
         double random2 = new Random().nextDouble();
-        double b = 0.0 +(random2*(1000.0-0.0));
-        b = Double.parseDouble(String.format(Locale.US,"%.3f",b));
+        double b = 0.0 + (random2 * (1000.0 - 0.0));
+        b = Double.parseDouble(String.format(Locale.US, "%.3f", b));
         String task;
-        if(a>b){
+        if (a > b) {
             task = a + " - " + b + " = ";
-        }else{
+        } else {
             task = b + " - " + a + " = ";
         }
         binding.taskText.setText(task);
@@ -151,30 +170,30 @@ public class TaskGenerator {
 
     private void generateDecimalMultiTask() {
         double random1 = new Random().nextDouble();
-        double a = 0.0 + (random1*(10.0-0.0));
-        a = Double.parseDouble(String.format(Locale.US,"%.1f",a));
+        double a = 0.0 + (random1 * (10.0 - 0.0));
+        a = Double.parseDouble(String.format(Locale.US, "%.1f", a));
         double random2 = new Random().nextDouble();
-        double b = 0.0 +(random2*(10.0-0.0));
-        b = Double.parseDouble(String.format(Locale.US,"%.1f",b));
+        double b = 0.0 + (random2 * (10.0 - 0.0));
+        b = Double.parseDouble(String.format(Locale.US, "%.1f", b));
         String task = a + " * " + b + " = ";
         binding.taskText.setText(task);
     }
 
     private void generateDecimalAddTask() {
         double random1 = new Random().nextDouble();
-        double a = 0.0 + (random1*(1000.0-0.0));
-        a = Double.parseDouble(String.format(Locale.US,"%.3f",a));
+        double a = 0.0 + (random1 * (1000.0 - 0.0));
+        a = Double.parseDouble(String.format(Locale.US, "%.3f", a));
         double random2 = new Random().nextDouble();
-        double b = 0.0 + (random2*(1000.0-0.0));
-        b = Double.parseDouble(String.format(Locale.US,"%.3f",b));
+        double b = 0.0 + (random2 * (1000.0 - 0.0));
+        b = Double.parseDouble(String.format(Locale.US, "%.3f", b));
         String task = a + " + " + b + " = ";
         binding.taskText.setText(task);
     }
 
     public void generateTask(int taskType, int typeNumber) {
-        switch (typeNumber){
+        switch (typeNumber) {
             case 1:
-                switch (taskType){
+                switch (taskType) {
                     case 1:
                         generateNaturalAddTask();
                         break;
@@ -190,7 +209,7 @@ public class TaskGenerator {
                 }
                 break;
             case 2:
-                switch (taskType){
+                switch (taskType) {
                     case 1:
                         generateIntegerAddTask();
                         break;
@@ -206,7 +225,7 @@ public class TaskGenerator {
                 }
                 break;
             case 3:
-                switch (taskType){
+                switch (taskType) {
                     case 1:
                         generateDecimalAddTask();
                         break;
@@ -223,7 +242,6 @@ public class TaskGenerator {
                 break;
         }
     }
-
 
 
 }
