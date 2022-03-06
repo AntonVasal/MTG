@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="300dp"
     android:layout_height="300dp"
-    android:background="@color/yellow">
+    android:background="@drawable/gradient_for_profile">
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/white"
         app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="7dp"
             android:text="@string/your_results"
-            android:textColor="@color/yellow"
+            android:textColor="@color/blue_bright"
             android:textSize="28sp" />
     </androidx.cardview.widget.CardView>
 
@@ -43,7 +43,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginStart="20dp"
         android:text="@string/score"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +55,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
         android:text="@string/tasks"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,6 +69,6 @@
         android:layout_marginBottom="20dp"
         android:text="@string/congratulations"
         android:textSize="28sp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textStyle="bold"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

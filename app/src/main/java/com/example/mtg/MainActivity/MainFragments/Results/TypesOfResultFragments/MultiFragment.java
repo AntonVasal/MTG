@@ -65,11 +65,11 @@ public class MultiFragment extends Fragment {
     private void initListeners() {
         natButton.setOnClickListener(view -> {
             natButton.setEnabled(false);
-            natButton.setTextColor(getResources().getColor(R.color.violet,null));
+            natButton.setTextColor(getResources().getColor(R.color.blue,null));
             intButton.setEnabled(true);
-            intButton.setTextColor(getResources().getColor(R.color.black,null));
+            intButton.setTextColor(getResources().getColor(R.color.white,null));
             decButton.setEnabled(true);
-            decButton.setTextColor(getResources().getColor(R.color.black,null));
+            decButton.setTextColor(getResources().getColor(R.color.white,null));
 
             List<UserResultsModel> itemList = new ArrayList<>();
             for (int i = 0; i < 15; i++) {
@@ -83,11 +83,11 @@ public class MultiFragment extends Fragment {
         });
         intButton.setOnClickListener(view -> {
             natButton.setEnabled(true);
-            natButton.setTextColor(getResources().getColor(R.color.black,null));
+            natButton.setTextColor(getResources().getColor(R.color.white,null));
             intButton.setEnabled(false);
-            intButton.setTextColor(getResources().getColor(R.color.violet,null));
+            intButton.setTextColor(getResources().getColor(R.color.blue,null));
             decButton.setEnabled(true);
-            decButton.setTextColor(getResources().getColor(R.color.black,null));
+            decButton.setTextColor(getResources().getColor(R.color.white,null));
 
             List<UserResultsModel> itemList = new ArrayList<>();
             for (int i = 0; i < 15; i++) {
@@ -101,11 +101,11 @@ public class MultiFragment extends Fragment {
         });
         decButton.setOnClickListener(view -> {
             natButton.setEnabled(true);
-            natButton.setTextColor(getResources().getColor(R.color.black,null));
+            natButton.setTextColor(getResources().getColor(R.color.white,null));
             intButton.setEnabled(true);
-            intButton.setTextColor(getResources().getColor(R.color.black,null));
+            intButton.setTextColor(getResources().getColor(R.color.white,null));
             decButton.setEnabled(false);
-            decButton.setTextColor(getResources().getColor(R.color.violet,null));
+            decButton.setTextColor(getResources().getColor(R.color.blue,null));
             List<UserResultsModel> itemList = new ArrayList<>();
             for (int i = 0; i < 15; i++) {
                 itemList.add(new UserResultsModel(
