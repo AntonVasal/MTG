@@ -79,6 +79,7 @@
     <string name="your_results">Your results</string>
     <string name="tasks">Tasks:</string>
     <string name="congratulations">Congratulations!</string>
+    <string name="made_by_vay">Made by VAY</string>
 
     <string-array name="types_of_number">
         <item>Natural numbers</item>

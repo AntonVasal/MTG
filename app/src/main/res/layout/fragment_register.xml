@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/yellow"
+    android:background="@color/blue_bright"
     tools:context=".LogActivity.LogFragments.RegisterFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/mtg"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="80sp"
             android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,8 +41,8 @@
             android:id="@+id/register_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/made_by_vai"
-            android:textColor="@color/black"
+            android:text="@string/made_by_vay"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
@@ -61,6 +61,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/email"
+                android:backgroundTint="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress" />
@@ -80,6 +81,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password"
+                android:backgroundTint="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword" />
@@ -98,6 +100,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/nickname"
+                android:backgroundTint="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -115,6 +118,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/name"
+                android:backgroundTint="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -132,6 +136,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/surname"
+                android:backgroundTint="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -142,10 +147,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="@color/white"
             android:text="@string/register"
             android:layout_marginTop="35dp"
-            android:textColor="@color/yellow"
+            android:textColor="@color/blue_bright"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -157,7 +162,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
-            android:background="@color/darker_grey"
+            android:background="@color/white"
             app:ccp_defaultNameCode="UA"
             app:ccp_showFullName="true"
             android:layout_marginTop="30dp"

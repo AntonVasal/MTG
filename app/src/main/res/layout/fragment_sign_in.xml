@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/yellow"
+    android:background="@color/blue_bright"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".LogActivity.LogFragments.SignInFragment">
 
@@ -17,16 +17,16 @@
        android:text="@string/mtg"
        android:textStyle="italic"
        android:textSize="80sp"
-       android:textColor="@color/black"
+       android:textColor="@color/white"
        android:id="@+id/sign_in_program_name"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/sign_in_author"
-        android:text="@string/made_by_vai"
+        android:text="@string/made_by_vay"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textStyle="italic"
         android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@id/sign_in_program_name"/>
@@ -43,6 +43,7 @@
             android:layout_width="match_parent"
             android:inputType="textEmailAddress"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
             android:id="@+id/email"
             />
 
@@ -61,6 +62,7 @@
             android:layout_width="match_parent"
             android:inputType="textPassword"
             android:id="@+id/password"
+            android:backgroundTint="@color/white"
             android:layout_height="wrap_content"
             />
 
@@ -72,10 +74,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/sign_in_button"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/white"
         android:text="@string/sign_in"
         android:textSize="24sp"
-        android:textColor="@color/yellow"
+        android:textColor="@color/blue_bright"
         android:layout_marginHorizontal="30dp"
         app:layout_constraintTop_toBottomOf="@id/sign_in_password_edit_text"
         android:layout_marginTop="40dp"/>
@@ -88,12 +90,12 @@
         app:layout_constraintTop_toBottomOf="@id/sign_in_button"
         android:layout_marginStart="30dp"
         android:textSize="18sp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:layout_marginTop="40dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:id="@+id/register_text_view"
         android:text="@string/new_account"
         app:layout_constraintEnd_toEndOf="parent"

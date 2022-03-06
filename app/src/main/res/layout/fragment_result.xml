@@ -11,9 +11,10 @@
         android:id="@+id/result_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/black"
-        app:tabTextColor="@color/yellow"
-        app:tabSelectedTextColor="@color/orange_dark"
+        android:backgroundTint="@color/white"
+        app:tabTextColor="@color/blue_bright"
+        app:tabIndicator="@color/transparent"
+        app:tabSelectedTextColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

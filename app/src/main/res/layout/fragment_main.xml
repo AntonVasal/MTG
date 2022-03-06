@@ -7,10 +7,8 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/main_bottom_navigation"
-        android:background="@color/yellow"
+        android:background="@color/blue_bright"
         android:layout_width="match_parent"
-        app:itemTextColor="@color/black"
-        app:itemIconTint="@color/black"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

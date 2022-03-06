@@ -24,23 +24,23 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="25"
-                android:background="@color/yellow_light"
+                android:background="@color/white"
                 android:gravity="center"
                 android:id="@+id/add_text"
                 android:text="@string/addition"
-                android:textColor="@color/black"
-                android:textSize="30sp"/>
+                android:textColor="@color/blue"
+                android:textSize="28sp"/>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="25"
-                android:background="@color/violet"
+                android:background="@color/blue"
                 android:gravity="center"
                 android:id="@+id/sub_text"
                 android:text="@string/subtraction"
-                android:textColor="@color/yellow_light"
-                android:textSize="30sp" />
+                android:textColor="@color/white"
+                android:textSize="28sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -55,23 +55,23 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="25"
-                android:background="@color/violet"
+                android:background="@color/blue"
                 android:gravity="center"
                 android:id="@+id/multi_text"
                 android:text="@string/multiplication"
-                android:textColor="@color/yellow_light"
-                android:textSize="30sp" />
+                android:textColor="@color/white"
+                android:textSize="28sp" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="25"
-                android:background="@color/yellow_light"
+                android:background="@color/white"
                 android:gravity="center"
                 android:id="@+id/div_text"
                 android:text="@string/division"
-                android:textColor="@color/black"
-                android:textSize="30sp" />
+                android:textColor="@color/blue"
+                android:textSize="28sp" />
         </LinearLayout>
     </LinearLayout>
 
