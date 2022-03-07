@@ -24,20 +24,13 @@ public class CountFragment extends Fragment {
     private FragmentCountBinding binding;
     int taskType;
     int typeNumber;
-    int amountOfTask = 0;
-    int resultCounter;
-    private int k;
-    private double z;
-    private FirebaseFirestore mFirebaseFirestore;
-    private FirebaseAuth mAuth;
-    int a;
-    int b;
-    int g;
-    double c;
-    double d;
-    double l;
+    FirebaseFirestore mFirebaseFirestore;
+    FirebaseAuth mAuth;
+    private int a,b,g,k,resultCounter,amountOfTask;
+    private double c,d,l,z;
     private TaskGenerator taskGenerator;
     private CountViewsOperator countViewsOperator;
+    private CountResultsToFirestoreSetter countResultsToFirestoreSetter;
 
     public CountFragment(int taskType, int typeNumber) {
         this.taskType = taskType;
@@ -53,6 +46,7 @@ public class CountFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         countViewsOperator = new CountViewsOperator(binding);
         taskGenerator = new TaskGenerator(binding);
+        countResultsToFirestoreSetter = new CountResultsToFirestoreSetter(mFirebaseFirestore,mAuth,typeNumber,taskType);
         return view;
     }
 
@@ -219,10 +213,8 @@ public class CountFragment extends Fragment {
     }
 
 
-
-
     public void finishCount(){
-        resultsToFirestore();
+        countResultsToFirestoreSetter.resultsToFirestore(resultCounter,amountOfTask);
         countViewsOperator.buttonEnabledFalse(typeNumber);
         binding.startButton.setVisibility(View.VISIBLE);
         binding.finishButton.setVisibility(View.GONE);
@@ -240,9 +232,6 @@ public class CountFragment extends Fragment {
         binding.countTimer.setBase(SystemClock.elapsedRealtime());
     }
 
-    private void resultsToFirestore() {
-
-    }
 
     private void userFinishDialog(int scoreForDialog, int amountForDialog) {
 
