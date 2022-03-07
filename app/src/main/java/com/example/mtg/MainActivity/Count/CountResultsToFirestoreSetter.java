@@ -2,18 +2,19 @@ package com.example.mtg.MainActivity.Count;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
 import com.example.mtg.MainActivity.Count.CountModels.AddResultsModel;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Objects;
 
 public class CountResultsToFirestoreSetter {
     private FirebaseFirestore mFirebaseFirestore;
     private FirebaseAuth mAuth;
     private int typeNumber, typeTask;
+    private static final String TAG = "MainActivity";
+    private static final String SUCCESS = "Success";
+    private static final String FAILED = "Failed";
 
     public CountResultsToFirestoreSetter(FirebaseFirestore mFirebaseFirestore, FirebaseAuth mAuth, int typeNumber, int typeTask) {
         this.mFirebaseFirestore = mFirebaseFirestore;
@@ -23,7 +24,7 @@ public class CountResultsToFirestoreSetter {
     }
 
     public void resultsToFirestore(int score, int tasksAmount) {
-        String userID = mAuth.getCurrentUser().getUid();
+        String userID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
         switch(typeTask){
             case 1:
                 switch (typeNumber){
@@ -127,9 +128,9 @@ public class CountResultsToFirestoreSetter {
                                         mFirebaseFirestore.collection("add").document(userID)
                                                 .set(addResultsModel).addOnCompleteListener(task -> {
                                                     if (task.isSuccessful()){
-
+                                                        Log.i(TAG,SUCCESS);
                                                     }else {
-
+                                                        Log.i(TAG,FAILED);
                                                     }
                                                 });
                                     }else{
@@ -142,9 +143,9 @@ public class CountResultsToFirestoreSetter {
                                                     .set(addResultsModel)
                                                     .addOnCompleteListener(task -> {
                                                         if (task.isSuccessful()){
-
+                                                            Log.i(TAG,SUCCESS);
                                                         }else {
-
+                                                            Log.i(TAG,FAILED);
                                                         }
                                                     });
                                         }
