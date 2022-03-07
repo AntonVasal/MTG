@@ -28,7 +28,7 @@
                 android:gravity="center"
                 android:id="@+id/add_text"
                 android:text="@string/addition"
-                android:textColor="@color/blue"
+                android:textColor="@color/black"
                 android:textSize="28sp"/>
 
             <TextView
@@ -70,7 +70,7 @@
                 android:gravity="center"
                 android:id="@+id/div_text"
                 android:text="@string/division"
-                android:textColor="@color/blue"
+                android:textColor="@color/black"
                 android:textSize="28sp" />
         </LinearLayout>
     </LinearLayout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_bright"
+    android:background="@drawable/gradient_for_app"
     tools:context=".LogActivity.LogFragments.RegisterFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
