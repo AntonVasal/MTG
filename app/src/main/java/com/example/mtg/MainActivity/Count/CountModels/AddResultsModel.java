@@ -7,17 +7,28 @@ public class AddResultsModel {
     private int addIntegerTasksAmount;
     private int addDecimalScore;
     private int addDecimalTasksAmount;
+    private String id;
 
-    public AddResultsModel() {
-    }
-
-    public AddResultsModel(int addNaturalScore, int addNaturalTasksAmount, int addIntegerScore, int addIntegerTasksAmount, int addDecimalScore, int addDecimalTasksAmount) {
+    public AddResultsModel(int addNaturalScore, int addNaturalTasksAmount, int addIntegerScore, int addIntegerTasksAmount, int addDecimalScore, int addDecimalTasksAmount, String id) {
         this.addNaturalScore = addNaturalScore;
         this.addNaturalTasksAmount = addNaturalTasksAmount;
         this.addIntegerScore = addIntegerScore;
         this.addIntegerTasksAmount = addIntegerTasksAmount;
         this.addDecimalScore = addDecimalScore;
         this.addDecimalTasksAmount = addDecimalTasksAmount;
+        this.id = id;
+    }
+
+    public AddResultsModel() {
+    }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public int getAddNaturalScore() {

@@ -7,17 +7,27 @@ public class MultiResultsModel {
     private int multiIntegerTasksAmount;
     private int multiDecimalScore;
     private int multiDecimalTasksAmount;
+    private String id;
 
-    public MultiResultsModel() {
-    }
-
-    public MultiResultsModel(int multiNaturalScore, int multiNaturalTasksAmount, int multiIntegerScore, int multiIntegerTasksAmount, int multiDecimalScore, int multiDecimalTasksAmount) {
+    public MultiResultsModel(int multiNaturalScore, int multiNaturalTasksAmount, int multiIntegerScore, int multiIntegerTasksAmount, int multiDecimalScore, int multiDecimalTasksAmount, String id) {
         this.multiNaturalScore = multiNaturalScore;
         this.multiNaturalTasksAmount = multiNaturalTasksAmount;
         this.multiIntegerScore = multiIntegerScore;
         this.multiIntegerTasksAmount = multiIntegerTasksAmount;
         this.multiDecimalScore = multiDecimalScore;
         this.multiDecimalTasksAmount = multiDecimalTasksAmount;
+        this.id = id;
+    }
+
+    public MultiResultsModel() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public int getMultiNaturalScore() {
