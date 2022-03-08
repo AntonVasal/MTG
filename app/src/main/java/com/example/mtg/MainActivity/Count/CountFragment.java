@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.mtg.MainActivity.Count.CountResultsToFirestoreSetters.CountResultsToFirestoreSettersOperator;
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentCountBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,7 +31,7 @@ public class CountFragment extends Fragment {
     private double c,d,l,z;
     private TaskGenerator taskGenerator;
     private CountViewsOperator countViewsOperator;
-    private CountResultsToFirestoreSetter countResultsToFirestoreSetter;
+    private CountResultsToFirestoreSettersOperator countResultsToFirestoreSettersOperator;
 
     public CountFragment(int taskType, int typeNumber) {
         this.taskType = taskType;
@@ -46,7 +47,7 @@ public class CountFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         countViewsOperator = new CountViewsOperator(binding);
         taskGenerator = new TaskGenerator(binding);
-        countResultsToFirestoreSetter = new CountResultsToFirestoreSetter(mFirebaseFirestore,mAuth,typeNumber,taskType);
+        countResultsToFirestoreSettersOperator = new CountResultsToFirestoreSettersOperator(mFirebaseFirestore,mAuth,typeNumber,taskType);
         return view;
     }
 
@@ -214,7 +215,7 @@ public class CountFragment extends Fragment {
 
 
     public void finishCount(){
-        countResultsToFirestoreSetter.resultsToFirestore(resultCounter,amountOfTask);
+        countResultsToFirestoreSettersOperator.resultsToFirestore(resultCounter,amountOfTask);
         countViewsOperator.buttonEnabledFalse(typeNumber);
         binding.startButton.setVisibility(View.VISIBLE);
         binding.finishButton.setVisibility(View.GONE);
