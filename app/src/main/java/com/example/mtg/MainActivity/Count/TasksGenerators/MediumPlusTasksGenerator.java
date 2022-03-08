@@ -5,11 +5,11 @@ import com.example.mtg.databinding.FragmentCountBinding;
 import java.util.Locale;
 import java.util.Random;
 
-public class DifficultTasksGenerator {
+public class MediumPlusTasksGenerator {
 
     private final FragmentCountBinding binding;
 
-    public DifficultTasksGenerator(FragmentCountBinding binding) {
+    public MediumPlusTasksGenerator(FragmentCountBinding binding) {
         this.binding = binding;
     }
 
