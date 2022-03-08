@@ -16,6 +16,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mtg.MainActivity.Count.CountResultsToFirestoreSetters.CountResultsToFirestoreSettersOperator;
 import com.example.mtg.MainActivity.Count.TasksGenerators.AdvantageTasksGenerator;
+import com.example.mtg.MainActivity.Count.TasksGenerators.MediumPlusTasksGenerator;
+import com.example.mtg.MainActivity.Count.TasksGenerators.MediumTasksGenerator;
+import com.example.mtg.MainActivity.Count.TasksGenerators.PrimaryTasksGenerator;
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentCountBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +34,9 @@ public class CountFragment extends Fragment {
     private int a,b,g,k,resultCounter,amountOfTask;
     private double c,d,l,z;
     private AdvantageTasksGenerator advantageTasksGenerator;
+    private MediumPlusTasksGenerator mediumPlusTasksGenerator;
+    private MediumTasksGenerator mediumTasksGenerator;
+    private PrimaryTasksGenerator primaryTasksGenerator;
     private CountViewsOperator countViewsOperator;
     private CountResultsToFirestoreSettersOperator countResultsToFirestoreSettersOperator;
 
@@ -48,6 +54,9 @@ public class CountFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         countViewsOperator = new CountViewsOperator(binding);
         advantageTasksGenerator = new AdvantageTasksGenerator(binding);
+        mediumPlusTasksGenerator = new MediumPlusTasksGenerator(binding);
+        mediumTasksGenerator = new MediumTasksGenerator(binding);
+        primaryTasksGenerator = new PrimaryTasksGenerator(binding);
         countResultsToFirestoreSettersOperator = new CountResultsToFirestoreSettersOperator(mFirebaseFirestore,mAuth,typeNumber,taskType);
         return view;
     }
@@ -79,7 +88,7 @@ public class CountFragment extends Fragment {
             countViewsOperator.buttonEnabledTrue(typeNumber);
             binding.startButton.setVisibility(View.GONE);
             binding.finishButton.setVisibility(View.VISIBLE);
-            advantageTasksGenerator.generateTask(taskType,typeNumber);
+            tasksComplexity();
             binding.countTimer.setBase(SystemClock.elapsedRealtime()+240240);
             binding.countTimer.setCountDown(true);
             binding.countTimer.start();
@@ -97,14 +106,14 @@ public class CountFragment extends Fragment {
                 if(typeNumber == 3){
                     if(z==l){
                         setResults(true);
-                        advantageTasksGenerator.generateTask(taskType,typeNumber);
+                        tasksComplexity();
                     }else{
                        mistakeMethod();
                     }
                 }else{
                     if(k==g){
                         setResults(true);
-                        advantageTasksGenerator.generateTask(taskType,typeNumber);
+                        tasksComplexity();
                     }else{
                         mistakeMethod();
                     }
@@ -112,7 +121,6 @@ public class CountFragment extends Fragment {
             }
         });
     }
-
 
 
 
@@ -128,11 +136,23 @@ public class CountFragment extends Fragment {
             binding.userAnswerText.setVisibility(View.VISIBLE);
             binding.taskText.setVisibility(View.VISIBLE);
             countViewsOperator.buttonEnabledTrue(typeNumber);
-            advantageTasksGenerator.generateTask(taskType,typeNumber);
+            tasksComplexity();
         },1000);
     }
 
 
+    private void tasksComplexity() {
+        if (SystemClock.elapsedRealtime() - binding.countTimer.getBase() > -240000){
+            primaryTasksGenerator.generateTask(taskType,typeNumber);
+        }else if(SystemClock.elapsedRealtime() - binding.countTimer.getBase() > -180000){
+            mediumTasksGenerator.generateTask(taskType,typeNumber);
+        }else if (SystemClock.elapsedRealtime() - binding.countTimer.getBase() > -120000){
+            mediumPlusTasksGenerator.generateTask(taskType,typeNumber);
+        }else{
+            advantageTasksGenerator.generateTask(taskType,typeNumber);
+        }
+
+    }
 
 
     private void parseTask() {
