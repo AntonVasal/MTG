@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.mtg.MainActivity.Count.CountResultsToFirestoreSetters.CountResultsToFirestoreSettersOperator;
+import com.example.mtg.MainActivity.Count.TasksGenerators.AdvantageTasksGenerator;
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentCountBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,7 +30,7 @@ public class CountFragment extends Fragment {
     FirebaseAuth mAuth;
     private int a,b,g,k,resultCounter,amountOfTask;
     private double c,d,l,z;
-    private TaskGenerator taskGenerator;
+    private AdvantageTasksGenerator advantageTasksGenerator;
     private CountViewsOperator countViewsOperator;
     private CountResultsToFirestoreSettersOperator countResultsToFirestoreSettersOperator;
 
@@ -46,7 +47,7 @@ public class CountFragment extends Fragment {
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         countViewsOperator = new CountViewsOperator(binding);
-        taskGenerator = new TaskGenerator(binding);
+        advantageTasksGenerator = new AdvantageTasksGenerator(binding);
         countResultsToFirestoreSettersOperator = new CountResultsToFirestoreSettersOperator(mFirebaseFirestore,mAuth,typeNumber,taskType);
         return view;
     }
@@ -78,7 +79,7 @@ public class CountFragment extends Fragment {
             countViewsOperator.buttonEnabledTrue(typeNumber);
             binding.startButton.setVisibility(View.GONE);
             binding.finishButton.setVisibility(View.VISIBLE);
-            taskGenerator.generateTask(taskType,typeNumber);
+            advantageTasksGenerator.generateTask(taskType,typeNumber);
             binding.countTimer.setBase(SystemClock.elapsedRealtime()+240240);
             binding.countTimer.setCountDown(true);
             binding.countTimer.start();
@@ -96,14 +97,14 @@ public class CountFragment extends Fragment {
                 if(typeNumber == 3){
                     if(z==l){
                         setResults(true);
-                        taskGenerator.generateTask(taskType,typeNumber);
+                        advantageTasksGenerator.generateTask(taskType,typeNumber);
                     }else{
                        mistakeMethod();
                     }
                 }else{
                     if(k==g){
                         setResults(true);
-                        taskGenerator.generateTask(taskType,typeNumber);
+                        advantageTasksGenerator.generateTask(taskType,typeNumber);
                     }else{
                         mistakeMethod();
                     }
@@ -127,7 +128,7 @@ public class CountFragment extends Fragment {
             binding.userAnswerText.setVisibility(View.VISIBLE);
             binding.taskText.setVisibility(View.VISIBLE);
             countViewsOperator.buttonEnabledTrue(typeNumber);
-            taskGenerator.generateTask(taskType,typeNumber);
+            advantageTasksGenerator.generateTask(taskType,typeNumber);
         },1000);
     }
 

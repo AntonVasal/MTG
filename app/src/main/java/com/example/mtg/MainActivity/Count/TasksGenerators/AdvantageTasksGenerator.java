@@ -1,15 +1,15 @@
-package com.example.mtg.MainActivity.Count;
+package com.example.mtg.MainActivity.Count.TasksGenerators;
 
 import com.example.mtg.databinding.FragmentCountBinding;
 
 import java.util.Locale;
 import java.util.Random;
 
-public class TaskGenerator {
+public class AdvantageTasksGenerator {
 
     private final FragmentCountBinding binding;
 
-    public TaskGenerator(FragmentCountBinding binding) {
+    public AdvantageTasksGenerator(FragmentCountBinding binding) {
         this.binding = binding;
     }
 
@@ -139,10 +139,10 @@ public class TaskGenerator {
         String[] doubles;
         do {
             random1 = new Random().nextDouble();
-            a = 0.0 + (random1 * (1000.0 - 0.0));
+            a = 1.0 + (random1 * (1000.0 - 0.0));
             a = Double.parseDouble(String.format(Locale.US, "%.1f", a));
             random2 = new Random().nextDouble();
-            b = 0.0 + (random2 * (100.0 - 0.0));
+            b = 1.0 + (random2 * (100.0 - 0.0));
             b = Double.parseDouble(String.format(Locale.US, "%.1f", b));
             c = a / b;
             doubleForTask = String.valueOf(c);
