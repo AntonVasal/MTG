@@ -142,11 +142,11 @@ public class CountFragment extends Fragment {
 
 
     private void tasksComplexity() {
-        if (SystemClock.elapsedRealtime() - binding.countTimer.getBase() > -240000){
+        if (SystemClock.elapsedRealtime() - binding.countTimer.getBase() < -180000 || SystemClock.elapsedRealtime() - binding.countTimer.getBase() > 1){
             primaryTasksGenerator.generateTask(taskType,typeNumber);
-        }else if(SystemClock.elapsedRealtime() - binding.countTimer.getBase() > -180000){
+        }else if(SystemClock.elapsedRealtime() - binding.countTimer.getBase() < -120000){
             mediumTasksGenerator.generateTask(taskType,typeNumber);
-        }else if (SystemClock.elapsedRealtime() - binding.countTimer.getBase() > -120000){
+        }else if (SystemClock.elapsedRealtime() - binding.countTimer.getBase() < -60000){
             mediumPlusTasksGenerator.generateTask(taskType,typeNumber);
         }else{
             advantageTasksGenerator.generateTask(taskType,typeNumber);
