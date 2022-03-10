@@ -113,7 +113,7 @@ public class RegisterFragment extends Fragment {
 
                         userID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
-                        UserRegisterProfileModel user = new UserRegisterProfileModel(name, surname, nickname, email, country);
+                        UserRegisterProfileModel user = new UserRegisterProfileModel(name, surname, nickname, email, country,"no image");
 
                         mFirebaseFirestore.collection("users").document(userID).set(user).addOnCompleteListener(
                                 task1 -> {

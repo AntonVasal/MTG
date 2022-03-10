@@ -100,6 +100,7 @@ public class SignInFragment extends Fragment {
 
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+                assert user != null;
                 if (user.isEmailVerified()){
                     startActivity(new Intent(getActivity(), MainActivity.class));
                     requireActivity().finish();

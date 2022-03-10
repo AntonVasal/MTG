@@ -1,6 +1,5 @@
 package com.example.mtg.MainActivity.MainFragments.Profile.ViewModel;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -14,7 +13,7 @@ public class ProfileViewModel extends ViewModel {
 
     private MutableLiveData<UserRegisterProfileModel> user;
 
-    public LiveData<UserRegisterProfileModel> getUser(){
+    public MutableLiveData<UserRegisterProfileModel> getUser(){
         if (user == null){
             user = new MutableLiveData<>();
             loadData();
@@ -24,13 +23,13 @@ public class ProfileViewModel extends ViewModel {
 
 
     private void loadData(){
-        new Thread(() -> FirebaseFirestore.getInstance()
+         FirebaseFirestore.getInstance()
                 .collection("users")
                 .document(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
                 .get().addOnSuccessListener(documentSnapshot -> {
             UserRegisterProfileModel userProfile = documentSnapshot.toObject(UserRegisterProfileModel.class);
             user.postValue(userProfile);
-        })).start();
+        });
 
     }
 }
