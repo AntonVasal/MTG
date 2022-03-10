@@ -5,5 +5,5 @@
     android:layout_width="match_parent"
     android:id="@+id/main_app_container"
     android:layout_height="match_parent"
-    tools:context=".MainActivity.MainActivity">
+    tools:context=".mainActivity.MainActivity">
 </androidx.constraintlayout.widget.ConstraintLayout>

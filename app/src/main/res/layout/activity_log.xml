@@ -5,6 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/log_activity_container"
-    tools:context=".LogActivity.LogActivity">
+    tools:context=".logActivity.LogActivity">
 
 </androidx.fragment.app.FragmentContainerView>

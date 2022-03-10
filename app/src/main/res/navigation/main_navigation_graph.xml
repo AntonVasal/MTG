@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/HomeFragment"
-        android:name="com.example.mtg.MainActivity.MainFragments.Home.HomeFragment"
+        android:name="com.example.mtg.mainActivity.mainFragments.home.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/ResultFragment"
-        android:name="com.example.mtg.MainActivity.MainFragments.Results.ResultFragment"
+        android:name="com.example.mtg.mainActivity.mainFragments.results.ResultFragment"
         android:label="Result"
         tools:layout="@layout/fragment_result" />
     <fragment
         android:id="@+id/ProfileFragment"
-        android:name="com.example.mtg.MainActivity.MainFragments.Profile.ProfileFragment"
+        android:name="com.example.mtg.mainActivity.mainFragments.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>
