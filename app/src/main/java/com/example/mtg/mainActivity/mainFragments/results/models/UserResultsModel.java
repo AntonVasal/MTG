@@ -3,9 +3,9 @@ package com.example.mtg.mainActivity.mainFragments.results.models;
 public class UserResultsModel {
     private String name = null;
     private String image = null;
-    private String score = null;
+    private int score = 0;
 
-    public UserResultsModel(String name, String image, String score) {
+    public UserResultsModel(String name, String image, int score) {
         this.name = name;
         this.image = image;
         this.score = score;
@@ -27,11 +27,11 @@ public class UserResultsModel {
         this.image = image;
     }
 
-    public String getScore() {
+    public int getScore() {
         return score;
     }
 
-    public void setScore(String score) {
+    public void setScore(int score) {
         this.score = score;
     }
 }

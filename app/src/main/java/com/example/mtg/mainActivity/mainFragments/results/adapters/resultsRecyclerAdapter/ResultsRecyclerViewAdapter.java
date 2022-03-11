@@ -37,7 +37,7 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
                 .load(itemList.get(position).getImage())
                 .into(holder.userImg);
         holder.userName.setText(itemList.get(position).getName());
-        holder.userScore.setText(itemList.get(position).getScore());
+        holder.userScore.setText(String.valueOf(itemList.get(position).getScore()));
     }
 
     @Override

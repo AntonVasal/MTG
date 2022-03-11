@@ -56,7 +56,7 @@ public class MultiFragment extends Fragment {
             itemList.add(new UserResultsModel(
                     "Star",
                     "",
-                    "20000"));
+                    20000));
         }
         adapter = new ResultsRecyclerViewAdapter(itemList,getContext());
         recyclerView.setAdapter(adapter);
@@ -76,7 +76,7 @@ public class MultiFragment extends Fragment {
                 itemList.add(new UserResultsModel(
                         "The Man",
                         "",
-                        "13244"));
+                        13244));
             }
             adapter = new ResultsRecyclerViewAdapter(itemList,getContext());
             recyclerView.setAdapter(adapter);
@@ -94,7 +94,7 @@ public class MultiFragment extends Fragment {
                 itemList.add(new UserResultsModel(
                         "USA",
                         "",
-                        "23231"));
+                        23231));
             }
             adapter = new ResultsRecyclerViewAdapter(itemList,getContext());
             recyclerView.setAdapter(adapter);
@@ -111,7 +111,7 @@ public class MultiFragment extends Fragment {
                 itemList.add(new UserResultsModel(
                         "Ukrainian Man",
                         "",
-                        "53431"));
+                        53431));
             }
             adapter = new ResultsRecyclerViewAdapter(itemList,getContext());
             recyclerView.setAdapter(adapter);

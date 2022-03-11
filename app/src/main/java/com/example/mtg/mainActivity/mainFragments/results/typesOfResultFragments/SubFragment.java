@@ -56,7 +56,7 @@ public class SubFragment extends Fragment {
             itemList.add(new UserResultsModel(
                     "Victor",
                     "",
-                    "30000"));
+                    30000));
         }
         adapter = new ResultsRecyclerViewAdapter(itemList,getContext());
         recyclerView.setAdapter(adapter);
@@ -76,7 +76,7 @@ public class SubFragment extends Fragment {
                 itemList.add(new UserResultsModel(
                         "Volodymyr",
                         "",
-                        "18787"));
+                        18787));
             }
             adapter = new ResultsRecyclerViewAdapter(itemList,getContext());
             recyclerView.setAdapter(adapter);
@@ -95,7 +95,7 @@ public class SubFragment extends Fragment {
                 itemList.add(new UserResultsModel(
                         "Someone",
                         "",
-                        "14757"));
+                        14757));
             }
             adapter = new ResultsRecyclerViewAdapter(itemList,getContext());
             recyclerView.setAdapter(adapter);
@@ -113,7 +113,7 @@ public class SubFragment extends Fragment {
                 itemList.add(new UserResultsModel(
                         "Winner",
                         "",
-                        "23446"));
+                        23446));
             }
             adapter = new ResultsRecyclerViewAdapter(itemList,getContext());
             recyclerView.setAdapter(adapter);

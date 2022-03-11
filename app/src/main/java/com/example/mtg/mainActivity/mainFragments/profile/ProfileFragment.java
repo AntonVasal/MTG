@@ -170,16 +170,6 @@ public class ProfileFragment extends Fragment {
                         Log.i("MainActivity", "Failed");
                     }
                 });
-//                fileReference.putFile(imageUri)
-//                        .addOnSuccessListener(taskSnapshot -> {
-//                                    Task<Uri> result = taskSnapshot.getStorage().getDownloadUrl();
-//                                    result.addOnSuccessListener(uri -> downloadUrl = uri.toString());
-//                                    fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
-//                                        downloadUrl = uri.toString();
-//                                        Log.i("MainActivity", "Success");
-//                                    }).addOnFailureListener(Throwable::printStackTrace);
-//                                }
-//                        );
             }).start();
             Handler handler = new Handler();
             handler.postDelayed(() -> binding.profileProgressBar.setVisibility(View.GONE), 3000);
