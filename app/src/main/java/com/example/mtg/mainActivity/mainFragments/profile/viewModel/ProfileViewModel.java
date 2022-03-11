@@ -1,5 +1,7 @@
 package com.example.mtg.mainActivity.mainFragments.profile.viewModel;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -13,8 +15,8 @@ public class ProfileViewModel extends ViewModel {
 
     private MutableLiveData<UserRegisterProfileModel> user;
 
-    public MutableLiveData<UserRegisterProfileModel> getUser(){
-        if (user == null){
+    public MutableLiveData<UserRegisterProfileModel> getUser() {
+        if (user == null) {
             user = new MutableLiveData<>();
             loadData();
         }
@@ -22,14 +24,28 @@ public class ProfileViewModel extends ViewModel {
     }
 
 
-    private void loadData(){
-         FirebaseFirestore.getInstance()
+    private void loadData() {
+        FirebaseFirestore.getInstance()
                 .collection("users")
                 .document(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
-                .get().addOnSuccessListener(documentSnapshot -> {
-            UserRegisterProfileModel userProfile = documentSnapshot.toObject(UserRegisterProfileModel.class);
-            user.postValue(userProfile);
-        });
+                .addSnapshotListener((value, error) -> {
+                    if (error != null) {
+                        Log.i("MainActivity", "Failed");
+                        return;
+                    }
+                    if (value != null && value.exists()) {
+                        UserRegisterProfileModel userProfile = value.toObject(UserRegisterProfileModel.class);
+                        user.postValue(userProfile);
+                    } else {
+                        Log.i("MainActivity", "Failed");
+                    }
+                });
+
+
+//                .get().addOnSuccessListener(documentSnapshot -> {
+//            UserRegisterProfileModel userProfile = documentSnapshot.toObject(UserRegisterProfileModel.class);
+//            user.postValue(userProfile);
+//        });
 
     }
 }

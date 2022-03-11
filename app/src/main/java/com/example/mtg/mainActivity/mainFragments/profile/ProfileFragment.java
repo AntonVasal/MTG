@@ -21,11 +21,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import com.example.mtg.R;
+import com.example.mtg.databinding.FragmentProfileBinding;
 import com.example.mtg.logActivity.LogActivity;
 import com.example.mtg.logActivity.models.UserRegisterProfileModel;
 import com.example.mtg.mainActivity.mainFragments.profile.viewModel.ProfileViewModel;
-import com.example.mtg.R;
-import com.example.mtg.databinding.FragmentProfileBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -43,7 +45,7 @@ public class ProfileFragment extends Fragment {
     private StorageReference storageReference;
     private ActivityResultLauncher<String> mGetContent;
     private String downloadUrl = "";
-
+    private StorageReference fileReference;
 
 
     @Override
@@ -54,7 +56,6 @@ public class ProfileFragment extends Fragment {
                 this::uploadFile
         );
     }
-
 
 
     @Override
@@ -69,7 +70,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_profile, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
         binding.setLifecycleOwner(requireActivity());
 
         mAuth = FirebaseAuth.getInstance();
@@ -86,9 +87,9 @@ public class ProfileFragment extends Fragment {
 
     private void setData() {
         profileViewModel.getUser().observe(getViewLifecycleOwner(), userRegisterProfileModel -> {
-            if(userRegisterProfileModel.getImageUrl() == null || userRegisterProfileModel.getImageUrl().equals("no image") ){
+            if (userRegisterProfileModel.getImageUrl() == null || userRegisterProfileModel.getImageUrl().equals("no image") || userRegisterProfileModel.getImageUrl().equals("")) {
                 binding.userProfileImage.setImageResource(R.drawable.ic_baseline_person_150);
-            }else{
+            } else {
                 String img = userRegisterProfileModel.getImageUrl();
                 Glide.with(this).load(img).into(binding.userProfileImage);
             }
@@ -134,35 +135,38 @@ public class ProfileFragment extends Fragment {
 
     private void uploadFile(Uri imageUri) {
         if (imageUri != null) {
-            Glide.with(requireActivity()).load(imageUri).into(binding.userProfileImage);
+//            Glide.with(requireActivity()).load(imageUri).into(binding.userProfileImage);
             new Thread(() -> {
-                StorageReference fileReference = storageReference.child(System.currentTimeMillis() +
+                fileReference = storageReference.child(System.currentTimeMillis() +
                         "." + fileExtension(imageUri));
                 fileReference.putFile(imageUri)
                         .addOnSuccessListener(taskSnapshot -> {
-                                    fileReference.getDownloadUrl().addOnSuccessListener(uri -> downloadUrl = uri.toString());
+                                    fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                                        downloadUrl = uri.toString();
+                                        Log.i("MainActivity", "Success");
+                                    }).addOnFailureListener(Throwable::printStackTrace);
                                     firebaseFirestore.collection("users")
                                             .document(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
                                             .get().addOnSuccessListener(documentSnapshot -> {
-                                                UserRegisterProfileModel userRegisterProfileModel = documentSnapshot
-                                                        .toObject(UserRegisterProfileModel.class);
+                                        UserRegisterProfileModel userRegisterProfileModel = documentSnapshot
+                                                .toObject(UserRegisterProfileModel.class);
                                         assert userRegisterProfileModel != null;
                                         userRegisterProfileModel.setImageUrl("");
                                         userRegisterProfileModel.setImageUrl(downloadUrl);
                                         firebaseFirestore.collection("users").document(mAuth.getCurrentUser().getUid())
                                                 .set(userRegisterProfileModel).addOnCompleteListener(task -> {
-                                                    if(task.isSuccessful()){
-                                                        Log.i("MainActivity","Success");
-                                                    }else {
-                                                        Log.i("MainActivity","Failed");
-                                                    }
+                                            if (task.isSuccessful()) {
+                                                Log.i("MainActivity", "Success");
+                                            } else {
+                                                Log.i("MainActivity", "Failed");
+                                            }
                                         });
                                     });
                                 }
                         );
             }).start();
             Handler handler = new Handler();
-            handler.postDelayed(() -> binding.profileProgressBar.setVisibility(View.GONE),3000);
+            handler.postDelayed(() -> binding.profileProgressBar.setVisibility(View.GONE), 3000);
         } else {
             Log.i("MainActivity", "empty image uri");
             binding.profileProgressBar.setVisibility(View.GONE);
