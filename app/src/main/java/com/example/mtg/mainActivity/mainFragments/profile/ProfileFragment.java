@@ -26,13 +26,12 @@ import com.example.mtg.databinding.FragmentProfileBinding;
 import com.example.mtg.logActivity.LogActivity;
 import com.example.mtg.logActivity.models.UserRegisterProfileModel;
 import com.example.mtg.mainActivity.mainFragments.profile.viewModel.ProfileViewModel;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.Objects;
 
@@ -45,7 +44,6 @@ public class ProfileFragment extends Fragment {
     private StorageReference storageReference;
     private ActivityResultLauncher<String> mGetContent;
     private String downloadUrl = "";
-    private StorageReference fileReference;
 
 
     @Override
@@ -75,7 +73,7 @@ public class ProfileFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
-        storageReference = FirebaseStorage.getInstance().getReference("images");
+        storageReference = FirebaseStorage.getInstance().getReference();
 
         profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
         binding.setViewModel(profileViewModel);
@@ -137,33 +135,51 @@ public class ProfileFragment extends Fragment {
         if (imageUri != null) {
 //            Glide.with(requireActivity()).load(imageUri).into(binding.userProfileImage);
             new Thread(() -> {
-                fileReference = storageReference.child(System.currentTimeMillis() +
+                String nameImg = String.valueOf(System.currentTimeMillis());
+                final StorageReference fileReference = storageReference.child(nameImg +
                         "." + fileExtension(imageUri));
-                fileReference.putFile(imageUri)
-                        .addOnSuccessListener(taskSnapshot -> {
-                                    fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
-                                        downloadUrl = uri.toString();
-                                        Log.i("MainActivity", "Success");
-                                    }).addOnFailureListener(Throwable::printStackTrace);
-                                    firebaseFirestore.collection("users")
-                                            .document(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
-                                            .get().addOnSuccessListener(documentSnapshot -> {
-                                        UserRegisterProfileModel userRegisterProfileModel = documentSnapshot
-                                                .toObject(UserRegisterProfileModel.class);
-                                        assert userRegisterProfileModel != null;
-                                        userRegisterProfileModel.setImageUrl("");
-                                        userRegisterProfileModel.setImageUrl(downloadUrl);
-                                        firebaseFirestore.collection("users").document(mAuth.getCurrentUser().getUid())
-                                                .set(userRegisterProfileModel).addOnCompleteListener(task -> {
-                                            if (task.isSuccessful()) {
-                                                Log.i("MainActivity", "Success");
-                                            } else {
-                                                Log.i("MainActivity", "Failed");
-                                            }
-                                        });
-                                    });
+                UploadTask  uploadTask =  fileReference.putFile(imageUri);
+                uploadTask.continueWithTask(task -> {
+                    if (!task.isSuccessful()) {
+                        throw Objects.requireNonNull(task.getException());
+                    }
+                    return fileReference.getDownloadUrl();
+                }).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = task.getResult();
+                        assert downloadUri != null;
+                        downloadUrl = downloadUri.toString();
+                        firebaseFirestore.collection("users")
+                                .document(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
+                                .get().addOnSuccessListener(documentSnapshot -> {
+                            UserRegisterProfileModel userRegisterProfileModel = documentSnapshot
+                                    .toObject(UserRegisterProfileModel.class);
+                            assert userRegisterProfileModel != null;
+                            userRegisterProfileModel.setImageUrl("");
+                            userRegisterProfileModel.setImageUrl(downloadUrl);
+                            firebaseFirestore.collection("users").document(mAuth.getCurrentUser().getUid())
+                                    .set(userRegisterProfileModel).addOnCompleteListener(task1 -> {
+                                if (task1.isSuccessful()) {
+                                    Log.i("MainActivity", "Success");
+                                } else {
+                                    Log.i("MainActivity", "Failed");
                                 }
-                        );
+                            });
+                        });
+                    } else {
+                        Log.i("MainActivity", "Failed");
+                    }
+                });
+//                fileReference.putFile(imageUri)
+//                        .addOnSuccessListener(taskSnapshot -> {
+//                                    Task<Uri> result = taskSnapshot.getStorage().getDownloadUrl();
+//                                    result.addOnSuccessListener(uri -> downloadUrl = uri.toString());
+//                                    fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
+//                                        downloadUrl = uri.toString();
+//                                        Log.i("MainActivity", "Success");
+//                                    }).addOnFailureListener(Throwable::printStackTrace);
+//                                }
+//                        );
             }).start();
             Handler handler = new Handler();
             handler.postDelayed(() -> binding.profileProgressBar.setVisibility(View.GONE), 3000);
