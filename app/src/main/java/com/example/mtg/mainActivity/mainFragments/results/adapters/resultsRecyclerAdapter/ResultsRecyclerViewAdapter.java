@@ -9,16 +9,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.mtg.mainActivity.mainFragments.results.models.UserResultsModel;
 import com.example.mtg.R;
+import com.example.mtg.mainActivity.mainFragments.results.models.UserResultsModel;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecyclerViewHolder> {
-    List<UserResultsModel> itemList;
+    ArrayList<UserResultsModel> itemList;
     Context mContext;
 
-    public ResultsRecyclerViewAdapter(List<UserResultsModel> itemList, Context mContext) {
+    public ResultsRecyclerViewAdapter(ArrayList<UserResultsModel> itemList, Context mContext) {
         this.itemList = itemList;
         this.mContext = mContext;
     }

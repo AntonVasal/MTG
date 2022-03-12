@@ -6,17 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mtg.R;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
 import com.example.mtg.mainActivity.mainFragments.results.models.UserResultsModel;
-import com.example.mtg.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SubFragment extends Fragment {
     private Button natButton;
@@ -51,7 +49,7 @@ public class SubFragment extends Fragment {
     }
 
     private void generateItem() {
-        List<UserResultsModel> itemList = new ArrayList<>();
+        ArrayList<UserResultsModel> itemList = new ArrayList<>();
         for (int i = 0; i < 15; i++) {
             itemList.add(new UserResultsModel(
                     "Victor",
@@ -71,7 +69,7 @@ public class SubFragment extends Fragment {
             decButton.setEnabled(true);
             decButton.setTextColor(getResources().getColor(R.color.white,null));
 
-            List<UserResultsModel> itemList = new ArrayList<>();
+            ArrayList<UserResultsModel> itemList = new ArrayList<>();
             for (int i = 0; i < 15; i++) {
                 itemList.add(new UserResultsModel(
                         "Volodymyr",
@@ -90,7 +88,7 @@ public class SubFragment extends Fragment {
             decButton.setEnabled(true);
             decButton.setTextColor(getResources().getColor(R.color.white,null));
 
-            List<UserResultsModel> itemList = new ArrayList<>();
+            ArrayList<UserResultsModel> itemList = new ArrayList<>();
             for (int i = 0; i < 15; i++) {
                 itemList.add(new UserResultsModel(
                         "Someone",
@@ -108,7 +106,7 @@ public class SubFragment extends Fragment {
             decButton.setEnabled(false);
             decButton.setTextColor(getResources().getColor(R.color.blue,null));
 
-            List<UserResultsModel> itemList = new ArrayList<>();
+            ArrayList<UserResultsModel> itemList = new ArrayList<>();
             for (int i = 0; i < 15; i++) {
                 itemList.add(new UserResultsModel(
                         "Winner",

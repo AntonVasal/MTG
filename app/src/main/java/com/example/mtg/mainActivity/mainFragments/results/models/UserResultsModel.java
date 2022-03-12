@@ -1,9 +1,9 @@
 package com.example.mtg.mainActivity.mainFragments.results.models;
 
 public class UserResultsModel {
-    private String name = null;
-    private String image = null;
-    private int score = 0;
+    private String name;
+    private String image;
+    private int score;
 
     public UserResultsModel(String name, String image, int score) {
         this.name = name;

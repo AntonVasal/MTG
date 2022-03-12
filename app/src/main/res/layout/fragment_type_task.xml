@@ -28,9 +28,9 @@
                 android:gravity="center"
                 android:id="@+id/add_text"
                 android:textStyle="bold"
-                android:text="@string/addition"
+                android:text="@string/add"
                 android:textColor="@color/black"
-                android:textSize="24sp"/>
+                android:textSize="28sp"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -40,9 +40,9 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:id="@+id/sub_text"
-                android:text="@string/subtraction"
+                android:text="@string/sub"
                 android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:textSize="28sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -61,9 +61,9 @@
                 android:gravity="center"
                 android:id="@+id/multi_text"
                 android:textStyle="bold"
-                android:text="@string/multiplication"
+                android:text="@string/multi"
                 android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:textSize="28sp" />
 
             <TextView
                 android:layout_width="0dp"
@@ -73,9 +73,9 @@
                 android:gravity="center"
                 android:id="@+id/div_text"
                 android:textStyle="bold"
-                android:text="@string/division"
+                android:text="@string/div"
                 android:textColor="@color/black"
-                android:textSize="24sp" />
+                android:textSize="28sp" />
         </LinearLayout>
     </LinearLayout>
 
