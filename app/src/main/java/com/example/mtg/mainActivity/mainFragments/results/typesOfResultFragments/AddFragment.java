@@ -7,20 +7,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mtg.R;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
 import com.example.mtg.mainActivity.mainFragments.results.models.UserResultsModel;
+import com.example.mtg.mainActivity.mainFragments.results.viewModels.AddNaturalViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class AddFragment extends Fragment {
     private Button natButton;
     private Button intButton;
     private Button decButton;
+    private AddNaturalViewModel addNaturalViewModel;
 
 
     private RecyclerView recyclerView;
@@ -39,6 +41,8 @@ public class AddFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_results_recycler, container, false);
+        addNaturalViewModel = new ViewModelProvider(requireActivity()).get(AddNaturalViewModel.class);
+
         natButton = view.findViewById(R.id.nat_button);
         intButton = view.findViewById(R.id.int_button);
         decButton = view.findViewById(R.id.dec_button);
@@ -55,16 +59,10 @@ public class AddFragment extends Fragment {
     }
 
     private void generateItem() {
-        List<UserResultsModel> itemList = new ArrayList<>();
-        for (int i = 0; i < 15; i++) {
-            itemList.add(new UserResultsModel(
-                    "Anton ",
-                    "",
-                    10000));
-        }
-        adapter = new ResultsRecyclerViewAdapter(itemList,getContext());
-        recyclerView.setAdapter(adapter);
-
+        addNaturalViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), userResultsModels -> {
+            adapter = new ResultsRecyclerViewAdapter(userResultsModels,getContext());
+            recyclerView.setAdapter(adapter);
+        });
     }
 
 
@@ -78,7 +76,7 @@ public class AddFragment extends Fragment {
             decButton.setEnabled(true);
             decButton.setTextColor(getResources().getColor(R.color.white,null));
 
-            List<UserResultsModel> itemList = new ArrayList<>();
+            ArrayList<UserResultsModel> itemList = new ArrayList<>();
             for (int i = 0; i < 15; i++) {
                 itemList.add(new UserResultsModel(
                         "Anton ",
@@ -97,7 +95,7 @@ public class AddFragment extends Fragment {
             decButton.setEnabled(true);
             decButton.setTextColor(getResources().getColor(R.color.white,null));
 
-            List<UserResultsModel> itemList = new ArrayList<>();
+            ArrayList<UserResultsModel> itemList = new ArrayList<>();
             for (int i = 0; i < 15; i++) {
                 itemList.add(new UserResultsModel(
                         "Mr. Man ",
@@ -116,7 +114,7 @@ public class AddFragment extends Fragment {
             decButton.setEnabled(false);
             decButton.setTextColor(getResources().getColor(R.color.blue,null));
 
-            List<UserResultsModel> itemList = new ArrayList<>();
+            ArrayList<UserResultsModel> itemList = new ArrayList<>();
             for (int i = 0; i < 15; i++) {
                 itemList.add(new UserResultsModel(
                         "Antonio ",
