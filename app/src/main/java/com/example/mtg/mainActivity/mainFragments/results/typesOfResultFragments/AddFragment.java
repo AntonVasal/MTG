@@ -1,17 +1,19 @@
 package com.example.mtg.mainActivity.mainFragments.results.typesOfResultFragments;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mtg.R;
+import com.example.mtg.databinding.FragmentResultsRecyclerBinding;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
 import com.example.mtg.mainActivity.mainFragments.results.models.UserResultsModel;
 import com.example.mtg.mainActivity.mainFragments.results.viewModels.AddNaturalViewModel;
@@ -19,81 +21,100 @@ import com.example.mtg.mainActivity.mainFragments.results.viewModels.AddNaturalV
 import java.util.ArrayList;
 
 public class AddFragment extends Fragment {
-    private Button natButton;
-    private Button intButton;
-    private Button decButton;
+
     private AddNaturalViewModel addNaturalViewModel;
 
 
-    private RecyclerView recyclerView;
     private ResultsRecyclerViewAdapter adapter;
     LinearLayoutManager layoutManager;
+
+    private FragmentResultsRecyclerBinding binding;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_results_recycler, container, false);
+
+        binding = FragmentResultsRecyclerBinding.inflate(inflater, container, false);
+
+        View view = binding.getRoot();
+
+        layoutManager = new LinearLayoutManager(getContext());
+        binding.resultRecycler.setLayoutManager(layoutManager);
+
         addNaturalViewModel = new ViewModelProvider(requireActivity()).get(AddNaturalViewModel.class);
 
-        natButton = view.findViewById(R.id.nat_button);
-        intButton = view.findViewById(R.id.int_button);
-        decButton = view.findViewById(R.id.dec_button);
-        natButton.setEnabled(false);
+
+        binding.natButton.setEnabled(false);
         initListeners();
 
-        recyclerView = view.findViewById(R.id.result_recycler);
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        generateItem();
+        binding.recyclerProgressBar.setVisibility(View.VISIBLE);
 
         return view;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        generateItem();
+
+    }
+
     private void generateItem() {
         addNaturalViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), userResultsModels -> {
-            adapter = new ResultsRecyclerViewAdapter(userResultsModels,getContext());
-            recyclerView.setAdapter(adapter);
+            if (userResultsModels != null && userResultsModels.size() != 0) {
+                adapter = new ResultsRecyclerViewAdapter(userResultsModels, getContext());
+                binding.resultRecycler.setAdapter(adapter);
+                binding.recyclerProgressBar.setVisibility(View.GONE);
+            } else {
+                Handler handler = new Handler();
+                handler.postDelayed(() -> {
+                    adapter = new ResultsRecyclerViewAdapter(userResultsModels, getContext());
+                    binding.resultRecycler.setAdapter(adapter);
+                    binding.recyclerProgressBar.setVisibility(View.GONE);
+                }, 1000);
+            }
         });
     }
 
 
-
     private void initListeners() {
-        natButton.setOnClickListener(view -> {
-            natButton.setEnabled(false);
-            natButton.setTextColor(getResources().getColor(R.color.blue,null));
-            intButton.setEnabled(true);
-            intButton.setTextColor(getResources().getColor(R.color.white,null));
-            decButton.setEnabled(true);
-            decButton.setTextColor(getResources().getColor(R.color.white,null));
+        binding.natButton.setOnClickListener(view -> {
+            binding.natButton.setEnabled(false);
+            binding.natButton.setTextColor(getResources().getColor(R.color.blue, null));
+            binding.intButton.setEnabled(true);
+            binding.intButton.setTextColor(getResources().getColor(R.color.white, null));
+            binding.decButton.setEnabled(true);
+            binding.decButton.setTextColor(getResources().getColor(R.color.white, null));
 
-            ArrayList<UserResultsModel> itemList = new ArrayList<>();
-            for (int i = 0; i < 15; i++) {
-                itemList.add(new UserResultsModel(
-                        "Anton ",
-                        "",
-                        10000));
-            }
-            adapter = new ResultsRecyclerViewAdapter(itemList,getContext());
-            recyclerView.setAdapter(adapter);
+            addNaturalViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), userResultsModels -> {
+                if (userResultsModels != null && userResultsModels.size() != 0) {
+                    adapter = new ResultsRecyclerViewAdapter(userResultsModels, getContext());
+                    binding.resultRecycler.setAdapter(adapter);
+                    binding.recyclerProgressBar.setVisibility(View.GONE);
+                } else {
+                    Handler handler = new Handler();
+                    handler.postDelayed(() -> {
+                        adapter = new ResultsRecyclerViewAdapter(userResultsModels, getContext());
+                        binding.resultRecycler.setAdapter(adapter);
+                        binding.recyclerProgressBar.setVisibility(View.GONE);
+                    }, 1000);
+                }
+            });
         });
 
-        intButton.setOnClickListener(view -> {
-            natButton.setEnabled(true);
-            natButton.setTextColor(getResources().getColor(R.color.white,null));
-            intButton.setEnabled(false);
-            intButton.setTextColor(getResources().getColor(R.color.blue,null));
-            decButton.setEnabled(true);
-            decButton.setTextColor(getResources().getColor(R.color.white,null));
+        binding.intButton.setOnClickListener(view -> {
+            binding.natButton.setEnabled(true);
+            binding.natButton.setTextColor(getResources().getColor(R.color.white, null));
+            binding.intButton.setEnabled(false);
+            binding.intButton.setTextColor(getResources().getColor(R.color.blue, null));
+            binding.decButton.setEnabled(true);
+            binding.decButton.setTextColor(getResources().getColor(R.color.white, null));
 
             ArrayList<UserResultsModel> itemList = new ArrayList<>();
             for (int i = 0; i < 15; i++) {
@@ -102,17 +123,17 @@ public class AddFragment extends Fragment {
                         "",
                         31212));
             }
-            adapter = new ResultsRecyclerViewAdapter(itemList,getContext());
-            recyclerView.setAdapter(adapter);
+            adapter = new ResultsRecyclerViewAdapter(itemList, getContext());
+            binding.resultRecycler.setAdapter(adapter);
         });
 
-        decButton.setOnClickListener(view -> {
-            natButton.setEnabled(true);
-            natButton.setTextColor(getResources().getColor(R.color.white,null));
-            intButton.setEnabled(true);
-            intButton.setTextColor(getResources().getColor(R.color.white,null));
-            decButton.setEnabled(false);
-            decButton.setTextColor(getResources().getColor(R.color.blue,null));
+        binding.decButton.setOnClickListener(view -> {
+            binding.natButton.setEnabled(true);
+            binding.natButton.setTextColor(getResources().getColor(R.color.white, null));
+            binding.intButton.setEnabled(true);
+            binding.intButton.setTextColor(getResources().getColor(R.color.white, null));
+            binding.decButton.setEnabled(false);
+            binding.decButton.setTextColor(getResources().getColor(R.color.blue, null));
 
             ArrayList<UserResultsModel> itemList = new ArrayList<>();
             for (int i = 0; i < 15; i++) {
@@ -121,8 +142,8 @@ public class AddFragment extends Fragment {
                         "",
                         24664));
             }
-            adapter = new ResultsRecyclerViewAdapter(itemList,getContext());
-            recyclerView.setAdapter(adapter);
+            adapter = new ResultsRecyclerViewAdapter(itemList, getContext());
+            binding.resultRecycler.setAdapter(adapter);
         });
     }
 }

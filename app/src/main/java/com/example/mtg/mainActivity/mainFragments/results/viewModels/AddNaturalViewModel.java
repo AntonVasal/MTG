@@ -20,10 +20,11 @@ public class AddNaturalViewModel extends ViewModel {
     String imageUrl;
     String name;
     int score;
+    int k;
     FirebaseFirestore firebaseFirestore;
 
-    public MutableLiveData<ArrayList<UserResultsModel>> getUserResultsModel(){
-        if (userResultsModel == null){
+    public MutableLiveData<ArrayList<UserResultsModel>> getUserResultsModel() {
+        if (userResultsModel == null) {
             userResultsModel = new MutableLiveData<>();
             loadData();
         }
@@ -31,35 +32,50 @@ public class AddNaturalViewModel extends ViewModel {
     }
 
     private void loadData() {
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseFirestore.collection("add").addSnapshotListener((value, error) -> {
-            if (error != null){
-                Log.i("MainActivity","Failed");
-                return;
-            }
-            assert value != null;
-            for (DocumentChange dc: value.getDocumentChanges()) {
-                if (dc.getType() == DocumentChange.Type.ADDED){
-                    AddResultsModel addResultsModel = dc.getDocument().toObject(AddResultsModel.class);
-                    id = addResultsModel.getId();
-                    FirebaseFirestore.getInstance().collection("users").document(id)
-                            .addSnapshotListener((value1, error1) -> {
-                                if (error1 != null){
-                                    Log.i("MainActivity","Failed");
-                                    return;
-                                }
-                                if (value1 != null && value1.exists()){
-                                    UserRegisterProfileModel userRegisterProfileModel = value1.toObject(UserRegisterProfileModel.class);
-                                    score = addResultsModel.getAddNaturalScore();
-                                    assert userRegisterProfileModel != null;
-                                    imageUrl = userRegisterProfileModel.getImageUrl();
-                                    name = userRegisterProfileModel.getName();
-                                    arrayList.add(new UserResultsModel(name,imageUrl,score));
-                                }
-                            });
+        new Thread(() -> {
+            firebaseFirestore = FirebaseFirestore.getInstance();
+            firebaseFirestore.collection("add").addSnapshotListener((value, error) -> {
+                if (error != null) {
+                    Log.i("MainActivity", "Failed");
+                    return;
                 }
-            }
+                assert value != null;
+                for (DocumentChange dc : value.getDocumentChanges()) {
+                    AddResultsModel addResultsModel = dc.getDocument().toObject(AddResultsModel.class);
+                    switch (dc.getType()){
+                        case ADDED:
+                            id = addResultsModel.getId();
+                            firebaseFirestore.collection("users").document(id)
+                                    .get().addOnSuccessListener(documentSnapshot -> {
+                                UserRegisterProfileModel userRegisterProfileModel = documentSnapshot.toObject(UserRegisterProfileModel.class);
+                                score = addResultsModel.getAddNaturalScore();
+                                assert userRegisterProfileModel != null;
+                                imageUrl = userRegisterProfileModel.getImageUrl();
+                                name = userRegisterProfileModel.getName();
+                                arrayList.add(new UserResultsModel(name, imageUrl, score));
+                            });
+                            break;
+                        case MODIFIED:
+                            id = addResultsModel.getId();
+                            firebaseFirestore.collection("users").document(id)
+                                    .get().addOnSuccessListener(documentSnapshot -> {
+                                UserRegisterProfileModel userRegisterProfileModel = documentSnapshot.toObject(UserRegisterProfileModel.class);
+                                score = addResultsModel.getAddNaturalScore();
+                                assert userRegisterProfileModel != null;
+                                imageUrl = userRegisterProfileModel.getImageUrl();
+                                name = userRegisterProfileModel.getName();
+                                for (int i = 1; i < arrayList.size() ; i++) {
+                                    if(arrayList.get(i).getName().equals(name)  && arrayList.get(i).getImage().equals(imageUrl)){
+                                        k = i;
+                                    }
+                                }
+                                arrayList.set(k,new UserResultsModel(name, imageUrl, score));
+                            });
+                            break;
+                    }
+                }
+            });
             userResultsModel.postValue(arrayList);
-        });
+        }).start();
     }
 }
