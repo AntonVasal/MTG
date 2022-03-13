@@ -13,22 +13,28 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentResultsRecyclerBinding;
+import com.example.mtg.mainActivity.count.countModels.DivResultsModel;
 import com.example.mtg.mainActivity.count.countModels.MultiResultsModel;
+import com.example.mtg.mainActivity.count.countModels.SubResultsModel;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
 import com.example.mtg.mainActivity.mainFragments.results.viewModels.AddViewModel;
+import com.example.mtg.mainActivity.mainFragments.results.viewModels.DivViewModel;
 import com.example.mtg.mainActivity.mainFragments.results.viewModels.MultiViewModel;
+import com.example.mtg.mainActivity.mainFragments.results.viewModels.SubViewModel;
 
 import java.util.ArrayList;
 
 public class AddFragment extends Fragment {
 
     private AddViewModel addViewModel;
-    private MultiViewModel multiViewModel;
 
 
     private ResultsRecyclerViewAdapter adapter;
     LinearLayoutManager layoutManager;
+
     ArrayList<MultiResultsModel> multiResultsModels = new ArrayList<>();
+    ArrayList<SubResultsModel> subResultsModels = new ArrayList<>();
+    ArrayList<DivResultsModel> divResultsModels = new ArrayList<>();
 
     private FragmentResultsRecyclerBinding binding;
 
@@ -50,9 +56,13 @@ public class AddFragment extends Fragment {
         binding.resultRecycler.setLayoutManager(layoutManager);
 
         addViewModel = new ViewModelProvider(requireActivity()).get(AddViewModel.class);
-        multiViewModel = new ViewModelProvider(requireActivity()).get(MultiViewModel.class);
+        MultiViewModel multiViewModel = new ViewModelProvider(requireActivity()).get(MultiViewModel.class);
+        SubViewModel subViewModel = new ViewModelProvider(requireActivity()).get(SubViewModel.class);
+        DivViewModel divViewModel = new ViewModelProvider(requireActivity()).get(DivViewModel.class);
 
         multiResultsModels = multiViewModel.getMutableLiveData().getValue();
+        subResultsModels = subViewModel.getMutableLiveData().getValue();
+        divResultsModels = divViewModel.getMutableLiveData().getValue();
 
         binding.natButton.setEnabled(false);
         initListeners();
@@ -72,7 +82,7 @@ public class AddFragment extends Fragment {
     private void generateItem() {
         addViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), userResultsModels -> {
             if (userResultsModels != null && userResultsModels.size() != 0) {
-                adapter = new ResultsRecyclerViewAdapter(userResultsModels,multiResultsModels,null,null, getContext(),1,1);
+                adapter = new ResultsRecyclerViewAdapter(userResultsModels,multiResultsModels,subResultsModels,divResultsModels, getContext(),1,1);
                 binding.resultRecycler.setAdapter(adapter);
                 binding.recyclerProgressBar.setVisibility(View.GONE);
             }
@@ -102,7 +112,7 @@ public class AddFragment extends Fragment {
 
             addViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), userResultsModels -> {
                 if (userResultsModels != null && userResultsModels.size() != 0) {
-                    adapter = new ResultsRecyclerViewAdapter(userResultsModels,multiResultsModels, null, null, getContext(),1,2);
+                    adapter = new ResultsRecyclerViewAdapter(userResultsModels,multiResultsModels, subResultsModels,divResultsModels, getContext(),1,2);
                     binding.resultRecycler.setAdapter(adapter);
                     binding.recyclerProgressBar.setVisibility(View.GONE);
                 }
@@ -119,7 +129,7 @@ public class AddFragment extends Fragment {
 
             addViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), userResultsModels -> {
                 if (userResultsModels != null && userResultsModels.size() != 0) {
-                    adapter = new ResultsRecyclerViewAdapter(userResultsModels, multiResultsModels,null,null, getContext(),1,3);
+                    adapter = new ResultsRecyclerViewAdapter(userResultsModels, multiResultsModels,subResultsModels,divResultsModels, getContext(),1,3);
                     binding.resultRecycler.setAdapter(adapter);
                     binding.recyclerProgressBar.setVisibility(View.GONE);
                 }

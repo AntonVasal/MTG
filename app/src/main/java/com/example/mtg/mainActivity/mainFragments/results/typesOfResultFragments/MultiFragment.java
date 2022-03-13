@@ -15,9 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mtg.R;
 import com.example.mtg.mainActivity.count.countModels.AddResultsModel;
+import com.example.mtg.mainActivity.count.countModels.DivResultsModel;
+import com.example.mtg.mainActivity.count.countModels.SubResultsModel;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
 import com.example.mtg.mainActivity.mainFragments.results.viewModels.AddViewModel;
+import com.example.mtg.mainActivity.mainFragments.results.viewModels.DivViewModel;
 import com.example.mtg.mainActivity.mainFragments.results.viewModels.MultiViewModel;
+import com.example.mtg.mainActivity.mainFragments.results.viewModels.SubViewModel;
 
 import java.util.ArrayList;
 
@@ -30,8 +34,9 @@ public class MultiFragment extends Fragment {
     private ResultsRecyclerViewAdapter adapter;
     LinearLayoutManager layoutManager;
 
-    AddViewModel addViewModel;
     ArrayList<AddResultsModel> addResultsModels = new ArrayList<>();
+    ArrayList<SubResultsModel> subResultsModels = new ArrayList<>();
+    ArrayList<DivResultsModel> divResultsModels = new ArrayList<>();
 
     private MultiViewModel multiViewModel;
 
@@ -53,9 +58,14 @@ public class MultiFragment extends Fragment {
         initListeners();
 
         multiViewModel = new ViewModelProvider(requireActivity()).get(MultiViewModel.class);
+        AddViewModel addViewModel = new ViewModelProvider(requireActivity()).get(AddViewModel.class);
+        SubViewModel subViewModel = new ViewModelProvider(requireActivity()).get(SubViewModel.class);
+        DivViewModel divViewModel = new ViewModelProvider(requireActivity()).get(DivViewModel.class);
 
-        addViewModel = new ViewModelProvider(requireActivity()).get(AddViewModel.class);
         addResultsModels = addViewModel.getUserResultsModel().getValue();
+        subResultsModels = subViewModel.getMutableLiveData().getValue();
+        divResultsModels = divViewModel.getMutableLiveData().getValue();
+
         recyclerView = view.findViewById(R.id.result_recycler);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
@@ -72,7 +82,7 @@ public class MultiFragment extends Fragment {
     private void generateItem() {
         multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
             if (multiResultsModels != null && multiResultsModels.size() != 0){
-                adapter = new ResultsRecyclerViewAdapter(addResultsModels,multiResultsModels,null,null,getContext(),2,1);
+                adapter = new ResultsRecyclerViewAdapter(addResultsModels,multiResultsModels,subResultsModels,divResultsModels,getContext(),2,1);
                 recyclerView.setAdapter(adapter);
             }
         });
@@ -98,7 +108,7 @@ public class MultiFragment extends Fragment {
 
             multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
                 if (multiResultsModels != null && multiResultsModels.size() != 0){
-                    adapter = new ResultsRecyclerViewAdapter(addResultsModels,multiResultsModels,null,null,getContext(),2,2);
+                    adapter = new ResultsRecyclerViewAdapter(addResultsModels,multiResultsModels,subResultsModels,divResultsModels,getContext(),2,2);
                     recyclerView.setAdapter(adapter);
                 }
             });
@@ -114,7 +124,7 @@ public class MultiFragment extends Fragment {
 
             multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
                 if (multiResultsModels != null && multiResultsModels.size() != 0){
-                    adapter = new ResultsRecyclerViewAdapter(addResultsModels,multiResultsModels,null,null,getContext(),2,3);
+                    adapter = new ResultsRecyclerViewAdapter(addResultsModels,multiResultsModels,subResultsModels,divResultsModels,getContext(),2,3);
                     recyclerView.setAdapter(adapter);
                 }
             });

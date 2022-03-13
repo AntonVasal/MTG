@@ -26,6 +26,7 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
     int typeTask;
     int typeNumber;
 
+
     public ResultsRecyclerViewAdapter(ArrayList<AddResultsModel> addItemList, ArrayList<MultiResultsModel> multiItemList, ArrayList<SubResultsModel> subItemList, ArrayList<DivResultsModel> divItemList, Context mContext, int typeTask, int typeNumber) {
         this.addItemList = addItemList;
         this.multiItemList = multiItemList;
