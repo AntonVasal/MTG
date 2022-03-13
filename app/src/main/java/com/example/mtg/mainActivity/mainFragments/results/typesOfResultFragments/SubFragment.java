@@ -12,9 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mtg.R;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
-import com.example.mtg.mainActivity.mainFragments.results.models.UserResultsModel;
-
-import java.util.ArrayList;
 
 public class SubFragment extends Fragment {
     private Button natButton;

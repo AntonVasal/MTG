@@ -1,7 +1,6 @@
 package com.example.mtg.mainActivity.mainFragments.results.typesOfResultFragments;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentResultsRecyclerBinding;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
-import com.example.mtg.mainActivity.mainFragments.results.viewModels.AddNaturalViewModel;
+import com.example.mtg.mainActivity.mainFragments.results.viewModels.AddViewModel;
 
 public class AddFragment extends Fragment {
 
-    private AddNaturalViewModel resultsViewModel;
+    private AddViewModel resultsViewModel;
 
 
     private ResultsRecyclerViewAdapter adapter;
@@ -44,7 +43,7 @@ public class AddFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         binding.resultRecycler.setLayoutManager(layoutManager);
 
-        resultsViewModel = new ViewModelProvider(requireActivity()).get(AddNaturalViewModel.class);
+        resultsViewModel = new ViewModelProvider(requireActivity()).get(AddViewModel.class);
 
 
         binding.natButton.setEnabled(false);
@@ -68,13 +67,6 @@ public class AddFragment extends Fragment {
                 adapter = new ResultsRecyclerViewAdapter(userResultsModels, getContext(),1,1);
                 binding.resultRecycler.setAdapter(adapter);
                 binding.recyclerProgressBar.setVisibility(View.GONE);
-            } else {
-                Handler handler = new Handler();
-                handler.postDelayed(() -> {
-                    adapter = new ResultsRecyclerViewAdapter(userResultsModels, getContext(),1,1);
-                    binding.resultRecycler.setAdapter(adapter);
-                    binding.recyclerProgressBar.setVisibility(View.GONE);
-                }, 1000);
             }
         });
     }
@@ -105,13 +97,6 @@ public class AddFragment extends Fragment {
                     adapter = new ResultsRecyclerViewAdapter(userResultsModels, getContext(),1,2);
                     binding.resultRecycler.setAdapter(adapter);
                     binding.recyclerProgressBar.setVisibility(View.GONE);
-                } else {
-                    Handler handler = new Handler();
-                    handler.postDelayed(() -> {
-                        adapter = new ResultsRecyclerViewAdapter(userResultsModels, getContext(),1,2);
-                        binding.resultRecycler.setAdapter(adapter);
-                        binding.recyclerProgressBar.setVisibility(View.GONE);
-                    }, 1000);
                 }
             });
         });
@@ -129,13 +114,6 @@ public class AddFragment extends Fragment {
                     adapter = new ResultsRecyclerViewAdapter(userResultsModels, getContext(),1,3);
                     binding.resultRecycler.setAdapter(adapter);
                     binding.recyclerProgressBar.setVisibility(View.GONE);
-                } else {
-                    Handler handler = new Handler();
-                    handler.postDelayed(() -> {
-                        adapter = new ResultsRecyclerViewAdapter(userResultsModels, getContext(),1,3);
-                        binding.resultRecycler.setAdapter(adapter);
-                        binding.recyclerProgressBar.setVisibility(View.GONE);
-                    }, 1000);
                 }
             });
         });

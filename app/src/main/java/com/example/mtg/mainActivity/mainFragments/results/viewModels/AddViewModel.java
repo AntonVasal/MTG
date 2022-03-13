@@ -11,12 +11,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
-public class AddNaturalViewModel extends ViewModel {
+public class AddViewModel extends ViewModel {
     private MutableLiveData<ArrayList<AddResultsModel>> userResultsModel;
     ArrayList<AddResultsModel> arrayList = new ArrayList<>();
     int k;
     String id;
-
 
     FirebaseFirestore firebaseFirestore;
 
@@ -54,8 +53,8 @@ public class AddNaturalViewModel extends ViewModel {
                             break;
                     }
                 }
+                userResultsModel.postValue(arrayList);
             });
-            userResultsModel.postValue(arrayList);
         }).start();
     }
 }
