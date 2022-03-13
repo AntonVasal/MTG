@@ -7,27 +7,22 @@ public class DivResultsModel {
     private int divIntegerTasksAmount;
     private int divDecimalScore;
     private int divDecimalTasksAmount;
+    private String nickname;
+    private String imageUrl;
     private String id;
 
-    public DivResultsModel(int divNaturalScore, int divNaturalTasksAmount, int divIntegerScore, int divIntegerTasksAmount, int divDecimalScore, int divDecimalTasksAmount, String id) {
+    public DivResultsModel() {
+    }
+
+    public DivResultsModel(int divNaturalScore, int divNaturalTasksAmount, int divIntegerScore, int divIntegerTasksAmount, int divDecimalScore, int divDecimalTasksAmount, String nickname, String imageUrl, String id) {
         this.divNaturalScore = divNaturalScore;
         this.divNaturalTasksAmount = divNaturalTasksAmount;
         this.divIntegerScore = divIntegerScore;
         this.divIntegerTasksAmount = divIntegerTasksAmount;
         this.divDecimalScore = divDecimalScore;
         this.divDecimalTasksAmount = divDecimalTasksAmount;
-        this.id = id;
-    }
-
-    public DivResultsModel() {
-    }
-
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
+        this.nickname = nickname;
+        this.imageUrl = imageUrl;
         this.id = id;
     }
 
@@ -77,5 +72,29 @@ public class DivResultsModel {
 
     public void setDivDecimalTasksAmount(int divDecimalTasksAmount) {
         this.divDecimalTasksAmount = divDecimalTasksAmount;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

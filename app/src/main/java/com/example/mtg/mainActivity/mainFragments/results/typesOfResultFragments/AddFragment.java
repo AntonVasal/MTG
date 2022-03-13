@@ -15,14 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentResultsRecyclerBinding;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
-import com.example.mtg.mainActivity.mainFragments.results.models.UserResultsModel;
 import com.example.mtg.mainActivity.mainFragments.results.viewModels.AddNaturalViewModel;
-
-import java.util.ArrayList;
 
 public class AddFragment extends Fragment {
 
-    private AddNaturalViewModel addNaturalViewModel;
+    private AddNaturalViewModel resultsViewModel;
 
 
     private ResultsRecyclerViewAdapter adapter;
@@ -47,7 +44,7 @@ public class AddFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         binding.resultRecycler.setLayoutManager(layoutManager);
 
-        addNaturalViewModel = new ViewModelProvider(requireActivity()).get(AddNaturalViewModel.class);
+        resultsViewModel = new ViewModelProvider(requireActivity()).get(AddNaturalViewModel.class);
 
 
         binding.natButton.setEnabled(false);
@@ -66,15 +63,15 @@ public class AddFragment extends Fragment {
     }
 
     private void generateItem() {
-        addNaturalViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), userResultsModels -> {
+        resultsViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), userResultsModels -> {
             if (userResultsModels != null && userResultsModels.size() != 0) {
-                adapter = new ResultsRecyclerViewAdapter(userResultsModels, getContext());
+                adapter = new ResultsRecyclerViewAdapter(userResultsModels, getContext(),1,1);
                 binding.resultRecycler.setAdapter(adapter);
                 binding.recyclerProgressBar.setVisibility(View.GONE);
             } else {
                 Handler handler = new Handler();
                 handler.postDelayed(() -> {
-                    adapter = new ResultsRecyclerViewAdapter(userResultsModels, getContext());
+                    adapter = new ResultsRecyclerViewAdapter(userResultsModels, getContext(),1,1);
                     binding.resultRecycler.setAdapter(adapter);
                     binding.recyclerProgressBar.setVisibility(View.GONE);
                 }, 1000);
@@ -92,20 +89,7 @@ public class AddFragment extends Fragment {
             binding.decButton.setEnabled(true);
             binding.decButton.setTextColor(getResources().getColor(R.color.white, null));
 
-            addNaturalViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), userResultsModels -> {
-                if (userResultsModels != null && userResultsModels.size() != 0) {
-                    adapter = new ResultsRecyclerViewAdapter(userResultsModels, getContext());
-                    binding.resultRecycler.setAdapter(adapter);
-                    binding.recyclerProgressBar.setVisibility(View.GONE);
-                } else {
-                    Handler handler = new Handler();
-                    handler.postDelayed(() -> {
-                        adapter = new ResultsRecyclerViewAdapter(userResultsModels, getContext());
-                        binding.resultRecycler.setAdapter(adapter);
-                        binding.recyclerProgressBar.setVisibility(View.GONE);
-                    }, 1000);
-                }
-            });
+            generateItem();
         });
 
         binding.intButton.setOnClickListener(view -> {
@@ -116,15 +100,20 @@ public class AddFragment extends Fragment {
             binding.decButton.setEnabled(true);
             binding.decButton.setTextColor(getResources().getColor(R.color.white, null));
 
-            ArrayList<UserResultsModel> itemList = new ArrayList<>();
-            for (int i = 0; i < 15; i++) {
-                itemList.add(new UserResultsModel(
-                        "Mr. Man ",
-                        "",
-                        31212));
-            }
-            adapter = new ResultsRecyclerViewAdapter(itemList, getContext());
-            binding.resultRecycler.setAdapter(adapter);
+            resultsViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), userResultsModels -> {
+                if (userResultsModels != null && userResultsModels.size() != 0) {
+                    adapter = new ResultsRecyclerViewAdapter(userResultsModels, getContext(),1,2);
+                    binding.resultRecycler.setAdapter(adapter);
+                    binding.recyclerProgressBar.setVisibility(View.GONE);
+                } else {
+                    Handler handler = new Handler();
+                    handler.postDelayed(() -> {
+                        adapter = new ResultsRecyclerViewAdapter(userResultsModels, getContext(),1,2);
+                        binding.resultRecycler.setAdapter(adapter);
+                        binding.recyclerProgressBar.setVisibility(View.GONE);
+                    }, 1000);
+                }
+            });
         });
 
         binding.decButton.setOnClickListener(view -> {
@@ -135,15 +124,20 @@ public class AddFragment extends Fragment {
             binding.decButton.setEnabled(false);
             binding.decButton.setTextColor(getResources().getColor(R.color.blue, null));
 
-            ArrayList<UserResultsModel> itemList = new ArrayList<>();
-            for (int i = 0; i < 15; i++) {
-                itemList.add(new UserResultsModel(
-                        "Antonio ",
-                        "",
-                        24664));
-            }
-            adapter = new ResultsRecyclerViewAdapter(itemList, getContext());
-            binding.resultRecycler.setAdapter(adapter);
+            resultsViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), userResultsModels -> {
+                if (userResultsModels != null && userResultsModels.size() != 0) {
+                    adapter = new ResultsRecyclerViewAdapter(userResultsModels, getContext(),1,3);
+                    binding.resultRecycler.setAdapter(adapter);
+                    binding.recyclerProgressBar.setVisibility(View.GONE);
+                } else {
+                    Handler handler = new Handler();
+                    handler.postDelayed(() -> {
+                        adapter = new ResultsRecyclerViewAdapter(userResultsModels, getContext(),1,3);
+                        binding.resultRecycler.setAdapter(adapter);
+                        binding.recyclerProgressBar.setVisibility(View.GONE);
+                    }, 1000);
+                }
+            });
         });
     }
 }

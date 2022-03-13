@@ -7,26 +7,22 @@ public class SubResultsModel {
     private int subIntegerTasksAmount;
     private int subDecimalScore;
     private int subDecimalTasksAmount;
+    private String nickname;
+    private String imageUrl;
     private String id;
 
-    public SubResultsModel(int subNaturalScore, int subNaturalTasksAmount, int subIntegerScore, int subIntegerTasksAmount, int subDecimalScore, int subDecimalTasksAmount, String id) {
+    public SubResultsModel() {
+    }
+
+    public SubResultsModel(int subNaturalScore, int subNaturalTasksAmount, int subIntegerScore, int subIntegerTasksAmount, int subDecimalScore, int subDecimalTasksAmount, String nickname, String imageUrl, String id) {
         this.subNaturalScore = subNaturalScore;
         this.subNaturalTasksAmount = subNaturalTasksAmount;
         this.subIntegerScore = subIntegerScore;
         this.subIntegerTasksAmount = subIntegerTasksAmount;
         this.subDecimalScore = subDecimalScore;
         this.subDecimalTasksAmount = subDecimalTasksAmount;
-        this.id = id;
-    }
-
-    public SubResultsModel() {
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
+        this.nickname = nickname;
+        this.imageUrl = imageUrl;
         this.id = id;
     }
 
@@ -76,5 +72,29 @@ public class SubResultsModel {
 
     public void setSubDecimalTasksAmount(int subDecimalTasksAmount) {
         this.subDecimalTasksAmount = subDecimalTasksAmount;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

@@ -7,26 +7,22 @@ public class MultiResultsModel {
     private int multiIntegerTasksAmount;
     private int multiDecimalScore;
     private int multiDecimalTasksAmount;
+    private String nickname;
+    private String imageUrl;
     private String id;
 
-    public MultiResultsModel(int multiNaturalScore, int multiNaturalTasksAmount, int multiIntegerScore, int multiIntegerTasksAmount, int multiDecimalScore, int multiDecimalTasksAmount, String id) {
+    public MultiResultsModel() {
+    }
+
+    public MultiResultsModel(int multiNaturalScore, int multiNaturalTasksAmount, int multiIntegerScore, int multiIntegerTasksAmount, int multiDecimalScore, int multiDecimalTasksAmount, String nickname, String imageUrl, String id) {
         this.multiNaturalScore = multiNaturalScore;
         this.multiNaturalTasksAmount = multiNaturalTasksAmount;
         this.multiIntegerScore = multiIntegerScore;
         this.multiIntegerTasksAmount = multiIntegerTasksAmount;
         this.multiDecimalScore = multiDecimalScore;
         this.multiDecimalTasksAmount = multiDecimalTasksAmount;
-        this.id = id;
-    }
-
-    public MultiResultsModel() {
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
+        this.nickname = nickname;
+        this.imageUrl = imageUrl;
         this.id = id;
     }
 
@@ -76,5 +72,29 @@ public class MultiResultsModel {
 
     public void setMultiDecimalTasksAmount(int multiDecimalTasksAmount) {
         this.multiDecimalTasksAmount = multiDecimalTasksAmount;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

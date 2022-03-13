@@ -2,6 +2,7 @@ package com.example.mtg.mainActivity.count.countResultsToFirestoreSetters;
 
 import android.util.Log;
 
+import com.example.mtg.logActivity.models.UserRegisterProfileModel;
 import com.example.mtg.mainActivity.count.countModels.AddResultsModel;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -11,6 +12,8 @@ public class AddResultsToFirestoreSetter {
     private static final String TAG = "MainActivity";
     private static final String SUCCESS = "Success";
     private static final String FAILED = "Failed";
+    String nickname;
+    String url;
 
     public AddResultsToFirestoreSetter(FirebaseFirestore mFirebaseFirestore) {
         this.mFirebaseFirestore = mFirebaseFirestore;
@@ -24,14 +27,21 @@ public class AddResultsToFirestoreSetter {
                     AddResultsModel addResultsModel = documentSnapshot
                             .toObject(AddResultsModel.class);
                     if (addResultsModel == null) {
-                        addResultsModel = new AddResultsModel(0, 0, 0, 0, score, tasksAmount, userID);
-                        mFirebaseFirestore.collection("add").document(userID)
-                                .set(addResultsModel).addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                Log.i(TAG, SUCCESS);
-                            } else {
-                                Log.i(TAG, FAILED);
-                            }
+                        mFirebaseFirestore.collection("users").document(userID)
+                                .get().addOnSuccessListener(documentSnapshot1 -> {
+                            UserRegisterProfileModel userRegisterProfileModel = documentSnapshot1.toObject(UserRegisterProfileModel.class);
+                            assert userRegisterProfileModel != null;
+                            nickname = userRegisterProfileModel.getNickname();
+                            url = userRegisterProfileModel.getImageUrl();
+                            AddResultsModel addResultsModel1 = new AddResultsModel(0, 0, 0, 0, score, tasksAmount,nickname,url,userID);
+                            mFirebaseFirestore.collection("add").document(userID)
+                                    .set(addResultsModel1).addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    Log.i(TAG, SUCCESS);
+                                } else {
+                                    Log.i(TAG, FAILED);
+                                }
+                            });
                         });
                     } else {
                         int oldScore = addResultsModel.getAddDecimalScore();
@@ -61,14 +71,21 @@ public class AddResultsToFirestoreSetter {
                     AddResultsModel addResultsModel = documentSnapshot
                             .toObject(AddResultsModel.class);
                     if (addResultsModel == null) {
-                        addResultsModel = new AddResultsModel(0, 0, score, tasksAmount, 0, 0, userID);
-                        mFirebaseFirestore.collection("add").document(userID)
-                                .set(addResultsModel).addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                Log.i(TAG, SUCCESS);
-                            } else {
-                                Log.i(TAG, FAILED);
-                            }
+                        mFirebaseFirestore.collection("users").document(userID)
+                                .get().addOnSuccessListener(documentSnapshot1 -> {
+                            UserRegisterProfileModel userRegisterProfileModel = documentSnapshot1.toObject(UserRegisterProfileModel.class);
+                            assert userRegisterProfileModel != null;
+                            nickname = userRegisterProfileModel.getNickname();
+                            url = userRegisterProfileModel.getImageUrl();
+                            AddResultsModel addResultsModel1 = new AddResultsModel(0, 0, score, tasksAmount, 0, 0,nickname,url, userID);
+                            mFirebaseFirestore.collection("add").document(userID)
+                                    .set(addResultsModel1).addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    Log.i(TAG, SUCCESS);
+                                } else {
+                                    Log.i(TAG, FAILED);
+                                }
+                            });
                         });
                     } else {
                         int oldScore = addResultsModel.getAddIntegerScore();
@@ -98,14 +115,21 @@ public class AddResultsToFirestoreSetter {
                     AddResultsModel addResultsModel = documentSnapshot
                             .toObject(AddResultsModel.class);
                     if (addResultsModel == null) {
-                        addResultsModel = new AddResultsModel(score, tasksAmount, 0, 0, 0, 0, userID);
-                        mFirebaseFirestore.collection("add").document(userID)
-                                .set(addResultsModel).addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                Log.i(TAG, SUCCESS);
-                            } else {
-                                Log.i(TAG, FAILED);
-                            }
+                        mFirebaseFirestore.collection("users").document(userID)
+                                .get().addOnSuccessListener(documentSnapshot1 -> {
+                            UserRegisterProfileModel userRegisterProfileModel = documentSnapshot1.toObject(UserRegisterProfileModel.class);
+                            assert userRegisterProfileModel != null;
+                            nickname = userRegisterProfileModel.getNickname();
+                            url = userRegisterProfileModel.getImageUrl();
+                            AddResultsModel addResultsModel1 = new AddResultsModel(score, tasksAmount, 0, 0, 0, 0,nickname,url, userID);
+                            mFirebaseFirestore.collection("add").document(userID)
+                                    .set(addResultsModel1).addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    Log.i(TAG, SUCCESS);
+                                } else {
+                                    Log.i(TAG, FAILED);
+                                }
+                            });
                         });
                     } else {
                         int oldScore = addResultsModel.getAddNaturalScore();
@@ -126,4 +150,6 @@ public class AddResultsToFirestoreSetter {
                     }
                 })).start();
     }
+
+
 }

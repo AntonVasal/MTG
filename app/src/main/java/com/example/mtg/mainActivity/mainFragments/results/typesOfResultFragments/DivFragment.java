@@ -50,15 +50,7 @@ public class DivFragment extends Fragment {
     }
 
     private void generateItem() {
-        ArrayList<UserResultsModel> itemList = new ArrayList<>();
-        for (int i = 0; i < 15; i++) {
-            itemList.add(new UserResultsModel(
-                    "John",
-                    "",
-                    24411));
-        }
-        adapter = new ResultsRecyclerViewAdapter(itemList,getContext());
-        recyclerView.setAdapter(adapter);
+
 
     }
     private void initListeners() {
@@ -70,15 +62,7 @@ public class DivFragment extends Fragment {
             decButton.setEnabled(true);
             decButton.setTextColor(getResources().getColor(R.color.white,null));
 
-            ArrayList<UserResultsModel> itemList = new ArrayList<>();
-            for (int i = 0; i < 15; i++) {
-                itemList.add(new UserResultsModel(
-                        "Joe",
-                        "",
-                        32111));
-            }
-            adapter = new ResultsRecyclerViewAdapter(itemList,getContext());
-            recyclerView.setAdapter(adapter);
+
         });
         intButton.setOnClickListener(view -> {
             natButton.setEnabled(true);
@@ -87,15 +71,7 @@ public class DivFragment extends Fragment {
             intButton.setTextColor(getResources().getColor(R.color.blue,null));
             decButton.setEnabled(true);
             decButton.setTextColor(getResources().getColor(R.color.white,null));
-            ArrayList<UserResultsModel> itemList = new ArrayList<>();
-            for (int i = 0; i < 15; i++) {
-                itemList.add(new UserResultsModel(
-                        "Ray",
-                        "",
-                        13324));
-            }
-            adapter = new ResultsRecyclerViewAdapter(itemList,getContext());
-            recyclerView.setAdapter(adapter);
+
         });
         decButton.setOnClickListener(view -> {
             natButton.setEnabled(true);
@@ -104,15 +80,7 @@ public class DivFragment extends Fragment {
             intButton.setTextColor(getResources().getColor(R.color.white,null));
             decButton.setEnabled(false);
             decButton.setTextColor(getResources().getColor(R.color.blue,null));
-            ArrayList<UserResultsModel> itemList = new ArrayList<>();
-            for (int i = 0; i < 15; i++) {
-                itemList.add(new UserResultsModel(
-                        "John",
-                        "",
-                        42123));
-            }
-            adapter = new ResultsRecyclerViewAdapter(itemList,getContext());
-            recyclerView.setAdapter(adapter);
+
         });
     }
 }
