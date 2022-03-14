@@ -19,8 +19,6 @@ import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecycl
 import com.example.mtg.mainActivity.mainFragments.results.viewModels.SubViewModel;
 
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.function.Predicate;
 
 public class SubFragment extends Fragment {
     private Button natButton;

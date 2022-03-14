@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.mtg.R;
 import com.example.mtg.mainActivity.count.countModels.AddResultsModel;
 import com.example.mtg.mainActivity.count.countModels.DivResultsModel;
@@ -64,6 +65,7 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
             case 1:
                 Glide.with(mContext)
                         .load(addItemList.get(position).getImageUrl())
+                        .apply(new RequestOptions().override(50,50))
                         .into(holder.userImg);
                 holder.userName.setText(addItemList.get(position).getNickname());
                 switch (typeNumber) {
@@ -81,6 +83,7 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
             case 2:
                 Glide.with(mContext)
                         .load(multiItemList.get(position).getImageUrl())
+                        .apply(new RequestOptions().override(50,50))
                         .into(holder.userImg);
                 holder.userName.setText(multiItemList.get(position).getNickname());
                 switch (typeNumber){
@@ -98,6 +101,7 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
             case 3:
                 Glide.with(mContext)
                         .load(subItemList.get(position).getImageUrl())
+                        .apply(new RequestOptions().override(50,50))
                         .into(holder.userImg);
                 holder.userName.setText(subItemList.get(position).getNickname());
                 switch (typeNumber){
@@ -115,6 +119,7 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
             case 4:
                 Glide.with(mContext)
                         .load(divItemList.get(position).getImageUrl())
+                        .apply(new RequestOptions().override(50,50))
                         .into(holder.userImg);
                 holder.userName.setText(divItemList.get(position).getNickname());
                 switch (typeNumber){

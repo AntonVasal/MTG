@@ -132,11 +132,15 @@ public class CountFragment extends Fragment {
         binding.notRightImg.setVisibility(View.VISIBLE);
         Handler handler = new Handler();
         handler.postDelayed(() -> {
-            binding.notRightImg.setVisibility(View.GONE);
-            binding.userAnswerText.setVisibility(View.VISIBLE);
-            binding.taskText.setVisibility(View.VISIBLE);
-            countViewsOperator.buttonEnabledTrue(typeNumber);
-            tasksComplexity();
+            try {
+                binding.notRightImg.setVisibility(View.GONE);
+                binding.userAnswerText.setVisibility(View.VISIBLE);
+                binding.taskText.setVisibility(View.VISIBLE);
+                countViewsOperator.buttonEnabledTrue(typeNumber);
+                tasksComplexity();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         },1000);
     }
 

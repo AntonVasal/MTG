@@ -27,7 +27,7 @@
                 android:background="@color/white"
                 android:gravity="center"
                 android:id="@+id/add_text"
-                android:textStyle="bold"
+                android:textStyle=""
                 android:text="@string/add"
                 android:textColor="@color/black"
                 android:textSize="28sp"/>
@@ -38,7 +38,7 @@
                 android:layout_weight="25"
                 android:background="@color/blue"
                 android:gravity="center"
-                android:textStyle="bold"
+                android:textStyle=""
                 android:id="@+id/sub_text"
                 android:text="@string/sub"
                 android:textColor="@color/white"
@@ -60,7 +60,7 @@
                 android:background="@color/blue"
                 android:gravity="center"
                 android:id="@+id/multi_text"
-                android:textStyle="bold"
+                android:textStyle=""
                 android:text="@string/multi"
                 android:textColor="@color/white"
                 android:textSize="28sp" />
@@ -72,7 +72,7 @@
                 android:background="@color/white"
                 android:gravity="center"
                 android:id="@+id/div_text"
-                android:textStyle="bold"
+                android:textStyle=""
                 android:text="@string/div"
                 android:textColor="@color/black"
                 android:textSize="28sp" />

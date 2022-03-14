@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentProfileBinding;
 import com.example.mtg.logActivity.LogActivity;
@@ -89,7 +90,7 @@ public class ProfileFragment extends Fragment {
                 binding.userProfileImage.setImageResource(R.drawable.ic_baseline_person_150);
             } else {
                 String img = userRegisterProfileModel.getImageUrl();
-                Glide.with(this).load(img).into(binding.userProfileImage);
+                Glide.with(this).load(img).apply(new RequestOptions().override(170,170)).into(binding.userProfileImage);
             }
             binding.profileProgressBar.setVisibility(View.GONE);
         });

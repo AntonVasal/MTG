@@ -24,8 +24,8 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:id="@+id/user_results_img"
-                android:scaleType="fitXY"
                 android:background="@color/blue_bright"
+                android:scaleType="centerCrop"
                 android:contentDescription="@string/user_photo"
                 android:src="@drawable/ic_launcher_background"/>
         </androidx.cardview.widget.CardView>
