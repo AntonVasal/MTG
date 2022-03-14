@@ -26,6 +26,10 @@ import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentProfileBinding;
 import com.example.mtg.logActivity.LogActivity;
 import com.example.mtg.logActivity.models.UserRegisterProfileModel;
+import com.example.mtg.mainActivity.count.countModels.AddResultsModel;
+import com.example.mtg.mainActivity.count.countModels.DivResultsModel;
+import com.example.mtg.mainActivity.count.countModels.MultiResultsModel;
+import com.example.mtg.mainActivity.count.countModels.SubResultsModel;
 import com.example.mtg.mainActivity.mainFragments.profile.viewModel.ProfileViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -90,7 +94,7 @@ public class ProfileFragment extends Fragment {
                 binding.userProfileImage.setImageResource(R.drawable.ic_baseline_person_150);
             } else {
                 String img = userRegisterProfileModel.getImageUrl();
-                Glide.with(this).load(img).apply(new RequestOptions().override(170,170)).into(binding.userProfileImage);
+                Glide.with(this).load(img).apply(new RequestOptions().override(170, 170)).into(binding.userProfileImage);
             }
             binding.profileProgressBar.setVisibility(View.GONE);
         });
@@ -139,7 +143,7 @@ public class ProfileFragment extends Fragment {
                 String nameImg = String.valueOf(System.currentTimeMillis());
                 final StorageReference fileReference = storageReference.child(nameImg +
                         "." + fileExtension(imageUri));
-                UploadTask  uploadTask =  fileReference.putFile(imageUri);
+                UploadTask uploadTask = fileReference.putFile(imageUri);
                 uploadTask.continueWithTask(task -> {
                     if (!task.isSuccessful()) {
                         throw Objects.requireNonNull(task.getException());
@@ -150,6 +154,67 @@ public class ProfileFragment extends Fragment {
                         Uri downloadUri = task.getResult();
                         assert downloadUri != null;
                         downloadUrl = downloadUri.toString();
+                        /////////////////////////////////////////////////
+                        firebaseFirestore.collection("add").document(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
+                                .get().addOnSuccessListener(documentSnapshot -> {
+                            AddResultsModel addResultsModel = documentSnapshot.toObject(AddResultsModel.class);
+                            assert addResultsModel != null;
+                            addResultsModel.setImageUrl(downloadUrl);
+                            firebaseFirestore.collection("add").document(mAuth.getCurrentUser().getUid())
+                                    .set(addResultsModel).addOnCompleteListener(task12 -> {
+                                if (task12.isSuccessful()) {
+                                    Log.i("MainActivity", "Success");
+                                } else {
+                                    Log.i("MainActivity", "Failed");
+                                }
+                            });
+                        });
+                        ////////////////////////////////////////////////
+                        firebaseFirestore.collection("multi").document(mAuth.getCurrentUser().getUid())
+                                .get().addOnSuccessListener(documentSnapshot -> {
+                            MultiResultsModel multiResultsModel = documentSnapshot.toObject(MultiResultsModel.class);
+                            assert multiResultsModel != null;
+                            multiResultsModel.setImageUrl(downloadUrl);
+                            firebaseFirestore.collection("multi").document(mAuth.getCurrentUser().getUid())
+                                    .set(multiResultsModel).addOnCompleteListener(task13 -> {
+                                if (task13.isSuccessful()) {
+                                    Log.i("MainActivity", "Success");
+                                } else {
+                                    Log.i("MainActivity", "Failed");
+                                }
+                            });
+                        });
+                        ///////////////////////////////////////////////
+                        firebaseFirestore.collection("sub").document(mAuth.getCurrentUser().getUid())
+                                .get().addOnSuccessListener(documentSnapshot -> {
+                            SubResultsModel subResultsModel = documentSnapshot.toObject(SubResultsModel.class);
+                            assert subResultsModel != null;
+                            subResultsModel.setImageUrl(downloadUrl);
+                            firebaseFirestore.collection("sub").document(mAuth.getCurrentUser().getUid())
+                                    .set(subResultsModel).addOnCompleteListener(task14 -> {
+                                if (task14.isSuccessful()) {
+                                    Log.i("MainActivity", "Success");
+                                } else {
+                                    Log.i("MainActivity", "Failed");
+                                }
+                            });
+                        });
+                        //////////////////////////////////////////////
+                        firebaseFirestore.collection("div").document(mAuth.getCurrentUser().getUid())
+                                .get().addOnSuccessListener(documentSnapshot -> {
+                            DivResultsModel divResultsModel = documentSnapshot.toObject(DivResultsModel.class);
+                            assert divResultsModel != null;
+                            divResultsModel.setImageUrl(downloadUrl);
+                            firebaseFirestore.collection("div").document(mAuth.getCurrentUser().getUid())
+                                    .set(divResultsModel).addOnCompleteListener(task15 -> {
+                                if (task15.isSuccessful()) {
+                                    Log.i("MainActivity", "Success");
+                                } else {
+                                    Log.i("MainActivity", "Failed");
+                                }
+                            });
+                        });
+                        //////////////////////////////////////////////
                         firebaseFirestore.collection("users")
                                 .document(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
                                 .get().addOnSuccessListener(documentSnapshot -> {
