@@ -18,7 +18,6 @@ import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecycl
 import com.example.mtg.mainActivity.mainFragments.results.viewModels.AddViewModel;
 
 import java.util.ArrayList;
-import java.util.function.Predicate;
 
 public class AddFragment extends Fragment {
 

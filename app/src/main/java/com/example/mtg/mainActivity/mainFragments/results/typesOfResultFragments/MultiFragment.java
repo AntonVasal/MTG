@@ -18,7 +18,9 @@ import com.example.mtg.mainActivity.count.countModels.MultiResultsModel;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
 import com.example.mtg.mainActivity.mainFragments.results.viewModels.MultiViewModel;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.function.Predicate;
 
 public class MultiFragment extends Fragment {
     private Button natButton;
@@ -29,6 +31,9 @@ public class MultiFragment extends Fragment {
     private ResultsRecyclerViewAdapter adapter;
     LinearLayoutManager layoutManager;
 
+    ArrayList<MultiResultsModel> multiResultsNaturalsModels;
+    ArrayList<MultiResultsModel> multiResultsIntegersModels;
+    ArrayList<MultiResultsModel> multiResultsDecimalsModels;
 
     private MultiViewModel multiViewModel;
 
@@ -68,8 +73,10 @@ public class MultiFragment extends Fragment {
         multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
             if (multiResultsModels != null && multiResultsModels.size() != 0){
                 multiResultsModels.sort((multiResultsModel, t1) -> t1.getMultiNaturalScore() - multiResultsModel.getMultiNaturalScore());
+                multiResultsNaturalsModels = new ArrayList<>(multiResultsModels);
+                multiResultsNaturalsModels.removeIf(multiResultsModel -> multiResultsModel.getMultiNaturalScore()==0);
                 adapter = new ResultsRecyclerViewAdapter(getContext(),2,1);
-                adapter.setMultiItemList(multiResultsModels);
+                adapter.setMultiItemList(multiResultsNaturalsModels);
                 recyclerView.setAdapter(adapter);
             }
         });
@@ -96,8 +103,10 @@ public class MultiFragment extends Fragment {
             multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
                 if (multiResultsModels != null && multiResultsModels.size() != 0){
                     multiResultsModels.sort((multiResultsModel, t1) -> t1.getMultiIntegerScore() - multiResultsModel.getMultiIntegerScore());
+                    multiResultsIntegersModels = new ArrayList<>(multiResultsModels);
+                    multiResultsIntegersModels.removeIf(multiResultsModel -> multiResultsModel.getMultiIntegerScore()==0);
                     adapter = new ResultsRecyclerViewAdapter(getContext(),2,2);
-                    adapter.setMultiItemList(multiResultsModels);
+                    adapter.setMultiItemList(multiResultsIntegersModels);
                     recyclerView.setAdapter(adapter);
                 }
             });
@@ -114,8 +123,10 @@ public class MultiFragment extends Fragment {
             multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
                 if (multiResultsModels != null && multiResultsModels.size() != 0){
                     multiResultsModels.sort((multiResultsModel, t1) -> t1.getMultiDecimalScore() - multiResultsModel.getMultiDecimalScore());
+                    multiResultsDecimalsModels = new ArrayList<>(multiResultsModels);
+                    multiResultsDecimalsModels.removeIf(multiResultsModel -> multiResultsModel.getMultiDecimalScore()==0);
                     adapter = new ResultsRecyclerViewAdapter(getContext(),2,3);
-                    adapter.setMultiItemList(multiResultsModels);
+                    adapter.setMultiItemList(multiResultsDecimalsModels);
                     recyclerView.setAdapter(adapter);
                 }
             });

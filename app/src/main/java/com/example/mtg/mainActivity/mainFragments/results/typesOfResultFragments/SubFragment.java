@@ -18,7 +18,9 @@ import com.example.mtg.mainActivity.count.countModels.SubResultsModel;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
 import com.example.mtg.mainActivity.mainFragments.results.viewModels.SubViewModel;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.function.Predicate;
 
 public class SubFragment extends Fragment {
     private Button natButton;
@@ -29,6 +31,9 @@ public class SubFragment extends Fragment {
     private ResultsRecyclerViewAdapter adapter;
     LinearLayoutManager layoutManager;
 
+    ArrayList<SubResultsModel> subResultsNaturalsModels;
+    ArrayList<SubResultsModel> subResultsIntegersModels;
+    ArrayList<SubResultsModel> subResultsDecimalsModels;
 
     private SubViewModel subViewModel;
     @Override
@@ -67,8 +72,10 @@ public class SubFragment extends Fragment {
         subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
             if (subResultsModels != null && subResultsModels.size()!=0){
                 subResultsModels.sort((subResultsModel, t1) -> t1.getSubNaturalScore() - subResultsModel.getSubNaturalScore());
+                subResultsNaturalsModels = new ArrayList<>(subResultsModels);
+                subResultsNaturalsModels.removeIf(subResultsModel -> subResultsModel.getSubNaturalScore()==0);
                 adapter = new ResultsRecyclerViewAdapter(getContext(),3,1);
-                adapter.setSubItemList(subResultsModels);
+                adapter.setSubItemList(subResultsNaturalsModels);
                 recyclerView.setAdapter(adapter);
             }
         });
@@ -95,8 +102,10 @@ public class SubFragment extends Fragment {
             subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
                 if (subResultsModels != null && subResultsModels.size()!=0){
                     subResultsModels.sort((subResultsModel, t1) -> t1.getSubIntegerScore() - subResultsModel.getSubIntegerScore());
+                    subResultsIntegersModels = new ArrayList<>(subResultsModels);
+                    subResultsIntegersModels.removeIf(subResultsModel -> subResultsModel.getSubIntegerScore()==0);
                     adapter = new ResultsRecyclerViewAdapter(getContext(),3,2);
-                    adapter.setSubItemList(subResultsModels);
+                    adapter.setSubItemList(subResultsIntegersModels);
                     recyclerView.setAdapter(adapter);
                 }
             });
@@ -112,8 +121,10 @@ public class SubFragment extends Fragment {
             subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
                 if (subResultsModels != null && subResultsModels.size()!=0){
                     subResultsModels.sort((subResultsModel, t1) -> t1.getSubDecimalScore() - subResultsModel.getSubDecimalScore());
+                    subResultsDecimalsModels = new ArrayList<>(subResultsModels);
+                    subResultsDecimalsModels.removeIf(subResultsModel -> subResultsModel.getSubDecimalScore()==0);
                     adapter = new ResultsRecyclerViewAdapter(getContext(),3,3);
-                    adapter.setSubItemList(subResultsModels);
+                    adapter.setSubItemList(subResultsDecimalsModels);
                     recyclerView.setAdapter(adapter);
                 }
             });
