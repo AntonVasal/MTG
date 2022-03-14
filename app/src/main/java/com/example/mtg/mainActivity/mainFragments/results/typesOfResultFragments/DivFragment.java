@@ -14,16 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mtg.R;
-import com.example.mtg.mainActivity.count.countModels.AddResultsModel;
-import com.example.mtg.mainActivity.count.countModels.MultiResultsModel;
-import com.example.mtg.mainActivity.count.countModels.SubResultsModel;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
-import com.example.mtg.mainActivity.mainFragments.results.viewModels.AddViewModel;
 import com.example.mtg.mainActivity.mainFragments.results.viewModels.DivViewModel;
-import com.example.mtg.mainActivity.mainFragments.results.viewModels.MultiViewModel;
-import com.example.mtg.mainActivity.mainFragments.results.viewModels.SubViewModel;
-
-import java.util.ArrayList;
 
 public class DivFragment extends Fragment {
     private Button natButton;
@@ -36,9 +28,6 @@ public class DivFragment extends Fragment {
 
     private DivViewModel divViewModel;
 
-    ArrayList<MultiResultsModel> multiResultsModels = new ArrayList<>();
-    ArrayList<SubResultsModel> subResultsModels = new ArrayList<>();
-    ArrayList<AddResultsModel> addResultsModels = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,13 +47,7 @@ public class DivFragment extends Fragment {
         initListeners();
 
         divViewModel = new ViewModelProvider(requireActivity()).get(DivViewModel.class);
-        MultiViewModel multiViewModel = new ViewModelProvider(requireActivity()).get(MultiViewModel.class);
-        SubViewModel subViewModel = new ViewModelProvider(requireActivity()).get(SubViewModel.class);
-        AddViewModel addViewModel = new ViewModelProvider(requireActivity()).get(AddViewModel.class);
 
-        multiResultsModels = multiViewModel.getMutableLiveData().getValue();
-        subResultsModels = subViewModel.getMutableLiveData().getValue();
-        addResultsModels = addViewModel.getUserResultsModel().getValue();
 
 
         recyclerView = view.findViewById(R.id.result_recycler);
@@ -83,7 +66,8 @@ public class DivFragment extends Fragment {
     private void generateItem() {
         divViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), divResultsModels -> {
             if (divResultsModels!=null && divResultsModels.size()!=0){
-                adapter = new ResultsRecyclerViewAdapter(addResultsModels,multiResultsModels,subResultsModels,divResultsModels,getContext(),4,1);
+                adapter = new ResultsRecyclerViewAdapter(getContext(),4,1);
+                adapter.setDivItemList(divResultsModels);
                 recyclerView.setAdapter(adapter);
             }
         });
@@ -109,7 +93,8 @@ public class DivFragment extends Fragment {
 
             divViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), divResultsModels -> {
                 if (divResultsModels!=null && divResultsModels.size()!=0){
-                    adapter = new ResultsRecyclerViewAdapter(addResultsModels,multiResultsModels,subResultsModels,divResultsModels,getContext(),4,2);
+                    adapter = new ResultsRecyclerViewAdapter(getContext(),4,2);
+                    adapter.setDivItemList(divResultsModels);
                     recyclerView.setAdapter(adapter);
                 }
             });
@@ -124,7 +109,8 @@ public class DivFragment extends Fragment {
 
             divViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), divResultsModels -> {
                 if (divResultsModels!=null && divResultsModels.size()!=0){
-                    adapter = new ResultsRecyclerViewAdapter(addResultsModels,multiResultsModels,subResultsModels,divResultsModels,getContext(),4,3);
+                    adapter = new ResultsRecyclerViewAdapter(getContext(),4,3);
+                    adapter.setDivItemList(divResultsModels);
                     recyclerView.setAdapter(adapter);
                 }
             });

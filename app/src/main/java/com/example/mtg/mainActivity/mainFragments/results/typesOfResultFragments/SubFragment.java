@@ -14,16 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mtg.R;
-import com.example.mtg.mainActivity.count.countModels.AddResultsModel;
-import com.example.mtg.mainActivity.count.countModels.DivResultsModel;
-import com.example.mtg.mainActivity.count.countModels.MultiResultsModel;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
-import com.example.mtg.mainActivity.mainFragments.results.viewModels.AddViewModel;
-import com.example.mtg.mainActivity.mainFragments.results.viewModels.DivViewModel;
-import com.example.mtg.mainActivity.mainFragments.results.viewModels.MultiViewModel;
 import com.example.mtg.mainActivity.mainFragments.results.viewModels.SubViewModel;
-
-import java.util.ArrayList;
 
 public class SubFragment extends Fragment {
     private Button natButton;
@@ -34,9 +26,6 @@ public class SubFragment extends Fragment {
     private ResultsRecyclerViewAdapter adapter;
     LinearLayoutManager layoutManager;
 
-    ArrayList<MultiResultsModel> multiResultsModels = new ArrayList<>();
-    ArrayList<DivResultsModel> divResultsModels = new ArrayList<>();
-    ArrayList<AddResultsModel> addResultsModels = new ArrayList<>();
 
     private SubViewModel subViewModel;
     @Override
@@ -56,13 +45,6 @@ public class SubFragment extends Fragment {
         initListeners();
 
         subViewModel = new ViewModelProvider(requireActivity()).get(SubViewModel.class);
-        AddViewModel addViewModel = new ViewModelProvider(requireActivity()).get(AddViewModel.class);
-        DivViewModel divViewModel = new ViewModelProvider(requireActivity()).get(DivViewModel.class);
-        MultiViewModel multiViewModel = new ViewModelProvider(requireActivity()).get(MultiViewModel.class);
-
-        addResultsModels = addViewModel.getUserResultsModel().getValue();
-        divResultsModels = divViewModel.getMutableLiveData().getValue();
-        multiResultsModels = multiViewModel.getMutableLiveData().getValue();
 
 
         recyclerView = view.findViewById(R.id.result_recycler);
@@ -81,7 +63,8 @@ public class SubFragment extends Fragment {
     private void generateItem() {
         subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
             if (subResultsModels != null && subResultsModels.size()!=0){
-                adapter = new ResultsRecyclerViewAdapter(addResultsModels,multiResultsModels,subResultsModels,divResultsModels,getContext(),3,1);
+                adapter = new ResultsRecyclerViewAdapter(getContext(),3,1);
+                adapter.setSubItemList(subResultsModels);
                 recyclerView.setAdapter(adapter);
             }
         });
@@ -107,7 +90,8 @@ public class SubFragment extends Fragment {
 
             subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
                 if (subResultsModels != null && subResultsModels.size()!=0){
-                    adapter = new ResultsRecyclerViewAdapter(addResultsModels,multiResultsModels,subResultsModels,divResultsModels,getContext(),3,2);
+                    adapter = new ResultsRecyclerViewAdapter(getContext(),3,2);
+                    adapter.setSubItemList(subResultsModels);
                     recyclerView.setAdapter(adapter);
                 }
             });
@@ -122,7 +106,8 @@ public class SubFragment extends Fragment {
 
             subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
                 if (subResultsModels != null && subResultsModels.size()!=0){
-                    adapter = new ResultsRecyclerViewAdapter(addResultsModels,multiResultsModels,subResultsModels,divResultsModels,getContext(),3,3);
+                    adapter = new ResultsRecyclerViewAdapter(getContext(),3,3);
+                    adapter.setSubItemList(subResultsModels);
                     recyclerView.setAdapter(adapter);
                 }
             });

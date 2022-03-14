@@ -26,16 +26,29 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
     int typeTask;
     int typeNumber;
 
-
-    public ResultsRecyclerViewAdapter(ArrayList<AddResultsModel> addItemList, ArrayList<MultiResultsModel> multiItemList, ArrayList<SubResultsModel> subItemList, ArrayList<DivResultsModel> divItemList, Context mContext, int typeTask, int typeNumber) {
+    public void setAddItemList(ArrayList<AddResultsModel> addItemList) {
         this.addItemList = addItemList;
+    }
+
+    public void setMultiItemList(ArrayList<MultiResultsModel> multiItemList) {
         this.multiItemList = multiItemList;
+    }
+
+    public void setSubItemList(ArrayList<SubResultsModel> subItemList) {
         this.subItemList = subItemList;
+    }
+
+    public void setDivItemList(ArrayList<DivResultsModel> divItemList) {
         this.divItemList = divItemList;
+    }
+
+    public ResultsRecyclerViewAdapter (Context mContext, int typeTask, int typeNumber) {
         this.mContext = mContext;
         this.typeTask = typeTask;
         this.typeNumber = typeNumber;
     }
+
+
 
     @NonNull
     @Override
@@ -47,12 +60,12 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
 
     @Override
     public void onBindViewHolder(@NonNull ResultsRecyclerViewHolder holder, int position) {
-        Glide.with(mContext)
-                .load(addItemList.get(position).getImageUrl())
-                .into(holder.userImg);
-        holder.userName.setText(addItemList.get(position).getNickname());
         switch (typeTask) {
             case 1:
+                Glide.with(mContext)
+                        .load(addItemList.get(position).getImageUrl())
+                        .into(holder.userImg);
+                holder.userName.setText(addItemList.get(position).getNickname());
                 switch (typeNumber) {
                     case 1:
                         holder.userScore.setText(String.valueOf(addItemList.get(position).getAddNaturalScore()));
@@ -66,6 +79,10 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
                 }
                 break;
             case 2:
+                Glide.with(mContext)
+                        .load(multiItemList.get(position).getImageUrl())
+                        .into(holder.userImg);
+                holder.userName.setText(multiItemList.get(position).getNickname());
                 switch (typeNumber){
                     case 1:
                         holder.userScore.setText(String.valueOf(multiItemList.get(position).getMultiNaturalScore()));
@@ -79,6 +96,10 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
                 }
                 break;
             case 3:
+                Glide.with(mContext)
+                        .load(subItemList.get(position).getImageUrl())
+                        .into(holder.userImg);
+                holder.userName.setText(subItemList.get(position).getNickname());
                 switch (typeNumber){
                     case 1:
                         holder.userScore.setText(String.valueOf(subItemList.get(position).getSubNaturalScore()));
@@ -92,6 +113,10 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
                 }
                 break;
             case 4:
+                Glide.with(mContext)
+                        .load(divItemList.get(position).getImageUrl())
+                        .into(holder.userImg);
+                holder.userName.setText(divItemList.get(position).getNickname());
                 switch (typeNumber){
                     case 1:
                         holder.userScore.setText(String.valueOf(divItemList.get(position).getDivNaturalScore()));
@@ -109,6 +134,16 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
 
     @Override
     public int getItemCount() {
-        return addItemList.size();
+        switch (typeTask){
+            case 1:
+                return addItemList.size();
+            case 2:
+                return multiItemList.size();
+            case 3:
+                return subItemList.size();
+            case 4:
+                return divItemList.size();
+            default: return 0;
+        }
     }
 }
