@@ -14,8 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mtg.R;
+import com.example.mtg.mainActivity.count.countModels.DivResultsModel;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
 import com.example.mtg.mainActivity.mainFragments.results.viewModels.DivViewModel;
+
+import java.util.Comparator;
 
 public class DivFragment extends Fragment {
     private Button natButton;
@@ -66,6 +69,7 @@ public class DivFragment extends Fragment {
     private void generateItem() {
         divViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), divResultsModels -> {
             if (divResultsModels!=null && divResultsModels.size()!=0){
+                divResultsModels.sort((divResultsModel, t1) -> t1.getDivNaturalScore() - divResultsModel.getDivNaturalScore());
                 adapter = new ResultsRecyclerViewAdapter(getContext(),4,1);
                 adapter.setDivItemList(divResultsModels);
                 recyclerView.setAdapter(adapter);
@@ -93,6 +97,7 @@ public class DivFragment extends Fragment {
 
             divViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), divResultsModels -> {
                 if (divResultsModels!=null && divResultsModels.size()!=0){
+                    divResultsModels.sort((divResultsModel, t1) -> t1.getDivIntegerScore() - divResultsModel.getDivIntegerScore());
                     adapter = new ResultsRecyclerViewAdapter(getContext(),4,2);
                     adapter.setDivItemList(divResultsModels);
                     recyclerView.setAdapter(adapter);
@@ -109,6 +114,7 @@ public class DivFragment extends Fragment {
 
             divViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), divResultsModels -> {
                 if (divResultsModels!=null && divResultsModels.size()!=0){
+                    divResultsModels.sort((divResultsModel, t1) -> t1.getDivDecimalScore() - divResultsModel.getDivDecimalScore());
                     adapter = new ResultsRecyclerViewAdapter(getContext(),4,3);
                     adapter.setDivItemList(divResultsModels);
                     recyclerView.setAdapter(adapter);

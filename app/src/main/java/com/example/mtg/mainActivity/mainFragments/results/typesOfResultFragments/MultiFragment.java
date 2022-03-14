@@ -14,8 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mtg.R;
+import com.example.mtg.mainActivity.count.countModels.MultiResultsModel;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
 import com.example.mtg.mainActivity.mainFragments.results.viewModels.MultiViewModel;
+
+import java.util.Comparator;
 
 public class MultiFragment extends Fragment {
     private Button natButton;
@@ -64,6 +67,7 @@ public class MultiFragment extends Fragment {
     private void generateItem() {
         multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
             if (multiResultsModels != null && multiResultsModels.size() != 0){
+                multiResultsModels.sort((multiResultsModel, t1) -> t1.getMultiNaturalScore() - multiResultsModel.getMultiNaturalScore());
                 adapter = new ResultsRecyclerViewAdapter(getContext(),2,1);
                 adapter.setMultiItemList(multiResultsModels);
                 recyclerView.setAdapter(adapter);
@@ -91,6 +95,7 @@ public class MultiFragment extends Fragment {
 
             multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
                 if (multiResultsModels != null && multiResultsModels.size() != 0){
+                    multiResultsModels.sort((multiResultsModel, t1) -> t1.getMultiIntegerScore() - multiResultsModel.getMultiIntegerScore());
                     adapter = new ResultsRecyclerViewAdapter(getContext(),2,2);
                     adapter.setMultiItemList(multiResultsModels);
                     recyclerView.setAdapter(adapter);
@@ -108,6 +113,7 @@ public class MultiFragment extends Fragment {
 
             multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
                 if (multiResultsModels != null && multiResultsModels.size() != 0){
+                    multiResultsModels.sort((multiResultsModel, t1) -> t1.getMultiDecimalScore() - multiResultsModel.getMultiDecimalScore());
                     adapter = new ResultsRecyclerViewAdapter(getContext(),2,3);
                     adapter.setMultiItemList(multiResultsModels);
                     recyclerView.setAdapter(adapter);

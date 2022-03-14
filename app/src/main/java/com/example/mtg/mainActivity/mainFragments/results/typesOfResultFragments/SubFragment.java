@@ -14,8 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mtg.R;
+import com.example.mtg.mainActivity.count.countModels.SubResultsModel;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
 import com.example.mtg.mainActivity.mainFragments.results.viewModels.SubViewModel;
+
+import java.util.Comparator;
 
 public class SubFragment extends Fragment {
     private Button natButton;
@@ -63,6 +66,7 @@ public class SubFragment extends Fragment {
     private void generateItem() {
         subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
             if (subResultsModels != null && subResultsModels.size()!=0){
+                subResultsModels.sort((subResultsModel, t1) -> t1.getSubNaturalScore() - subResultsModel.getSubNaturalScore());
                 adapter = new ResultsRecyclerViewAdapter(getContext(),3,1);
                 adapter.setSubItemList(subResultsModels);
                 recyclerView.setAdapter(adapter);
@@ -90,6 +94,7 @@ public class SubFragment extends Fragment {
 
             subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
                 if (subResultsModels != null && subResultsModels.size()!=0){
+                    subResultsModels.sort((subResultsModel, t1) -> t1.getSubIntegerScore() - subResultsModel.getSubIntegerScore());
                     adapter = new ResultsRecyclerViewAdapter(getContext(),3,2);
                     adapter.setSubItemList(subResultsModels);
                     recyclerView.setAdapter(adapter);
@@ -106,6 +111,7 @@ public class SubFragment extends Fragment {
 
             subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
                 if (subResultsModels != null && subResultsModels.size()!=0){
+                    subResultsModels.sort((subResultsModel, t1) -> t1.getSubDecimalScore() - subResultsModel.getSubDecimalScore());
                     adapter = new ResultsRecyclerViewAdapter(getContext(),3,3);
                     adapter.setSubItemList(subResultsModels);
                     recyclerView.setAdapter(adapter);
