@@ -44,7 +44,7 @@ public class DivViewModel extends ViewModel {
                                     break;
                                 case MODIFIED:
                                     id = divResultsModel.getId();
-                                    for (int i = 1; i < arrayList.size() ; i++) {
+                                    for (int i = 0; i < arrayList.size() ; i++) {
                                         if (arrayList.get(i).getId().equals(id)){
                                             k = i;
                                         }

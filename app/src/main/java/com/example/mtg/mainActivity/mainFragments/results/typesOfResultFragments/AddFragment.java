@@ -13,8 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentResultsRecyclerBinding;
+import com.example.mtg.mainActivity.count.countModels.AddResultsModel;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
 import com.example.mtg.mainActivity.mainFragments.results.viewModels.AddViewModel;
+
+import java.util.ArrayList;
+import java.util.function.Predicate;
 
 public class AddFragment extends Fragment {
 
@@ -24,6 +28,9 @@ public class AddFragment extends Fragment {
     private ResultsRecyclerViewAdapter adapter;
     LinearLayoutManager layoutManager;
 
+    ArrayList<AddResultsModel> addResultsNaturalsModels;
+    ArrayList<AddResultsModel> addResultsIntegersModels;
+    ArrayList<AddResultsModel> addResultsDecimalsModels;
 
     private FragmentResultsRecyclerBinding binding;
 
@@ -66,8 +73,10 @@ public class AddFragment extends Fragment {
         addViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), userResultsModels -> {
             if (userResultsModels != null && userResultsModels.size() != 0) {
                 userResultsModels.sort((addResultsModel, t1) -> t1.getAddNaturalScore() - addResultsModel.getAddNaturalScore());
+                addResultsNaturalsModels = new ArrayList<>(userResultsModels);
+                addResultsNaturalsModels.removeIf(addResultsModel -> addResultsModel.getAddNaturalScore()==0);
                 adapter = new ResultsRecyclerViewAdapter(getContext(),1,1);
-                adapter.setAddItemList(userResultsModels);
+                adapter.setAddItemList(addResultsNaturalsModels);
                 binding.resultRecycler.setAdapter(adapter);
                 binding.recyclerProgressBar.setVisibility(View.GONE);
             }
@@ -98,8 +107,10 @@ public class AddFragment extends Fragment {
             addViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), userResultsModels -> {
                 if (userResultsModels != null && userResultsModels.size() != 0) {
                     userResultsModels.sort((addResultsModel, t1) -> t1.getAddIntegerScore() - addResultsModel.getAddIntegerScore());
+                    addResultsIntegersModels = new ArrayList<>(userResultsModels);
+                    addResultsIntegersModels.removeIf(addResultsModel -> addResultsModel.getAddIntegerScore()==0);
                     adapter = new ResultsRecyclerViewAdapter(getContext(),1,2);
-                    adapter.setAddItemList(userResultsModels);
+                    adapter.setAddItemList(addResultsIntegersModels);
                     binding.resultRecycler.setAdapter(adapter);
                     binding.recyclerProgressBar.setVisibility(View.GONE);
                 }
@@ -117,8 +128,10 @@ public class AddFragment extends Fragment {
             addViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), userResultsModels -> {
                 if (userResultsModels != null && userResultsModels.size() != 0) {
                     userResultsModels.sort((addResultsModel, t1) -> t1.getAddDecimalScore() - addResultsModel.getAddDecimalScore());
+                    addResultsDecimalsModels = new ArrayList<>(userResultsModels);
+                    addResultsDecimalsModels.removeIf(addResultsModel -> addResultsModel.getAddDecimalScore()==0);
                     adapter = new ResultsRecyclerViewAdapter(getContext(),1,3);
-                    adapter.setAddItemList(userResultsModels);
+                    adapter.setAddItemList(addResultsDecimalsModels);
                     binding.resultRecycler.setAdapter(adapter);
                     binding.recyclerProgressBar.setVisibility(View.GONE);
                 }
