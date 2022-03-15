@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -155,6 +156,7 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
         bottomSheetDialog.setContentView(R.layout.bottom_sheet_results_dialog);
 
         ImageView userImgView = bottomSheetDialog.findViewById(R.id.dialog_image);
+        ImageButton imageButton = bottomSheetDialog.findViewById(R.id.exit_button_bottom_dialog);
         TextView nicknameTextView = bottomSheetDialog.findViewById(R.id.nickname_text_dialog);
         TextView nicknameInfo = bottomSheetDialog.findViewById(R.id.info_nickname_dialog);
         TextView nameInfo = bottomSheetDialog.findViewById(R.id.info_name_dialog);
@@ -165,6 +167,8 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
 
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
+        assert imageButton != null;
+        imageButton.setOnClickListener(view -> bottomSheetDialog.cancel());
 
         switch (typeNumber){
             case 1:

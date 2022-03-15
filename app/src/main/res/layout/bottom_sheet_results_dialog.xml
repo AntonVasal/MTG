@@ -18,6 +18,17 @@
             android:padding="20dp"
             app:layout_constraintTop_toTopOf="parent">
 
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/exit_button_bottom_dialog"
+                android:src="@drawable/ic_baseline_close_40"
+                android:background="@color/transparent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/exit" />
+
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/image_card_view_dialog"
                 android:layout_width="150dp"
