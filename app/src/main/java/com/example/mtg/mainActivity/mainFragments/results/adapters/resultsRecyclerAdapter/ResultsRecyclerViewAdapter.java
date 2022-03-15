@@ -19,6 +19,7 @@ import com.example.mtg.mainActivity.count.countModels.SubResultsModel;
 import java.util.ArrayList;
 
 public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecyclerViewHolder> {
+    private final OnItemResultsRecyclerClickInterface onItemResultsRecyclerClickInterface;
     ArrayList<AddResultsModel> addItemList;
     ArrayList<MultiResultsModel> multiItemList;
     ArrayList<SubResultsModel> subItemList;
@@ -43,10 +44,11 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
         this.divItemList = divItemList;
     }
 
-    public ResultsRecyclerViewAdapter (Context mContext, int typeTask, int typeNumber) {
+    public ResultsRecyclerViewAdapter (Context mContext, int typeTask, int typeNumber, OnItemResultsRecyclerClickInterface onItemResultsRecyclerClickInterface) {
         this.mContext = mContext;
         this.typeTask = typeTask;
         this.typeNumber = typeNumber;
+        this.onItemResultsRecyclerClickInterface = onItemResultsRecyclerClickInterface;
     }
 
 
@@ -56,7 +58,7 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
     public ResultsRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(mContext)
                 .inflate(R.layout.item_for_results, parent, false);
-        return new ResultsRecyclerViewHolder(itemView);
+        return new ResultsRecyclerViewHolder(itemView,onItemResultsRecyclerClickInterface,typeNumber);
     }
 
     @Override

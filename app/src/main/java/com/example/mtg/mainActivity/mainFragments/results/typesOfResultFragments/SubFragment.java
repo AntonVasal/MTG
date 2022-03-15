@@ -15,12 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mtg.R;
 import com.example.mtg.mainActivity.count.countModels.SubResultsModel;
+import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.OnItemResultsRecyclerClickInterface;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
 import com.example.mtg.mainActivity.mainFragments.results.viewModels.SubViewModel;
 
 import java.util.ArrayList;
 
-public class SubFragment extends Fragment {
+public class SubFragment extends Fragment implements OnItemResultsRecyclerClickInterface {
     private Button natButton;
     private Button intButton;
     private Button decButton;
@@ -72,7 +73,7 @@ public class SubFragment extends Fragment {
                 subResultsModels.sort((subResultsModel, t1) -> t1.getSubNaturalScore() - subResultsModel.getSubNaturalScore());
                 subResultsNaturalsModels = new ArrayList<>(subResultsModels);
                 subResultsNaturalsModels.removeIf(subResultsModel -> subResultsModel.getSubNaturalScore()==0);
-                adapter = new ResultsRecyclerViewAdapter(getContext(),3,1);
+                adapter = new ResultsRecyclerViewAdapter(getContext(),3,1,this);
                 adapter.setSubItemList(subResultsNaturalsModels);
                 recyclerView.setAdapter(adapter);
             }
@@ -102,7 +103,7 @@ public class SubFragment extends Fragment {
                     subResultsModels.sort((subResultsModel, t1) -> t1.getSubIntegerScore() - subResultsModel.getSubIntegerScore());
                     subResultsIntegersModels = new ArrayList<>(subResultsModels);
                     subResultsIntegersModels.removeIf(subResultsModel -> subResultsModel.getSubIntegerScore()==0);
-                    adapter = new ResultsRecyclerViewAdapter(getContext(),3,2);
+                    adapter = new ResultsRecyclerViewAdapter(getContext(),3,2,this);
                     adapter.setSubItemList(subResultsIntegersModels);
                     recyclerView.setAdapter(adapter);
                 }
@@ -121,11 +122,16 @@ public class SubFragment extends Fragment {
                     subResultsModels.sort((subResultsModel, t1) -> t1.getSubDecimalScore() - subResultsModel.getSubDecimalScore());
                     subResultsDecimalsModels = new ArrayList<>(subResultsModels);
                     subResultsDecimalsModels.removeIf(subResultsModel -> subResultsModel.getSubDecimalScore()==0);
-                    adapter = new ResultsRecyclerViewAdapter(getContext(),3,3);
+                    adapter = new ResultsRecyclerViewAdapter(getContext(),3,3,this);
                     adapter.setSubItemList(subResultsDecimalsModels);
                     recyclerView.setAdapter(adapter);
                 }
             });
         });
+    }
+
+    @Override
+    public void onItemClick(int position, int typeNumber) {
+
     }
 }

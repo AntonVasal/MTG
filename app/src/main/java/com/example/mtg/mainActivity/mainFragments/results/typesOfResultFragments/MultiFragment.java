@@ -15,12 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mtg.R;
 import com.example.mtg.mainActivity.count.countModels.MultiResultsModel;
+import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.OnItemResultsRecyclerClickInterface;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
 import com.example.mtg.mainActivity.mainFragments.results.viewModels.MultiViewModel;
 
 import java.util.ArrayList;
 
-public class MultiFragment extends Fragment {
+public class MultiFragment extends Fragment implements OnItemResultsRecyclerClickInterface {
     private Button natButton;
     private Button intButton;
     private Button decButton;
@@ -73,7 +74,7 @@ public class MultiFragment extends Fragment {
                 multiResultsModels.sort((multiResultsModel, t1) -> t1.getMultiNaturalScore() - multiResultsModel.getMultiNaturalScore());
                 multiResultsNaturalsModels = new ArrayList<>(multiResultsModels);
                 multiResultsNaturalsModels.removeIf(multiResultsModel -> multiResultsModel.getMultiNaturalScore()==0);
-                adapter = new ResultsRecyclerViewAdapter(getContext(),2,1);
+                adapter = new ResultsRecyclerViewAdapter(getContext(),2,1,this);
                 adapter.setMultiItemList(multiResultsNaturalsModels);
                 recyclerView.setAdapter(adapter);
             }
@@ -103,7 +104,7 @@ public class MultiFragment extends Fragment {
                     multiResultsModels.sort((multiResultsModel, t1) -> t1.getMultiIntegerScore() - multiResultsModel.getMultiIntegerScore());
                     multiResultsIntegersModels = new ArrayList<>(multiResultsModels);
                     multiResultsIntegersModels.removeIf(multiResultsModel -> multiResultsModel.getMultiIntegerScore()==0);
-                    adapter = new ResultsRecyclerViewAdapter(getContext(),2,2);
+                    adapter = new ResultsRecyclerViewAdapter(getContext(),2,2,this);
                     adapter.setMultiItemList(multiResultsIntegersModels);
                     recyclerView.setAdapter(adapter);
                 }
@@ -123,11 +124,16 @@ public class MultiFragment extends Fragment {
                     multiResultsModels.sort((multiResultsModel, t1) -> t1.getMultiDecimalScore() - multiResultsModel.getMultiDecimalScore());
                     multiResultsDecimalsModels = new ArrayList<>(multiResultsModels);
                     multiResultsDecimalsModels.removeIf(multiResultsModel -> multiResultsModel.getMultiDecimalScore()==0);
-                    adapter = new ResultsRecyclerViewAdapter(getContext(),2,3);
+                    adapter = new ResultsRecyclerViewAdapter(getContext(),2,3,this);
                     adapter.setMultiItemList(multiResultsDecimalsModels);
                     recyclerView.setAdapter(adapter);
                 }
             });
         });
+    }
+
+    @Override
+    public void onItemClick(int position, int typeNumber) {
+
     }
 }

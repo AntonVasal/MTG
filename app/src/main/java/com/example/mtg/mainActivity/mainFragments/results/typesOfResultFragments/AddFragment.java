@@ -14,12 +14,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentResultsRecyclerBinding;
 import com.example.mtg.mainActivity.count.countModels.AddResultsModel;
+import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.OnItemResultsRecyclerClickInterface;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
 import com.example.mtg.mainActivity.mainFragments.results.viewModels.AddViewModel;
 
 import java.util.ArrayList;
 
-public class AddFragment extends Fragment {
+public class AddFragment extends Fragment implements OnItemResultsRecyclerClickInterface {
 
     private AddViewModel addViewModel;
 
@@ -74,7 +75,7 @@ public class AddFragment extends Fragment {
                 userResultsModels.sort((addResultsModel, t1) -> t1.getAddNaturalScore() - addResultsModel.getAddNaturalScore());
                 addResultsNaturalsModels = new ArrayList<>(userResultsModels);
                 addResultsNaturalsModels.removeIf(addResultsModel -> addResultsModel.getAddNaturalScore()==0);
-                adapter = new ResultsRecyclerViewAdapter(getContext(),1,1);
+                adapter = new ResultsRecyclerViewAdapter(getContext(),1,1,this);
                 adapter.setAddItemList(addResultsNaturalsModels);
                 binding.resultRecycler.setAdapter(adapter);
                 binding.recyclerProgressBar.setVisibility(View.GONE);
@@ -108,7 +109,7 @@ public class AddFragment extends Fragment {
                     userResultsModels.sort((addResultsModel, t1) -> t1.getAddIntegerScore() - addResultsModel.getAddIntegerScore());
                     addResultsIntegersModels = new ArrayList<>(userResultsModels);
                     addResultsIntegersModels.removeIf(addResultsModel -> addResultsModel.getAddIntegerScore()==0);
-                    adapter = new ResultsRecyclerViewAdapter(getContext(),1,2);
+                    adapter = new ResultsRecyclerViewAdapter(getContext(),1,2,this);
                     adapter.setAddItemList(addResultsIntegersModels);
                     binding.resultRecycler.setAdapter(adapter);
                     binding.recyclerProgressBar.setVisibility(View.GONE);
@@ -129,12 +130,21 @@ public class AddFragment extends Fragment {
                     userResultsModels.sort((addResultsModel, t1) -> t1.getAddDecimalScore() - addResultsModel.getAddDecimalScore());
                     addResultsDecimalsModels = new ArrayList<>(userResultsModels);
                     addResultsDecimalsModels.removeIf(addResultsModel -> addResultsModel.getAddDecimalScore()==0);
-                    adapter = new ResultsRecyclerViewAdapter(getContext(),1,3);
+                    adapter = new ResultsRecyclerViewAdapter(getContext(),1,3,this);
                     adapter.setAddItemList(addResultsDecimalsModels);
                     binding.resultRecycler.setAdapter(adapter);
                     binding.recyclerProgressBar.setVisibility(View.GONE);
                 }
             });
         });
+    }
+
+    @Override
+    public void onItemClick(int position, int typeNumber) {
+        switch (typeNumber){
+            case 1:
+
+                break;
+        }
     }
 }

@@ -15,12 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mtg.R;
 import com.example.mtg.mainActivity.count.countModels.DivResultsModel;
+import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.OnItemResultsRecyclerClickInterface;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
 import com.example.mtg.mainActivity.mainFragments.results.viewModels.DivViewModel;
 
 import java.util.ArrayList;
 
-public class DivFragment extends Fragment {
+public class DivFragment extends Fragment implements OnItemResultsRecyclerClickInterface {
     private Button natButton;
     private Button intButton;
     private Button decButton;
@@ -76,7 +77,7 @@ public class DivFragment extends Fragment {
                 divResultsModels.sort((divResultsModel, t1) -> t1.getDivNaturalScore() - divResultsModel.getDivNaturalScore());
                 divResultsNaturalsModels = new ArrayList<>(divResultsModels);
                 divResultsNaturalsModels.removeIf(divResultsModel -> divResultsModel.getDivNaturalScore()==0);
-                adapter = new ResultsRecyclerViewAdapter(getContext(),4,1);
+                adapter = new ResultsRecyclerViewAdapter(getContext(),4,1,this);
                 adapter.setDivItemList(divResultsNaturalsModels);
                 recyclerView.setAdapter(adapter);
             }
@@ -106,7 +107,7 @@ public class DivFragment extends Fragment {
                     divResultsModels.sort((divResultsModel, t1) -> t1.getDivIntegerScore() - divResultsModel.getDivIntegerScore());
                     divResultsIntegersModels = new ArrayList<>(divResultsModels);
                     divResultsIntegersModels.removeIf(divResultsModel -> divResultsModel.getDivIntegerScore()==0);
-                    adapter = new ResultsRecyclerViewAdapter(getContext(),4,2);
+                    adapter = new ResultsRecyclerViewAdapter(getContext(),4,2,this);
                     adapter.setDivItemList(divResultsIntegersModels);
                     recyclerView.setAdapter(adapter);
                 }
@@ -125,11 +126,16 @@ public class DivFragment extends Fragment {
                     divResultsModels.sort((divResultsModel, t1) -> t1.getDivDecimalScore() - divResultsModel.getDivDecimalScore());
                     divResultsDecimalsModels = new ArrayList<>(divResultsModels);
                     divResultsDecimalsModels.removeIf(divResultsModel -> divResultsModel.getDivDecimalScore()==0);
-                    adapter = new ResultsRecyclerViewAdapter(getContext(),4,3);
+                    adapter = new ResultsRecyclerViewAdapter(getContext(),4,3,this);
                     adapter.setDivItemList(divResultsDecimalsModels);
                     recyclerView.setAdapter(adapter);
                 }
             });
         });
+    }
+
+    @Override
+    public void onItemClick(int position, int typeNumber) {
+
     }
 }
