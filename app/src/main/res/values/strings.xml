@@ -82,6 +82,8 @@
     <string name="made_by_vay">Made by VAY</string>
     <string name="change_profile_image">change profile image</string>
     <string name="count_info">Count Info</string>
+    <string name="score_upper">Score</string>
+    <string name="tasks_upper">Tasks</string>
 
     <string-array name="types_of_number">
         <item>Natural numbers</item>

@@ -23,10 +23,7 @@ import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecycl
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
 import com.example.mtg.mainActivity.mainFragments.results.viewModels.AddViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 
@@ -162,6 +159,8 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
         TextView nicknameInfo = bottomSheetDialog.findViewById(R.id.info_nickname_dialog);
         TextView nameInfo = bottomSheetDialog.findViewById(R.id.info_name_dialog);
         TextView countryInfo = bottomSheetDialog.findViewById(R.id.info_country_dialog);
+        TextView scoreInfo = bottomSheetDialog.findViewById(R.id.info_score_dialog);
+        TextView tasksInfo = bottomSheetDialog.findViewById(R.id.info_tasks_dialog);
 
         assert userImgView != null;
         Glide.with(requireActivity()).load(addResultsNaturalsModels.get(position).getImageUrl())
@@ -195,6 +194,24 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
 
         switch (typeNumber){
             case 1:
+                assert scoreInfo != null;
+                scoreInfo.setText(String.valueOf(addResultsNaturalsModels.get(position).getAddNaturalScore()));
+                assert tasksInfo != null;
+                tasksInfo.setText(String.valueOf(addResultsNaturalsModels.get(position).getAddNaturalTasksAmount()));
+                bottomSheetDialog.show();
+                break;
+            case 2:
+                assert scoreInfo != null;
+                scoreInfo.setText(String.valueOf(addResultsIntegersModels.get(position).getAddIntegerScore()));
+                assert tasksInfo != null;
+                tasksInfo.setText(String.valueOf(addResultsIntegersModels.get(position).getAddIntegerTasksAmount()));
+                bottomSheetDialog.show();
+                break;
+            case 3:
+                assert scoreInfo != null;
+                scoreInfo.setText(String.valueOf(addResultsDecimalsModels.get(position).getAddDecimalScore()));
+                assert tasksInfo != null;
+                tasksInfo.setText(String.valueOf(addResultsDecimalsModels.get(position).getAddDecimalTasksAmount()));
                 bottomSheetDialog.show();
                 break;
         }
