@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,12 +13,20 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentResultsRecyclerBinding;
+import com.example.mtg.logActivity.models.UserRegisterProfileModel;
 import com.example.mtg.mainActivity.count.countModels.AddResultsModel;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.OnItemResultsRecyclerClickInterface;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
 import com.example.mtg.mainActivity.mainFragments.results.viewModels.AddViewModel;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 
@@ -31,6 +41,9 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
     ArrayList<AddResultsModel> addResultsNaturalsModels;
     ArrayList<AddResultsModel> addResultsIntegersModels;
     ArrayList<AddResultsModel> addResultsDecimalsModels;
+
+    String name;
+    String country;
 
     private FragmentResultsRecyclerBinding binding;
 
@@ -141,9 +154,48 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
 
     @Override
     public void onItemClick(int position, int typeNumber) {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireActivity());
+        bottomSheetDialog.setContentView(R.layout.bottom_sheet_results_dialog);
+
+        ImageView userImgView = bottomSheetDialog.findViewById(R.id.dialog_image);
+        TextView nicknameTextView = bottomSheetDialog.findViewById(R.id.nickname_text_dialog);
+        TextView nicknameInfo = bottomSheetDialog.findViewById(R.id.info_nickname_dialog);
+        TextView nameInfo = bottomSheetDialog.findViewById(R.id.info_name_dialog);
+        TextView countryInfo = bottomSheetDialog.findViewById(R.id.info_country_dialog);
+
+        assert userImgView != null;
+        Glide.with(requireActivity()).load(addResultsNaturalsModels.get(position).getImageUrl())
+                .apply(new RequestOptions().centerCrop()).into(userImgView);
+
+        assert nicknameTextView != null;
+        nicknameTextView.setText(addResultsNaturalsModels.get(position).getNickname());
+
+        assert nicknameInfo != null;
+        nicknameInfo.setText(addResultsNaturalsModels.get(position).getNickname());
+
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseFirestore.collection("users").document(addResultsNaturalsModels.get(position).getId())
+                .addSnapshotListener((value, error) -> {
+                    if (error != null){
+                        return;
+                    }
+                    if (value != null && value.exists()){
+                        UserRegisterProfileModel userRegisterProfileModel = value.toObject(UserRegisterProfileModel.class);
+                        assert userRegisterProfileModel != null;
+                        name = userRegisterProfileModel.getName();
+                        country = userRegisterProfileModel.getCountry();
+
+                        assert nameInfo != null;
+                        nameInfo.setText(name);
+
+                        assert countryInfo != null;
+                        countryInfo.setText(country);
+                    }
+                });
+
         switch (typeNumber){
             case 1:
-
+                bottomSheetDialog.show();
                 break;
         }
     }
