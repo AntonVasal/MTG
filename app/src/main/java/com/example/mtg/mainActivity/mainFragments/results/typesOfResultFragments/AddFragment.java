@@ -162,35 +162,9 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
         TextView scoreInfo = bottomSheetDialog.findViewById(R.id.info_score_dialog);
         TextView tasksInfo = bottomSheetDialog.findViewById(R.id.info_tasks_dialog);
 
-        assert userImgView != null;
-        Glide.with(requireActivity()).load(addResultsNaturalsModels.get(position).getImageUrl())
-                .apply(new RequestOptions().centerCrop()).into(userImgView);
-
-        assert nicknameTextView != null;
-        nicknameTextView.setText(addResultsNaturalsModels.get(position).getNickname());
-
-        assert nicknameInfo != null;
-        nicknameInfo.setText(addResultsNaturalsModels.get(position).getNickname());
 
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseFirestore.collection("users").document(addResultsNaturalsModels.get(position).getId())
-                .addSnapshotListener((value, error) -> {
-                    if (error != null){
-                        return;
-                    }
-                    if (value != null && value.exists()){
-                        UserRegisterProfileModel userRegisterProfileModel = value.toObject(UserRegisterProfileModel.class);
-                        assert userRegisterProfileModel != null;
-                        name = userRegisterProfileModel.getName();
-                        country = userRegisterProfileModel.getCountry();
 
-                        assert nameInfo != null;
-                        nameInfo.setText(name);
-
-                        assert countryInfo != null;
-                        countryInfo.setText(country);
-                    }
-                });
 
         switch (typeNumber){
             case 1:
@@ -198,6 +172,34 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
                 scoreInfo.setText(String.valueOf(addResultsNaturalsModels.get(position).getAddNaturalScore()));
                 assert tasksInfo != null;
                 tasksInfo.setText(String.valueOf(addResultsNaturalsModels.get(position).getAddNaturalTasksAmount()));
+                assert userImgView != null;
+                Glide.with(requireActivity()).load(addResultsNaturalsModels.get(position).getImageUrl())
+                        .apply(new RequestOptions().centerCrop()).into(userImgView);
+
+                assert nicknameTextView != null;
+                nicknameTextView.setText(addResultsNaturalsModels.get(position).getNickname());
+
+                assert nicknameInfo != null;
+                nicknameInfo.setText(addResultsNaturalsModels.get(position).getNickname());
+
+                firebaseFirestore.collection("users").document(addResultsNaturalsModels.get(position).getId())
+                        .addSnapshotListener((value, error) -> {
+                            if (error != null){
+                                return;
+                            }
+                            if (value != null && value.exists()){
+                                UserRegisterProfileModel userRegisterProfileModel = value.toObject(UserRegisterProfileModel.class);
+                                assert userRegisterProfileModel != null;
+                                name = userRegisterProfileModel.getName();
+                                country = userRegisterProfileModel.getCountry();
+
+                                assert nameInfo != null;
+                                nameInfo.setText(name);
+
+                                assert countryInfo != null;
+                                countryInfo.setText(country);
+                            }
+                        });
                 bottomSheetDialog.show();
                 break;
             case 2:
@@ -205,6 +207,34 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
                 scoreInfo.setText(String.valueOf(addResultsIntegersModels.get(position).getAddIntegerScore()));
                 assert tasksInfo != null;
                 tasksInfo.setText(String.valueOf(addResultsIntegersModels.get(position).getAddIntegerTasksAmount()));
+                assert userImgView != null;
+                Glide.with(requireActivity()).load(addResultsIntegersModels.get(position).getImageUrl())
+                        .apply(new RequestOptions().centerCrop()).into(userImgView);
+
+                assert nicknameTextView != null;
+                nicknameTextView.setText(addResultsIntegersModels.get(position).getNickname());
+
+                assert nicknameInfo != null;
+                nicknameInfo.setText(addResultsIntegersModels.get(position).getNickname());
+
+                firebaseFirestore.collection("users").document(addResultsIntegersModels.get(position).getId())
+                        .addSnapshotListener((value, error) -> {
+                            if (error != null){
+                                return;
+                            }
+                            if (value != null && value.exists()){
+                                UserRegisterProfileModel userRegisterProfileModel = value.toObject(UserRegisterProfileModel.class);
+                                assert userRegisterProfileModel != null;
+                                name = userRegisterProfileModel.getName();
+                                country = userRegisterProfileModel.getCountry();
+
+                                assert nameInfo != null;
+                                nameInfo.setText(name);
+
+                                assert countryInfo != null;
+                                countryInfo.setText(country);
+                            }
+                        });
                 bottomSheetDialog.show();
                 break;
             case 3:
@@ -212,6 +242,34 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
                 scoreInfo.setText(String.valueOf(addResultsDecimalsModels.get(position).getAddDecimalScore()));
                 assert tasksInfo != null;
                 tasksInfo.setText(String.valueOf(addResultsDecimalsModels.get(position).getAddDecimalTasksAmount()));
+                assert userImgView != null;
+                Glide.with(requireActivity()).load(addResultsDecimalsModels.get(position).getImageUrl())
+                        .apply(new RequestOptions().centerCrop()).into(userImgView);
+
+                assert nicknameTextView != null;
+                nicknameTextView.setText(addResultsDecimalsModels.get(position).getNickname());
+
+                assert nicknameInfo != null;
+                nicknameInfo.setText(addResultsDecimalsModels.get(position).getNickname());
+
+                firebaseFirestore.collection("users").document(addResultsDecimalsModels.get(position).getId())
+                        .addSnapshotListener((value, error) -> {
+                            if (error != null){
+                                return;
+                            }
+                            if (value != null && value.exists()){
+                                UserRegisterProfileModel userRegisterProfileModel = value.toObject(UserRegisterProfileModel.class);
+                                assert userRegisterProfileModel != null;
+                                name = userRegisterProfileModel.getName();
+                                country = userRegisterProfileModel.getCountry();
+
+                                assert nameInfo != null;
+                                nameInfo.setText(name);
+
+                                assert countryInfo != null;
+                                countryInfo.setText(country);
+                            }
+                        });
                 bottomSheetDialog.show();
                 break;
         }
