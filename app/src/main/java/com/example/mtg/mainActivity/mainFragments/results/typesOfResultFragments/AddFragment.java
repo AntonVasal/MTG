@@ -85,8 +85,8 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
             if (userResultsModels != null && userResultsModels.size() != 0) {
                 userResultsModels.sort((addResultsModel, t1) -> t1.getAddNaturalScore() - addResultsModel.getAddNaturalScore());
                 addResultsNaturalsModels = new ArrayList<>(userResultsModels);
-                addResultsNaturalsModels.removeIf(addResultsModel -> addResultsModel.getAddNaturalScore()==0);
-                adapter = new ResultsRecyclerViewAdapter(getContext(),1,1,this);
+                addResultsNaturalsModels.removeIf(addResultsModel -> addResultsModel.getAddNaturalScore() == 0);
+                adapter = new ResultsRecyclerViewAdapter(getContext(), 1, 1, this);
                 adapter.setAddItemList(addResultsNaturalsModels);
                 binding.resultRecycler.setAdapter(adapter);
                 binding.recyclerProgressBar.setVisibility(View.GONE);
@@ -119,8 +119,8 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
                 if (userResultsModels != null && userResultsModels.size() != 0) {
                     userResultsModels.sort((addResultsModel, t1) -> t1.getAddIntegerScore() - addResultsModel.getAddIntegerScore());
                     addResultsIntegersModels = new ArrayList<>(userResultsModels);
-                    addResultsIntegersModels.removeIf(addResultsModel -> addResultsModel.getAddIntegerScore()==0);
-                    adapter = new ResultsRecyclerViewAdapter(getContext(),1,2,this);
+                    addResultsIntegersModels.removeIf(addResultsModel -> addResultsModel.getAddIntegerScore() == 0);
+                    adapter = new ResultsRecyclerViewAdapter(getContext(), 1, 2, this);
                     adapter.setAddItemList(addResultsIntegersModels);
                     binding.resultRecycler.setAdapter(adapter);
                     binding.recyclerProgressBar.setVisibility(View.GONE);
@@ -140,8 +140,8 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
                 if (userResultsModels != null && userResultsModels.size() != 0) {
                     userResultsModels.sort((addResultsModel, t1) -> t1.getAddDecimalScore() - addResultsModel.getAddDecimalScore());
                     addResultsDecimalsModels = new ArrayList<>(userResultsModels);
-                    addResultsDecimalsModels.removeIf(addResultsModel -> addResultsModel.getAddDecimalScore()==0);
-                    adapter = new ResultsRecyclerViewAdapter(getContext(),1,3,this);
+                    addResultsDecimalsModels.removeIf(addResultsModel -> addResultsModel.getAddDecimalScore() == 0);
+                    adapter = new ResultsRecyclerViewAdapter(getContext(), 1, 3, this);
                     adapter.setAddItemList(addResultsDecimalsModels);
                     binding.resultRecycler.setAdapter(adapter);
                     binding.recyclerProgressBar.setVisibility(View.GONE);
@@ -170,110 +170,125 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
         assert imageButton != null;
         imageButton.setOnClickListener(view -> bottomSheetDialog.cancel());
 
-        switch (typeNumber){
+        switch (typeNumber) {
             case 1:
-                assert scoreInfo != null;
-                scoreInfo.setText(String.valueOf(addResultsNaturalsModels.get(position).getAddNaturalScore()));
-                assert tasksInfo != null;
-                tasksInfo.setText(String.valueOf(addResultsNaturalsModels.get(position).getAddNaturalTasksAmount()));
-                assert userImgView != null;
-                Glide.with(requireActivity()).load(addResultsNaturalsModels.get(position).getImageUrl())
-                        .apply(new RequestOptions().centerCrop()).into(userImgView);
+                addViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), addResultsModels -> {
+                    addResultsModels.sort((addResultsModel, t1) -> t1.getAddNaturalScore() - addResultsModel.getAddNaturalScore());
+                    addResultsNaturalsModels = new ArrayList<>(addResultsModels);
+                    addResultsNaturalsModels.removeIf(addResultsModel -> addResultsModel.getAddNaturalScore() == 0);
+                    assert scoreInfo != null;
+                    scoreInfo.setText(String.valueOf(addResultsNaturalsModels.get(position).getAddNaturalScore()));
+                    assert tasksInfo != null;
+                    tasksInfo.setText(String.valueOf(addResultsNaturalsModels.get(position).getAddNaturalTasksAmount()));
+                    assert userImgView != null;
+                    Glide.with(requireActivity()).load(addResultsNaturalsModels.get(position).getImageUrl())
+                            .apply(new RequestOptions().centerCrop()).into(userImgView);
 
-                assert nicknameTextView != null;
-                nicknameTextView.setText(addResultsNaturalsModels.get(position).getNickname());
+                    assert nicknameTextView != null;
+                    nicknameTextView.setText(addResultsNaturalsModels.get(position).getNickname());
 
-                assert nicknameInfo != null;
-                nicknameInfo.setText(addResultsNaturalsModels.get(position).getNickname());
+                    assert nicknameInfo != null;
+                    nicknameInfo.setText(addResultsNaturalsModels.get(position).getNickname());
 
-                firebaseFirestore.collection("users").document(addResultsNaturalsModels.get(position).getId())
-                        .addSnapshotListener((value, error) -> {
-                            if (error != null){
-                                return;
-                            }
-                            if (value != null && value.exists()){
-                                UserRegisterProfileModel userRegisterProfileModel = value.toObject(UserRegisterProfileModel.class);
-                                assert userRegisterProfileModel != null;
-                                name = userRegisterProfileModel.getName();
-                                country = userRegisterProfileModel.getCountry();
+                    firebaseFirestore.collection("users").document(addResultsNaturalsModels.get(position).getId())
+                            .addSnapshotListener((value, error) -> {
+                                if (error != null) {
+                                    return;
+                                }
+                                if (value != null && value.exists()) {
+                                    UserRegisterProfileModel userRegisterProfileModel = value.toObject(UserRegisterProfileModel.class);
+                                    assert userRegisterProfileModel != null;
+                                    name = userRegisterProfileModel.getName();
+                                    country = userRegisterProfileModel.getCountry();
 
-                                assert nameInfo != null;
-                                nameInfo.setText(name);
+                                    assert nameInfo != null;
+                                    nameInfo.setText(name);
 
-                                assert countryInfo != null;
-                                countryInfo.setText(country);
-                            }
-                        });
+                                    assert countryInfo != null;
+                                    countryInfo.setText(country);
+                                }
+                            });
+                });
                 bottomSheetDialog.show();
                 break;
             case 2:
-                assert scoreInfo != null;
-                scoreInfo.setText(String.valueOf(addResultsIntegersModels.get(position).getAddIntegerScore()));
-                assert tasksInfo != null;
-                tasksInfo.setText(String.valueOf(addResultsIntegersModels.get(position).getAddIntegerTasksAmount()));
-                assert userImgView != null;
-                Glide.with(requireActivity()).load(addResultsIntegersModels.get(position).getImageUrl())
-                        .apply(new RequestOptions().centerCrop()).into(userImgView);
+                addViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), addResultsModels -> {
+                    addResultsModels.sort((addResultsModel, t1) -> t1.getAddIntegerScore() - addResultsModel.getAddIntegerScore());
+                    addResultsIntegersModels = new ArrayList<>(addResultsModels);
+                    addResultsIntegersModels.removeIf(addResultsModel -> addResultsModel.getAddIntegerScore() == 0);
+                    assert scoreInfo != null;
+                    scoreInfo.setText(String.valueOf(addResultsIntegersModels.get(position).getAddIntegerScore()));
+                    assert tasksInfo != null;
+                    tasksInfo.setText(String.valueOf(addResultsIntegersModels.get(position).getAddIntegerTasksAmount()));
+                    assert userImgView != null;
+                    Glide.with(requireActivity()).load(addResultsIntegersModels.get(position).getImageUrl())
+                            .apply(new RequestOptions().centerCrop()).into(userImgView);
 
-                assert nicknameTextView != null;
-                nicknameTextView.setText(addResultsIntegersModels.get(position).getNickname());
+                    assert nicknameTextView != null;
+                    nicknameTextView.setText(addResultsIntegersModels.get(position).getNickname());
 
-                assert nicknameInfo != null;
-                nicknameInfo.setText(addResultsIntegersModels.get(position).getNickname());
+                    assert nicknameInfo != null;
+                    nicknameInfo.setText(addResultsIntegersModels.get(position).getNickname());
 
-                firebaseFirestore.collection("users").document(addResultsIntegersModels.get(position).getId())
-                        .addSnapshotListener((value, error) -> {
-                            if (error != null){
-                                return;
-                            }
-                            if (value != null && value.exists()){
-                                UserRegisterProfileModel userRegisterProfileModel = value.toObject(UserRegisterProfileModel.class);
-                                assert userRegisterProfileModel != null;
-                                name = userRegisterProfileModel.getName();
-                                country = userRegisterProfileModel.getCountry();
+                    firebaseFirestore.collection("users").document(addResultsIntegersModels.get(position).getId())
+                            .addSnapshotListener((value, error) -> {
+                                if (error != null) {
+                                    return;
+                                }
+                                if (value != null && value.exists()) {
+                                    UserRegisterProfileModel userRegisterProfileModel = value.toObject(UserRegisterProfileModel.class);
+                                    assert userRegisterProfileModel != null;
+                                    name = userRegisterProfileModel.getName();
+                                    country = userRegisterProfileModel.getCountry();
 
-                                assert nameInfo != null;
-                                nameInfo.setText(name);
+                                    assert nameInfo != null;
+                                    nameInfo.setText(name);
 
-                                assert countryInfo != null;
-                                countryInfo.setText(country);
-                            }
-                        });
+                                    assert countryInfo != null;
+                                    countryInfo.setText(country);
+                                }
+                            });
+                });
                 bottomSheetDialog.show();
                 break;
             case 3:
-                assert scoreInfo != null;
-                scoreInfo.setText(String.valueOf(addResultsDecimalsModels.get(position).getAddDecimalScore()));
-                assert tasksInfo != null;
-                tasksInfo.setText(String.valueOf(addResultsDecimalsModels.get(position).getAddDecimalTasksAmount()));
-                assert userImgView != null;
-                Glide.with(requireActivity()).load(addResultsDecimalsModels.get(position).getImageUrl())
-                        .apply(new RequestOptions().centerCrop()).into(userImgView);
+                addViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), addResultsModels -> {
+                    addResultsModels.sort((addResultsModel, t1) -> t1.getAddDecimalScore() - addResultsModel.getAddDecimalScore());
+                    addResultsDecimalsModels = new ArrayList<>(addResultsModels);
+                    addResultsDecimalsModels.removeIf(addResultsModel -> addResultsModel.getAddDecimalScore() == 0);
+                    assert scoreInfo != null;
+                    scoreInfo.setText(String.valueOf(addResultsDecimalsModels.get(position).getAddDecimalScore()));
+                    assert tasksInfo != null;
+                    tasksInfo.setText(String.valueOf(addResultsDecimalsModels.get(position).getAddDecimalTasksAmount()));
+                    assert userImgView != null;
+                    Glide.with(requireActivity()).load(addResultsDecimalsModels.get(position).getImageUrl())
+                            .apply(new RequestOptions().centerCrop()).into(userImgView);
 
-                assert nicknameTextView != null;
-                nicknameTextView.setText(addResultsDecimalsModels.get(position).getNickname());
+                    assert nicknameTextView != null;
+                    nicknameTextView.setText(addResultsDecimalsModels.get(position).getNickname());
 
-                assert nicknameInfo != null;
-                nicknameInfo.setText(addResultsDecimalsModels.get(position).getNickname());
+                    assert nicknameInfo != null;
+                    nicknameInfo.setText(addResultsDecimalsModels.get(position).getNickname());
 
-                firebaseFirestore.collection("users").document(addResultsDecimalsModels.get(position).getId())
-                        .addSnapshotListener((value, error) -> {
-                            if (error != null){
-                                return;
-                            }
-                            if (value != null && value.exists()){
-                                UserRegisterProfileModel userRegisterProfileModel = value.toObject(UserRegisterProfileModel.class);
-                                assert userRegisterProfileModel != null;
-                                name = userRegisterProfileModel.getName();
-                                country = userRegisterProfileModel.getCountry();
+                    firebaseFirestore.collection("users").document(addResultsDecimalsModels.get(position).getId())
+                            .addSnapshotListener((value, error) -> {
+                                if (error != null) {
+                                    return;
+                                }
+                                if (value != null && value.exists()) {
+                                    UserRegisterProfileModel userRegisterProfileModel = value.toObject(UserRegisterProfileModel.class);
+                                    assert userRegisterProfileModel != null;
+                                    name = userRegisterProfileModel.getName();
+                                    country = userRegisterProfileModel.getCountry();
 
-                                assert nameInfo != null;
-                                nameInfo.setText(name);
+                                    assert nameInfo != null;
+                                    nameInfo.setText(name);
 
-                                assert countryInfo != null;
-                                countryInfo.setText(country);
-                            }
-                        });
+                                    assert countryInfo != null;
+                                    countryInfo.setText(country);
+                                }
+                            });
+                });
                 bottomSheetDialog.show();
                 break;
         }
