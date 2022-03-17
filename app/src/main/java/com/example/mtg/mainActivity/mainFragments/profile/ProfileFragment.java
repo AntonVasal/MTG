@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -49,6 +50,7 @@ public class ProfileFragment extends Fragment {
     private StorageReference storageReference;
     private ActivityResultLauncher<String> mGetContent;
     private String downloadUrl = "";
+    private Dialog imageDialog;
 
 
     @Override
@@ -103,14 +105,8 @@ public class ProfileFragment extends Fragment {
 
     private void initListeners() {
         binding.logOutButton.setOnClickListener(view1 -> showExitDialog());
-        binding.userProfileImage.setOnClickListener(view -> {
-            mGetContent.launch("image/*");
-            binding.profileProgressBar.setVisibility(View.VISIBLE);
-        });
-        binding.changeProfileImgImage.setOnClickListener(view -> {
-            mGetContent.launch("image/*");
-            binding.profileProgressBar.setVisibility(View.VISIBLE);
-        });
+        binding.userProfileImage.setOnClickListener(view -> showChangeImageDialog());
+        binding.changeProfileImgImage.setOnClickListener(view -> showChangeImageDialog());
     }
 
     private void showExitDialog() {
@@ -130,6 +126,26 @@ public class ProfileFragment extends Fragment {
         dialog.show();
     }
 
+    private void showChangeImageDialog(){
+        imageDialog = new Dialog(requireActivity());
+        imageDialog.setContentView(R.layout.exit_dialog);
+
+        TextView changeImage = imageDialog.findViewById(R.id.are_you_sure_text);
+        changeImage.setText(getString(R.string.do_you_wanna_change_image));
+
+        MaterialButton cancel = imageDialog.findViewById(R.id.cancel_dialog_button);
+        cancel.setOnClickListener(view -> imageDialog.dismiss());
+
+        MaterialButton change = imageDialog.findViewById(R.id.exit_dialog_button);
+        change.setText(getString(R.string.change_image));
+        change.setOnClickListener(view -> {
+            mGetContent.launch("image/*");
+            binding.profileProgressBar.setVisibility(View.VISIBLE);
+        });
+
+        imageDialog.show();
+    }
+
     private String fileExtension(Uri uri) {
         ContentResolver contentResolver = requireActivity().getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
@@ -139,6 +155,7 @@ public class ProfileFragment extends Fragment {
     private void uploadFile(Uri imageUri) {
         if (imageUri != null) {
 //            Glide.with(requireActivity()).load(imageUri).into(binding.userProfileImage);
+            imageDialog.dismiss();
             new Thread(() -> {
                 String nameImg = String.valueOf(System.currentTimeMillis());
                 final StorageReference fileReference = storageReference.child(nameImg +
@@ -241,6 +258,7 @@ public class ProfileFragment extends Fragment {
             handler.postDelayed(() -> binding.profileProgressBar.setVisibility(View.GONE), 3000);
         } else {
             Log.i("MainActivity", "empty image uri");
+            imageDialog.dismiss();
             binding.profileProgressBar.setVisibility(View.GONE);
         }
     }

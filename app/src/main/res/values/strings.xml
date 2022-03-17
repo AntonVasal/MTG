@@ -84,6 +84,8 @@
     <string name="count_info">Count Info</string>
     <string name="score_upper">Score</string>
     <string name="tasks_upper">Tasks</string>
+    <string name="change_image">Change</string>
+    <string name="do_you_wanna_change_image">Change image?</string>
 
     <string-array name="types_of_number">
         <item>Natural numbers</item>
