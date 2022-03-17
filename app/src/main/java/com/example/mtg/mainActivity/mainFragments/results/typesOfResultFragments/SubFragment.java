@@ -5,6 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +21,8 @@ import com.example.mtg.mainActivity.count.countModels.SubResultsModel;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.OnItemResultsRecyclerClickInterface;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
 import com.example.mtg.mainActivity.mainFragments.results.viewModels.SubViewModel;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -29,6 +34,9 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
     private RecyclerView recyclerView;
     private ResultsRecyclerViewAdapter adapter;
     LinearLayoutManager layoutManager;
+
+    String name;
+    String country;
 
     ArrayList<SubResultsModel> subResultsNaturalsModels;
     ArrayList<SubResultsModel> subResultsIntegersModels;
@@ -132,6 +140,22 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
 
     @Override
     public void onItemClick(int position, int typeNumber) {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireActivity());
+        bottomSheetDialog.setContentView(R.layout.bottom_sheet_results_dialog);
 
+        ImageView userImgView = bottomSheetDialog.findViewById(R.id.dialog_image);
+        ImageButton imageButton = bottomSheetDialog.findViewById(R.id.exit_button_bottom_dialog);
+        TextView nicknameTextView = bottomSheetDialog.findViewById(R.id.nickname_text_dialog);
+        TextView nicknameInfo = bottomSheetDialog.findViewById(R.id.info_nickname_dialog);
+        TextView nameInfo = bottomSheetDialog.findViewById(R.id.info_name_dialog);
+        TextView countryInfo = bottomSheetDialog.findViewById(R.id.info_country_dialog);
+        TextView scoreInfo = bottomSheetDialog.findViewById(R.id.info_score_dialog);
+        TextView tasksInfo = bottomSheetDialog.findViewById(R.id.info_tasks_dialog);
+
+
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+
+        assert imageButton != null;
+        imageButton.setOnClickListener(view -> bottomSheetDialog.cancel());
     }
 }
