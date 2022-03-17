@@ -230,7 +230,15 @@ public class CountFragment extends Fragment {
 
     private void setResults(boolean b) {
         if (b){
-            resultCounter = resultCounter + 50;
+            if (SystemClock.elapsedRealtime() - binding.countTimer.getBase() < -180000 || SystemClock.elapsedRealtime() - binding.countTimer.getBase() > 1){
+                resultCounter = resultCounter + 20;
+            }else if(SystemClock.elapsedRealtime() - binding.countTimer.getBase() < -120000){
+                resultCounter = resultCounter + 30;
+            }else if (SystemClock.elapsedRealtime() - binding.countTimer.getBase() < -60000){
+                resultCounter = resultCounter + 40;
+            }else{
+                resultCounter = resultCounter + 50;
+            }
         } else{
             resultCounter = resultCounter - 10;
         }

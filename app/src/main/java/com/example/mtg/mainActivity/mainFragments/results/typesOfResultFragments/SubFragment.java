@@ -12,11 +12,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.mtg.R;
+import com.example.mtg.logActivity.models.UserRegisterProfileModel;
 import com.example.mtg.mainActivity.count.countModels.SubResultsModel;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.OnItemResultsRecyclerClickInterface;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
@@ -157,5 +161,128 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
 
         assert imageButton != null;
         imageButton.setOnClickListener(view -> bottomSheetDialog.cancel());
+
+        switch (typeNumber){
+            case 1:
+                subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
+                    subResultsModels.sort((subResultsModel, t1) -> t1.getSubNaturalScore() - subResultsModel.getSubNaturalScore());
+                    subResultsNaturalsModels = new ArrayList<>(subResultsModels);
+                    subResultsNaturalsModels.removeIf(subResultsModel -> subResultsModel.getSubNaturalScore()==0);
+                    assert scoreInfo != null;
+                    scoreInfo.setText(String.valueOf(subResultsNaturalsModels.get(position).getSubNaturalScore()));
+                    assert tasksInfo != null;
+                    tasksInfo.setText(String.valueOf(subResultsNaturalsModels.get(position).getSubNaturalTasksAmount()));
+                    assert userImgView != null;
+                    Glide.with(requireActivity()).load(subResultsNaturalsModels.get(position).getImageUrl())
+                            .apply(new RequestOptions().centerCrop()).into(userImgView);
+
+                    assert nicknameTextView != null;
+                    nicknameTextView.setText(subResultsNaturalsModels.get(position).getNickname());
+
+                    assert nicknameInfo != null;
+                    nicknameInfo.setText(subResultsNaturalsModels.get(position).getNickname());
+
+                    firebaseFirestore.collection("users").document(subResultsNaturalsModels.get(position).getId())
+                            .addSnapshotListener((value, error) -> {
+                                if (error != null) {
+                                    return;
+                                }
+                                if (value != null && value.exists()) {
+                                    UserRegisterProfileModel userRegisterProfileModel = value.toObject(UserRegisterProfileModel.class);
+                                    assert userRegisterProfileModel != null;
+                                    name = userRegisterProfileModel.getName();
+                                    country = userRegisterProfileModel.getCountry();
+
+                                    assert nameInfo != null;
+                                    nameInfo.setText(name);
+
+                                    assert countryInfo != null;
+                                    countryInfo.setText(country);
+                                }
+                            });
+                });
+                bottomSheetDialog.show();
+                break;
+            case 2:
+                subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
+                    subResultsModels.sort((subResultsModel, t1) -> t1.getSubIntegerScore() - subResultsModel.getSubIntegerScore());
+                    subResultsIntegersModels = new ArrayList<>(subResultsModels);
+                    subResultsIntegersModels.removeIf(subResultsModel -> subResultsModel.getSubIntegerScore()==0);
+                    assert scoreInfo != null;
+                    scoreInfo.setText(String.valueOf(subResultsIntegersModels.get(position).getSubIntegerScore()));
+                    assert tasksInfo != null;
+                    tasksInfo.setText(String.valueOf(subResultsIntegersModels.get(position).getSubIntegerTasksAmount()));
+                    assert userImgView != null;
+                    Glide.with(requireActivity()).load(subResultsIntegersModels.get(position).getImageUrl())
+                            .apply(new RequestOptions().centerCrop()).into(userImgView);
+
+                    assert nicknameTextView != null;
+                    nicknameTextView.setText(subResultsIntegersModels.get(position).getNickname());
+
+                    assert nicknameInfo != null;
+                    nicknameInfo.setText(subResultsIntegersModels.get(position).getNickname());
+
+                    firebaseFirestore.collection("users").document(subResultsIntegersModels.get(position).getId())
+                            .addSnapshotListener((value, error) -> {
+                                if (error != null) {
+                                    return;
+                                }
+                                if (value != null && value.exists()) {
+                                    UserRegisterProfileModel userRegisterProfileModel = value.toObject(UserRegisterProfileModel.class);
+                                    assert userRegisterProfileModel != null;
+                                    name = userRegisterProfileModel.getName();
+                                    country = userRegisterProfileModel.getCountry();
+
+                                    assert nameInfo != null;
+                                    nameInfo.setText(name);
+
+                                    assert countryInfo != null;
+                                    countryInfo.setText(country);
+                                }
+                            });
+                });
+                bottomSheetDialog.show();
+                break;
+            case 3:
+                subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
+                    subResultsModels.sort((subResultsModel, t1) -> t1.getSubDecimalScore() - subResultsModel.getSubDecimalScore());
+                    subResultsDecimalsModels = new ArrayList<>(subResultsModels);
+                    subResultsDecimalsModels.removeIf(subResultsModel -> subResultsModel.getSubDecimalScore()==0);
+                    assert scoreInfo != null;
+                    scoreInfo.setText(String.valueOf(subResultsDecimalsModels.get(position).getSubDecimalScore()));
+                    assert tasksInfo != null;
+                    tasksInfo.setText(String.valueOf(subResultsDecimalsModels.get(position).getSubDecimalTasksAmount()));
+                    assert userImgView != null;
+                    Glide.with(requireActivity()).load(subResultsDecimalsModels.get(position).getImageUrl())
+                            .apply(new RequestOptions().centerCrop()).into(userImgView);
+
+                    assert nicknameTextView != null;
+                    nicknameTextView.setText(subResultsDecimalsModels.get(position).getNickname());
+
+                    assert nicknameInfo != null;
+                    nicknameInfo.setText(subResultsDecimalsModels.get(position).getNickname());
+
+                    firebaseFirestore.collection("users").document(subResultsDecimalsModels.get(position).getId())
+                            .addSnapshotListener((value, error) -> {
+                                if (error != null) {
+                                    return;
+                                }
+                                if (value != null && value.exists()) {
+                                    UserRegisterProfileModel userRegisterProfileModel = value.toObject(UserRegisterProfileModel.class);
+                                    assert userRegisterProfileModel != null;
+                                    name = userRegisterProfileModel.getName();
+                                    country = userRegisterProfileModel.getCountry();
+
+                                    assert nameInfo != null;
+                                    nameInfo.setText(name);
+
+                                    assert countryInfo != null;
+                                    countryInfo.setText(country);
+                                }
+                            });
+                });
+                bottomSheetDialog.show();
+                break;
+        }
     }
 }
