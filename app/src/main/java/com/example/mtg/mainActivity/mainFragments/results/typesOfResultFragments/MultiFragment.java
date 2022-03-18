@@ -1,5 +1,6 @@
 package com.example.mtg.mainActivity.mainFragments.results.typesOfResultFragments;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,6 +68,10 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
         multiViewModel = new ViewModelProvider(requireActivity()).get(MultiViewModel.class);
 
         recyclerView = view.findViewById(R.id.result_recycler);
+        AnimationDrawable animationDrawable = (AnimationDrawable) recyclerView.getBackground();
+        animationDrawable.setEnterFadeDuration(2500);
+        animationDrawable.setExitFadeDuration(5000);
+        animationDrawable.start();
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);

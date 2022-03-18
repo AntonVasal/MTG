@@ -34,7 +34,7 @@
             android:id="@+id/main_details_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/gradient_for_profile"
+            android:background="@drawable/gradient_list_for_animated_background"
             android:paddingBottom="15dp"
             app:layout_constraintTop_toTopOf="parent">
 

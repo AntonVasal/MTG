@@ -3,6 +3,7 @@ package com.example.mtg.mainActivity.mainFragments.profile;
 import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +18,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -78,6 +80,11 @@ public class ProfileFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
         binding.setLifecycleOwner(requireActivity());
 
+        AnimationDrawable animationDrawableForProfileDetails = (AnimationDrawable) binding.mainDetailsContainer.getBackground();
+        animationDrawableForProfileDetails.setEnterFadeDuration(2500);
+        animationDrawableForProfileDetails.setExitFadeDuration(5000);
+        animationDrawableForProfileDetails.start();
+
         mAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -129,6 +136,12 @@ public class ProfileFragment extends Fragment {
     private void showChangeImageDialog(){
         imageDialog = new Dialog(requireActivity());
         imageDialog.setContentView(R.layout.exit_dialog);
+
+        ConstraintLayout constraintLayout = imageDialog.findViewById(R.id.exit_dialog_main_layout);
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(2500);
+        animationDrawable.setExitFadeDuration(5000);
+        animationDrawable.start();
 
         TextView changeImage = imageDialog.findViewById(R.id.are_you_sure_text);
         changeImage.setText(getString(R.string.do_you_wanna_change_image));

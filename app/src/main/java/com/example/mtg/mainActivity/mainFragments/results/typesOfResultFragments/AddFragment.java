@@ -1,5 +1,6 @@
 package com.example.mtg.mainActivity.mainFragments.results.typesOfResultFragments;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,6 +62,11 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
 
         layoutManager = new LinearLayoutManager(getContext());
         binding.resultRecycler.setLayoutManager(layoutManager);
+
+        AnimationDrawable animationDrawable = (AnimationDrawable) binding.resultRecycler.getBackground();
+        animationDrawable.setEnterFadeDuration(2500);
+        animationDrawable.setExitFadeDuration(5000);
+        animationDrawable.start();
 
         addViewModel = new ViewModelProvider(requireActivity()).get(AddViewModel.class);
 

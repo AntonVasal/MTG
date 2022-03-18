@@ -71,7 +71,7 @@
                 android:id="@+id/result_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#D3D2D0" />
+                android:background="@drawable/gradient_list_for_animated_background" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
