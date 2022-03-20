@@ -34,6 +34,7 @@ import com.example.mtg.mainActivity.count.countModels.DivResultsModel;
 import com.example.mtg.mainActivity.count.countModels.MultiResultsModel;
 import com.example.mtg.mainActivity.count.countModels.SubResultsModel;
 import com.example.mtg.mainActivity.mainFragments.profile.viewModel.ProfileViewModel;
+import com.example.mtg.mainActivity.mainFragments.profileSettings.ProfileSettingsFragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -53,7 +54,6 @@ public class ProfileFragment extends Fragment {
     private ActivityResultLauncher<String> mGetContent;
     private String downloadUrl = "";
     private Dialog imageDialog;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -114,6 +114,10 @@ public class ProfileFragment extends Fragment {
         binding.logOutButton.setOnClickListener(view1 -> showExitDialog());
         binding.userProfileImage.setOnClickListener(view -> showChangeImageDialog());
         binding.changeProfileImgImage.setOnClickListener(view -> showChangeImageDialog());
+        binding.settingsButton.setOnClickListener(view -> requireActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_app_container, new ProfileSettingsFragment())
+                .addToBackStack("")
+                .commit());
     }
 
     private void showExitDialog() {

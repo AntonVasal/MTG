@@ -86,6 +86,11 @@
     <string name="tasks_upper">Tasks</string>
     <string name="change_image">Change</string>
     <string name="do_you_wanna_change_image">Change image?</string>
+    <string name="change_nickname">change nickname</string>
+    <string name="change_name">change name</string>
+    <string name="change_surname">change surname</string>
+    <string name="change_email">change email</string>
+    <string name="change_country">change country</string>
 
     <string-array name="types_of_number">
         <item>Natural numbers</item>

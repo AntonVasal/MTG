@@ -5,26 +5,44 @@
     android:layout_height="match_parent">
 
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/main_bottom_navigation"
-        android:background="@color/blue_bright"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:itemIconTint="@drawable/color_for_bottom_nav"
-        app:itemTextColor="@drawable/color_for_bottom_nav"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/main_bottom_navigation_menu" />
+    <!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+    <!--        android:id="@+id/main_bottom_navigation"-->
+    <!--        android:background="@color/blue_bright"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:itemIconTint="@drawable/color_for_bottom_nav"-->
+    <!--        app:itemTextColor="@drawable/color_for_bottom_nav"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:menu="@menu/main_bottom_navigation_menu" />-->
+
 
     <FrameLayout
         android:id="@+id/fragmentContainerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/main_bottom_navigation"
+        app:layout_constraintBottom_toTopOf="@+id/main_bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.etebarian.meowbottomnavigation.MeowBottomNavigation
+        android:id="@+id/main_bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue_bright"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:mbn_backgroundBottomColor="@color/white"
+        app:mbn_circleColor="@color/white"
+        app:mbn_countBackgroundColor="@color/yellow_light"
+        app:mbn_countTextColor="@color/white"
+        app:mbn_defaultIconColor="@color/blue"
+        app:mbn_rippleColor="#2f424242"
+        app:mbn_selectedIconColor="@color/blue_bright"
+        app:mbn_shadowColor="#1f212121" />
 
     <!--        <androidx.fragment.app.FragmentContainerView-->
     <!--            android:id="@+id/fragmentContainerView"-->
