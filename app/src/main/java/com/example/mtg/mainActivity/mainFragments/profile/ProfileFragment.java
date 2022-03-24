@@ -22,6 +22,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -33,6 +37,7 @@ import com.example.mtg.mainActivity.count.countModels.AddResultsModel;
 import com.example.mtg.mainActivity.count.countModels.DivResultsModel;
 import com.example.mtg.mainActivity.count.countModels.MultiResultsModel;
 import com.example.mtg.mainActivity.count.countModels.SubResultsModel;
+import com.example.mtg.mainActivity.mainFragments.MainFragmentDirections;
 import com.example.mtg.mainActivity.mainFragments.profile.viewModel.ProfileViewModel;
 import com.example.mtg.mainActivity.mainFragments.profileSettings.ProfileSettingsFragment;
 import com.google.android.material.button.MaterialButton;
@@ -54,6 +59,7 @@ public class ProfileFragment extends Fragment {
     private ActivityResultLauncher<String> mGetContent;
     private String downloadUrl = "";
     private Dialog imageDialog;
+    NavController navController;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,6 +68,8 @@ public class ProfileFragment extends Fragment {
                 new ActivityResultContracts.GetContent(),
                 this::uploadFile
         );
+        NavHostFragment navHostFragment = (NavHostFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container_view);
+        navController = Objects.requireNonNull(navHostFragment).getNavController();
     }
 
 
@@ -114,10 +122,13 @@ public class ProfileFragment extends Fragment {
         binding.logOutButton.setOnClickListener(view1 -> showExitDialog());
         binding.userProfileImage.setOnClickListener(view -> showChangeImageDialog());
         binding.changeProfileImgImage.setOnClickListener(view -> showChangeImageDialog());
-        binding.settingsButton.setOnClickListener(view -> requireActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_app_container, new ProfileSettingsFragment())
-                .addToBackStack("")
-                .commit());
+        binding.settingsButton.setOnClickListener(view -> {
+            NavDirections action = MainFragmentDirections.actionMainFragment2ToProfileSettingsFragment();
+            navController.navigate(action);
+//            requireActivity().getSupportFragmentManager().beginTransaction()
+//                    .replace(R.id.main_app_container, new ProfileSettingsFragment())
+//                    .commit();
+        });
     }
 
     private void showExitDialog() {
@@ -137,7 +148,7 @@ public class ProfileFragment extends Fragment {
         dialog.show();
     }
 
-    private void showChangeImageDialog(){
+    private void showChangeImageDialog() {
         imageDialog = new Dialog(requireActivity());
         imageDialog.setContentView(R.layout.exit_dialog);
 

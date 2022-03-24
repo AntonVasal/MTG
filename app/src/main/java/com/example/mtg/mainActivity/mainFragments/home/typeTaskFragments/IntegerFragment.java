@@ -39,22 +39,22 @@ public class IntegerFragment extends Fragment {
     private void initListeners() {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         Add.setOnClickListener(view -> {
-            fragmentManager.beginTransaction().replace(R.id.main_app_container,new CountFragment(1,2))
+            fragmentManager.beginTransaction().replace(R.id.fragment_container_view,new CountFragment(1,2))
                     .addToBackStack("")
                     .commit();
         });
         Multi.setOnClickListener(view -> {
-            fragmentManager.beginTransaction().replace(R.id.main_app_container,new CountFragment(2,2) )
+            fragmentManager.beginTransaction().replace(R.id.fragment_container_view,new CountFragment(2,2) )
                     .addToBackStack("")
                     .commit();
         });
         Sub.setOnClickListener(view -> {
-            fragmentManager.beginTransaction().replace(R.id.main_app_container,new CountFragment(3,2) )
+            fragmentManager.beginTransaction().replace(R.id.fragment_container_view,new CountFragment(3,2) )
                     .addToBackStack("")
                     .commit();
         });
         Div.setOnClickListener(view -> {
-            fragmentManager.beginTransaction().replace(R.id.main_app_container, new CountFragment(4,2))
+            fragmentManager.beginTransaction().replace(R.id.fragment_container_view, new CountFragment(4,2))
                     .addToBackStack("")
                     .commit();
         });

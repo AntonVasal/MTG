@@ -11,19 +11,35 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentProfileSettingsBindingImpl;
 import com.example.mtg.mainActivity.mainFragments.MainFragment;
+import com.example.mtg.mainActivity.mainFragments.MainFragmentDirections;
+import com.example.mtg.mainActivity.mainFragments.profile.ProfileFragment;
 import com.example.mtg.mainActivity.mainFragments.profile.viewModel.ProfileViewModel;
+
+import java.util.Objects;
 
 
 public class ProfileSettingsFragment extends Fragment {
 
     FragmentProfileSettingsBindingImpl binding;
-    ProfileViewModel profileViewModel;
+    ProfileViewModel profileSettingsViewModel;
     FragmentManager fragmentManager;
+    NavController navController;
 
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        NavHostFragment navHostFragment = (NavHostFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container_view);
+        navController = Objects.requireNonNull(navHostFragment).getNavController();
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -32,19 +48,32 @@ public class ProfileSettingsFragment extends Fragment {
     }
 
     private void initListeners() {
-        binding.settingsBackButton.setOnClickListener(view -> fragmentManager.beginTransaction()
-                .replace(R.id.main_app_container, new MainFragment())
-                .commit());
-        binding.changeNicknameButton.setOnClickListener(view -> fragmentManager.beginTransaction().replace(R.id.main_app_container,new ProfileSettingsPasswordConfirmationFragment())
-                .addToBackStack("").commit());
-        binding.changeNameButton.setOnClickListener(view -> fragmentManager.beginTransaction().replace(R.id.main_app_container,new ProfileSettingsPasswordConfirmationFragment())
-                .addToBackStack("").commit());
-        binding.changeSurnameButton.setOnClickListener(view -> fragmentManager.beginTransaction().replace(R.id.main_app_container,new ProfileSettingsPasswordConfirmationFragment())
-                .addToBackStack("").commit());
-        binding.changeEmailButton.setOnClickListener(view -> fragmentManager.beginTransaction().replace(R.id.main_app_container,new ProfileSettingsPasswordConfirmationFragment())
-                .addToBackStack("").commit());
-        binding.changeCountryButton.setOnClickListener(view -> fragmentManager.beginTransaction().replace(R.id.main_app_container,new ProfileSettingsPasswordConfirmationFragment())
-                .addToBackStack("").commit());
+        binding.settingsBackButton.setOnClickListener(view -> navController.popBackStack());
+        binding.changeNicknameButton.setOnClickListener(view -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("typeFragments",1);
+            navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
+        });
+        binding.changeNameButton.setOnClickListener(view ->{
+            Bundle bundle = new Bundle();
+            bundle.putInt("typeFragments",2);
+            navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
+        });
+        binding.changeSurnameButton.setOnClickListener(view -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("typeFragments",3);
+            navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
+        });
+        binding.changeEmailButton.setOnClickListener(view -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("typeFragments",4);
+            navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
+        });
+        binding.changeCountryButton.setOnClickListener(view -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("typeFragments",5);
+            navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
+        });
     }
 
 
@@ -52,10 +81,10 @@ public class ProfileSettingsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_profile_settings,container,false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile_settings, container, false);
         binding.setLifecycleOwner(requireActivity());
-        profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
-        binding.setViewModel(profileViewModel);
+        profileSettingsViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
+        binding.setViewModel(profileSettingsViewModel);
         fragmentManager = requireActivity().getSupportFragmentManager();
 
         return binding.getRoot();

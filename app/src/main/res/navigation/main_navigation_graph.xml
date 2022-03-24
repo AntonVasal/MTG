@@ -3,21 +3,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation_graph"
-    app:startDestination="@id/HomeFragment">
-
+    app:startDestination="@id/mainFragment2">
     <fragment
-        android:id="@+id/HomeFragment"
-        android:name="com.example.mtg.mainActivity.mainFragments.home.HomeFragment"
-        android:label="Home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/profileSettingsFragment"
+        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.ProfileSettingsFragment"
+        android:label="ProfileSettingsFragment" >
+        <action
+            android:id="@+id/action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment"
+            app:destination="@id/profileSettingsPasswordConfirmationFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/ResultFragment"
-        android:name="com.example.mtg.mainActivity.mainFragments.results.ResultFragment"
-        android:label="Result"
-        tools:layout="@layout/fragment_result" />
+        android:id="@+id/mainFragment2"
+        android:name="com.example.mtg.mainActivity.mainFragments.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment2_to_profileSettingsFragment"
+            app:destination="@id/profileSettingsFragment" />
+    </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.mtg.mainActivity.MainActivity"
+        android:label="MainActivity" />
     <fragment
-        android:id="@+id/ProfileFragment"
-        android:name="com.example.mtg.mainActivity.mainFragments.profile.ProfileFragment"
-        android:label="Profile"
-        tools:layout="@layout/fragment_profile" />
+        android:id="@+id/profileSettingsPasswordConfirmationFragment"
+        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.ProfileSettingsPasswordConfirmationFragment"
+        android:label="fragment_profile_settings_password_confirmation"
+        tools:layout="@layout/fragment_profile_settings_password_confirmation" >
+        <argument
+            android:name="typeFragments"
+            app:argType="integer"
+            android:defaultValue="0"/>
+        <action
+            android:id="@+id/action_profileSettingsPasswordConfirmationFragment_to_changeNameFragment"
+            app:destination="@id/changeNameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changeNameFragment"
+        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.ChangeNameFragment"
+        android:label="fragment_change_name"
+        tools:layout="@layout/fragment_change_name" />
 </navigation>

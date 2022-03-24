@@ -91,6 +91,7 @@
     <string name="change_surname">change surname</string>
     <string name="change_email">change email</string>
     <string name="change_country">change country</string>
+    <string name="confirm_password">confirm password</string>
 
     <string-array name="types_of_number">
         <item>Natural numbers</item>

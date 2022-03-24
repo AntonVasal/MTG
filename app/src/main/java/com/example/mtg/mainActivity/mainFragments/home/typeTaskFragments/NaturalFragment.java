@@ -35,16 +35,16 @@ public class NaturalFragment extends Fragment {
 
     private void initListeners() {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        Add.setOnClickListener(view -> fragmentManager.beginTransaction().replace(R.id.main_app_container,new CountFragment(1,1))
+        Add.setOnClickListener(view -> fragmentManager.beginTransaction().replace(R.id.fragment_container_view,new CountFragment(1,1))
                 .addToBackStack("")
                 .commit());
-        Multi.setOnClickListener(view -> fragmentManager.beginTransaction().replace(R.id.main_app_container,new CountFragment(2,1))
+        Multi.setOnClickListener(view -> fragmentManager.beginTransaction().replace(R.id.fragment_container_view,new CountFragment(2,1))
                 .addToBackStack("")
                 .commit());
-        Sub.setOnClickListener(view -> fragmentManager.beginTransaction().replace(R.id.main_app_container,new CountFragment(3,1))
+        Sub.setOnClickListener(view -> fragmentManager.beginTransaction().replace(R.id.fragment_container_view,new CountFragment(3,1))
                 .addToBackStack("")
                 .commit());
-        Div.setOnClickListener(view -> fragmentManager.beginTransaction().replace(R.id.main_app_container,new CountFragment(4,1))
+        Div.setOnClickListener(view -> fragmentManager.beginTransaction().replace(R.id.fragment_container_view,new CountFragment(4,1))
                 .addToBackStack("")
                 .commit());
     }

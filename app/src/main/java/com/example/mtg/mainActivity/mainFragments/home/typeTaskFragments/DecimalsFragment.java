@@ -40,23 +40,23 @@ public class DecimalsFragment extends Fragment {
     private void initListeners() {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         Add.setOnClickListener(view -> {
-            fragmentManager.beginTransaction().replace(R.id.main_app_container,new CountFragment(1,3))
+            fragmentManager.beginTransaction().replace(R.id.fragment_container_view,new CountFragment(1,3))
                     .addToBackStack("")
                     .commit();
 
         });
         Multi.setOnClickListener(view -> {
-            fragmentManager.beginTransaction().replace(R.id.main_app_container,new CountFragment(2,3))
+            fragmentManager.beginTransaction().replace(R.id.fragment_container_view,new CountFragment(2,3))
                     .addToBackStack("")
                     .commit();
         });
         Sub.setOnClickListener(view -> {
-            fragmentManager.beginTransaction().replace(R.id.main_app_container,new CountFragment(3,3))
+            fragmentManager.beginTransaction().replace(R.id.fragment_container_view,new CountFragment(3,3))
                     .addToBackStack("")
                     .commit();
         });
         Div.setOnClickListener(view -> {
-            fragmentManager.beginTransaction().replace(R.id.main_app_container,new CountFragment(4,3))
+            fragmentManager.beginTransaction().replace(R.id.fragment_container_view,new CountFragment(4,3))
                     .addToBackStack("")
                     .commit();
         });
