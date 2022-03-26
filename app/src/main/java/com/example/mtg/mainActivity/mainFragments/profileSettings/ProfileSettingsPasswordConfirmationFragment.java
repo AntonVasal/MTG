@@ -89,14 +89,32 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
                     .reauthenticate(authCredential)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()){
+                            NavDirections navDirections;
                             switch (typeFragments){
                                 case 1:
-                                    NavDirections navDirections = ProfileSettingsPasswordConfirmationFragmentDirections
-                                            .actionProfileSettingsPasswordConfirmationFragmentToChangeNameFragment();
+                                    navDirections = ProfileSettingsPasswordConfirmationFragmentDirections
+                                            .actionProfileSettingsPasswordConfirmationFragmentToChangeNicknameFragment();
                                     navController.navigate(navDirections);
                                     break;
                                 case 2:
-
+                                    navDirections = ProfileSettingsPasswordConfirmationFragmentDirections
+                                            .actionProfileSettingsPasswordConfirmationFragmentToChangeNameFragment();
+                                    navController.navigate(navDirections);
+                                    break;
+                                case 3:
+                                    navDirections = ProfileSettingsPasswordConfirmationFragmentDirections
+                                            .actionProfileSettingsPasswordConfirmationFragmentToChangeSurnameFragment();
+                                    navController.navigate(navDirections);
+                                    break;
+                                case 4:
+                                    navDirections = ProfileSettingsPasswordConfirmationFragmentDirections
+                                            .actionProfileSettingsPasswordConfirmationFragmentToChangeEmailFragment();
+                                    navController.navigate(navDirections);
+                                    break;
+                                case 5:
+                                    navDirections = ProfileSettingsPasswordConfirmationFragmentDirections
+                                            .actionProfileSettingsPasswordConfirmationFragmentToChangeCountryFragment();
+                                    navController.navigate(navDirections);
                                     break;
                             }
                         }else{
