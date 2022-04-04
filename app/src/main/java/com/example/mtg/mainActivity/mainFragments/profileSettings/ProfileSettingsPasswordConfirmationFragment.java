@@ -69,7 +69,7 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
         binding.confirmPasswordBackButton.setOnClickListener(view -> navController.popBackStack());
         binding.confirmPasswordButton.setOnClickListener(view -> {
 
-            password = Objects.requireNonNull(binding.passwordForReset.getText()).toString().trim();
+            password = Objects.requireNonNull(binding.passwordForConfirm.getText()).toString().trim();
 
             if (password.isEmpty()){
                 binding.confirmPasswordEditText.setError("Password is required");
