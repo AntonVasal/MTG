@@ -1,43 +1,88 @@
 package com.example.mtg.mainActivity.mainFragments.profileSettings;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentChangeDataBinding;
+import com.example.mtg.logActivity.models.UserRegisterProfileModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Objects;
 
 
 public class ChangeCountryFragment extends Fragment {
     private FragmentChangeDataBinding binding;
+    private FirebaseFirestore firebaseFirestore;
+    private FirebaseAuth firebaseAuth;
+    private NavController navController;
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        NavHostFragment navHostFragment = (NavHostFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container_view);
+        navController = Objects.requireNonNull(navHostFragment).getNavController();
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentChangeDataBinding.inflate(inflater,container,false);
-        View view = binding.getRoot();
-        return view;
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         initListeners();
         setViewData();
     }
 
     private void setViewData() {
-        binding.changeEditText.setHint(R.string.country);
-        binding.changeEditText.setStartIconDrawable(R.drawable.ic_baseline_location_on_24);
+        binding.forChange.setVisibility(View.INVISIBLE);
+        binding.changeEditText.setVisibility(View.INVISIBLE);
         binding.changeButton.setText(R.string.change_country);
+        binding.countryPickerForChange.setVisibility(View.VISIBLE);
     }
 
     private void initListeners() {
+        binding.changeBackButton.setOnClickListener(view -> navController.popBackStack());
+        binding.changeButton.setOnClickListener(view -> {
+            String country = binding.countryPickerForChange.getSelectedCountryName();
+
+            firebaseFirestore.collection("users")
+                    .document(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())
+                    .get().addOnSuccessListener(documentSnapshot -> {
+
+                UserRegisterProfileModel userRegisterProfileModel = documentSnapshot.toObject(UserRegisterProfileModel.class);
+                assert userRegisterProfileModel != null;
+                userRegisterProfileModel.setCountry(country);
+
+                firebaseFirestore.collection("users")
+                        .document(firebaseAuth.getCurrentUser().getUid())
+                        .set(userRegisterProfileModel)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Log.i("MainActivity", "Success");
+                                navController.popBackStack();
+                            } else {
+                                Log.i("MainActivity", "Failed");
+                            }
+                        });
+                    });
+        });
     }
 }
