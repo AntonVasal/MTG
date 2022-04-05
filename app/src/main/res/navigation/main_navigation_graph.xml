@@ -52,26 +52,21 @@
     <fragment
         android:id="@+id/changeNameFragment"
         android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.ChangeNameFragment"
-        android:label="fragment_change_name"
-        tools:layout="@layout/fragment_change_name" />
+        android:label="fragment_change_name" />
     <fragment
         android:id="@+id/changeNicknameFragment"
         android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.ChangeNicknameFragment"
-        android:label="fragment_change_nickname"
-        tools:layout="@layout/fragment_change_nickname" />
+        android:label="fragment_change_nickname" />
     <fragment
         android:id="@+id/changeSurnameFragment"
         android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.ChangeSurnameFragment"
-        android:label="fragment_change_surname"
-        tools:layout="@layout/fragment_change_surname" />
+        android:label="fragment_change_surname" />
     <fragment
         android:id="@+id/changeCountryFragment"
         android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.ChangeCountryFragment"
-        android:label="fragment_change_country"
-        tools:layout="@layout/fragment_change_country" />
+        android:label="fragment_change_country" />
     <fragment
         android:id="@+id/changeEmailFragment"
         android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.ChangeEmailFragment"
-        android:label="fragment_change_email"
-        tools:layout="@layout/fragment_change_email" />
+        android:label="fragment_change_email" />
 </navigation>

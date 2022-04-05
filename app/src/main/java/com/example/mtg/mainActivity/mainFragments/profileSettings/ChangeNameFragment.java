@@ -2,6 +2,8 @@ package com.example.mtg.mainActivity.mainFragments.profileSettings;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -10,15 +12,31 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mtg.R;
+import com.example.mtg.databinding.FragmentChangeDataBinding;
 
 
 public class ChangeNameFragment extends Fragment {
-
+    private FragmentChangeDataBinding binding;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        binding = FragmentChangeDataBinding.inflate(inflater,container,false);
+        View view = binding.getRoot();
+        return view;
+    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initListeners();
+        setViewData();
+    }
 
-        return inflater.inflate(R.layout.fragment_change_name, container, false);
+    private void setViewData() {
+        binding.changeEditText.setHint(R.string.name);
+        binding.changeEditText.setStartIconDrawable(R.drawable.ic_baseline_person_24);
+        binding.changeButton.setText(R.string.change_name);
+    }
+
+    private void initListeners() {
     }
 }
