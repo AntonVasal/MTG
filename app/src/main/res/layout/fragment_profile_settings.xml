@@ -78,24 +78,15 @@
 
                 <TextView
                     android:id="@+id/info_nickname_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    style="@style/KindOfUserDataTextViews"
                     android:text="@string/nickname"
-                    android:textColor="@color/blue_bright"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@id/user_nickname_image"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/info_nickname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="7dp"
+                    style="@style/UserDataTextViews"
                     android:text="@={viewModel.user.nickname}"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/user_nickname_image"
                     app:layout_constraintTop_toBottomOf="@id/info_nickname_text" />
@@ -143,24 +134,15 @@
 
                 <TextView
                     android:id="@+id/info_name_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    style="@style/KindOfUserDataTextViews"
                     android:text="@string/name"
-                    android:textColor="@color/blue_bright"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@id/user_name_image"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/info_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="7dp"
+                    style="@style/UserDataTextViews"
                     android:text="@={viewModel.user.name}"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/user_name_image"
                     app:layout_constraintTop_toBottomOf="@id/info_name_text" />
@@ -208,24 +190,15 @@
 
                 <TextView
                     android:id="@+id/info_surname_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    style="@style/KindOfUserDataTextViews"
                     android:text="@string/surname"
-                    android:textColor="@color/blue_bright"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@id/user_surname_image"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/info_surname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="7dp"
+                    style="@style/UserDataTextViews"
                     android:text="@={viewModel.user.surname}"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/user_surname_image"
                     app:layout_constraintTop_toBottomOf="@id/info_surname_text" />
@@ -273,24 +246,15 @@
 
                 <TextView
                     android:id="@+id/info_email_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    style="@style/KindOfUserDataTextViews"
                     android:text="@string/email"
-                    android:textColor="@color/blue_bright"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@id/user_email_image"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/info_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="7dp"
+                    style="@style/UserDataTextViews"
                     android:text="@={viewModel.user.email}"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/user_email_image"
                     app:layout_constraintTop_toBottomOf="@id/info_email_text" />
@@ -337,24 +301,15 @@
 
                 <TextView
                     android:id="@+id/info_country_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    style="@style/KindOfUserDataTextViews"
                     android:text="@string/country"
-                    android:textColor="@color/blue_bright"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@id/user_country_image"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/info_country"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="7dp"
+                    style="@style/UserDataTextViews"
                     android:text="@={viewModel.user.country}"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/user_country_image"
                     app:layout_constraintTop_toBottomOf="@id/info_country_text" />

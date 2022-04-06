@@ -54,8 +54,8 @@
         <entry key="..\:/MTG/app/src/main/res/layout/fragment_main.xml" value="0.18032786885245902" />
         <entry key="..\:/MTG/app/src/main/res/layout/fragment_natural.xml" value="0.25416666666666665" />
         <entry key="..\:/MTG/app/src/main/res/layout/fragment_new.xml" value="0.22735507246376813" />
-        <entry key="..\:/MTG/app/src/main/res/layout/fragment_profile.xml" value="0.264" />
-        <entry key="..\:/MTG/app/src/main/res/layout/fragment_profile_settings.xml" value="0.13125" />
+        <entry key="..\:/MTG/app/src/main/res/layout/fragment_profile.xml" value="0.24210526315789474" />
+        <entry key="..\:/MTG/app/src/main/res/layout/fragment_profile_settings.xml" value="0.2" />
         <entry key="..\:/MTG/app/src/main/res/layout/fragment_profile_settings_password_confirmation.xml" value="0.2" />
         <entry key="..\:/MTG/app/src/main/res/layout/fragment_register.xml" value="0.2" />
         <entry key="..\:/MTG/app/src/main/res/layout/fragment_reset_password.xml" value="0.17708333333333334" />

@@ -59,7 +59,7 @@ public class ChangeSurnameFragment extends Fragment {
     private void initListeners() {
         binding.changeBackButton.setOnClickListener(view -> navController.popBackStack());
         binding.changeButton.setOnClickListener(view -> {
-            if (Objects.requireNonNull(binding.forChange.getText()).toString().trim().length() == 0) {
+            if (Objects.requireNonNull(binding.forChange.getText()).toString().trim().isEmpty()) {
                 binding.changeEditText.setError("Surname can not be empty");
                 binding.changeEditText.requestFocus();
                 return;
