@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.mtg.R;
-import com.example.mtg.mainActivity.mainFragments.results.adapters.ResultsAdapter;
+import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsTabLayoutAdapter.ResultsAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 

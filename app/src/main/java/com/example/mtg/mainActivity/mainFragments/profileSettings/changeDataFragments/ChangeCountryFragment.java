@@ -1,17 +1,16 @@
-package com.example.mtg.mainActivity.mainFragments.profileSettings;
+package com.example.mtg.mainActivity.mainFragments.profileSettings.changeDataFragments;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentChangeDataBinding;
@@ -22,11 +21,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Objects;
 
 
-public class ChangeSurnameFragment extends Fragment {
+public class ChangeCountryFragment extends Fragment {
     private FragmentChangeDataBinding binding;
-    private NavController navController;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
+    private NavController navController;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,6 +41,7 @@ public class ChangeSurnameFragment extends Fragment {
         binding = FragmentChangeDataBinding.inflate(inflater,container,false);
         return binding.getRoot();
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -51,36 +52,37 @@ public class ChangeSurnameFragment extends Fragment {
     }
 
     private void setViewData() {
-        binding.changeEditText.setHint(R.string.surname);
-        binding.changeEditText.setStartIconDrawable(R.drawable.ic_baseline_group_24);
-        binding.changeButton.setText(R.string.change_surname);
+        binding.forChange.setVisibility(View.INVISIBLE);
+        binding.changeEditText.setVisibility(View.INVISIBLE);
+        binding.changeButton.setText(R.string.change_country);
+        binding.countryPickerForChange.setVisibility(View.VISIBLE);
     }
 
     private void initListeners() {
         binding.changeBackButton.setOnClickListener(view -> navController.popBackStack());
         binding.changeButton.setOnClickListener(view -> {
-            if (Objects.requireNonNull(binding.forChange.getText()).toString().trim().isEmpty()) {
-                binding.changeEditText.setError("Surname can not be empty");
-                binding.changeEditText.requestFocus();
-                return;
-            }
-            String surname = binding.forChange.getText().toString().trim();
-            String id = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
-            firebaseFirestore.collection("users").document(id)
+            String country = binding.countryPickerForChange.getSelectedCountryName();
+
+            firebaseFirestore.collection("users")
+                    .document(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())
                     .get().addOnSuccessListener(documentSnapshot -> {
+
                 UserRegisterProfileModel userRegisterProfileModel = documentSnapshot.toObject(UserRegisterProfileModel.class);
                 assert userRegisterProfileModel != null;
-                userRegisterProfileModel.setSurname(surname);
-                firebaseFirestore.collection("users").document(id)
-                        .set(userRegisterProfileModel).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Log.i("MainActivity", "Success");
-                        navController.popBackStack();
-                    } else {
-                        Log.i("MainActivity", "Failed");
-                    }
-                });
-            });
+                userRegisterProfileModel.setCountry(country);
+
+                firebaseFirestore.collection("users")
+                        .document(firebaseAuth.getCurrentUser().getUid())
+                        .set(userRegisterProfileModel)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Log.i("MainActivity", "Success");
+                                navController.popBackStack();
+                            } else {
+                                Log.i("MainActivity", "Failed");
+                            }
+                        });
+                    });
         });
     }
 }

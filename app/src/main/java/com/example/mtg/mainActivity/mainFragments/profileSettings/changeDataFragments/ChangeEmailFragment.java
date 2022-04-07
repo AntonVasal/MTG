@@ -1,4 +1,4 @@
-package com.example.mtg.mainActivity.mainFragments.profileSettings;
+package com.example.mtg.mainActivity.mainFragments.profileSettings.changeDataFragments;
 
 import android.os.Bundle;
 
@@ -14,9 +14,9 @@ import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentChangeDataBinding;
 
 
-public class ChangeNicknameFragment extends Fragment {
-
+public class ChangeEmailFragment extends Fragment {
     private FragmentChangeDataBinding binding;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -24,6 +24,7 @@ public class ChangeNicknameFragment extends Fragment {
         View view = binding.getRoot();
         return view;
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -32,9 +33,9 @@ public class ChangeNicknameFragment extends Fragment {
     }
 
     private void setViewData() {
-        binding.changeEditText.setHint(R.string.nickname);
-        binding.changeEditText.setStartIconDrawable(R.drawable.ic_baseline_star_24);
-        binding.changeButton.setText(R.string.change_nickname);
+        binding.changeEditText.setHint(R.string.email);
+        binding.changeEditText.setStartIconDrawable(R.drawable.ic_baseline_email_24);
+        binding.changeButton.setText(R.string.change_email);
     }
 
     private void initListeners() {

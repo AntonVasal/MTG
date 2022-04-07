@@ -1,4 +1,4 @@
-package com.example.mtg.mainActivity.mainFragments.profileSettings;
+package com.example.mtg.mainActivity.mainFragments.profileSettings.ConfirmPasswordFragment;
 
 import android.os.Bundle;
 import android.util.Log;

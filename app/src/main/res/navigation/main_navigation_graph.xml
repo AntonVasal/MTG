@@ -26,7 +26,7 @@
         android:label="MainActivity" />
     <fragment
         android:id="@+id/profileSettingsPasswordConfirmationFragment"
-        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.ProfileSettingsPasswordConfirmationFragment"
+        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.ConfirmPasswordFragment.ProfileSettingsPasswordConfirmationFragment"
         android:label="fragment_profile_settings_password_confirmation"
         tools:layout="@layout/fragment_profile_settings_password_confirmation" >
         <argument
@@ -51,22 +51,22 @@
     </fragment>
     <fragment
         android:id="@+id/changeNameFragment"
-        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.ChangeNameFragment"
+        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.changeDataFragments.ChangeNameFragment"
         android:label="fragment_change_name" />
     <fragment
         android:id="@+id/changeNicknameFragment"
-        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.ChangeNicknameFragment"
+        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.changeDataFragments.ChangeNicknameFragment"
         android:label="fragment_change_nickname" />
     <fragment
         android:id="@+id/changeSurnameFragment"
-        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.ChangeSurnameFragment"
+        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.changeDataFragments.ChangeSurnameFragment"
         android:label="fragment_change_surname" />
     <fragment
         android:id="@+id/changeCountryFragment"
-        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.ChangeCountryFragment"
+        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.changeDataFragments.ChangeCountryFragment"
         android:label="fragment_change_country" />
     <fragment
         android:id="@+id/changeEmailFragment"
-        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.ChangeEmailFragment"
+        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.changeDataFragments.ChangeEmailFragment"
         android:label="fragment_change_email" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.example.mtg.mainActivity.mainFragments.results.adapters;
+package com.example.mtg.mainActivity.mainFragments.results.adapters.resultsTabLayoutAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

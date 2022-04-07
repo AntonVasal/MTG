@@ -1,4 +1,4 @@
-package com.example.mtg.mainActivity.mainFragments.profileSettings;
+package com.example.mtg.mainActivity.mainFragments.profileSettings.changeDataFragments;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -21,12 +21,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Objects;
 
 
-public class ChangeCountryFragment extends Fragment {
+public class ChangeNameFragment extends Fragment {
     private FragmentChangeDataBinding binding;
+    private NavController navController;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
-    private NavController navController;
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,7 +37,7 @@ public class ChangeCountryFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentChangeDataBinding.inflate(inflater,container,false);
+        binding = FragmentChangeDataBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -52,37 +51,36 @@ public class ChangeCountryFragment extends Fragment {
     }
 
     private void setViewData() {
-        binding.forChange.setVisibility(View.INVISIBLE);
-        binding.changeEditText.setVisibility(View.INVISIBLE);
-        binding.changeButton.setText(R.string.change_country);
-        binding.countryPickerForChange.setVisibility(View.VISIBLE);
+        binding.changeEditText.setHint(R.string.name);
+        binding.changeEditText.setStartIconDrawable(R.drawable.ic_baseline_person_24);
+        binding.changeButton.setText(R.string.change_name);
     }
 
     private void initListeners() {
         binding.changeBackButton.setOnClickListener(view -> navController.popBackStack());
         binding.changeButton.setOnClickListener(view -> {
-            String country = binding.countryPickerForChange.getSelectedCountryName();
-
-            firebaseFirestore.collection("users")
-                    .document(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())
+            if (Objects.requireNonNull(binding.forChange.getText()).toString().trim().isEmpty()) {
+                binding.changeEditText.setError("Name can not be empty");
+                binding.changeEditText.requestFocus();
+                return;
+            }
+            String name = binding.forChange.getText().toString().trim();
+            String id = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+            firebaseFirestore.collection("users").document(id)
                     .get().addOnSuccessListener(documentSnapshot -> {
-
                 UserRegisterProfileModel userRegisterProfileModel = documentSnapshot.toObject(UserRegisterProfileModel.class);
                 assert userRegisterProfileModel != null;
-                userRegisterProfileModel.setCountry(country);
-
-                firebaseFirestore.collection("users")
-                        .document(firebaseAuth.getCurrentUser().getUid())
-                        .set(userRegisterProfileModel)
-                        .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                Log.i("MainActivity", "Success");
-                                navController.popBackStack();
-                            } else {
-                                Log.i("MainActivity", "Failed");
-                            }
-                        });
-                    });
+                userRegisterProfileModel.setName(name);
+                firebaseFirestore.collection("users").document(id)
+                        .set(userRegisterProfileModel).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.i("MainActivity", "Success");
+                        navController.popBackStack();
+                    } else {
+                        Log.i("MainActivity", "Failed");
+                    }
+                });
+            });
         });
     }
 }
