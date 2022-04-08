@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,11 +13,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.mtg.R;
+import com.example.mtg.databinding.FragmentResultsRecyclerBinding;
 import com.example.mtg.logActivity.models.UserRegisterProfileModel;
 import com.example.mtg.mainActivity.count.countModels.SubResultsModel;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.OnItemResultsRecyclerClickInterface;
@@ -30,11 +29,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 
 public class SubFragment extends Fragment implements OnItemResultsRecyclerClickInterface {
-    private Button natButton;
-    private Button intButton;
-    private Button decButton;
 
-    private RecyclerView recyclerView;
+    private FragmentResultsRecyclerBinding binding;
+
     private ResultsRecyclerViewAdapter adapter;
     LinearLayoutManager layoutManager;
 
@@ -52,23 +49,22 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
 
     }
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_results_recycler, container, false);
-        natButton = view.findViewById(R.id.nat_button);
-        intButton = view.findViewById(R.id.int_button);
-        decButton = view.findViewById(R.id.dec_button);
-        natButton.setEnabled(false);
+        binding = FragmentResultsRecyclerBinding.inflate(inflater, container, false);
+
+        View view = binding.getRoot();
+
+        binding.natButton.setEnabled(false);
         initListeners();
 
         subViewModel = new ViewModelProvider(requireActivity()).get(SubViewModel.class);
 
 
-        recyclerView = view.findViewById(R.id.result_recycler);
-        recyclerView.setHasFixedSize(true);
+        binding.resultRecycler.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
+        binding.resultRecycler.setLayoutManager(layoutManager);
         return view;
     }
 
@@ -86,28 +82,28 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
                 subResultsNaturalsModels.removeIf(subResultsModel -> subResultsModel.getSubNaturalScore()==0);
                 adapter = new ResultsRecyclerViewAdapter(getContext(),3,1,this);
                 adapter.setSubItemList(subResultsNaturalsModels);
-                recyclerView.setAdapter(adapter);
+                binding.resultRecycler.setAdapter(adapter);
             }
         });
     }
     private void initListeners() {
-        natButton.setOnClickListener(view -> {
-            natButton.setEnabled(false);
-            natButton.setTextColor(getResources().getColor(R.color.blue,null));
-            intButton.setEnabled(true);
-            intButton.setTextColor(getResources().getColor(R.color.white,null));
-            decButton.setEnabled(true);
-            decButton.setTextColor(getResources().getColor(R.color.white,null));
+        binding.natButton.setOnClickListener(view -> {
+            binding.natButton.setEnabled(false);
+            binding.natButton.setTextColor(getResources().getColor(R.color.blue,null));
+            binding.intButton.setEnabled(true);
+            binding.intButton.setTextColor(getResources().getColor(R.color.white,null));
+            binding.decButton.setEnabled(true);
+            binding.decButton.setTextColor(getResources().getColor(R.color.white,null));
 
             generateItem();
         });
-        intButton.setOnClickListener(view -> {
-            natButton.setEnabled(true);
-            natButton.setTextColor(getResources().getColor(R.color.white,null));
-            intButton.setEnabled(false);
-            intButton.setTextColor(getResources().getColor(R.color.blue,null));
-            decButton.setEnabled(true);
-            decButton.setTextColor(getResources().getColor(R.color.white,null));
+        binding.intButton.setOnClickListener(view -> {
+            binding.natButton.setEnabled(true);
+            binding.natButton.setTextColor(getResources().getColor(R.color.white,null));
+            binding.intButton.setEnabled(false);
+            binding.intButton.setTextColor(getResources().getColor(R.color.blue,null));
+            binding.decButton.setEnabled(true);
+            binding.decButton.setTextColor(getResources().getColor(R.color.white,null));
 
             subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
                 if (subResultsModels != null && subResultsModels.size()!=0){
@@ -116,17 +112,17 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
                     subResultsIntegersModels.removeIf(subResultsModel -> subResultsModel.getSubIntegerScore()==0);
                     adapter = new ResultsRecyclerViewAdapter(getContext(),3,2,this);
                     adapter.setSubItemList(subResultsIntegersModels);
-                    recyclerView.setAdapter(adapter);
+                    binding.resultRecycler.setAdapter(adapter);
                 }
             });
         });
-        decButton.setOnClickListener(view -> {
-            natButton.setEnabled(true);
-            natButton.setTextColor(getResources().getColor(R.color.white,null));
-            intButton.setEnabled(true);
-            intButton.setTextColor(getResources().getColor(R.color.white,null));
-            decButton.setEnabled(false);
-            decButton.setTextColor(getResources().getColor(R.color.blue,null));
+        binding.decButton.setOnClickListener(view -> {
+            binding.natButton.setEnabled(true);
+            binding.natButton.setTextColor(getResources().getColor(R.color.white,null));
+            binding.intButton.setEnabled(true);
+            binding.intButton.setTextColor(getResources().getColor(R.color.white,null));
+            binding.decButton.setEnabled(false);
+            binding.decButton.setTextColor(getResources().getColor(R.color.blue,null));
 
             subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
                 if (subResultsModels != null && subResultsModels.size()!=0){
@@ -135,7 +131,7 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
                     subResultsDecimalsModels.removeIf(subResultsModel -> subResultsModel.getSubDecimalScore()==0);
                     adapter = new ResultsRecyclerViewAdapter(getContext(),3,3,this);
                     adapter.setSubItemList(subResultsDecimalsModels);
-                    recyclerView.setAdapter(adapter);
+                    binding.resultRecycler.setAdapter(adapter);
                 }
             });
         });
