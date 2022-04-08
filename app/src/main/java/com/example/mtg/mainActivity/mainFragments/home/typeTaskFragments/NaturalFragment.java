@@ -4,17 +4,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.example.mtg.mainActivity.count.CountFragment;
 import com.example.mtg.R;
+import com.example.mtg.databinding.FragmentTypeTaskBinding;
+import com.example.mtg.mainActivity.count.CountFragment;
 
 
 public class NaturalFragment extends Fragment {
-    private TextView Add, Multi, Sub, Div;
+    private FragmentTypeTaskBinding binding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,29 +24,30 @@ public class NaturalFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_type_task, container, false);
-        Add = view.findViewById(R.id.add_text);
-        Multi = view.findViewById(R.id.multi_text);
-        Sub = view.findViewById(R.id.sub_text);
-        Div = view.findViewById(R.id.div_text);
+        binding = FragmentTypeTaskBinding.inflate(inflater,container,false);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         initListeners();
-        return view;
     }
 
     private void initListeners() {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        Add.setOnClickListener(view -> fragmentManager.beginTransaction().replace(R.id.fragment_container_view,new CountFragment(1,1))
+        binding.addText.setOnClickListener(view -> fragmentManager.beginTransaction().replace(R.id.fragment_container_view,new CountFragment(1,1))
                 .addToBackStack("")
                 .commit());
-        Multi.setOnClickListener(view -> fragmentManager.beginTransaction().replace(R.id.fragment_container_view,new CountFragment(2,1))
+        binding.multiText.setOnClickListener(view -> fragmentManager.beginTransaction().replace(R.id.fragment_container_view,new CountFragment(2,1))
                 .addToBackStack("")
                 .commit());
-        Sub.setOnClickListener(view -> fragmentManager.beginTransaction().replace(R.id.fragment_container_view,new CountFragment(3,1))
+        binding.subText.setOnClickListener(view -> fragmentManager.beginTransaction().replace(R.id.fragment_container_view,new CountFragment(3,1))
                 .addToBackStack("")
                 .commit());
-        Div.setOnClickListener(view -> fragmentManager.beginTransaction().replace(R.id.fragment_container_view,new CountFragment(4,1))
+        binding.divText.setOnClickListener(view -> fragmentManager.beginTransaction().replace(R.id.fragment_container_view,new CountFragment(4,1))
                 .addToBackStack("")
                 .commit());
     }

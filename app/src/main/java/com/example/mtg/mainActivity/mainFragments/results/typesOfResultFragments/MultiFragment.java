@@ -59,8 +59,6 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
 
         View view = binding.getRoot();
 
-        initListeners();
-        binding.natButton.setEnabled(false);
         multiViewModel = new ViewModelProvider(requireActivity()).get(MultiViewModel.class);
 
         binding.resultRecycler.setHasFixedSize(true);
@@ -73,6 +71,8 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         generateItem();
+        initListeners();
+        binding.natButton.setEnabled(false);
     }
 
     private void generateItem() {

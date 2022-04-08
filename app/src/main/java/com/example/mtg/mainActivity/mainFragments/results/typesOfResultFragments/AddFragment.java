@@ -62,14 +62,7 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
         layoutManager = new LinearLayoutManager(getContext());
         binding.resultRecycler.setLayoutManager(layoutManager);
 
-
         addViewModel = new ViewModelProvider(requireActivity()).get(AddViewModel.class);
-
-
-        binding.natButton.setEnabled(false);
-        initListeners();
-
-        binding.recyclerProgressBar.setVisibility(View.VISIBLE);
 
         return view;
     }
@@ -78,7 +71,9 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         generateItem();
-
+        initListeners();
+        binding.natButton.setEnabled(false);
+        binding.recyclerProgressBar.setVisibility(View.VISIBLE);
     }
 
     private void generateItem() {

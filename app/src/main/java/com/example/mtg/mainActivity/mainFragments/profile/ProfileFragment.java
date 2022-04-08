@@ -24,7 +24,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.bumptech.glide.Glide;
@@ -39,7 +38,6 @@ import com.example.mtg.mainActivity.count.countModels.MultiResultsModel;
 import com.example.mtg.mainActivity.count.countModels.SubResultsModel;
 import com.example.mtg.mainActivity.mainFragments.MainFragmentDirections;
 import com.example.mtg.mainActivity.mainFragments.profile.viewModel.ProfileViewModel;
-import com.example.mtg.mainActivity.mainFragments.profileSettings.ProfileSettingsFragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -78,7 +76,13 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         binding.profileProgressBar.setVisibility(View.VISIBLE);
+        setData();
         initListeners();
+
+        AnimationDrawable animationDrawableForProfileDetails = (AnimationDrawable) binding.mainDetailsContainer.getBackground();
+        animationDrawableForProfileDetails.setEnterFadeDuration(2500);
+        animationDrawableForProfileDetails.setExitFadeDuration(5000);
+        animationDrawableForProfileDetails.start();
     }
 
     @Override
@@ -88,11 +92,6 @@ public class ProfileFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
         binding.setLifecycleOwner(requireActivity());
 
-        AnimationDrawable animationDrawableForProfileDetails = (AnimationDrawable) binding.mainDetailsContainer.getBackground();
-        animationDrawableForProfileDetails.setEnterFadeDuration(2500);
-        animationDrawableForProfileDetails.setExitFadeDuration(5000);
-        animationDrawableForProfileDetails.start();
-
         mAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -100,7 +99,6 @@ public class ProfileFragment extends Fragment {
         profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
         binding.setViewModel(profileViewModel);
 
-        setData();
 
         return binding.getRoot();
     }
@@ -125,9 +123,6 @@ public class ProfileFragment extends Fragment {
         binding.settingsButton.setOnClickListener(view -> {
             NavDirections action = MainFragmentDirections.actionMainFragment2ToProfileSettingsFragment();
             navController.navigate(action);
-//            requireActivity().getSupportFragmentManager().beginTransaction()
-//                    .replace(R.id.main_app_container, new ProfileSettingsFragment())
-//                    .commit();
         });
     }
 
