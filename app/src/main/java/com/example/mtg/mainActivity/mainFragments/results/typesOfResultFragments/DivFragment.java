@@ -59,9 +59,6 @@ public class DivFragment extends Fragment implements OnItemResultsRecyclerClickI
         binding = FragmentResultsRecyclerBinding.inflate(inflater, container, false);
 
         View view = binding.getRoot();
-
-        initListeners();
-        binding.natButton.setEnabled(false);
         divViewModel = new ViewModelProvider(requireActivity()).get(DivViewModel.class);
 
         binding.resultRecycler.setHasFixedSize(true);
@@ -74,6 +71,8 @@ public class DivFragment extends Fragment implements OnItemResultsRecyclerClickI
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         generateItem();
+        initListeners();
+        binding.natButton.setEnabled(false);
     }
 
     private void generateItem() {

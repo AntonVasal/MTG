@@ -56,9 +56,6 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
 
         View view = binding.getRoot();
 
-        binding.natButton.setEnabled(false);
-        initListeners();
-
         subViewModel = new ViewModelProvider(requireActivity()).get(SubViewModel.class);
 
 
@@ -72,6 +69,8 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         generateItem();
+        binding.natButton.setEnabled(false);
+        initListeners();
     }
 
     private void generateItem() {

@@ -5,9 +5,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 
-import com.example.mtg.mainActivity.mainFragments.MainFragment;
 import com.example.mtg.R;
 
 
