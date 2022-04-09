@@ -39,11 +39,13 @@ public class CountFragment extends Fragment {
     private PrimaryTasksGenerator primaryTasksGenerator;
     private CountViewsOperator countViewsOperator;
     private CountResultsToFirestoreSettersOperator countResultsToFirestoreSettersOperator;
+    private static final String TYPE_NUMBER = "typeNumber";
+    private static final String TASK_TYPE = "taskType";
 
     public static CountFragment newInstance(int taskType,int typeNumber){
         Bundle args = new Bundle();
-        args.putInt("taskType",taskType);
-        args.putInt("typeNumber",typeNumber);
+        args.putInt(TASK_TYPE,taskType);
+        args.putInt(TYPE_NUMBER,typeNumber);
         CountFragment f = new CountFragment();
         f.setArguments(args);
         return f;
@@ -53,8 +55,8 @@ public class CountFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         assert getArguments() != null;
-        typeNumber = getArguments().getInt("typeNumber");
-        taskType = getArguments().getInt("taskType");
+        typeNumber = getArguments().getInt(TYPE_NUMBER);
+        taskType = getArguments().getInt(TASK_TYPE);
     }
 
     @Nullable
@@ -254,7 +256,7 @@ public class CountFragment extends Fragment {
         } else{
             resultCounter = resultCounter - 10;
         }
-        String score = "Score: " + resultCounter;
+        String score = getResources().getString(R.string.score) + " " + resultCounter;
         binding.scoreText.setText(score);
     }
 
@@ -272,7 +274,7 @@ public class CountFragment extends Fragment {
         userFinishDialog(scoreForDialog,amountForDialog);
         amountOfTask = 0;
         resultCounter = 0;
-        String score = "Score: 0";
+        String score = getResources().getString(R.string.score) + " 0";
         binding.scoreText.setText(score);
         binding.countTimer.stop();
         binding.countTimer.setBase(SystemClock.elapsedRealtime());

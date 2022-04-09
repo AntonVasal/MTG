@@ -14,6 +14,10 @@ import java.util.Objects;
 public class ProfileViewModel extends ViewModel {
 
     private MutableLiveData<UserRegisterProfileModel> user;
+    private static final String TAG = "MainActivity";
+    private static final String FAILED = "Failed";
+    private static final String USERS = "users";
+
 
     public MutableLiveData<UserRegisterProfileModel> getUser() {
         if (user == null) {
@@ -25,23 +29,22 @@ public class ProfileViewModel extends ViewModel {
 
 
     private void loadData() {
-        FirebaseFirestore.getInstance()
-                .collection("users")
+        new Thread(() -> FirebaseFirestore.getInstance()
+                .collection(USERS)
                 .document(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
                 .addSnapshotListener((value, error) -> {
                     if (error != null) {
-                        Log.i("MainActivity", "Failed");
+                        Log.i(TAG, FAILED);
                         return;
                     }
                     if (value != null && value.exists()) {
                         UserRegisterProfileModel userProfile = value.toObject(UserRegisterProfileModel.class);
                         user.postValue(userProfile);
                     } else {
-                        Log.i("MainActivity", "Failed");
+                        Log.i(TAG, FAILED);
                     }
-                });
-
-
-
+                })).start();
     }
+
+
 }

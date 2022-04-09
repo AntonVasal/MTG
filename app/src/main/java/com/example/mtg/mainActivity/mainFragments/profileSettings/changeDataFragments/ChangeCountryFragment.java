@@ -26,6 +26,10 @@ public class ChangeCountryFragment extends Fragment {
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
     private NavController navController;
+    private static final String TAG = "MainActivity";
+    private static final String SUCCESS = "Success";
+    private static final String FAILED = "Failed";
+    private static final String USERS = "users";
 
 
     @Override
@@ -62,8 +66,7 @@ public class ChangeCountryFragment extends Fragment {
         binding.changeBackButton.setOnClickListener(view -> navController.popBackStack());
         binding.changeButton.setOnClickListener(view -> {
             String country = binding.countryPickerForChange.getSelectedCountryName();
-
-            firebaseFirestore.collection("users")
+            new Thread(() -> firebaseFirestore.collection(USERS)
                     .document(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())
                     .get().addOnSuccessListener(documentSnapshot -> {
 
@@ -71,18 +74,18 @@ public class ChangeCountryFragment extends Fragment {
                 assert userRegisterProfileModel != null;
                 userRegisterProfileModel.setCountry(country);
 
-                firebaseFirestore.collection("users")
+                firebaseFirestore.collection(USERS)
                         .document(firebaseAuth.getCurrentUser().getUid())
                         .set(userRegisterProfileModel)
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
-                                Log.i("MainActivity", "Success");
+                                Log.i(TAG, SUCCESS);
                                 navController.popBackStack();
                             } else {
-                                Log.i("MainActivity", "Failed");
+                                Log.i(TAG, FAILED);
                             }
                         });
-                    });
+            })).start();
         });
     }
 

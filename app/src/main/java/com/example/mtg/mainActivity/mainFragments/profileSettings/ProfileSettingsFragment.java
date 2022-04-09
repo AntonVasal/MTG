@@ -22,9 +22,9 @@ import java.util.Objects;
 
 public class ProfileSettingsFragment extends Fragment {
 
-    FragmentProfileSettingsBindingImpl binding;
-    ProfileViewModel profileSettingsViewModel;
-    NavController navController;
+    private FragmentProfileSettingsBindingImpl binding;
+    private NavController navController;
+    private static final String TYPE_FRAGMENTS = "typeFragments";
 
 
 
@@ -45,27 +45,27 @@ public class ProfileSettingsFragment extends Fragment {
         binding.settingsBackButton.setOnClickListener(view -> navController.popBackStack());
         binding.changeNicknameButton.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
-            bundle.putInt("typeFragments",1);
+            bundle.putInt(TYPE_FRAGMENTS,1);
             navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
         });
         binding.changeNameButton.setOnClickListener(view ->{
             Bundle bundle = new Bundle();
-            bundle.putInt("typeFragments",2);
+            bundle.putInt(TYPE_FRAGMENTS,2);
             navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
         });
         binding.changeSurnameButton.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
-            bundle.putInt("typeFragments",3);
+            bundle.putInt(TYPE_FRAGMENTS,3);
             navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
         });
         binding.changeEmailButton.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
-            bundle.putInt("typeFragments",4);
+            bundle.putInt(TYPE_FRAGMENTS,4);
             navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
         });
         binding.changeCountryButton.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
-            bundle.putInt("typeFragments",5);
+            bundle.putInt(TYPE_FRAGMENTS,5);
             navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
         });
     }
@@ -77,7 +77,7 @@ public class ProfileSettingsFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile_settings, container, false);
         binding.setLifecycleOwner(requireActivity());
-        profileSettingsViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
+        ProfileViewModel profileSettingsViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
         binding.setViewModel(profileSettingsViewModel);
 
         return binding.getRoot();

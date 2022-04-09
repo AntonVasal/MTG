@@ -30,6 +30,7 @@ import java.util.ArrayList;
 
 public class SubFragment extends Fragment implements OnItemResultsRecyclerClickInterface {
 
+    private static final String USERS = "users";
     private FragmentResultsRecyclerBinding binding;
 
     private ResultsRecyclerViewAdapter adapter;
@@ -175,7 +176,7 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
                     assert nicknameInfo != null;
                     nicknameInfo.setText(subResultsNaturalsModels.get(position).getNickname());
 
-                    firebaseFirestore.collection("users").document(subResultsNaturalsModels.get(position).getId())
+                    firebaseFirestore.collection(USERS).document(subResultsNaturalsModels.get(position).getId())
                             .addSnapshotListener((value, error) -> {
                                 if (error != null) {
                                     return;
@@ -215,7 +216,7 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
                     assert nicknameInfo != null;
                     nicknameInfo.setText(subResultsIntegersModels.get(position).getNickname());
 
-                    firebaseFirestore.collection("users").document(subResultsIntegersModels.get(position).getId())
+                    firebaseFirestore.collection(USERS).document(subResultsIntegersModels.get(position).getId())
                             .addSnapshotListener((value, error) -> {
                                 if (error != null) {
                                     return;
@@ -255,7 +256,7 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
                     assert nicknameInfo != null;
                     nicknameInfo.setText(subResultsDecimalsModels.get(position).getNickname());
 
-                    firebaseFirestore.collection("users").document(subResultsDecimalsModels.get(position).getId())
+                    firebaseFirestore.collection(USERS).document(subResultsDecimalsModels.get(position).getId())
                             .addSnapshotListener((value, error) -> {
                                 if (error != null) {
                                     return;

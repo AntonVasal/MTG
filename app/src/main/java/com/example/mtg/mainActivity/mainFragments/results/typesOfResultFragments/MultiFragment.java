@@ -30,7 +30,7 @@ import java.util.ArrayList;
 
 public class MultiFragment extends Fragment implements OnItemResultsRecyclerClickInterface {
 
-
+    private static final String USERS = "users";
     private FragmentResultsRecyclerBinding binding;
 
     private ResultsRecyclerViewAdapter adapter;
@@ -178,7 +178,7 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
                     assert nicknameInfo != null;
                     nicknameInfo.setText(multiResultsNaturalsModels.get(position).getNickname());
 
-                    firebaseFirestore.collection("users").document(multiResultsNaturalsModels.get(position).getId())
+                    firebaseFirestore.collection(USERS).document(multiResultsNaturalsModels.get(position).getId())
                             .addSnapshotListener((value, error) -> {
                                 if (error != null) {
                                     return;
@@ -218,7 +218,7 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
                     assert nicknameInfo != null;
                     nicknameInfo.setText(multiResultsIntegersModels.get(position).getNickname());
 
-                    firebaseFirestore.collection("users").document(multiResultsIntegersModels.get(position).getId())
+                    firebaseFirestore.collection(USERS).document(multiResultsIntegersModels.get(position).getId())
                             .addSnapshotListener((value, error) -> {
                                 if (error != null) {
                                     return;
@@ -258,7 +258,7 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
                     assert nicknameInfo != null;
                     nicknameInfo.setText(multiResultsDecimalsModels.get(position).getNickname());
 
-                    firebaseFirestore.collection("users").document(multiResultsDecimalsModels.get(position).getId())
+                    firebaseFirestore.collection(USERS).document(multiResultsDecimalsModels.get(position).getId())
                             .addSnapshotListener((value, error) -> {
                                 if (error != null) {
                                     return;

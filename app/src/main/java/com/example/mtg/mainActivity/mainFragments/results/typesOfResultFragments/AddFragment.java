@@ -38,6 +38,7 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
     private ArrayList<AddResultsModel> addResultsNaturalsModels;
     private ArrayList<AddResultsModel> addResultsIntegersModels;
     private ArrayList<AddResultsModel> addResultsDecimalsModels;
+    private static final String USERS = "users";
 
     private String name;
     private String country;
@@ -185,7 +186,7 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
                     assert nicknameInfo != null;
                     nicknameInfo.setText(addResultsNaturalsModels.get(position).getNickname());
 
-                    firebaseFirestore.collection("users").document(addResultsNaturalsModels.get(position).getId())
+                    firebaseFirestore.collection(USERS).document(addResultsNaturalsModels.get(position).getId())
                             .addSnapshotListener((value, error) -> {
                                 if (error != null) {
                                     return;
@@ -225,7 +226,7 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
                     assert nicknameInfo != null;
                     nicknameInfo.setText(addResultsIntegersModels.get(position).getNickname());
 
-                    firebaseFirestore.collection("users").document(addResultsIntegersModels.get(position).getId())
+                    firebaseFirestore.collection(USERS).document(addResultsIntegersModels.get(position).getId())
                             .addSnapshotListener((value, error) -> {
                                 if (error != null) {
                                     return;
@@ -265,7 +266,7 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
                     assert nicknameInfo != null;
                     nicknameInfo.setText(addResultsDecimalsModels.get(position).getNickname());
 
-                    firebaseFirestore.collection("users").document(addResultsDecimalsModels.get(position).getId())
+                    firebaseFirestore.collection(USERS).document(addResultsDecimalsModels.get(position).getId())
                             .addSnapshotListener((value, error) -> {
                                 if (error != null) {
                                     return;

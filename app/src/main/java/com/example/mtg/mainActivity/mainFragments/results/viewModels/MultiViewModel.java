@@ -17,6 +17,9 @@ public class MultiViewModel extends ViewModel {
     private int k;
     private String id;
     private FirebaseFirestore firebaseFirestore;
+    private static final String TAG = "MainActivity";
+    private static final String MULTI = "multi";
+    private static final String FAILED = "Failed";
 
     public MutableLiveData<ArrayList<MultiResultsModel>> getMutableLiveData(){
         if (mutableLiveData == null){
@@ -29,9 +32,9 @@ public class MultiViewModel extends ViewModel {
     private void loadData() {
         new Thread(() -> {
             firebaseFirestore = FirebaseFirestore.getInstance();
-            firebaseFirestore.collection("multi").addSnapshotListener((value, error) -> {
+            firebaseFirestore.collection(MULTI).addSnapshotListener((value, error) -> {
                 if (error != null) {
-                    Log.i("MainActivity", "Failed");
+                    Log.i(TAG, FAILED);
                     return;
                 }
                 assert value != null;

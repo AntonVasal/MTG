@@ -31,6 +31,14 @@ public class ChangeNicknameFragment extends Fragment {
     private NavController navController;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
+    private static final String TAG = "MainActivity";
+    private static final String SUCCESS = "Success";
+    private static final String FAILED = "Failed";
+    private static final String USERS = "users";
+    private static final String ADD = "add";
+    private static final String DIV = "div";
+    private static final String MULTI = "multi";
+    private static final String SUB = "sub";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,80 +86,80 @@ public class ChangeNicknameFragment extends Fragment {
     }
 
     private void sendNicknameToFirestore(String nickname, String id) {
-        firebaseFirestore.collection("users").document(id).get()
+        firebaseFirestore.collection(USERS).document(id).get()
                 .addOnSuccessListener(documentSnapshot -> {
                     UserRegisterProfileModel userRegisterProfileModel = documentSnapshot.toObject(UserRegisterProfileModel.class);
                     assert userRegisterProfileModel != null;
                     userRegisterProfileModel.setNickname(nickname);
-                    firebaseFirestore.collection("users").document(id).set(userRegisterProfileModel).addOnCompleteListener(task -> {
+                    firebaseFirestore.collection(USERS).document(id).set(userRegisterProfileModel).addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            sendNicknameToCountFirestore(nickname, id);
+                            new Thread(() -> sendNicknameToCountFirestore(nickname, id)).start();
                         } else {
-                            Log.i("MainActivity", "Failed");
+                            Log.i(TAG, FAILED);
                         }
                     });
                 });
     }
 
     private void sendNicknameToCountFirestore(String nickname, String id) {
-        firebaseFirestore.collection("add").document(id).get()
+        firebaseFirestore.collection(ADD).document(id).get()
                 .addOnSuccessListener(documentSnapshot -> {
                     AddResultsModel addResultsModel = documentSnapshot.toObject(AddResultsModel.class);
                     assert addResultsModel != null;
                     addResultsModel.setNickname(nickname);
-                    firebaseFirestore.collection("add").document(id)
+                    firebaseFirestore.collection(ADD).document(id)
                             .set(addResultsModel)
                             .addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
-                                    Log.i("MainActivity", "Success");
+                                    Log.i(TAG, SUCCESS);
                                 } else {
-                                    Log.i("MainActivity", "Failed");
+                                    Log.i(TAG, FAILED);
                                 }
                             });
                 });
-        firebaseFirestore.collection("div").document(id).get()
+        firebaseFirestore.collection(DIV).document(id).get()
                 .addOnSuccessListener(documentSnapshot -> {
                     DivResultsModel divResultsModel = documentSnapshot.toObject(DivResultsModel.class);
                     assert divResultsModel != null;
                     divResultsModel.setNickname(nickname);
-                    firebaseFirestore.collection("div").document(id)
+                    firebaseFirestore.collection(DIV).document(id)
                             .set(divResultsModel)
                             .addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
-                                    Log.i("MainActivity", "Success");
+                                    Log.i(TAG, SUCCESS);
                                 } else {
-                                    Log.i("MainActivity", "Failed");
+                                    Log.i(TAG, FAILED);
                                 }
                             });
                 });
-        firebaseFirestore.collection("sub").document(id).get()
+        firebaseFirestore.collection(SUB).document(id).get()
                 .addOnSuccessListener(documentSnapshot -> {
                     SubResultsModel subResultsModel = documentSnapshot.toObject(SubResultsModel.class);
                     assert subResultsModel != null;
                     subResultsModel.setNickname(nickname);
-                    firebaseFirestore.collection("sub").document(id)
+                    firebaseFirestore.collection(SUB).document(id)
                             .set(subResultsModel)
                             .addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
-                                    Log.i("MainActivity", "Success");
+                                    Log.i(TAG, SUCCESS);
                                 } else {
-                                    Log.i("MainActivity", "Failed");
+                                    Log.i(TAG, FAILED);
                                 }
                             });
                 });
-        firebaseFirestore.collection("multi").document(id).get()
+        firebaseFirestore.collection(MULTI).document(id).get()
                 .addOnSuccessListener(documentSnapshot -> {
                     MultiResultsModel multiResultsModel = documentSnapshot.toObject(MultiResultsModel.class);
                     assert multiResultsModel != null;
                     multiResultsModel.setNickname(nickname);
-                    firebaseFirestore.collection("multi").document(id)
+                    firebaseFirestore.collection(MULTI).document(id)
                             .set(multiResultsModel)
                             .addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
-                                    Log.i("MainActivity", "Success");
+                                    Log.i(TAG, SUCCESS);
                                     navController.popBackStack();
                                 } else {
-                                    Log.i("MainActivity", "Failed");
+                                    Log.i(TAG, FAILED);
                                 }
                             });
                 });

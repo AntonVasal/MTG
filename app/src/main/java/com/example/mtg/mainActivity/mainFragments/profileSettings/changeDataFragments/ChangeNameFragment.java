@@ -26,6 +26,10 @@ public class ChangeNameFragment extends Fragment {
     private NavController navController;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
+    private static final String TAG = "MainActivity";
+    private static final String SUCCESS = "Success";
+    private static final String FAILED = "Failed";
+    private static final String USERS = "users";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,21 +70,21 @@ public class ChangeNameFragment extends Fragment {
             }
             String name = binding.forChange.getText().toString().trim();
             String id = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
-            firebaseFirestore.collection("users").document(id)
+            new Thread(() -> firebaseFirestore.collection(USERS).document(id)
                     .get().addOnSuccessListener(documentSnapshot -> {
                 UserRegisterProfileModel userRegisterProfileModel = documentSnapshot.toObject(UserRegisterProfileModel.class);
                 assert userRegisterProfileModel != null;
                 userRegisterProfileModel.setName(name);
-                firebaseFirestore.collection("users").document(id)
+                firebaseFirestore.collection(USERS).document(id)
                         .set(userRegisterProfileModel).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Log.i("MainActivity", "Success");
+                        Log.i(TAG, SUCCESS);
                         navController.popBackStack();
                     } else {
-                        Log.i("MainActivity", "Failed");
+                        Log.i(TAG, FAILED);
                     }
                 });
-            });
+            })).start();
         });
     }
 

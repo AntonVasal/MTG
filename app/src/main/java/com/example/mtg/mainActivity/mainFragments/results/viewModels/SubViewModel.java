@@ -17,6 +17,9 @@ public class SubViewModel extends ViewModel {
     private int k;
     private String id;
     private FirebaseFirestore firebaseFirestore;
+    private static final String TAG = "MainActivity";
+    private static final String SUB = "sub";
+    private static final String FAILED = "Failed";
 
     public MutableLiveData<ArrayList<SubResultsModel>> getMutableLiveData(){
         if (mutableLiveData == null){
@@ -29,10 +32,10 @@ public class SubViewModel extends ViewModel {
     private void loadData() {
         new Thread(() -> {
             firebaseFirestore = FirebaseFirestore.getInstance();
-            firebaseFirestore.collection("sub").addSnapshotListener(
+            firebaseFirestore.collection(SUB).addSnapshotListener(
                     (value, error) -> {
                         if (error != null) {
-                            Log.i("MainActivity", "Failed");
+                            Log.i(TAG, FAILED);
                             return;
                         }
                         assert value != null;

@@ -58,6 +58,16 @@ public class ProfileFragment extends Fragment {
     private String downloadUrl = "";
     private Dialog imageDialog;
     private NavController navController;
+    private static final String IMAGE = "image/*";
+    private static final String TAG = "MainActivity";
+    private static final String SUCCESS = "Success";
+    private static final String FAILED = "Failed";
+    private static final String ADD = "add";
+    private static final String DIV = "div";
+    private static final String MULTI = "multi";
+    private static final String SUB = "sub";
+    private static final String USERS = "users";
+    private static final String EMPTY_IMAGE = "empty image uri";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -162,7 +172,7 @@ public class ProfileFragment extends Fragment {
         MaterialButton change = imageDialog.findViewById(R.id.exit_dialog_button);
         change.setText(getString(R.string.change_image));
         change.setOnClickListener(view -> {
-            mGetContent.launch("image/*");
+            mGetContent.launch(IMAGE);
             binding.profileProgressBar.setVisibility(View.VISIBLE);
         });
 
@@ -195,67 +205,67 @@ public class ProfileFragment extends Fragment {
                         assert downloadUri != null;
                         downloadUrl = downloadUri.toString();
                         /////////////////////////////////////////////////
-                        firebaseFirestore.collection("add").document(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
+                        firebaseFirestore.collection(ADD).document(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
                                 .get().addOnSuccessListener(documentSnapshot -> {
                             AddResultsModel addResultsModel = documentSnapshot.toObject(AddResultsModel.class);
                             assert addResultsModel != null;
                             addResultsModel.setImageUrl(downloadUrl);
-                            firebaseFirestore.collection("add").document(mAuth.getCurrentUser().getUid())
+                            firebaseFirestore.collection(ADD).document(mAuth.getCurrentUser().getUid())
                                     .set(addResultsModel).addOnCompleteListener(task12 -> {
                                 if (task12.isSuccessful()) {
-                                    Log.i("MainActivity", "Success");
+                                    Log.i(TAG, SUCCESS);
                                 } else {
-                                    Log.i("MainActivity", "Failed");
+                                    Log.i(TAG, FAILED);
                                 }
                             });
                         });
                         ////////////////////////////////////////////////
-                        firebaseFirestore.collection("multi").document(mAuth.getCurrentUser().getUid())
+                        firebaseFirestore.collection(MULTI).document(mAuth.getCurrentUser().getUid())
                                 .get().addOnSuccessListener(documentSnapshot -> {
                             MultiResultsModel multiResultsModel = documentSnapshot.toObject(MultiResultsModel.class);
                             assert multiResultsModel != null;
                             multiResultsModel.setImageUrl(downloadUrl);
-                            firebaseFirestore.collection("multi").document(mAuth.getCurrentUser().getUid())
+                            firebaseFirestore.collection(MULTI).document(mAuth.getCurrentUser().getUid())
                                     .set(multiResultsModel).addOnCompleteListener(task13 -> {
                                 if (task13.isSuccessful()) {
-                                    Log.i("MainActivity", "Success");
+                                    Log.i(TAG, SUCCESS);
                                 } else {
-                                    Log.i("MainActivity", "Failed");
+                                    Log.i(TAG, FAILED);
                                 }
                             });
                         });
                         ///////////////////////////////////////////////
-                        firebaseFirestore.collection("sub").document(mAuth.getCurrentUser().getUid())
+                        firebaseFirestore.collection(SUB).document(mAuth.getCurrentUser().getUid())
                                 .get().addOnSuccessListener(documentSnapshot -> {
                             SubResultsModel subResultsModel = documentSnapshot.toObject(SubResultsModel.class);
                             assert subResultsModel != null;
                             subResultsModel.setImageUrl(downloadUrl);
-                            firebaseFirestore.collection("sub").document(mAuth.getCurrentUser().getUid())
+                            firebaseFirestore.collection(SUB).document(mAuth.getCurrentUser().getUid())
                                     .set(subResultsModel).addOnCompleteListener(task14 -> {
                                 if (task14.isSuccessful()) {
-                                    Log.i("MainActivity", "Success");
+                                    Log.i(TAG, SUCCESS);
                                 } else {
-                                    Log.i("MainActivity", "Failed");
+                                    Log.i(TAG, FAILED);
                                 }
                             });
                         });
                         //////////////////////////////////////////////
-                        firebaseFirestore.collection("div").document(mAuth.getCurrentUser().getUid())
+                        firebaseFirestore.collection(DIV).document(mAuth.getCurrentUser().getUid())
                                 .get().addOnSuccessListener(documentSnapshot -> {
                             DivResultsModel divResultsModel = documentSnapshot.toObject(DivResultsModel.class);
                             assert divResultsModel != null;
                             divResultsModel.setImageUrl(downloadUrl);
-                            firebaseFirestore.collection("div").document(mAuth.getCurrentUser().getUid())
+                            firebaseFirestore.collection(DIV).document(mAuth.getCurrentUser().getUid())
                                     .set(divResultsModel).addOnCompleteListener(task15 -> {
                                 if (task15.isSuccessful()) {
-                                    Log.i("MainActivity", "Success");
+                                    Log.i(TAG, SUCCESS);
                                 } else {
-                                    Log.i("MainActivity", "Failed");
+                                    Log.i(TAG, FAILED);
                                 }
                             });
                         });
                         //////////////////////////////////////////////
-                        firebaseFirestore.collection("users")
+                        firebaseFirestore.collection(USERS)
                                 .document(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
                                 .get().addOnSuccessListener(documentSnapshot -> {
                             UserRegisterProfileModel userRegisterProfileModel = documentSnapshot
@@ -263,24 +273,24 @@ public class ProfileFragment extends Fragment {
                             assert userRegisterProfileModel != null;
                             userRegisterProfileModel.setImageUrl("");
                             userRegisterProfileModel.setImageUrl(downloadUrl);
-                            firebaseFirestore.collection("users").document(mAuth.getCurrentUser().getUid())
+                            firebaseFirestore.collection(USERS).document(mAuth.getCurrentUser().getUid())
                                     .set(userRegisterProfileModel).addOnCompleteListener(task1 -> {
                                 if (task1.isSuccessful()) {
-                                    Log.i("MainActivity", "Success");
+                                    Log.i(TAG, SUCCESS);
                                 } else {
-                                    Log.i("MainActivity", "Failed");
+                                    Log.i(TAG, FAILED);
                                 }
                             });
                         });
                     } else {
-                        Log.i("MainActivity", "Failed");
+                        Log.i(TAG, FAILED);
                     }
                 });
             }).start();
             Handler handler = new Handler();
             handler.postDelayed(() -> binding.profileProgressBar.setVisibility(View.GONE), 3000);
         } else {
-            Log.i("MainActivity", "empty image uri");
+            Log.i(TAG, EMPTY_IMAGE);
             imageDialog.dismiss();
             binding.profileProgressBar.setVisibility(View.GONE);
         }

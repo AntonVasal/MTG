@@ -30,12 +30,16 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
     private String password;
     private String email;
     private NavController navController;
+    private static final String TAG = "MainActivity";
+    private static final String TYPE_FRAGMENTS = "typeFragments";
+    private static final String USERS = "users";
+    private static final String FAILED = "Failed";
 
     private int typeFragments;
 
     public static ProfileSettingsPasswordConfirmationFragment newInstance(int typeFragments){
         Bundle args = new Bundle();
-        args.putInt("typeFragments", typeFragments);
+        args.putInt(TYPE_FRAGMENTS, typeFragments);
         ProfileSettingsPasswordConfirmationFragment f = new ProfileSettingsPasswordConfirmationFragment();
         f.setArguments(args);
         return f;
@@ -47,7 +51,7 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         assert getArguments() != null;
-        typeFragments = getArguments().getInt("typeFragments");
+        typeFragments = getArguments().getInt(TYPE_FRAGMENTS);
         NavHostFragment navHostFragment = (NavHostFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container_view);
         navController = Objects.requireNonNull(navHostFragment).getNavController();
     }
@@ -56,12 +60,12 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseFirestore.collection("users").document(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+        new Thread(() -> firebaseFirestore.collection(USERS).document(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
                 .get().addOnSuccessListener(documentSnapshot -> {
             UserRegisterProfileModel userRegisterProfileModel = documentSnapshot.toObject(UserRegisterProfileModel.class);
             assert userRegisterProfileModel != null;
             email = userRegisterProfileModel.getEmail();
-        });
+        })).start();
         initListeners();
     }
 
@@ -83,46 +87,47 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
                 return;
             }
 
-            AuthCredential authCredential = EmailAuthProvider.getCredential(email,password);
-            Objects.requireNonNull(FirebaseAuth.getInstance()
-                    .getCurrentUser())
-                    .reauthenticate(authCredential)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()){
-                            NavDirections navDirections;
-                            switch (typeFragments){
-                                case 1:
-                                    navDirections = ProfileSettingsPasswordConfirmationFragmentDirections
-                                            .actionProfileSettingsPasswordConfirmationFragmentToChangeNicknameFragment();
-                                    navController.navigate(navDirections);
-                                    break;
-                                case 2:
-                                    navDirections = ProfileSettingsPasswordConfirmationFragmentDirections
-                                            .actionProfileSettingsPasswordConfirmationFragmentToChangeNameFragment();
-                                    navController.navigate(navDirections);
-                                    break;
-                                case 3:
-                                    navDirections = ProfileSettingsPasswordConfirmationFragmentDirections
-                                            .actionProfileSettingsPasswordConfirmationFragmentToChangeSurnameFragment();
-                                    navController.navigate(navDirections);
-                                    break;
-                                case 4:
-                                    navDirections = ProfileSettingsPasswordConfirmationFragmentDirections
-                                            .actionProfileSettingsPasswordConfirmationFragmentToChangeEmailFragment();
-                                    navController.navigate(navDirections);
-                                    break;
-                                case 5:
-                                    navDirections = ProfileSettingsPasswordConfirmationFragmentDirections
-                                            .actionProfileSettingsPasswordConfirmationFragmentToChangeCountryFragment();
-                                    navController.navigate(navDirections);
-                                    break;
+            new Thread(() -> {
+                AuthCredential authCredential = EmailAuthProvider.getCredential(email,password);
+                Objects.requireNonNull(FirebaseAuth.getInstance()
+                        .getCurrentUser())
+                        .reauthenticate(authCredential)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()){
+                                NavDirections navDirections;
+                                switch (typeFragments){
+                                    case 1:
+                                        navDirections = ProfileSettingsPasswordConfirmationFragmentDirections
+                                                .actionProfileSettingsPasswordConfirmationFragmentToChangeNicknameFragment();
+                                        navController.navigate(navDirections);
+                                        break;
+                                    case 2:
+                                        navDirections = ProfileSettingsPasswordConfirmationFragmentDirections
+                                                .actionProfileSettingsPasswordConfirmationFragmentToChangeNameFragment();
+                                        navController.navigate(navDirections);
+                                        break;
+                                    case 3:
+                                        navDirections = ProfileSettingsPasswordConfirmationFragmentDirections
+                                                .actionProfileSettingsPasswordConfirmationFragmentToChangeSurnameFragment();
+                                        navController.navigate(navDirections);
+                                        break;
+                                    case 4:
+                                        navDirections = ProfileSettingsPasswordConfirmationFragmentDirections
+                                                .actionProfileSettingsPasswordConfirmationFragmentToChangeEmailFragment();
+                                        navController.navigate(navDirections);
+                                        break;
+                                    case 5:
+                                        navDirections = ProfileSettingsPasswordConfirmationFragmentDirections
+                                                .actionProfileSettingsPasswordConfirmationFragmentToChangeCountryFragment();
+                                        navController.navigate(navDirections);
+                                        break;
+                                }
+                            }else{
+                                Log.i(TAG,FAILED);
+                                Toast.makeText(requireActivity(),FAILED,Toast.LENGTH_LONG).show();
                             }
-                        }else{
-                            Log.i("MainActivity","Failed");
-                            Toast.makeText(requireActivity(),"Failed",Toast.LENGTH_LONG).show();
-                        }
-                    });
-
+                        });
+            }).start();
         });
     }
 

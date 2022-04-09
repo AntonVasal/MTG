@@ -12,6 +12,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 
 public class AddViewModel extends ViewModel {
+    private static final String TAG = "MainActivity";
+    private static final String ADD = "add";
+    private static final String FAILED = "Failed";
     private MutableLiveData<ArrayList<AddResultsModel>> userResultsModel;
     ArrayList<AddResultsModel> arrayList = new ArrayList<>();
     private int k;
@@ -30,9 +33,9 @@ public class AddViewModel extends ViewModel {
     private void loadData() {
         new Thread(() -> {
             firebaseFirestore = FirebaseFirestore.getInstance();
-            firebaseFirestore.collection("add").addSnapshotListener((value, error) -> {
+            firebaseFirestore.collection(ADD).addSnapshotListener((value, error) -> {
                 if (error != null) {
-                    Log.i("MainActivity", "Failed");
+                    Log.i(TAG, FAILED);
                     return;
                 }
                 assert value != null;

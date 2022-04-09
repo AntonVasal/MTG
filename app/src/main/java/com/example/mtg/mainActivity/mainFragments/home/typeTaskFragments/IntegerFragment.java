@@ -21,6 +21,8 @@ public class IntegerFragment extends Fragment {
     private FragmentTypeTaskBinding binding;
     private Bundle bundle;
     private NavController navController;
+    private static final String TYPE_NUMBER = "typeNumber";
+    private static final String TASK_TYPE = "taskType";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,23 +48,23 @@ public class IntegerFragment extends Fragment {
 
     private void initListeners() {
         binding.addText.setOnClickListener(view ->{
-            bundle.putInt("typeNumber",2);
-            bundle.putInt("taskType",1);
+            bundle.putInt(TYPE_NUMBER,2);
+            bundle.putInt(TASK_TYPE,1);
             navController.navigate(R.id.action_mainFragment2_to_countFragment,bundle);
         });
         binding.multiText.setOnClickListener(view -> {
-            bundle.putInt("typeNumber",2);
-            bundle.putInt("taskType",2);
+            bundle.putInt(TYPE_NUMBER,2);
+            bundle.putInt(TASK_TYPE,2);
             navController.navigate(R.id.action_mainFragment2_to_countFragment,bundle);
         });
         binding.subText.setOnClickListener(view ->{
-            bundle.putInt("typeNumber",2);
-            bundle.putInt("taskType",3);
+            bundle.putInt(TYPE_NUMBER,2);
+            bundle.putInt(TASK_TYPE,3);
             navController.navigate(R.id.action_mainFragment2_to_countFragment,bundle);
         });
         binding.divText.setOnClickListener(view -> {
-            bundle.putInt("typeNumber",2);
-            bundle.putInt("taskType",4);
+            bundle.putInt(TYPE_NUMBER,2);
+            bundle.putInt(TASK_TYPE,4);
             navController.navigate(R.id.action_mainFragment2_to_countFragment,bundle);
         });
     }

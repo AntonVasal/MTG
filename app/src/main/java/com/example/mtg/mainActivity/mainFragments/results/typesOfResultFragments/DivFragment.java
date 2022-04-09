@@ -30,7 +30,7 @@ import java.util.ArrayList;
 
 public class DivFragment extends Fragment implements OnItemResultsRecyclerClickInterface {
 
-
+    private static final String USERS = "users";
     private FragmentResultsRecyclerBinding binding;
 
     private String name;
@@ -177,7 +177,7 @@ public class DivFragment extends Fragment implements OnItemResultsRecyclerClickI
                     assert nicknameInfo != null;
                     nicknameInfo.setText(divResultsNaturalsModels.get(position).getNickname());
 
-                    firebaseFirestore.collection("users").document(divResultsNaturalsModels.get(position).getId())
+                    firebaseFirestore.collection(USERS).document(divResultsNaturalsModels.get(position).getId())
                             .addSnapshotListener((value, error) -> {
                                 if (error != null) {
                                     return;
@@ -217,7 +217,7 @@ public class DivFragment extends Fragment implements OnItemResultsRecyclerClickI
                     assert nicknameInfo != null;
                     nicknameInfo.setText(divResultsIntegersModels.get(position).getNickname());
 
-                    firebaseFirestore.collection("users").document(divResultsIntegersModels.get(position).getId())
+                    firebaseFirestore.collection(USERS).document(divResultsIntegersModels.get(position).getId())
                             .addSnapshotListener((value, error) -> {
                                 if (error != null) {
                                     return;
@@ -257,7 +257,7 @@ public class DivFragment extends Fragment implements OnItemResultsRecyclerClickI
                     assert nicknameInfo != null;
                     nicknameInfo.setText(divResultsDecimalsModels.get(position).getNickname());
 
-                    firebaseFirestore.collection("users").document(divResultsDecimalsModels.get(position).getId())
+                    firebaseFirestore.collection(USERS).document(divResultsDecimalsModels.get(position).getId())
                             .addSnapshotListener((value, error) -> {
                                 if (error != null) {
                                     return;
