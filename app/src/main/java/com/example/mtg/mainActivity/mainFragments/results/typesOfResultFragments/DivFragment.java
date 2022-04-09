@@ -33,15 +33,14 @@ public class DivFragment extends Fragment implements OnItemResultsRecyclerClickI
 
     private FragmentResultsRecyclerBinding binding;
 
-    String name;
-    String country;
+    private String name;
+    private String country;
 
     private ResultsRecyclerViewAdapter adapter;
-    LinearLayoutManager layoutManager;
 
-    ArrayList<DivResultsModel> divResultsNaturalsModels;
-    ArrayList<DivResultsModel> divResultsIntegersModels;
-    ArrayList<DivResultsModel> divResultsDecimalsModels;
+    private ArrayList<DivResultsModel> divResultsNaturalsModels;
+    private ArrayList<DivResultsModel> divResultsIntegersModels;
+    private ArrayList<DivResultsModel> divResultsDecimalsModels;
 
     private DivViewModel divViewModel;
 
@@ -62,7 +61,7 @@ public class DivFragment extends Fragment implements OnItemResultsRecyclerClickI
         divViewModel = new ViewModelProvider(requireActivity()).get(DivViewModel.class);
 
         binding.resultRecycler.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         binding.resultRecycler.setLayoutManager(layoutManager);
         return view;
     }
@@ -280,5 +279,11 @@ public class DivFragment extends Fragment implements OnItemResultsRecyclerClickI
                 bottomSheetDialog.show();
                 break;
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

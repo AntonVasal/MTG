@@ -34,14 +34,13 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
     private FragmentResultsRecyclerBinding binding;
 
     private ResultsRecyclerViewAdapter adapter;
-    LinearLayoutManager layoutManager;
 
-    String name;
-    String country;
+    private String name;
+    private String country;
 
-    ArrayList<MultiResultsModel> multiResultsNaturalsModels;
-    ArrayList<MultiResultsModel> multiResultsIntegersModels;
-    ArrayList<MultiResultsModel> multiResultsDecimalsModels;
+    private ArrayList<MultiResultsModel> multiResultsNaturalsModels;
+    private ArrayList<MultiResultsModel> multiResultsIntegersModels;
+    private ArrayList<MultiResultsModel> multiResultsDecimalsModels;
 
     private MultiViewModel multiViewModel;
 
@@ -62,7 +61,7 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
         multiViewModel = new ViewModelProvider(requireActivity()).get(MultiViewModel.class);
 
         binding.resultRecycler.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         binding.resultRecycler.setLayoutManager(layoutManager);
         return view;
     }
@@ -281,5 +280,11 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
                 bottomSheetDialog.show();
                 break;
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

@@ -42,10 +42,6 @@ public class ProfileViewModel extends ViewModel {
                 });
 
 
-//                .get().addOnSuccessListener(documentSnapshot -> {
-//            UserRegisterProfileModel userProfile = documentSnapshot.toObject(UserRegisterProfileModel.class);
-//            user.postValue(userProfile);
-//        });
 
     }
 }

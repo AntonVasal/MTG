@@ -14,9 +14,9 @@ import java.util.ArrayList;
 public class MultiViewModel extends ViewModel {
     private MutableLiveData<ArrayList<MultiResultsModel>> mutableLiveData;
     ArrayList<MultiResultsModel> arrayList = new ArrayList<>();
-    int k;
-    String id;
-    FirebaseFirestore firebaseFirestore;
+    private int k;
+    private String id;
+    private FirebaseFirestore firebaseFirestore;
 
     public MutableLiveData<ArrayList<MultiResultsModel>> getMutableLiveData(){
         if (mutableLiveData == null){

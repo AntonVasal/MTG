@@ -26,12 +26,12 @@ import java.util.Objects;
 
 public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
 
-    FragmentProfileSettingsPasswordConfirmationBinding binding;
-    String password;
-    String email;
-    NavController navController;
+    private FragmentProfileSettingsPasswordConfirmationBinding binding;
+    private String password;
+    private String email;
+    private NavController navController;
 
-    int typeFragments;
+    private int typeFragments;
 
     public static ProfileSettingsPasswordConfirmationFragment newInstance(int typeFragments){
         Bundle args = new Bundle();
@@ -132,5 +132,11 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentProfileSettingsPasswordConfirmationBinding.inflate(inflater, container, false);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

@@ -27,8 +27,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class CountFragment extends Fragment {
 
     private FragmentCountBinding binding;
-    int taskType;
-    int typeNumber;
+    private int taskType;
+    private int typeNumber;
     FirebaseFirestore mFirebaseFirestore;
     FirebaseAuth mAuth;
     private int a,b,g,k,resultCounter,amountOfTask;
@@ -40,9 +40,21 @@ public class CountFragment extends Fragment {
     private CountViewsOperator countViewsOperator;
     private CountResultsToFirestoreSettersOperator countResultsToFirestoreSettersOperator;
 
-    public CountFragment(int taskType, int typeNumber) {
-        this.taskType = taskType;
-        this.typeNumber = typeNumber;
+    public static CountFragment newInstance(int taskType,int typeNumber){
+        Bundle args = new Bundle();
+        args.putInt("taskType",taskType);
+        args.putInt("typeNumber",typeNumber);
+        CountFragment f = new CountFragment();
+        f.setArguments(args);
+        return f;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        assert getArguments() != null;
+        typeNumber = getArguments().getInt("typeNumber");
+        taskType = getArguments().getInt("taskType");
     }
 
     @Nullable

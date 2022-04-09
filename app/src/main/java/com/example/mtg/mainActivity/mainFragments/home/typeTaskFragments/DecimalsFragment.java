@@ -8,19 +8,26 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentTypeTaskBinding;
-import com.example.mtg.mainActivity.count.CountFragment;
+
+import java.util.Objects;
 
 public class DecimalsFragment extends Fragment {
 
     private FragmentTypeTaskBinding binding;
+    private Bundle bundle;
+    private NavController navController;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        NavHostFragment navHostFragment = (NavHostFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container_view);
+        navController = Objects.requireNonNull(navHostFragment).getNavController();
+        bundle = new Bundle();
     }
 
     @Override
@@ -37,18 +44,31 @@ public class DecimalsFragment extends Fragment {
     }
 
     private void initListeners() {
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        binding.addText.setOnClickListener(view -> fragmentManager.beginTransaction().replace(R.id.fragment_container_view,new CountFragment(1,3))
-                .addToBackStack("")
-                .commit());
-        binding.multiText.setOnClickListener(view -> fragmentManager.beginTransaction().replace(R.id.fragment_container_view,new CountFragment(2,3))
-                .addToBackStack("")
-                .commit());
-        binding.subText.setOnClickListener(view -> fragmentManager.beginTransaction().replace(R.id.fragment_container_view,new CountFragment(3,3))
-                .addToBackStack("")
-                .commit());
-        binding.divText.setOnClickListener(view -> fragmentManager.beginTransaction().replace(R.id.fragment_container_view,new CountFragment(4,3))
-                .addToBackStack("")
-                .commit());
+        binding.addText.setOnClickListener(view -> {
+            bundle.putInt("typeNumber",3);
+            bundle.putInt("taskType",1);
+            navController.navigate(R.id.action_mainFragment2_to_countFragment,bundle);
+        });
+        binding.multiText.setOnClickListener(view ->{
+            bundle.putInt("typeNumber",3);
+            bundle.putInt("taskType",2);
+            navController.navigate(R.id.action_mainFragment2_to_countFragment,bundle);
+        });
+        binding.subText.setOnClickListener(view -> {
+            bundle.putInt("typeNumber",3);
+            bundle.putInt("taskType",3);
+            navController.navigate(R.id.action_mainFragment2_to_countFragment,bundle);
+        });
+        binding.divText.setOnClickListener(view -> {
+            bundle.putInt("typeNumber",3);
+            bundle.putInt("taskType",4);
+            navController.navigate(R.id.action_mainFragment2_to_countFragment,bundle);
+        });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

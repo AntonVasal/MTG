@@ -14,9 +14,9 @@ import java.util.ArrayList;
 public class SubViewModel extends ViewModel {
     private MutableLiveData<ArrayList<SubResultsModel>> mutableLiveData;
     ArrayList<SubResultsModel> arrayList = new ArrayList<>();
-    int k;
-    String id;
-    FirebaseFirestore firebaseFirestore;
+    private int k;
+    private String id;
+    private FirebaseFirestore firebaseFirestore;
 
     public MutableLiveData<ArrayList<SubResultsModel>> getMutableLiveData(){
         if (mutableLiveData == null){

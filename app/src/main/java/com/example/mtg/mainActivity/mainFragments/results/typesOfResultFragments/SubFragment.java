@@ -33,14 +33,13 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
     private FragmentResultsRecyclerBinding binding;
 
     private ResultsRecyclerViewAdapter adapter;
-    LinearLayoutManager layoutManager;
 
-    String name;
-    String country;
+    private String name;
+    private String country;
 
-    ArrayList<SubResultsModel> subResultsNaturalsModels;
-    ArrayList<SubResultsModel> subResultsIntegersModels;
-    ArrayList<SubResultsModel> subResultsDecimalsModels;
+    private ArrayList<SubResultsModel> subResultsNaturalsModels;
+    private ArrayList<SubResultsModel> subResultsIntegersModels;
+    private ArrayList<SubResultsModel> subResultsDecimalsModels;
 
     private SubViewModel subViewModel;
     @Override
@@ -60,7 +59,7 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
 
 
         binding.resultRecycler.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         binding.resultRecycler.setLayoutManager(layoutManager);
         return view;
     }
@@ -278,5 +277,11 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
                 bottomSheetDialog.show();
                 break;
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

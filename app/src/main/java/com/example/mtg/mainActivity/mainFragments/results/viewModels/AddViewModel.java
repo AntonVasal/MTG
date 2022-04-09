@@ -14,10 +14,10 @@ import java.util.ArrayList;
 public class AddViewModel extends ViewModel {
     private MutableLiveData<ArrayList<AddResultsModel>> userResultsModel;
     ArrayList<AddResultsModel> arrayList = new ArrayList<>();
-    int k;
-    String id;
+    private int k;
+    private String id;
 
-    FirebaseFirestore firebaseFirestore;
+    private FirebaseFirestore firebaseFirestore;
 
     public MutableLiveData<ArrayList<AddResultsModel>> getUserResultsModel() {
         if (userResultsModel == null) {

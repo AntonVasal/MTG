@@ -14,9 +14,9 @@ import java.util.ArrayList;
 public class DivViewModel extends ViewModel {
     private MutableLiveData<ArrayList<DivResultsModel>> mutableLiveData;
     ArrayList<DivResultsModel> arrayList = new ArrayList<>();
-    int k;
-    String id;
-    FirebaseFirestore firebaseFirestore;
+    private int k;
+    private String id;
+    private FirebaseFirestore firebaseFirestore;
 
     public MutableLiveData<ArrayList<DivResultsModel>> getMutableLiveData(){
         if (mutableLiveData == null){

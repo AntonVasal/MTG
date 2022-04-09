@@ -12,29 +12,31 @@ public class DivResultsToFirestoreSetter {
     private static final String TAG = "MainActivity";
     private static final String SUCCESS = "Success";
     private static final String FAILED = "Failed";
-    String nickname;
-    String url;
+    private static final String DIV = "div";
+    private static final String USERS = "users";
+    private String nickname;
+    private String url;
 
     public DivResultsToFirestoreSetter(FirebaseFirestore mFirebaseFirestore) {
         this.mFirebaseFirestore = mFirebaseFirestore;
     }
 
     public void setDivDecimalResults(int score, int tasksAmount, String userID) {
-        new Thread(() -> mFirebaseFirestore.collection("div")
+        new Thread(() -> mFirebaseFirestore.collection(DIV)
                 .document(userID)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     DivResultsModel divResultsModel = documentSnapshot
                             .toObject(DivResultsModel.class);
                     if (divResultsModel == null) {
-                        mFirebaseFirestore.collection("users").document(userID)
+                        mFirebaseFirestore.collection(USERS).document(userID)
                                 .get().addOnSuccessListener(documentSnapshot1 -> {
                             UserRegisterProfileModel userRegisterProfileModel = documentSnapshot1.toObject(UserRegisterProfileModel.class);
                             assert userRegisterProfileModel != null;
                             nickname = userRegisterProfileModel.getNickname();
                             url = userRegisterProfileModel.getImageUrl();
                             DivResultsModel divResultsModel1 = new DivResultsModel(0, 0, 0, 0, score, tasksAmount,nickname,url, userID);
-                            mFirebaseFirestore.collection("div").document(userID)
+                            mFirebaseFirestore.collection(DIV).document(userID)
                                     .set(divResultsModel1).addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
                                     Log.i(TAG, SUCCESS);
@@ -48,7 +50,7 @@ public class DivResultsToFirestoreSetter {
                         if (score > oldScore) {
                             divResultsModel.setDivDecimalScore(score);
                             divResultsModel.setDivDecimalTasksAmount(tasksAmount);
-                            mFirebaseFirestore.collection("div")
+                            mFirebaseFirestore.collection(DIV)
                                     .document(userID)
                                     .set(divResultsModel)
                                     .addOnCompleteListener(task -> {
@@ -65,21 +67,21 @@ public class DivResultsToFirestoreSetter {
     }
 
     public void setDivIntegerResults(int score, int tasksAmount, String userID) {
-        new Thread(() -> mFirebaseFirestore.collection("div")
+        new Thread(() -> mFirebaseFirestore.collection(DIV)
                 .document(userID)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     DivResultsModel divResultsModel = documentSnapshot
                             .toObject(DivResultsModel.class);
                     if (divResultsModel == null) {
-                        mFirebaseFirestore.collection("users").document(userID)
+                        mFirebaseFirestore.collection(USERS).document(userID)
                                 .get().addOnSuccessListener(documentSnapshot1 -> {
                             UserRegisterProfileModel userRegisterProfileModel = documentSnapshot1.toObject(UserRegisterProfileModel.class);
                             assert userRegisterProfileModel != null;
                             nickname = userRegisterProfileModel.getNickname();
                             url = userRegisterProfileModel.getImageUrl();
                             DivResultsModel divResultsModel1 = new DivResultsModel(0, 0, score, tasksAmount, 0, 0,nickname,url, userID);
-                            mFirebaseFirestore.collection("div").document(userID)
+                            mFirebaseFirestore.collection(DIV).document(userID)
                                     .set(divResultsModel1).addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
                                     Log.i(TAG, SUCCESS);
@@ -93,7 +95,7 @@ public class DivResultsToFirestoreSetter {
                         if (score > oldScore) {
                             divResultsModel.setDivIntegerScore(score);
                             divResultsModel.setDivIntegerTasksAmount(tasksAmount);
-                            mFirebaseFirestore.collection("div")
+                            mFirebaseFirestore.collection(DIV)
                                     .document(userID)
                                     .set(divResultsModel)
                                     .addOnCompleteListener(task -> {
@@ -110,21 +112,21 @@ public class DivResultsToFirestoreSetter {
     }
 
     public void setDivNaturalResults(int score, int tasksAmount, String userID) {
-        new Thread(() -> mFirebaseFirestore.collection("div")
+        new Thread(() -> mFirebaseFirestore.collection(DIV)
                 .document(userID)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     DivResultsModel divResultsModel = documentSnapshot
                             .toObject(DivResultsModel.class);
                     if (divResultsModel == null) {
-                        mFirebaseFirestore.collection("users").document(userID)
+                        mFirebaseFirestore.collection(USERS).document(userID)
                                 .get().addOnSuccessListener(documentSnapshot1 -> {
                             UserRegisterProfileModel userRegisterProfileModel = documentSnapshot1.toObject(UserRegisterProfileModel.class);
                             assert userRegisterProfileModel != null;
                             nickname = userRegisterProfileModel.getNickname();
                             url = userRegisterProfileModel.getImageUrl();
                             DivResultsModel divResultsModel1 = new DivResultsModel(score, tasksAmount, 0, 0, 0, 0,nickname,url, userID);
-                            mFirebaseFirestore.collection("div").document(userID)
+                            mFirebaseFirestore.collection(DIV).document(userID)
                                     .set(divResultsModel1).addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
                                     Log.i(TAG, SUCCESS);
@@ -138,7 +140,7 @@ public class DivResultsToFirestoreSetter {
                         if (score > oldScore) {
                             divResultsModel.setDivNaturalScore(score);
                             divResultsModel.setDivNaturalTasksAmount(tasksAmount);
-                            mFirebaseFirestore.collection("div")
+                            mFirebaseFirestore.collection(DIV)
                                     .document(userID)
                                     .set(divResultsModel)
                                     .addOnCompleteListener(task -> {

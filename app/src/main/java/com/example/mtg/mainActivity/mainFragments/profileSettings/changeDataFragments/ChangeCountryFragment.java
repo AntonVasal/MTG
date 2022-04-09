@@ -85,4 +85,10 @@ public class ChangeCountryFragment extends Fragment {
                     });
         });
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }

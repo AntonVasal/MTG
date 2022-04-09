@@ -19,7 +19,6 @@ import java.util.Objects;
 
 public class ResultFragment extends Fragment {
     private ViewPager2 resultsViewPager;
-    TabLayout resultsTabs;
 
 
     @Override
@@ -36,7 +35,7 @@ public class ResultFragment extends Fragment {
         resultsViewPager.setAdapter(
                 new ResultsAdapter(requireActivity())
         );
-        resultsTabs = view.findViewById(R.id.result_tabs);
+        TabLayout resultsTabs = view.findViewById(R.id.result_tabs);
         new TabLayoutMediator(
                 resultsTabs,
                 resultsViewPager,

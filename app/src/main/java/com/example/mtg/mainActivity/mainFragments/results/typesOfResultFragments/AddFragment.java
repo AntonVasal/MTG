@@ -34,14 +34,13 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
 
 
     private ResultsRecyclerViewAdapter adapter;
-    LinearLayoutManager layoutManager;
 
-    ArrayList<AddResultsModel> addResultsNaturalsModels;
-    ArrayList<AddResultsModel> addResultsIntegersModels;
-    ArrayList<AddResultsModel> addResultsDecimalsModels;
+    private ArrayList<AddResultsModel> addResultsNaturalsModels;
+    private ArrayList<AddResultsModel> addResultsIntegersModels;
+    private ArrayList<AddResultsModel> addResultsDecimalsModels;
 
-    String name;
-    String country;
+    private String name;
+    private String country;
 
     private FragmentResultsRecyclerBinding binding;
 
@@ -59,7 +58,7 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
 
         View view = binding.getRoot();
 
-        layoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         binding.resultRecycler.setLayoutManager(layoutManager);
 
         addViewModel = new ViewModelProvider(requireActivity()).get(AddViewModel.class);
@@ -288,5 +287,11 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
                 bottomSheetDialog.show();
                 break;
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

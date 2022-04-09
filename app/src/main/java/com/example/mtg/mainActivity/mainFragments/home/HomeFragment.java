@@ -21,8 +21,6 @@ import java.util.Objects;
 public class HomeFragment extends Fragment {
 
     private ViewPager2 mainViewPager;
-    TabLayout mainTabs;
-
 
 
     @Override
@@ -37,7 +35,7 @@ public class HomeFragment extends Fragment {
         mainViewPager.setAdapter(
                 new MainAdapter(requireActivity())
         );
-        mainTabs = view.findViewById(R.id.main_tabs);
+        TabLayout mainTabs = view.findViewById(R.id.main_tabs);
         new TabLayoutMediator(
                 mainTabs,
                 mainViewPager,
@@ -49,8 +47,6 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
-
     }
 }

@@ -100,6 +100,12 @@
         <item>Decimal numbers</item>
     </string-array>
 
+    <string-array name="types_of_number_for_tab">
+        <item>Naturals</item>
+        <item>Integers</item>
+        <item>Decimals</item>
+    </string-array>
+
     <string-array name="types_of_task">
         <item>Addition</item>
         <item>Subtraction</item>

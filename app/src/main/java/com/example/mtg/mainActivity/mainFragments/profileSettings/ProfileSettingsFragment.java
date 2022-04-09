@@ -9,17 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentProfileSettingsBindingImpl;
-import com.example.mtg.mainActivity.mainFragments.MainFragment;
-import com.example.mtg.mainActivity.mainFragments.MainFragmentDirections;
-import com.example.mtg.mainActivity.mainFragments.profile.ProfileFragment;
 import com.example.mtg.mainActivity.mainFragments.profile.viewModel.ProfileViewModel;
 
 import java.util.Objects;
@@ -29,7 +24,6 @@ public class ProfileSettingsFragment extends Fragment {
 
     FragmentProfileSettingsBindingImpl binding;
     ProfileViewModel profileSettingsViewModel;
-    FragmentManager fragmentManager;
     NavController navController;
 
 
@@ -85,7 +79,6 @@ public class ProfileSettingsFragment extends Fragment {
         binding.setLifecycleOwner(requireActivity());
         profileSettingsViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
         binding.setViewModel(profileSettingsViewModel);
-        fragmentManager = requireActivity().getSupportFragmentManager();
 
         return binding.getRoot();
     }

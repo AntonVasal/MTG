@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/profileSettingsFragment"
         android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.ProfileSettingsFragment"
-        android:label="ProfileSettingsFragment" >
+        android:label="ProfileSettingsFragment">
         <action
             android:id="@+id/action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment"
             app:destination="@id/profileSettingsPasswordConfirmationFragment" />
@@ -15,24 +15,23 @@
     <fragment
         android:id="@+id/mainFragment2"
         android:name="com.example.mtg.mainActivity.mainFragments.MainFragment"
-        android:label="MainFragment" >
+        android:label="MainFragment">
         <action
             android:id="@+id/action_mainFragment2_to_profileSettingsFragment"
             app:destination="@id/profileSettingsFragment" />
+        <action
+            android:id="@+id/action_mainFragment2_to_countFragment"
+            app:destination="@id/countFragment" />
     </fragment>
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.example.mtg.mainActivity.MainActivity"
-        android:label="MainActivity" />
     <fragment
         android:id="@+id/profileSettingsPasswordConfirmationFragment"
         android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.ConfirmPasswordFragment.ProfileSettingsPasswordConfirmationFragment"
         android:label="fragment_profile_settings_password_confirmation"
-        tools:layout="@layout/fragment_profile_settings_password_confirmation" >
+        tools:layout="@layout/fragment_profile_settings_password_confirmation">
         <argument
             android:name="typeFragments"
-            app:argType="integer"
-            android:defaultValue="0"/>
+            android:defaultValue="0"
+            app:argType="integer" />
         <action
             android:id="@+id/action_profileSettingsPasswordConfirmationFragment_to_changeNameFragment"
             app:destination="@id/changeNameFragment" />
@@ -69,4 +68,17 @@
         android:id="@+id/changeEmailFragment"
         android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.changeDataFragments.ChangeEmailFragment"
         android:label="fragment_change_email" />
+    <fragment
+        android:id="@+id/countFragment"
+        android:name="com.example.mtg.mainActivity.count.CountFragment"
+        android:label="CountFragment" >
+        <argument
+            android:name="typeNumber"
+            android:defaultValue="0"
+            app:argType="integer"/>
+        <argument
+            android:name="taskType"
+            android:defaultValue="0"
+            app:argType="integer"/>
+    </fragment>
 </navigation>

@@ -20,10 +20,10 @@ import java.util.ArrayList;
 
 public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecyclerViewHolder> {
     private final OnItemResultsRecyclerClickInterface onItemResultsRecyclerClickInterface;
-    ArrayList<AddResultsModel> addItemList;
-    ArrayList<MultiResultsModel> multiItemList;
-    ArrayList<SubResultsModel> subItemList;
-    ArrayList<DivResultsModel> divItemList;
+    private ArrayList<AddResultsModel> addItemList;
+    private ArrayList<MultiResultsModel> multiItemList;
+    private ArrayList<SubResultsModel> subItemList;
+    private ArrayList<DivResultsModel> divItemList;
     Context mContext;
     int typeTask;
     int typeNumber;
