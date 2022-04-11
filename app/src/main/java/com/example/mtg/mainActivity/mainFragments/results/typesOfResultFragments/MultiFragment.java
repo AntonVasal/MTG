@@ -53,7 +53,6 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = FragmentResultsRecyclerBinding.inflate(inflater, container, false);
 
         View view = binding.getRoot();
@@ -89,22 +88,14 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
     private void initListeners() {
         binding.natButton.setOnClickListener(view -> {
             binding.natButton.setEnabled(false);
-            binding.natButton.setTextColor(getResources().getColor(R.color.blue,null));
             binding.intButton.setEnabled(true);
-            binding.intButton.setTextColor(getResources().getColor(R.color.white,null));
             binding.decButton.setEnabled(true);
-            binding.decButton.setTextColor(getResources().getColor(R.color.white,null));
-
             generateItem();
         });
         binding.intButton.setOnClickListener(view -> {
             binding.natButton.setEnabled(true);
-            binding.natButton.setTextColor(getResources().getColor(R.color.white,null));
             binding.intButton.setEnabled(false);
-            binding.intButton.setTextColor(getResources().getColor(R.color.blue,null));
             binding.decButton.setEnabled(true);
-            binding.decButton.setTextColor(getResources().getColor(R.color.white,null));
-
             multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
                 if (multiResultsModels != null && multiResultsModels.size() != 0){
                     multiResultsModels.sort((multiResultsModel, t1) -> t1.getMultiIntegerScore() - multiResultsModel.getMultiIntegerScore());
@@ -119,12 +110,8 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
         });
         binding.decButton.setOnClickListener(view -> {
             binding.natButton.setEnabled(true);
-            binding.natButton.setTextColor(getResources().getColor(R.color.white,null));
             binding.intButton.setEnabled(true);
-            binding.intButton.setTextColor(getResources().getColor(R.color.white,null));
             binding.decButton.setEnabled(false);
-            binding.decButton.setTextColor(getResources().getColor(R.color.blue,null));
-
             multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
                 if (multiResultsModels != null && multiResultsModels.size() != 0){
                     multiResultsModels.sort((multiResultsModel, t1) -> t1.getMultiDecimalScore() - multiResultsModel.getMultiDecimalScore());

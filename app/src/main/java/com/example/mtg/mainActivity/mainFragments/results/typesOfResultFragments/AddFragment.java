@@ -4,9 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.mtg.R;
+import com.example.mtg.databinding.BottomSheetResultsDialogBinding;
 import com.example.mtg.databinding.FragmentResultsRecyclerBinding;
 import com.example.mtg.logActivity.models.UserRegisterProfileModel;
 import com.example.mtg.mainActivity.count.countModels.AddResultsModel;
@@ -34,6 +31,7 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
 
 
     private ResultsRecyclerViewAdapter adapter;
+    private BottomSheetDialog bottomSheetDialog;
 
     private ArrayList<AddResultsModel> addResultsNaturalsModels;
     private ArrayList<AddResultsModel> addResultsIntegersModels;
@@ -44,6 +42,7 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
     private String country;
 
     private FragmentResultsRecyclerBinding binding;
+    private BottomSheetResultsDialogBinding dialogBinding;
 
 
     @Override
@@ -54,9 +53,10 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         binding = FragmentResultsRecyclerBinding.inflate(inflater, container, false);
-
+        dialogBinding = BottomSheetResultsDialogBinding.inflate(inflater,container,false);
+        bottomSheetDialog = new BottomSheetDialog(requireActivity());
+        bottomSheetDialog.setContentView(dialogBinding.getRoot());
         View view = binding.getRoot();
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -73,7 +73,7 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
         generateItem();
         initListeners();
         binding.natButton.setEnabled(false);
-        binding.recyclerProgressBar.setVisibility(View.VISIBLE);
+//        binding.recyclerProgressBar.setVisibility(View.VISIBLE);
     }
 
     private void generateItem() {
@@ -85,7 +85,7 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
                 adapter = new ResultsRecyclerViewAdapter(getContext(), 1, 1, this);
                 adapter.setAddItemList(addResultsNaturalsModels);
                 binding.resultRecycler.setAdapter(adapter);
-                binding.recyclerProgressBar.setVisibility(View.GONE);
+//                binding.recyclerProgressBar.setVisibility(View.GONE);
             }
         });
     }
@@ -94,23 +94,15 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
     private void initListeners() {
         binding.natButton.setOnClickListener(view -> {
             binding.natButton.setEnabled(false);
-            binding.natButton.setTextColor(getResources().getColor(R.color.blue, null));
             binding.intButton.setEnabled(true);
-            binding.intButton.setTextColor(getResources().getColor(R.color.white, null));
             binding.decButton.setEnabled(true);
-            binding.decButton.setTextColor(getResources().getColor(R.color.white, null));
-
             generateItem();
         });
 
         binding.intButton.setOnClickListener(view -> {
             binding.natButton.setEnabled(true);
-            binding.natButton.setTextColor(getResources().getColor(R.color.white, null));
             binding.intButton.setEnabled(false);
-            binding.intButton.setTextColor(getResources().getColor(R.color.blue, null));
             binding.decButton.setEnabled(true);
-            binding.decButton.setTextColor(getResources().getColor(R.color.white, null));
-
             addViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), userResultsModels -> {
                 if (userResultsModels != null && userResultsModels.size() != 0) {
                     userResultsModels.sort((addResultsModel, t1) -> t1.getAddIntegerScore() - addResultsModel.getAddIntegerScore());
@@ -119,19 +111,15 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
                     adapter = new ResultsRecyclerViewAdapter(getContext(), 1, 2, this);
                     adapter.setAddItemList(addResultsIntegersModels);
                     binding.resultRecycler.setAdapter(adapter);
-                    binding.recyclerProgressBar.setVisibility(View.GONE);
+//                    binding.recyclerProgressBar.setVisibility(View.GONE);
                 }
             });
         });
 
         binding.decButton.setOnClickListener(view -> {
             binding.natButton.setEnabled(true);
-            binding.natButton.setTextColor(getResources().getColor(R.color.white, null));
             binding.intButton.setEnabled(true);
-            binding.intButton.setTextColor(getResources().getColor(R.color.white, null));
             binding.decButton.setEnabled(false);
-            binding.decButton.setTextColor(getResources().getColor(R.color.blue, null));
-
             addViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), userResultsModels -> {
                 if (userResultsModels != null && userResultsModels.size() != 0) {
                     userResultsModels.sort((addResultsModel, t1) -> t1.getAddDecimalScore() - addResultsModel.getAddDecimalScore());
@@ -140,7 +128,7 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
                     adapter = new ResultsRecyclerViewAdapter(getContext(), 1, 3, this);
                     adapter.setAddItemList(addResultsDecimalsModels);
                     binding.resultRecycler.setAdapter(adapter);
-                    binding.recyclerProgressBar.setVisibility(View.GONE);
+//                    binding.recyclerProgressBar.setVisibility(View.GONE);
                 }
             });
         });
@@ -148,23 +136,9 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
 
     @Override
     public void onItemClick(int position, int typeNumber) {
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireActivity());
-        bottomSheetDialog.setContentView(R.layout.bottom_sheet_results_dialog);
-
-        ImageView userImgView = bottomSheetDialog.findViewById(R.id.dialog_image);
-        ImageButton imageButton = bottomSheetDialog.findViewById(R.id.exit_button_bottom_dialog);
-        TextView nicknameTextView = bottomSheetDialog.findViewById(R.id.nickname_text_dialog);
-        TextView nicknameInfo = bottomSheetDialog.findViewById(R.id.info_nickname_dialog);
-        TextView nameInfo = bottomSheetDialog.findViewById(R.id.info_name_dialog);
-        TextView countryInfo = bottomSheetDialog.findViewById(R.id.info_country_dialog);
-        TextView scoreInfo = bottomSheetDialog.findViewById(R.id.info_score_dialog);
-        TextView tasksInfo = bottomSheetDialog.findViewById(R.id.info_tasks_dialog);
-
-
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
-        assert imageButton != null;
-        imageButton.setOnClickListener(view -> bottomSheetDialog.cancel());
+        dialogBinding.exitButtonBottomDialog.setOnClickListener(view -> bottomSheetDialog.cancel());
 
         switch (typeNumber) {
             case 1:
@@ -172,19 +146,14 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
                     addResultsModels.sort((addResultsModel, t1) -> t1.getAddNaturalScore() - addResultsModel.getAddNaturalScore());
                     addResultsNaturalsModels = new ArrayList<>(addResultsModels);
                     addResultsNaturalsModels.removeIf(addResultsModel -> addResultsModel.getAddNaturalScore() == 0);
-                    assert scoreInfo != null;
-                    scoreInfo.setText(String.valueOf(addResultsNaturalsModels.get(position).getAddNaturalScore()));
-                    assert tasksInfo != null;
-                    tasksInfo.setText(String.valueOf(addResultsNaturalsModels.get(position).getAddNaturalTasksAmount()));
-                    assert userImgView != null;
+                    dialogBinding.infoScoreDialog.setText(String.valueOf(addResultsNaturalsModels.get(position).getAddNaturalScore()));
+                    dialogBinding.infoTasksDialog.setText(String.valueOf(addResultsNaturalsModels.get(position).getAddNaturalTasksAmount()));
                     Glide.with(requireActivity()).load(addResultsNaturalsModels.get(position).getImageUrl())
-                            .apply(new RequestOptions().centerCrop()).into(userImgView);
+                            .apply(new RequestOptions().centerCrop()).into(dialogBinding.dialogImage);
 
-                    assert nicknameTextView != null;
-                    nicknameTextView.setText(addResultsNaturalsModels.get(position).getNickname());
+                    dialogBinding.nicknameTextDialog.setText(addResultsNaturalsModels.get(position).getNickname());
 
-                    assert nicknameInfo != null;
-                    nicknameInfo.setText(addResultsNaturalsModels.get(position).getNickname());
+                    dialogBinding.infoNicknameDialog.setText(addResultsNaturalsModels.get(position).getNickname());
 
                     firebaseFirestore.collection(USERS).document(addResultsNaturalsModels.get(position).getId())
                             .addSnapshotListener((value, error) -> {
@@ -197,11 +166,9 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
                                     name = userRegisterProfileModel.getName();
                                     country = userRegisterProfileModel.getCountry();
 
-                                    assert nameInfo != null;
-                                    nameInfo.setText(name);
+                                    dialogBinding.infoNameDialog.setText(name);
 
-                                    assert countryInfo != null;
-                                    countryInfo.setText(country);
+                                    dialogBinding.infoCountryDialog.setText(country);
                                 }
                             });
                 });
@@ -212,19 +179,13 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
                     addResultsModels.sort((addResultsModel, t1) -> t1.getAddIntegerScore() - addResultsModel.getAddIntegerScore());
                     addResultsIntegersModels = new ArrayList<>(addResultsModels);
                     addResultsIntegersModels.removeIf(addResultsModel -> addResultsModel.getAddIntegerScore() == 0);
-                    assert scoreInfo != null;
-                    scoreInfo.setText(String.valueOf(addResultsIntegersModels.get(position).getAddIntegerScore()));
-                    assert tasksInfo != null;
-                    tasksInfo.setText(String.valueOf(addResultsIntegersModels.get(position).getAddIntegerTasksAmount()));
-                    assert userImgView != null;
+                    dialogBinding.infoScoreDialog.setText(String.valueOf(addResultsIntegersModels.get(position).getAddIntegerScore()));
+                    dialogBinding.infoTasksDialog.setText(String.valueOf(addResultsIntegersModels.get(position).getAddIntegerTasksAmount()));
                     Glide.with(requireActivity()).load(addResultsIntegersModels.get(position).getImageUrl())
-                            .apply(new RequestOptions().centerCrop()).into(userImgView);
+                            .apply(new RequestOptions().centerCrop()).into(dialogBinding.dialogImage);
+                    dialogBinding.nicknameTextDialog.setText(addResultsIntegersModels.get(position).getNickname());
 
-                    assert nicknameTextView != null;
-                    nicknameTextView.setText(addResultsIntegersModels.get(position).getNickname());
-
-                    assert nicknameInfo != null;
-                    nicknameInfo.setText(addResultsIntegersModels.get(position).getNickname());
+                    dialogBinding.infoNicknameDialog.setText(addResultsIntegersModels.get(position).getNickname());
 
                     firebaseFirestore.collection(USERS).document(addResultsIntegersModels.get(position).getId())
                             .addSnapshotListener((value, error) -> {
@@ -237,11 +198,9 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
                                     name = userRegisterProfileModel.getName();
                                     country = userRegisterProfileModel.getCountry();
 
-                                    assert nameInfo != null;
-                                    nameInfo.setText(name);
+                                    dialogBinding.infoNameDialog.setText(name);
 
-                                    assert countryInfo != null;
-                                    countryInfo.setText(country);
+                                    dialogBinding.infoCountryDialog.setText(country);
                                 }
                             });
                 });
@@ -252,19 +211,14 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
                     addResultsModels.sort((addResultsModel, t1) -> t1.getAddDecimalScore() - addResultsModel.getAddDecimalScore());
                     addResultsDecimalsModels = new ArrayList<>(addResultsModels);
                     addResultsDecimalsModels.removeIf(addResultsModel -> addResultsModel.getAddDecimalScore() == 0);
-                    assert scoreInfo != null;
-                    scoreInfo.setText(String.valueOf(addResultsDecimalsModels.get(position).getAddDecimalScore()));
-                    assert tasksInfo != null;
-                    tasksInfo.setText(String.valueOf(addResultsDecimalsModels.get(position).getAddDecimalTasksAmount()));
-                    assert userImgView != null;
+                    dialogBinding.infoScoreDialog.setText(String.valueOf(addResultsDecimalsModels.get(position).getAddDecimalScore()));
+                    dialogBinding.infoTasksDialog.setText(String.valueOf(addResultsDecimalsModels.get(position).getAddDecimalTasksAmount()));
                     Glide.with(requireActivity()).load(addResultsDecimalsModels.get(position).getImageUrl())
-                            .apply(new RequestOptions().centerCrop()).into(userImgView);
+                            .apply(new RequestOptions().centerCrop()).into(dialogBinding.dialogImage);
 
-                    assert nicknameTextView != null;
-                    nicknameTextView.setText(addResultsDecimalsModels.get(position).getNickname());
+                    dialogBinding.nicknameTextDialog.setText(addResultsDecimalsModels.get(position).getNickname());
 
-                    assert nicknameInfo != null;
-                    nicknameInfo.setText(addResultsDecimalsModels.get(position).getNickname());
+                    dialogBinding.infoNicknameDialog.setText(addResultsDecimalsModels.get(position).getNickname());
 
                     firebaseFirestore.collection(USERS).document(addResultsDecimalsModels.get(position).getId())
                             .addSnapshotListener((value, error) -> {
@@ -276,12 +230,8 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
                                     assert userRegisterProfileModel != null;
                                     name = userRegisterProfileModel.getName();
                                     country = userRegisterProfileModel.getCountry();
-
-                                    assert nameInfo != null;
-                                    nameInfo.setText(name);
-
-                                    assert countryInfo != null;
-                                    countryInfo.setText(country);
+                                    dialogBinding.infoNameDialog.setText(name);
+                                    dialogBinding.infoCountryDialog.setText(country);
                                 }
                             });
                 });

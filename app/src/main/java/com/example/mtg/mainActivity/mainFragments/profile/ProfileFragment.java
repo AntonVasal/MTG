@@ -132,7 +132,11 @@ public class ProfileFragment extends Fragment {
         binding.changeProfileImgImage.setOnClickListener(view -> showChangeImageDialog());
         binding.settingsButton.setOnClickListener(view -> {
             NavDirections action = MainFragmentDirections.actionMainFragment2ToProfileSettingsFragment();
-            navController.navigate(action);
+            try {
+                navController.navigate(action);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         });
     }
 
@@ -187,7 +191,6 @@ public class ProfileFragment extends Fragment {
 
     private void uploadFile(Uri imageUri) {
         if (imageUri != null) {
-//            Glide.with(requireActivity()).load(imageUri).into(binding.userProfileImage);
             imageDialog.dismiss();
             new Thread(() -> {
                 String nameImg = String.valueOf(System.currentTimeMillis());

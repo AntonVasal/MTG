@@ -51,14 +51,14 @@ public class ChangeNicknameFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentChangeDataBinding.inflate(inflater, container, false);
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance();
         initListeners();
         setViewData();
     }
@@ -70,7 +70,13 @@ public class ChangeNicknameFragment extends Fragment {
     }
 
     private void initListeners() {
-        binding.changeBackButton.setOnClickListener(view -> navController.popBackStack());
+        binding.changeBackButton.setOnClickListener(view -> {
+            try {
+                navController.popBackStack();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        });
 
         binding.changeButton.setOnClickListener(view -> {
             if (Objects.requireNonNull(binding.forChange.getText()).toString().trim().isEmpty()) {
@@ -80,7 +86,7 @@ public class ChangeNicknameFragment extends Fragment {
             }
             String nickname = binding.forChange.getText().toString().trim();
             String id = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
-            sendNicknameToFirestore(nickname, id);
+            new Thread(() -> sendNicknameToFirestore(nickname, id)).start();
         });
 
     }
@@ -93,7 +99,12 @@ public class ChangeNicknameFragment extends Fragment {
                     userRegisterProfileModel.setNickname(nickname);
                     firebaseFirestore.collection(USERS).document(id).set(userRegisterProfileModel).addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            new Thread(() -> sendNicknameToCountFirestore(nickname, id)).start();
+                            sendNicknameToCountFirestore(nickname, id);
+                            try {
+                                navController.popBackStack();
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
                         } else {
                             Log.i(TAG, FAILED);
                         }
@@ -157,7 +168,6 @@ public class ChangeNicknameFragment extends Fragment {
                             .addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
                                     Log.i(TAG, SUCCESS);
-                                    navController.popBackStack();
                                 } else {
                                     Log.i(TAG, FAILED);
                                 }

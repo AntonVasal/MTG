@@ -42,14 +42,14 @@ public class CountFragment extends Fragment {
     private static final String TYPE_NUMBER = "typeNumber";
     private static final String TASK_TYPE = "taskType";
 
-    public static CountFragment newInstance(int taskType,int typeNumber){
-        Bundle args = new Bundle();
-        args.putInt(TASK_TYPE,taskType);
-        args.putInt(TYPE_NUMBER,typeNumber);
-        CountFragment f = new CountFragment();
-        f.setArguments(args);
-        return f;
-    }
+//    public static CountFragment newInstance(int taskType,int typeNumber){
+//        Bundle args = new Bundle();
+//        args.putInt(TASK_TYPE,taskType);
+//        args.putInt(TYPE_NUMBER,typeNumber);
+//        CountFragment f = new CountFragment();
+//        f.setArguments(args);
+//        return f;
+//    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

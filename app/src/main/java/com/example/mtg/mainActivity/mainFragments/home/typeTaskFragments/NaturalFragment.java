@@ -37,7 +37,7 @@ public class NaturalFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentTypeTaskBinding.inflate(inflater,container,false);
+        binding = FragmentTypeTaskBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -49,24 +49,40 @@ public class NaturalFragment extends Fragment {
 
     private void initListeners() {
         binding.addText.setOnClickListener(view -> {
-            bundle.putInt(TYPE_NUMBER,1);
-            bundle.putInt(TASK_TYPE,1);
-            navController.navigate(R.id.action_mainFragment2_to_countFragment,bundle);
+            bundle.putInt(TYPE_NUMBER, 1);
+            bundle.putInt(TASK_TYPE, 1);
+            try {
+                navController.navigate(R.id.action_mainFragment2_to_countFragment, bundle);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
         binding.multiText.setOnClickListener(view -> {
-            bundle.putInt(TYPE_NUMBER,1);
-            bundle.putInt(TASK_TYPE,2);
-            navController.navigate(R.id.action_mainFragment2_to_countFragment,bundle);
+            bundle.putInt(TYPE_NUMBER, 1);
+            bundle.putInt(TASK_TYPE, 2);
+            try {
+                navController.navigate(R.id.action_mainFragment2_to_countFragment, bundle);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
         binding.subText.setOnClickListener(view -> {
-            bundle.putInt(TYPE_NUMBER,1);
-            bundle.putInt(TASK_TYPE,3);
-            navController.navigate(R.id.action_mainFragment2_to_countFragment,bundle);
+            bundle.putInt(TYPE_NUMBER, 1);
+            bundle.putInt(TASK_TYPE, 3);
+            try {
+                navController.navigate(R.id.action_mainFragment2_to_countFragment, bundle);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
         binding.divText.setOnClickListener(view -> {
-            bundle.putInt(TYPE_NUMBER,1);
-            bundle.putInt(TASK_TYPE,4);
-            navController.navigate(R.id.action_mainFragment2_to_countFragment,bundle);
+            bundle.putInt(TYPE_NUMBER, 1);
+            bundle.putInt(TASK_TYPE, 4);
+            try {
+                navController.navigate(R.id.action_mainFragment2_to_countFragment, bundle);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
     }
 

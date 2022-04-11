@@ -51,7 +51,6 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = FragmentResultsRecyclerBinding.inflate(inflater, container, false);
 
         View view = binding.getRoot();
@@ -88,22 +87,14 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
     private void initListeners() {
         binding.natButton.setOnClickListener(view -> {
             binding.natButton.setEnabled(false);
-            binding.natButton.setTextColor(getResources().getColor(R.color.blue,null));
             binding.intButton.setEnabled(true);
-            binding.intButton.setTextColor(getResources().getColor(R.color.white,null));
             binding.decButton.setEnabled(true);
-            binding.decButton.setTextColor(getResources().getColor(R.color.white,null));
-
             generateItem();
         });
         binding.intButton.setOnClickListener(view -> {
             binding.natButton.setEnabled(true);
-            binding.natButton.setTextColor(getResources().getColor(R.color.white,null));
             binding.intButton.setEnabled(false);
-            binding.intButton.setTextColor(getResources().getColor(R.color.blue,null));
             binding.decButton.setEnabled(true);
-            binding.decButton.setTextColor(getResources().getColor(R.color.white,null));
-
             subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
                 if (subResultsModels != null && subResultsModels.size()!=0){
                     subResultsModels.sort((subResultsModel, t1) -> t1.getSubIntegerScore() - subResultsModel.getSubIntegerScore());
@@ -117,12 +108,8 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
         });
         binding.decButton.setOnClickListener(view -> {
             binding.natButton.setEnabled(true);
-            binding.natButton.setTextColor(getResources().getColor(R.color.white,null));
             binding.intButton.setEnabled(true);
-            binding.intButton.setTextColor(getResources().getColor(R.color.white,null));
             binding.decButton.setEnabled(false);
-            binding.decButton.setTextColor(getResources().getColor(R.color.blue,null));
-
             subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
                 if (subResultsModels != null && subResultsModels.size()!=0){
                     subResultsModels.sort((subResultsModel, t1) -> t1.getSubDecimalScore() - subResultsModel.getSubDecimalScore());

@@ -42,31 +42,57 @@ public class ProfileSettingsFragment extends Fragment {
     }
 
     private void initListeners() {
-        binding.settingsBackButton.setOnClickListener(view -> navController.popBackStack());
+        binding.settingsBackButton.setOnClickListener(view -> {
+            try {
+                navController.popBackStack();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         binding.changeNicknameButton.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
             bundle.putInt(TYPE_FRAGMENTS,1);
-            navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
+            try {
+                navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         });
         binding.changeNameButton.setOnClickListener(view ->{
             Bundle bundle = new Bundle();
             bundle.putInt(TYPE_FRAGMENTS,2);
-            navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
+            try {
+                navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         });
         binding.changeSurnameButton.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
             bundle.putInt(TYPE_FRAGMENTS,3);
-            navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
+            try {
+                navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         });
         binding.changeEmailButton.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
             bundle.putInt(TYPE_FRAGMENTS,4);
-            navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
+            try {
+                navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         });
         binding.changeCountryButton.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
             bundle.putInt(TYPE_FRAGMENTS,5);
-            navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
+            try {
+                navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         });
     }
 
@@ -74,7 +100,7 @@ public class ProfileSettingsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile_settings, container, false);
         binding.setLifecycleOwner(requireActivity());
         ProfileViewModel profileSettingsViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);

@@ -43,14 +43,14 @@ public class ChangeCountryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentChangeDataBinding.inflate(inflater,container,false);
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance();
         initListeners();
         setViewData();
     }
@@ -63,7 +63,13 @@ public class ChangeCountryFragment extends Fragment {
     }
 
     private void initListeners() {
-        binding.changeBackButton.setOnClickListener(view -> navController.popBackStack());
+        binding.changeBackButton.setOnClickListener(view ->{
+            try {
+                navController.popBackStack();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        });
         binding.changeButton.setOnClickListener(view -> {
             String country = binding.countryPickerForChange.getSelectedCountryName();
             new Thread(() -> firebaseFirestore.collection(USERS)
@@ -80,7 +86,11 @@ public class ChangeCountryFragment extends Fragment {
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
                                 Log.i(TAG, SUCCESS);
-                                navController.popBackStack();
+                                try {
+                                    navController.popBackStack();
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
                             } else {
                                 Log.i(TAG, FAILED);
                             }

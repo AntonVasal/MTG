@@ -42,14 +42,15 @@ public class ChangeSurnameFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentChangeDataBinding.inflate(inflater,container,false);
+        binding = FragmentChangeDataBinding.inflate(inflater, container, false);
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         return binding.getRoot();
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance();
         initListeners();
         setViewData();
     }
@@ -61,7 +62,13 @@ public class ChangeSurnameFragment extends Fragment {
     }
 
     private void initListeners() {
-        binding.changeBackButton.setOnClickListener(view -> navController.popBackStack());
+        binding.changeBackButton.setOnClickListener(view ->{
+            try {
+                navController.popBackStack();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         binding.changeButton.setOnClickListener(view -> {
             if (Objects.requireNonNull(binding.forChange.getText()).toString().trim().isEmpty()) {
                 binding.changeEditText.setError("Surname can not be empty");
@@ -72,19 +79,23 @@ public class ChangeSurnameFragment extends Fragment {
             String id = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
             new Thread(() -> firebaseFirestore.collection(USERS).document(id)
                     .get().addOnSuccessListener(documentSnapshot -> {
-                UserRegisterProfileModel userRegisterProfileModel = documentSnapshot.toObject(UserRegisterProfileModel.class);
-                assert userRegisterProfileModel != null;
-                userRegisterProfileModel.setSurname(surname);
-                firebaseFirestore.collection(USERS).document(id)
-                        .set(userRegisterProfileModel).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Log.i(TAG, SUCCESS);
-                        navController.popBackStack();
-                    } else {
-                        Log.i(TAG, FAILED);
-                    }
-                });
-            })).start();
+                        UserRegisterProfileModel userRegisterProfileModel = documentSnapshot.toObject(UserRegisterProfileModel.class);
+                        assert userRegisterProfileModel != null;
+                        userRegisterProfileModel.setSurname(surname);
+                        firebaseFirestore.collection(USERS).document(id)
+                                .set(userRegisterProfileModel).addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Log.i(TAG, SUCCESS);
+                                try {
+                                    navController.popBackStack();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            } else {
+                                Log.i(TAG, FAILED);
+                            }
+                        });
+                    })).start();
         });
     }
 

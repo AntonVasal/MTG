@@ -54,7 +54,6 @@ public class DivFragment extends Fragment implements OnItemResultsRecyclerClickI
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = FragmentResultsRecyclerBinding.inflate(inflater, container, false);
 
         View view = binding.getRoot();
@@ -89,22 +88,14 @@ public class DivFragment extends Fragment implements OnItemResultsRecyclerClickI
     private void initListeners() {
         binding.natButton.setOnClickListener(view -> {
             binding.natButton.setEnabled(false);
-            binding.natButton.setTextColor(getResources().getColor(R.color.blue,null));
             binding.intButton.setEnabled(true);
-            binding.intButton.setTextColor(getResources().getColor(R.color.white,null));
             binding.decButton.setEnabled(true);
-            binding.decButton.setTextColor(getResources().getColor(R.color.white,null));
-
             generateItem();
         });
         binding.intButton.setOnClickListener(view -> {
             binding.natButton.setEnabled(true);
-            binding.natButton.setTextColor(getResources().getColor(R.color.white,null));
             binding.intButton.setEnabled(false);
-            binding.intButton.setTextColor(getResources().getColor(R.color.blue,null));
             binding.decButton.setEnabled(true);
-            binding.decButton.setTextColor(getResources().getColor(R.color.white,null));
-
             divViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), divResultsModels -> {
                 if (divResultsModels!=null && divResultsModels.size()!=0){
                     divResultsModels.sort((divResultsModel, t1) -> t1.getDivIntegerScore() - divResultsModel.getDivIntegerScore());
@@ -118,12 +109,8 @@ public class DivFragment extends Fragment implements OnItemResultsRecyclerClickI
         });
         binding.decButton.setOnClickListener(view -> {
             binding.natButton.setEnabled(true);
-            binding.natButton.setTextColor(getResources().getColor(R.color.white,null));
             binding.intButton.setEnabled(true);
-            binding.intButton.setTextColor(getResources().getColor(R.color.white,null));
             binding.decButton.setEnabled(false);
-            binding.decButton.setTextColor(getResources().getColor(R.color.blue,null));
-
             divViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), divResultsModels -> {
                 if (divResultsModels!=null && divResultsModels.size()!=0){
                     divResultsModels.sort((divResultsModel, t1) -> t1.getDivDecimalScore() - divResultsModel.getDivDecimalScore());

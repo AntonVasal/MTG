@@ -37,13 +37,13 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
 
     private int typeFragments;
 
-    public static ProfileSettingsPasswordConfirmationFragment newInstance(int typeFragments){
-        Bundle args = new Bundle();
-        args.putInt(TYPE_FRAGMENTS, typeFragments);
-        ProfileSettingsPasswordConfirmationFragment f = new ProfileSettingsPasswordConfirmationFragment();
-        f.setArguments(args);
-        return f;
-    }
+//    public static ProfileSettingsPasswordConfirmationFragment newInstance(int typeFragments){
+//        Bundle args = new Bundle();
+//        args.putInt(TYPE_FRAGMENTS, typeFragments);
+//        ProfileSettingsPasswordConfirmationFragment f = new ProfileSettingsPasswordConfirmationFragment();
+//        f.setArguments(args);
+//        return f;
+//    }
 
 
 
@@ -70,7 +70,13 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
     }
 
     private void initListeners() {
-        binding.confirmPasswordBackButton.setOnClickListener(view -> navController.popBackStack());
+        binding.confirmPasswordBackButton.setOnClickListener(view -> {
+            try {
+                navController.popBackStack();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         binding.confirmPasswordButton.setOnClickListener(view -> {
 
             password = Objects.requireNonNull(binding.passwordForConfirm.getText()).toString().trim();
@@ -94,33 +100,34 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
                         .reauthenticate(authCredential)
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()){
-                                NavDirections navDirections;
+                                NavDirections navDirections = null;
                                 switch (typeFragments){
                                     case 1:
                                         navDirections = ProfileSettingsPasswordConfirmationFragmentDirections
                                                 .actionProfileSettingsPasswordConfirmationFragmentToChangeNicknameFragment();
-                                        navController.navigate(navDirections);
                                         break;
                                     case 2:
                                         navDirections = ProfileSettingsPasswordConfirmationFragmentDirections
                                                 .actionProfileSettingsPasswordConfirmationFragmentToChangeNameFragment();
-                                        navController.navigate(navDirections);
                                         break;
                                     case 3:
                                         navDirections = ProfileSettingsPasswordConfirmationFragmentDirections
                                                 .actionProfileSettingsPasswordConfirmationFragmentToChangeSurnameFragment();
-                                        navController.navigate(navDirections);
                                         break;
                                     case 4:
                                         navDirections = ProfileSettingsPasswordConfirmationFragmentDirections
                                                 .actionProfileSettingsPasswordConfirmationFragmentToChangeEmailFragment();
-                                        navController.navigate(navDirections);
                                         break;
                                     case 5:
                                         navDirections = ProfileSettingsPasswordConfirmationFragmentDirections
                                                 .actionProfileSettingsPasswordConfirmationFragmentToChangeCountryFragment();
-                                        navController.navigate(navDirections);
                                         break;
+                                }
+                                try {
+                                    assert navDirections != null;
+                                    navController.navigate(navDirections);
+                                }catch (Exception e){
+                                    e.printStackTrace();
                                 }
                             }else{
                                 Log.i(TAG,FAILED);
@@ -134,7 +141,6 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = FragmentProfileSettingsPasswordConfirmationBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
