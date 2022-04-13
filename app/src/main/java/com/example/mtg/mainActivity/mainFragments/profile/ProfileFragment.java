@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -132,11 +131,9 @@ public class ProfileFragment extends Fragment {
         binding.changeProfileImgImage.setOnClickListener(view -> showChangeImageDialog());
         binding.settingsButton.setOnClickListener(view -> {
             NavDirections action = MainFragmentDirections.actionMainFragment2ToProfileSettingsFragment();
-            try {
-                navController.navigate(action);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+//            if (Objects.requireNonNull(navController.getCurrentDestination()).getId()==R.id.mainFragment2){
+            navController.navigate(action);
+//            }
         });
     }
 
@@ -284,14 +281,21 @@ public class ProfileFragment extends Fragment {
                                     Log.i(TAG, FAILED);
                                 }
                             });
+                            try {
+                                requireActivity().runOnUiThread(() -> binding.profileProgressBar.setVisibility(View.GONE));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         });
                     } else {
-                        Log.i(TAG, FAILED);
+                        try {
+                            requireActivity().runOnUiThread(() -> binding.profileProgressBar.setVisibility(View.GONE));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
             }).start();
-            Handler handler = new Handler();
-            handler.postDelayed(() -> binding.profileProgressBar.setVisibility(View.GONE), 3000);
         } else {
             Log.i(TAG, EMPTY_IMAGE);
             imageDialog.dismiss();

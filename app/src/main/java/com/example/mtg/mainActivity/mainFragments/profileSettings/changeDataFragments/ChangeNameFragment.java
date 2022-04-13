@@ -1,5 +1,7 @@
 package com.example.mtg.mainActivity.mainFragments.profileSettings.changeDataFragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,6 +32,8 @@ public class ChangeNameFragment extends Fragment {
     private static final String SUCCESS = "Success";
     private static final String FAILED = "Failed";
     private static final String USERS = "users";
+    private static final String SHARED = "is_need_to_close";
+    private static final String IS_NEED_TO_CLOSE = "close";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,10 +66,8 @@ public class ChangeNameFragment extends Fragment {
 
     private void initListeners() {
         binding.changeBackButton.setOnClickListener(view -> {
-            try {
+            if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.changeNameFragment) {
                 navController.popBackStack();
-            }catch (Exception e){
-                e.printStackTrace();
             }
         });
         binding.changeButton.setOnClickListener(view -> {
@@ -85,12 +87,13 @@ public class ChangeNameFragment extends Fragment {
                                 .set(userRegisterProfileModel).addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
                                 Log.i(TAG, SUCCESS);
-                                try {
-                                    navController.popBackStack();
-                                } catch (Exception e) {
-                                    e.printStackTrace();
+                                if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.changeNameFragment) {
+                                    SharedPreferences sharedPreferences = requireContext().getSharedPreferences(SHARED, Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor e = sharedPreferences.edit();
+                                    e.putBoolean(IS_NEED_TO_CLOSE,true);
+                                    e.apply();
+                                    requireActivity().runOnUiThread(() -> navController.popBackStack());
                                 }
-
                             } else {
                                 Log.i(TAG, FAILED);
                             }

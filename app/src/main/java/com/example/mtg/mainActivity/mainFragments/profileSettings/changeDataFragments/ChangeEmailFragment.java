@@ -1,5 +1,7 @@
 package com.example.mtg.mainActivity.mainFragments.profileSettings.changeDataFragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -31,6 +33,8 @@ public class ChangeEmailFragment extends Fragment {
     private static final String SUCCESS = "Success";
     private static final String FAILED = "Failed";
     private static final String USERS = "users";
+    private static final String SHARED = "is_need_to_close";
+    private static final String IS_NEED_TO_CLOSE = "close";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,7 +46,7 @@ public class ChangeEmailFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentChangeDataBinding.inflate(inflater,container,false);
+        binding = FragmentChangeDataBinding.inflate(inflater, container, false);
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         return binding.getRoot();
@@ -63,10 +67,8 @@ public class ChangeEmailFragment extends Fragment {
 
     private void initListeners() {
         binding.changeBackButton.setOnClickListener(view -> {
-            try {
+            if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.changeEmailFragment) {
                 navController.popBackStack();
-            }catch (Exception e){
-                e.printStackTrace();
             }
         });
         binding.changeButton.setOnClickListener(view -> {
@@ -76,18 +78,17 @@ public class ChangeEmailFragment extends Fragment {
                 binding.changeEditText.requestFocus();
                 return;
             }
-            if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 binding.changeEditText.setError("Please, provide valid email!");
                 binding.changeEditText.requestFocus();
                 return;
             }
             new Thread(() -> Objects.requireNonNull(firebaseAuth.getCurrentUser()).updateEmail(email)
                     .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             setEmailToMainCollection(email);
-                        }
-                        else{
-                            Log.i(TAG,FAILED);
+                        } else {
+                            Log.i(TAG, FAILED);
                         }
                     })).start();
         });
@@ -105,15 +106,17 @@ public class ChangeEmailFragment extends Fragment {
                     firebaseFirestore.collection(USERS).document(id)
                             .set(userRegisterProfileModel)
                             .addOnCompleteListener(task -> {
-                                if (task.isSuccessful()){
-                                    Log.i(TAG,SUCCESS);
-                                    try {
-                                        navController.popBackStack();
-                                    }catch (Exception e){
-                                        e.printStackTrace();
+                                if (task.isSuccessful()) {
+                                    Log.i(TAG, SUCCESS);
+                                    if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.changeEmailFragment) {
+                                        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(SHARED, Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor e = sharedPreferences.edit();
+                                        e.putBoolean(IS_NEED_TO_CLOSE,true);
+                                        e.apply();
+                                        requireActivity().runOnUiThread(() -> navController.popBackStack());
                                     }
-                                }else {
-                                    Log.i(TAG,FAILED);
+                                } else {
+                                    Log.i(TAG, FAILED);
                                 }
                             });
                 });

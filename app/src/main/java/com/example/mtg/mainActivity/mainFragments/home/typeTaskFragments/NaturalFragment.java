@@ -8,13 +8,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentTypeTaskBinding;
-import com.example.mtg.mainActivity.count.CountFragment;
 
 import java.util.Objects;
 
@@ -51,38 +49,30 @@ public class NaturalFragment extends Fragment {
         binding.addText.setOnClickListener(view -> {
             bundle.putInt(TYPE_NUMBER, 1);
             bundle.putInt(TASK_TYPE, 1);
-            try {
+//            if(Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.mainFragment2){
                 navController.navigate(R.id.action_mainFragment2_to_countFragment, bundle);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            }
         });
         binding.multiText.setOnClickListener(view -> {
             bundle.putInt(TYPE_NUMBER, 1);
             bundle.putInt(TASK_TYPE, 2);
-            try {
+//            if(Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.mainFragment2){
                 navController.navigate(R.id.action_mainFragment2_to_countFragment, bundle);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            }
         });
         binding.subText.setOnClickListener(view -> {
             bundle.putInt(TYPE_NUMBER, 1);
             bundle.putInt(TASK_TYPE, 3);
-            try {
+//            if(Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.mainFragment2){
                 navController.navigate(R.id.action_mainFragment2_to_countFragment, bundle);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            }
         });
         binding.divText.setOnClickListener(view -> {
             bundle.putInt(TYPE_NUMBER, 1);
             bundle.putInt(TASK_TYPE, 4);
-            try {
+//            if(Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.mainFragment2){
                 navController.navigate(R.id.action_mainFragment2_to_countFragment, bundle);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            }
         });
     }
 
