@@ -11,14 +11,15 @@ import com.example.mtg.databinding.BottomSheetResultsDialogBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class ResultsDialog extends BottomSheetDialog {
+
     private final Context context;
     private final BottomSheetResultsDialogBinding binding;
-    private final String name;
-    private final String nickname;
-    private final String imageUrl;
-    private final String country;
-    private final int score;
-    private final int tasks;
+    private String name;
+    private String nickname;
+    private String imageUrl;
+    private String country;
+    private int score;
+    private int tasks;
 
     public ResultsDialog(@NonNull Context context,BottomSheetResultsDialogBinding binding, String name, String nickname, String imageUrl, String country, int score, int tasks ) {
         super(context);
@@ -39,11 +40,20 @@ public class ResultsDialog extends BottomSheetDialog {
 
         binding.exitButtonBottomDialog.setOnClickListener(view -> dismiss());
 
-        loadData(name,nickname,imageUrl,country,score,tasks);
+        setDataInViews();
     }
 
 
     public void loadData(String name, String nickname, String imageUrl, String country, int score, int tasks ) {
+        this.name = name;
+        this.nickname = nickname;
+        this.imageUrl = imageUrl;
+        this.country = country;
+        this.score = score;
+        this.tasks = tasks;
+    }
+
+    public void setDataInViews(){
         binding.infoScoreDialog.setText(String.valueOf(score));
         binding.infoTasksDialog.setText(String.valueOf(tasks));
         binding.nicknameTextDialog.setText(nickname);
@@ -52,5 +62,8 @@ public class ResultsDialog extends BottomSheetDialog {
         binding.infoCountryDialog.setText(country);
         Glide.with(context).load(imageUrl).apply(new RequestOptions().centerCrop()).into(binding.dialogImage);
     }
+
+
+
 }
 

@@ -1,7 +1,5 @@
 package com.example.mtg.mainActivity.mainFragments.profileSettings;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,18 +25,12 @@ public class ProfileSettingsFragment extends Fragment {
     private FragmentProfileSettingsBindingImpl binding;
     private NavController navController;
     private static final String TYPE_FRAGMENTS = "typeFragments";
-    private static final String SHARED = "is_need_to_close";
-    private static final String IS_NEED_TO_CLOSE = "close";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         NavHostFragment navHostFragment = (NavHostFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container_view);
         navController = Objects.requireNonNull(navHostFragment).getNavController();
-        SharedPreferences sp = requireContext().getSharedPreferences(SHARED, Context.MODE_PRIVATE);
-        SharedPreferences.Editor e = sp.edit();
-        e.putBoolean(IS_NEED_TO_CLOSE,false);
-        e.apply();
     }
 
     @Override
@@ -99,7 +91,7 @@ public class ProfileSettingsFragment extends Fragment {
         binding.setLifecycleOwner(requireActivity());
         ProfileViewModel profileSettingsViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
         binding.setViewModel(profileSettingsViewModel);
-
         return binding.getRoot();
     }
+
 }

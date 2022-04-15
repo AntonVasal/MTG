@@ -2,6 +2,9 @@ package com.example.mtg.logActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavController;
+import androidx.navigation.NavGraph;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +17,8 @@ import com.example.mtg.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
+
 public class LogActivity extends AppCompatActivity {
 
     @Override
@@ -24,9 +29,12 @@ public class LogActivity extends AppCompatActivity {
         if (user != null){
             startActivity(new Intent(LogActivity.this, MainActivity.class));
             finish();
-        } else{
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.log_activity_container,new SignInFragment()).commit();
+        }else{
+            NavHostFragment navHostFragment = (NavHostFragment)getSupportFragmentManager().findFragmentById(R.id.log_fragment_container_view);
+            NavController navController = Objects.requireNonNull(navHostFragment).getNavController();
+            NavGraph navGraph = navController.getNavInflater().inflate(R.navigation.main_navigation_graph);
+            navGraph.setStartDestination(R.id.signInFragment);
+            navController.setGraph(navGraph);
         }
     }
 

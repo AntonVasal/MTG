@@ -1,7 +1,5 @@
 package com.example.mtg.mainActivity.mainFragments.profileSettings.ConfirmPasswordFragment;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,8 +34,6 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
     private static final String TYPE_FRAGMENTS = "typeFragments";
     private static final String USERS = "users";
     private static final String FAILED = "Failed";
-    private static final String SHARED = "is_need_to_close";
-    private static final String IS_NEED_TO_CLOSE = "close";
 
     private int typeFragments;
 
@@ -62,10 +58,6 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        SharedPreferences sp = requireContext().getSharedPreferences(SHARED, Context.MODE_PRIVATE);
-        if (sp.getBoolean(IS_NEED_TO_CLOSE,false)){
-            navController.popBackStack();
-        }
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         new Thread(() -> firebaseFirestore.collection(USERS).document(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
                 .get().addOnSuccessListener(documentSnapshot -> {

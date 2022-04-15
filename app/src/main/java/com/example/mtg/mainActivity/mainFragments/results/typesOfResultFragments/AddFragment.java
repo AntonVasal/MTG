@@ -229,7 +229,10 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
                             resultsDialog = new ResultsDialog(requireContext(), dialogBinding, name, nickname, imageUrl, country, score, tasks);
                             requireActivity().runOnUiThread(() -> resultsDialog.show());
                         } else {
-                            requireActivity().runOnUiThread(() -> resultsDialog.loadData(name, nickname, imageUrl, country, score, tasks));
+                            requireActivity().runOnUiThread(() -> {
+                                resultsDialog.loadData(name, nickname, imageUrl, country, score, tasks);
+                                resultsDialog.setDataInViews();
+                            });
                         }
                     }
                 });

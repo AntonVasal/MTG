@@ -1,6 +1,5 @@
 package com.example.mtg.logActivity.logFragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -9,12 +8,14 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.mtg.logActivity.models.UserRegisterProfileModel;
-import com.example.mtg.mainActivity.MainActivity;
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentRegisterBinding;
+import com.example.mtg.logActivity.models.UserRegisterProfileModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -27,28 +28,35 @@ public class RegisterFragment extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseFirestore mFirebaseFirestore;
     private String userID;
+    private NavController navController;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        NavHostFragment navHostFragment = (NavHostFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.log_fragment_container_view);
+        navController = Objects.requireNonNull(navHostFragment).getNavController();
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = FragmentRegisterBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
         mAuth = FirebaseAuth.getInstance();
         mFirebaseFirestore = FirebaseFirestore.getInstance();
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         initListeners();
         textSelected();
-        return view;
     }
 
     private void initListeners() {
         binding.registerButton.setOnClickListener(view -> registerUser());
-        binding.backRegisterButton.setOnClickListener(view ->
-                requireActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.log_activity_container, new SignInFragment())
-                        .commit()
-        );
+        binding.backRegisterButton.setOnClickListener(view -> navController.popBackStack());
     }
 
     private void registerUser() {
@@ -125,20 +133,22 @@ public class RegisterFragment extends Fragment {
                                     }
                                 }
                         );
-
-                        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(
-                                task12 -> {
-                                    if (task12.isSuccessful()){
-
-                                            startActivity(new Intent(getActivity(), MainActivity.class));
-                                            requireActivity().finish();
-
-                                    } else {
-                                        Toast.makeText(getContext(),"Auto-authentication is failed! Please, try again!", Toast.LENGTH_LONG).show();
-                                    }
-                                }
-
-                        );
+                        if (navController.getCurrentDestination().getId()==R.id.registerFragment){
+                            navController.popBackStack();
+                        }
+//                        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(
+//                                task12 -> {
+//                                    if (task12.isSuccessful()){
+//
+//                                            startActivity(new Intent(getActivity(), MainActivity.class));
+//                                            requireActivity().finish();
+//
+//                                    } else {
+//                                        Toast.makeText(getContext(),"Auto-authentication is failed! Please, try again!", Toast.LENGTH_LONG).show();
+//                                    }
+//                                }
+//
+//                        );
 
                     }else{
                         Toast.makeText(getContext(),"Registration failed! Please, try again!",Toast.LENGTH_LONG).show();
@@ -169,5 +179,12 @@ public class RegisterFragment extends Fragment {
             binding.registerUserSurnameEditText.setError(null);
             binding.registerUserSurnameEditText.clearFocus();
         });
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

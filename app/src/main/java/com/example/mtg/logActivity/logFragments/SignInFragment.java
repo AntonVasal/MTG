@@ -9,7 +9,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mtg.mainActivity.MainActivity;
 import com.example.mtg.R;
@@ -22,20 +25,32 @@ import java.util.Objects;
 
 public class SignInFragment extends Fragment {
 
-   private FragmentSignInBinding binding;
-   private FirebaseAuth mAuth;
+    private FragmentSignInBinding binding;
+    private FirebaseAuth mAuth;
+    private NavController navController;
 
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        NavHostFragment navHostFragment = (NavHostFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.log_fragment_container_view);
+        navController = Objects.requireNonNull(navHostFragment).getNavController();
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        binding = FragmentSignInBinding.inflate(inflater,container,false);
+        binding = FragmentSignInBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         mAuth = FirebaseAuth.getInstance();
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         initListeners();
         textSelected();
-        return view;
     }
 
     private void textSelected() {
@@ -51,67 +66,74 @@ public class SignInFragment extends Fragment {
 
     private void initListeners() {
 
-        binding.registerTextView.setOnClickListener(view ->
-                requireActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.log_activity_container, new RegisterFragment())
-                        .commit()
-                );
+        binding.registerTextView.setOnClickListener(view -> {
+            clearTextView();
+            navController.navigate(R.id.action_signInFragment_to_registerFragment);
+        });
 
         binding.signInButton.setOnClickListener(view -> userLogin());
 
-        binding.resetPassword.setOnClickListener(view ->
-                requireActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.log_activity_container, new ResetPasswordFragment())
-                        .commit()
-                );
+        binding.resetPassword.setOnClickListener(view -> {
+            clearTextView();
+            navController.navigate(R.id.action_signInFragment_to_resetPasswordFragment);
+        });
     }
 
-
+    private void clearTextView() {
+        binding.email.setText("");
+        binding.password.setText("");
+    }
 
     private void userLogin() {
         String email = Objects.requireNonNull(binding.email.getText()).toString().trim();
         String password = Objects.requireNonNull(binding.password.getText()).toString().trim();
 
-        if(email.isEmpty()){
+        if (email.isEmpty()) {
             binding.signInEmailEditText.setError("Email is required!");
             binding.signInEmailEditText.requestFocus();
             return;
         }
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             binding.signInEmailEditText.setError("Please, provide valid email!");
             binding.signInEmailEditText.requestFocus();
             return;
         }
-        if (password.isEmpty()){
+        if (password.isEmpty()) {
             binding.signInPasswordEditText.setError("Password is required!");
             binding.signInPasswordEditText.requestFocus();
             return;
         }
-        if (password.length()<6){
+        if (password.length() < 6) {
             binding.signInPasswordEditText.setError("Min password length should be 6 characters!");
             binding.signInPasswordEditText.requestFocus();
             return;
         }
 
-        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
-            if (task.isSuccessful()){
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
 
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                 assert user != null;
-                if (user.isEmailVerified()){
-                    startActivity(new Intent(getActivity(), MainActivity.class));
-                    requireActivity().finish();
-                }else {
+                if (user.isEmailVerified()) {
+//                    if (Objects.requireNonNull(navController.getCurrentDestination()).getId()==R.id.signInFragment){
+                        startActivity(new Intent(getActivity(), MainActivity.class));
+                        requireActivity().finish();
+//                    }
+                } else {
                     user.sendEmailVerification();
-                    Toast.makeText(getContext(),"Please, check your email to verify your account!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Please, check your email to verify your account!", Toast.LENGTH_LONG).show();
                 }
 
             } else {
-                Toast.makeText(getContext(),"Authentication is failed! Please, try again!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Authentication is failed! Please, try again!", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
