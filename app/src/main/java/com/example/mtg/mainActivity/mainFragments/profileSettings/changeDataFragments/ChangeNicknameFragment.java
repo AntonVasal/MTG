@@ -1,6 +1,8 @@
 package com.example.mtg.mainActivity.mainFragments.profileSettings.changeDataFragments;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,7 +63,24 @@ public class ChangeNicknameFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initListeners();
         setViewData();
+        textChanged();
     }
+
+    private void textChanged() {
+        binding.forChange.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (binding.changeEditText.getError()!=null){
+                    binding.changeEditText.setErrorEnabled(false);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable editable) { }
+        });
+    }
+
 
     private void setViewData() {
         binding.changeEditText.setHint(R.string.nickname);
@@ -82,6 +101,7 @@ public class ChangeNicknameFragment extends Fragment {
                 binding.changeEditText.requestFocus();
                 return;
             }
+            binding.changeDataProgressBar.setVisibility(View.VISIBLE);
             String nickname = binding.forChange.getText().toString().trim();
             String id = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
             new Thread(() -> sendNicknameToFirestore(nickname, id)).start();
@@ -99,10 +119,13 @@ public class ChangeNicknameFragment extends Fragment {
                         if (task.isSuccessful()) {
                             sendNicknameToCountFirestore(nickname, id);
                             if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.changeNicknameFragment) {
-                                requireActivity().runOnUiThread(() -> navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment,true));
+                                requireActivity().runOnUiThread(() -> {
+                                    binding.changeDataProgressBar.setVisibility(View.GONE);
+                                    navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment,true);
+                                });
                             }
                         } else {
-                            Log.i(TAG, FAILED);
+                            requireActivity().runOnUiThread(() -> binding.changeDataProgressBar.setVisibility(View.GONE));
                         }
                     });
                 });

@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileSettingsPasswordConfirmationFragment"
-        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.ConfirmPasswordFragment.ProfileSettingsPasswordConfirmationFragment"
+        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.confirmPasswordFragment.ProfileSettingsPasswordConfirmationFragment"
         android:label="fragment_profile_settings_password_confirmation"
         tools:layout="@layout/fragment_profile_settings_password_confirmation">
         <argument

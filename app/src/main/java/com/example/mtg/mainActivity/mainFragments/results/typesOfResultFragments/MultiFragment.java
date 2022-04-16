@@ -4,9 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,19 +11,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.example.mtg.R;
 import com.example.mtg.databinding.BottomSheetResultsDialogBinding;
 import com.example.mtg.databinding.FragmentResultsRecyclerBinding;
 import com.example.mtg.logActivity.models.UserRegisterProfileModel;
-import com.example.mtg.mainActivity.count.countModels.DivResultsModel;
 import com.example.mtg.mainActivity.count.countModels.MultiResultsModel;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.OnItemResultsRecyclerClickInterface;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
 import com.example.mtg.mainActivity.mainFragments.results.resultsDialog.ResultsDialog;
 import com.example.mtg.mainActivity.mainFragments.results.viewModels.MultiViewModel;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -69,6 +61,7 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.recyclerProgressBar.setVisibility(View.VISIBLE);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         binding.resultRecycler.setLayoutManager(layoutManager);
         generateItem();
@@ -83,6 +76,7 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
                 adapter = new ResultsRecyclerViewAdapter(getContext(),2,1,this);
                 adapter.setMultiItemList(multiResultsNaturalsModels);
                 binding.resultRecycler.setAdapter(adapter);
+                binding.recyclerProgressBar.setVisibility(View.GONE);
             }
         });
     }
@@ -127,13 +121,46 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
         multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
             switch (typeNumber){
                 case 1:
-
+                    if (resultsDialog != null && resultsDialog.isShowing()) {
+                        for (int i = 0; i < multiResultsNaturalsModels.size(); i++) {
+                            if (multiResultsNaturalsModels.get(i).getId().equals(id)) {
+                                loadDataNaturalMethod(i);
+                                loadDataFromFirestoreAndMakeDialogMethod();
+                            }
+                        }
+                    } else {
+                        loadDataNaturalMethod(position);
+                        id = multiResultsNaturalsModels.get(position).getId();
+                        loadDataFromFirestoreAndMakeDialogMethod();
+                    }
                     break;
                 case 2:
-
+                    if (resultsDialog != null && resultsDialog.isShowing()) {
+                        for (int i = 0; i < multiResultsIntegersModels.size(); i++) {
+                            if (multiResultsIntegersModels.get(i).getId().equals(id)) {
+                                loadDataIntegerMethod(i);
+                                loadDataFromFirestoreAndMakeDialogMethod();
+                            }
+                        }
+                    } else {
+                        loadDataIntegerMethod(position);
+                        id = multiResultsIntegersModels.get(position).getId();
+                        loadDataFromFirestoreAndMakeDialogMethod();
+                    }
                     break;
                 case 3:
-
+                    if (resultsDialog != null && resultsDialog.isShowing()) {
+                        for (int i = 0; i < multiResultsDecimalsModels.size(); i++) {
+                            if (multiResultsDecimalsModels.get(i).getId().equals(id)) {
+                                loadDataDecimalMethod(i);
+                                loadDataFromFirestoreAndMakeDialogMethod();
+                            }
+                        }
+                    } else {
+                        loadDataDecimalMethod(position);
+                        id = multiResultsDecimalsModels.get(position).getId();
+                        loadDataFromFirestoreAndMakeDialogMethod();
+                    }
                     break;
             }
         });
@@ -159,7 +186,7 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
 
     private void loadDataNaturalMethod(int position) {
         score = multiResultsNaturalsModels.get(position).getMultiNaturalScore();
-        tasks = multiResultsNaturalsModels.get(position).getMultiDecimalTasksAmount();
+        tasks = multiResultsNaturalsModels.get(position).getMultiNaturalTasksAmount();
         imageUrl = multiResultsNaturalsModels.get(position).getImageUrl();
         nickname = multiResultsNaturalsModels.get(position).getNickname();
     }

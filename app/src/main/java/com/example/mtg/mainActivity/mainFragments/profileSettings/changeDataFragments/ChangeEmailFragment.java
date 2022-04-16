@@ -1,6 +1,8 @@
 package com.example.mtg.mainActivity.mainFragments.profileSettings.changeDataFragments;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -54,6 +56,22 @@ public class ChangeEmailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initListeners();
         setViewData();
+        textChanged();
+    }
+
+    private void textChanged() {
+        binding.forChange.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (binding.changeEditText.getError()!=null){
+                    binding.changeEditText.setErrorEnabled(false);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable editable) { }
+        });
     }
 
     private void setViewData() {
@@ -80,12 +98,14 @@ public class ChangeEmailFragment extends Fragment {
                 binding.changeEditText.requestFocus();
                 return;
             }
+            binding.changeDataProgressBar.setVisibility(View.VISIBLE);
             new Thread(() -> Objects.requireNonNull(firebaseAuth.getCurrentUser()).updateEmail(email)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             setEmailToMainCollection(email);
                         } else {
                             Log.i(TAG, FAILED);
+                            requireActivity().runOnUiThread(() -> binding.changeDataProgressBar.setVisibility(View.GONE));
                         }
                     })).start();
         });
@@ -106,9 +126,13 @@ public class ChangeEmailFragment extends Fragment {
                                 if (task.isSuccessful()) {
                                     Log.i(TAG, SUCCESS);
                                     if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.changeEmailFragment) {
-                                        requireActivity().runOnUiThread(() -> navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment,true));
+                                        requireActivity().runOnUiThread(() -> {
+                                            binding.changeDataProgressBar.setVisibility(View.GONE);
+                                            navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment,true);
+                                        });
                                     }
                                 } else {
+                                    requireActivity().runOnUiThread(() -> binding.changeDataProgressBar.setVisibility(View.GONE));
                                     Log.i(TAG, FAILED);
                                 }
                             });

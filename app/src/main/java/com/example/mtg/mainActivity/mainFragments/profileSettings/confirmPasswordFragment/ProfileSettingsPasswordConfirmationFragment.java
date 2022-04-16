@@ -1,6 +1,8 @@
-package com.example.mtg.mainActivity.mainFragments.profileSettings.ConfirmPasswordFragment;
+package com.example.mtg.mainActivity.mainFragments.profileSettings.confirmPasswordFragment;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,7 +58,24 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
                     email = userRegisterProfileModel.getEmail();
                 })).start();
         initListeners();
+        textChanged();
     }
+
+    private void textChanged() {
+        binding.passwordForConfirm.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (binding.confirmPasswordEditText.getError()!=null){
+                    binding.confirmPasswordEditText.setErrorEnabled(false);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable editable) { }
+        });
+    }
+
 
     private void initListeners() {
         binding.confirmPasswordBackButton.setOnClickListener(view -> {
@@ -65,7 +84,6 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
             }
         });
         binding.confirmPasswordButton.setOnClickListener(view -> {
-
             password = Objects.requireNonNull(binding.passwordForConfirm.getText()).toString().trim();
 
             if (password.isEmpty()) {
@@ -79,6 +97,8 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
                 binding.confirmPasswordEditText.requestFocus();
                 return;
             }
+
+            binding.confirmPasswordProgressBar.setVisibility(View.VISIBLE);
 
             new Thread(() -> {
                 AuthCredential authCredential = EmailAuthProvider.getCredential(email, password);
@@ -113,6 +133,7 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
                                 NavDirections finalNavDirections = navDirections;
                                 if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.profileSettingsPasswordConfirmationFragment) {
                                     requireActivity().runOnUiThread(() -> {
+                                                binding.confirmPasswordProgressBar.setVisibility(View.GONE);
                                                 assert finalNavDirections != null;
                                                 binding.passwordForConfirm.setText("");
                                                 navController.navigate(finalNavDirections);
@@ -120,6 +141,7 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
                                     );
                                 }
                             } else {
+                                requireActivity().runOnUiThread(() -> binding.confirmPasswordProgressBar.setVisibility(View.GONE));
                                 Log.i(TAG, FAILED);
                                 Toast.makeText(requireActivity(), FAILED, Toast.LENGTH_LONG).show();
                             }

@@ -4,9 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,16 +11,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.example.mtg.R;
+import com.example.mtg.databinding.BottomSheetResultsDialogBinding;
 import com.example.mtg.databinding.FragmentResultsRecyclerBinding;
 import com.example.mtg.logActivity.models.UserRegisterProfileModel;
 import com.example.mtg.mainActivity.count.countModels.SubResultsModel;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.OnItemResultsRecyclerClickInterface;
 import com.example.mtg.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
+import com.example.mtg.mainActivity.mainFragments.results.resultsDialog.ResultsDialog;
 import com.example.mtg.mainActivity.mainFragments.results.viewModels.SubViewModel;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -34,39 +29,41 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
     private FragmentResultsRecyclerBinding binding;
 
     private ResultsRecyclerViewAdapter adapter;
+    private ResultsDialog resultsDialog;
 
     private String name;
     private String country;
+    private String nickname;
+    private String imageUrl;
+    private String id;
+    private int score;
+    private int tasks;
 
     private ArrayList<SubResultsModel> subResultsNaturalsModels;
     private ArrayList<SubResultsModel> subResultsIntegersModels;
     private ArrayList<SubResultsModel> subResultsDecimalsModels;
 
     private SubViewModel subViewModel;
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-    }
+    private FirebaseFirestore firebaseFirestore;
+    private BottomSheetResultsDialogBinding dialogBinding;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentResultsRecyclerBinding.inflate(inflater, container, false);
-
         View view = binding.getRoot();
-
         subViewModel = new ViewModelProvider(requireActivity()).get(SubViewModel.class);
-
-
-        binding.resultRecycler.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        binding.resultRecycler.setLayoutManager(layoutManager);
+        firebaseFirestore = FirebaseFirestore.getInstance();
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.recyclerProgressBar.setVisibility(View.VISIBLE);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        binding.resultRecycler.setLayoutManager(layoutManager);
         generateItem();
         binding.natButton.setEnabled(false);
         initListeners();
@@ -74,16 +71,16 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
 
     private void generateItem() {
         subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
-            if (subResultsModels != null && subResultsModels.size()!=0){
-                subResultsModels.sort((subResultsModel, t1) -> t1.getSubNaturalScore() - subResultsModel.getSubNaturalScore());
-                subResultsNaturalsModels = new ArrayList<>(subResultsModels);
-                subResultsNaturalsModels.removeIf(subResultsModel -> subResultsModel.getSubNaturalScore()==0);
-                adapter = new ResultsRecyclerViewAdapter(getContext(),3,1,this);
+            if (subResultsModels != null && subResultsModels.size() != 0) {
+                sortNaturalsModels(subResultsModels);
+                adapter = new ResultsRecyclerViewAdapter(getContext(), 3, 1, this);
                 adapter.setSubItemList(subResultsNaturalsModels);
                 binding.resultRecycler.setAdapter(adapter);
+                binding.recyclerProgressBar.setVisibility(View.GONE);
             }
         });
     }
+
     private void initListeners() {
         binding.natButton.setOnClickListener(view -> {
             binding.natButton.setEnabled(false);
@@ -96,11 +93,9 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
             binding.intButton.setEnabled(false);
             binding.decButton.setEnabled(true);
             subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
-                if (subResultsModels != null && subResultsModels.size()!=0){
-                    subResultsModels.sort((subResultsModel, t1) -> t1.getSubIntegerScore() - subResultsModel.getSubIntegerScore());
-                    subResultsIntegersModels = new ArrayList<>(subResultsModels);
-                    subResultsIntegersModels.removeIf(subResultsModel -> subResultsModel.getSubIntegerScore()==0);
-                    adapter = new ResultsRecyclerViewAdapter(getContext(),3,2,this);
+                if (subResultsModels != null && subResultsModels.size() != 0) {
+                    sortIntegersModels(subResultsModels);
+                    adapter = new ResultsRecyclerViewAdapter(getContext(), 3, 2, this);
                     adapter.setSubItemList(subResultsIntegersModels);
                     binding.resultRecycler.setAdapter(adapter);
                 }
@@ -111,11 +106,9 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
             binding.intButton.setEnabled(true);
             binding.decButton.setEnabled(false);
             subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
-                if (subResultsModels != null && subResultsModels.size()!=0){
-                    subResultsModels.sort((subResultsModel, t1) -> t1.getSubDecimalScore() - subResultsModel.getSubDecimalScore());
-                    subResultsDecimalsModels = new ArrayList<>(subResultsModels);
-                    subResultsDecimalsModels.removeIf(subResultsModel -> subResultsModel.getSubDecimalScore()==0);
-                    adapter = new ResultsRecyclerViewAdapter(getContext(),3,3,this);
+                if (subResultsModels != null && subResultsModels.size() != 0) {
+                    sortDecimalsModels(subResultsModels);
+                    adapter = new ResultsRecyclerViewAdapter(getContext(), 3, 3, this);
                     adapter.setSubItemList(subResultsDecimalsModels);
                     binding.resultRecycler.setAdapter(adapter);
                 }
@@ -125,146 +118,118 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
 
     @Override
     public void onItemClick(int position, int typeNumber) {
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireActivity());
-        bottomSheetDialog.setContentView(R.layout.bottom_sheet_results_dialog);
+        subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
+            switch (typeNumber) {
+                case 1:
+                    if (resultsDialog != null && resultsDialog.isShowing()) {
+                        for (int i = 0; i < subResultsNaturalsModels.size(); i++) {
+                            if (subResultsNaturalsModels.get(i).getId().equals(id)) {
+                                loadDataNaturalMethod(i);
+                                loadDataFromFirestoreAndMakeDialogMethod();
+                            }
+                        }
+                    } else {
+                        loadDataNaturalMethod(position);
+                        id = subResultsNaturalsModels.get(position).getId();
+                        loadDataFromFirestoreAndMakeDialogMethod();
+                    }
+                    break;
+                case 2:
+                    if (resultsDialog != null && resultsDialog.isShowing()) {
+                        for (int i = 0; i < subResultsIntegersModels.size(); i++) {
+                            if (subResultsIntegersModels.get(i).getId().equals(id)) {
+                                loadDataIntegerMethod(i);
+                                loadDataFromFirestoreAndMakeDialogMethod();
+                            }
+                        }
+                    } else {
+                        loadDataIntegerMethod(position);
+                        id = subResultsIntegersModels.get(position).getId();
+                        loadDataFromFirestoreAndMakeDialogMethod();
+                    }
+                    break;
+                case 3:
+                    if (resultsDialog != null && resultsDialog.isShowing()) {
+                        for (int i = 0; i < subResultsDecimalsModels.size(); i++) {
+                            if (subResultsDecimalsModels.get(i).getId().equals(id)) {
+                                loadDataDecimalMethod(i);
+                                loadDataFromFirestoreAndMakeDialogMethod();
+                            }
+                        }
+                    } else {
+                        loadDataDecimalMethod(position);
+                        id = subResultsDecimalsModels.get(position).getId();
+                        loadDataFromFirestoreAndMakeDialogMethod();
+                    }
+                    break;
+            }
+        });
+    }
 
-        ImageView userImgView = bottomSheetDialog.findViewById(R.id.dialog_image);
-        ImageButton imageButton = bottomSheetDialog.findViewById(R.id.exit_button_bottom_dialog);
-        TextView nicknameTextView = bottomSheetDialog.findViewById(R.id.nickname_text_dialog);
-        TextView nicknameInfo = bottomSheetDialog.findViewById(R.id.info_nickname_dialog);
-        TextView nameInfo = bottomSheetDialog.findViewById(R.id.info_name_dialog);
-        TextView countryInfo = bottomSheetDialog.findViewById(R.id.info_country_dialog);
-        TextView scoreInfo = bottomSheetDialog.findViewById(R.id.info_score_dialog);
-        TextView tasksInfo = bottomSheetDialog.findViewById(R.id.info_tasks_dialog);
+    private void sortNaturalsModels(ArrayList<SubResultsModel> subResultsModels) {
+        subResultsModels.sort((subResultsModel, t1) -> t1.getSubNaturalScore() - subResultsModel.getSubNaturalScore());
+        subResultsNaturalsModels = new ArrayList<>(subResultsModels);
+        subResultsNaturalsModels.removeIf(subResultsModel -> subResultsModel.getSubNaturalScore() == 0);
+    }
 
+    private void sortIntegersModels(ArrayList<SubResultsModel> subResultsModels){
+        subResultsModels.sort((subResultsModel, t1) -> t1.getSubIntegerScore() - subResultsModel.getSubIntegerScore());
+        subResultsIntegersModels = new ArrayList<>(subResultsModels);
+        subResultsIntegersModels.removeIf(subResultsModel -> subResultsModel.getSubIntegerScore() == 0);
+    }
 
-        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    private void sortDecimalsModels(ArrayList<SubResultsModel> subResultsModels){
+        subResultsModels.sort((subResultsModel, t1) -> t1.getSubDecimalScore() - subResultsModel.getSubDecimalScore());
+        subResultsDecimalsModels = new ArrayList<>(subResultsModels);
+        subResultsDecimalsModels.removeIf(subResultsModel -> subResultsModel.getSubDecimalScore() == 0);
+    }
 
-        assert imageButton != null;
-        imageButton.setOnClickListener(view -> bottomSheetDialog.cancel());
+    private void loadDataNaturalMethod(int position) {
+        score = subResultsNaturalsModels.get(position).getSubNaturalScore();
+        tasks = subResultsNaturalsModels.get(position).getSubNaturalTasksAmount();
+        imageUrl = subResultsNaturalsModels.get(position).getImageUrl();
+        nickname = subResultsNaturalsModels.get(position).getNickname();
+    }
 
-        switch (typeNumber){
-            case 1:
-                subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
-                    subResultsModels.sort((subResultsModel, t1) -> t1.getSubNaturalScore() - subResultsModel.getSubNaturalScore());
-                    subResultsNaturalsModels = new ArrayList<>(subResultsModels);
-                    subResultsNaturalsModels.removeIf(subResultsModel -> subResultsModel.getSubNaturalScore()==0);
-                    assert scoreInfo != null;
-                    scoreInfo.setText(String.valueOf(subResultsNaturalsModels.get(position).getSubNaturalScore()));
-                    assert tasksInfo != null;
-                    tasksInfo.setText(String.valueOf(subResultsNaturalsModels.get(position).getSubNaturalTasksAmount()));
-                    assert userImgView != null;
-                    Glide.with(requireActivity()).load(subResultsNaturalsModels.get(position).getImageUrl())
-                            .apply(new RequestOptions().centerCrop()).into(userImgView);
+    private void loadDataIntegerMethod(int position) {
+        score = subResultsIntegersModels.get(position).getSubIntegerScore();
+        tasks = subResultsIntegersModels.get(position).getSubIntegerTasksAmount();
+        imageUrl = subResultsIntegersModels.get(position).getImageUrl();
+        nickname = subResultsIntegersModels.get(position).getNickname();
+    }
 
-                    assert nicknameTextView != null;
-                    nicknameTextView.setText(subResultsNaturalsModels.get(position).getNickname());
+    private void loadDataDecimalMethod(int position) {
+        score = subResultsDecimalsModels.get(position).getSubDecimalScore();
+        tasks = subResultsDecimalsModels.get(position).getSubDecimalTasksAmount();
+        imageUrl = subResultsDecimalsModels.get(position).getImageUrl();
+        nickname = subResultsDecimalsModels.get(position).getNickname();
+    }
 
-                    assert nicknameInfo != null;
-                    nicknameInfo.setText(subResultsNaturalsModels.get(position).getNickname());
-
-                    firebaseFirestore.collection(USERS).document(subResultsNaturalsModels.get(position).getId())
-                            .addSnapshotListener((value, error) -> {
-                                if (error != null) {
-                                    return;
-                                }
-                                if (value != null && value.exists()) {
-                                    UserRegisterProfileModel userRegisterProfileModel = value.toObject(UserRegisterProfileModel.class);
-                                    assert userRegisterProfileModel != null;
-                                    name = userRegisterProfileModel.getName();
-                                    country = userRegisterProfileModel.getCountry();
-
-                                    assert nameInfo != null;
-                                    nameInfo.setText(name);
-
-                                    assert countryInfo != null;
-                                    countryInfo.setText(country);
-                                }
+    private void loadDataFromFirestoreAndMakeDialogMethod() {
+        firebaseFirestore.collection(USERS).document(id)
+                .addSnapshotListener((value, error) -> {
+                    if (error != null) {
+                        return;
+                    }
+                    if (value != null && value.exists()) {
+                        UserRegisterProfileModel userRegisterProfileModel = value.toObject(UserRegisterProfileModel.class);
+                        assert userRegisterProfileModel != null;
+                        name = userRegisterProfileModel.getName();
+                        country = userRegisterProfileModel.getCountry();
+                        if (resultsDialog == null || !resultsDialog.isShowing()) {
+                            requireActivity().runOnUiThread(() -> {
+                                dialogBinding = BottomSheetResultsDialogBinding.inflate(getLayoutInflater());
+                                resultsDialog = new ResultsDialog(requireContext(), dialogBinding, name, nickname, imageUrl, country, score, tasks);
+                                resultsDialog.show();
                             });
-                });
-                bottomSheetDialog.show();
-                break;
-            case 2:
-                subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
-                    subResultsModels.sort((subResultsModel, t1) -> t1.getSubIntegerScore() - subResultsModel.getSubIntegerScore());
-                    subResultsIntegersModels = new ArrayList<>(subResultsModels);
-                    subResultsIntegersModels.removeIf(subResultsModel -> subResultsModel.getSubIntegerScore()==0);
-                    assert scoreInfo != null;
-                    scoreInfo.setText(String.valueOf(subResultsIntegersModels.get(position).getSubIntegerScore()));
-                    assert tasksInfo != null;
-                    tasksInfo.setText(String.valueOf(subResultsIntegersModels.get(position).getSubIntegerTasksAmount()));
-                    assert userImgView != null;
-                    Glide.with(requireActivity()).load(subResultsIntegersModels.get(position).getImageUrl())
-                            .apply(new RequestOptions().centerCrop()).into(userImgView);
-
-                    assert nicknameTextView != null;
-                    nicknameTextView.setText(subResultsIntegersModels.get(position).getNickname());
-
-                    assert nicknameInfo != null;
-                    nicknameInfo.setText(subResultsIntegersModels.get(position).getNickname());
-
-                    firebaseFirestore.collection(USERS).document(subResultsIntegersModels.get(position).getId())
-                            .addSnapshotListener((value, error) -> {
-                                if (error != null) {
-                                    return;
-                                }
-                                if (value != null && value.exists()) {
-                                    UserRegisterProfileModel userRegisterProfileModel = value.toObject(UserRegisterProfileModel.class);
-                                    assert userRegisterProfileModel != null;
-                                    name = userRegisterProfileModel.getName();
-                                    country = userRegisterProfileModel.getCountry();
-
-                                    assert nameInfo != null;
-                                    nameInfo.setText(name);
-
-                                    assert countryInfo != null;
-                                    countryInfo.setText(country);
-                                }
+                        } else {
+                            requireActivity().runOnUiThread(() -> {
+                                resultsDialog.loadData(name, nickname, imageUrl, country, score, tasks);
+                                resultsDialog.setDataInViews();
                             });
+                        }
+                    }
                 });
-                bottomSheetDialog.show();
-                break;
-            case 3:
-                subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
-                    subResultsModels.sort((subResultsModel, t1) -> t1.getSubDecimalScore() - subResultsModel.getSubDecimalScore());
-                    subResultsDecimalsModels = new ArrayList<>(subResultsModels);
-                    subResultsDecimalsModels.removeIf(subResultsModel -> subResultsModel.getSubDecimalScore()==0);
-                    assert scoreInfo != null;
-                    scoreInfo.setText(String.valueOf(subResultsDecimalsModels.get(position).getSubDecimalScore()));
-                    assert tasksInfo != null;
-                    tasksInfo.setText(String.valueOf(subResultsDecimalsModels.get(position).getSubDecimalTasksAmount()));
-                    assert userImgView != null;
-                    Glide.with(requireActivity()).load(subResultsDecimalsModels.get(position).getImageUrl())
-                            .apply(new RequestOptions().centerCrop()).into(userImgView);
-
-                    assert nicknameTextView != null;
-                    nicknameTextView.setText(subResultsDecimalsModels.get(position).getNickname());
-
-                    assert nicknameInfo != null;
-                    nicknameInfo.setText(subResultsDecimalsModels.get(position).getNickname());
-
-                    firebaseFirestore.collection(USERS).document(subResultsDecimalsModels.get(position).getId())
-                            .addSnapshotListener((value, error) -> {
-                                if (error != null) {
-                                    return;
-                                }
-                                if (value != null && value.exists()) {
-                                    UserRegisterProfileModel userRegisterProfileModel = value.toObject(UserRegisterProfileModel.class);
-                                    assert userRegisterProfileModel != null;
-                                    name = userRegisterProfileModel.getName();
-                                    country = userRegisterProfileModel.getCountry();
-
-                                    assert nameInfo != null;
-                                    nameInfo.setText(name);
-
-                                    assert countryInfo != null;
-                                    countryInfo.setText(country);
-                                }
-                            });
-                });
-                bottomSheetDialog.show();
-                break;
-        }
     }
 
     @Override

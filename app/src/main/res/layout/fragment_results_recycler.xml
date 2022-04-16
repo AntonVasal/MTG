@@ -2,7 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/result_constraint_container"
@@ -65,6 +66,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:visibility="gone"
+                tools:visibility="visible"
+                android:indeterminateTint="@color/white"
                 android:id="@+id/recycler_progress_bar"/>
 
             <androidx.recyclerview.widget.RecyclerView

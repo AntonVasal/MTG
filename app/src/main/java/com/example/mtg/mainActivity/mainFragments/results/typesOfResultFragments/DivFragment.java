@@ -61,6 +61,7 @@ public class DivFragment extends Fragment implements OnItemResultsRecyclerClickI
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.recyclerProgressBar.setVisibility(View.VISIBLE);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         binding.resultRecycler.setLayoutManager(layoutManager);
         generateItem();
@@ -75,6 +76,7 @@ public class DivFragment extends Fragment implements OnItemResultsRecyclerClickI
                 adapter = new ResultsRecyclerViewAdapter(getContext(), 4, 1, this);
                 adapter.setDivItemList(divResultsNaturalsModels);
                 binding.resultRecycler.setAdapter(adapter);
+                binding.recyclerProgressBar.setVisibility(View.GONE);
             }
         });
     }

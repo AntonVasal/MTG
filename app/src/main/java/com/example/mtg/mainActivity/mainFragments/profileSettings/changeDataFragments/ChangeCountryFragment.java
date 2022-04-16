@@ -69,6 +69,7 @@ public class ChangeCountryFragment extends Fragment {
             }
         });
         binding.changeButton.setOnClickListener(view -> {
+            binding.changeDataProgressBar.setVisibility(View.VISIBLE);
             String country = binding.countryPickerForChange.getSelectedCountryName();
             new Thread(() -> firebaseFirestore.collection(USERS)
                     .document(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())
@@ -85,9 +86,13 @@ public class ChangeCountryFragment extends Fragment {
                                     if (task.isSuccessful()) {
                                         Log.i(TAG, SUCCESS);
                                         if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.changeCountryFragment) {
-                                            requireActivity().runOnUiThread(() -> navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment,true));
+                                            requireActivity().runOnUiThread(() -> {
+                                                binding.changeDataProgressBar.setVisibility(View.GONE);
+                                                navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment,true);
+                                            });
                                         }
                                     } else {
+                                        requireActivity().runOnUiThread(() -> binding.changeDataProgressBar.setVisibility(View.GONE));
                                         Log.i(TAG, FAILED);
                                     }
                                 });
