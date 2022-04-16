@@ -18,305 +18,360 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/settings_back_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:contentDescription="@string/back_button"
-                android:src="@drawable/ic_baseline_arrow_back_50_black"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/settings_program_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/mtg"
-                android:textColor="@color/black"
-                android:textSize="80sp"
-                android:textStyle="italic"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/settings_author"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/made_by_vay"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="italic"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/settings_program_name" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/user_nickname_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:paddingHorizontal="20dp"
-                app:layout_constraintTop_toBottomOf="@id/settings_author">
+                android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/user_nickname_image"
+                    android:id="@+id/settings_back_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/user_nickname_image"
-                    android:src="@drawable/ic_baseline_star_50"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:contentDescription="@string/back_button"
+                    android:src="@drawable/ic_baseline_arrow_back_50_black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/info_nickname_text"
-                    style="@style/KindOfUserDataTextViews"
-                    android:text="@string/nickname"
-                    app:layout_constraintStart_toEndOf="@id/user_nickname_image"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/info_nickname"
-                    style="@style/UserDataTextViews"
-                    android:text="@={viewModel.user.nickname}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/user_nickname_image"
-                    app:layout_constraintTop_toBottomOf="@id/info_nickname_text" />
-
-                <ImageView
-                    android:id="@+id/change_nickname_button"
+                    android:id="@+id/settings_program_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/change_nickname"
-                    android:src="@drawable/ic_baseline_create_24"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/mtg"
+                    android:textColor="@color/black"
+                    android:textSize="80sp"
+                    android:textStyle="italic"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <View
-                android:id="@+id/nickname_name_divider"
-                style="@style/DividerForUserData"
-                app:layout_constraintBottom_toTopOf="@id/name_container"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/user_nickname_container" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/name_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:paddingHorizontal="20dp"
-                app:layout_constraintTop_toBottomOf="@id/nickname_name_divider">
-
-                <ImageView
-                    android:id="@+id/user_name_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/user_name_image"
-                    android:src="@drawable/ic_baseline_person_50"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/info_name_text"
-                    style="@style/KindOfUserDataTextViews"
-                    android:text="@string/name"
-                    app:layout_constraintStart_toEndOf="@id/user_name_image"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/info_name"
-                    style="@style/UserDataTextViews"
-                    android:text="@={viewModel.user.name}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/user_name_image"
-                    app:layout_constraintTop_toBottomOf="@id/info_name_text" />
-
-                <ImageView
-                    android:id="@+id/change_name_button"
+                    android:id="@+id/settings_author"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/change_name"
-                    android:src="@drawable/ic_baseline_create_24"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:text="@string/made_by_vay"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="italic"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <View
-                android:id="@+id/name_surname_divider"
-                style="@style/DividerForUserData"
-                app:layout_constraintBottom_toTopOf="@id/surname_container"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/name_container" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/surname_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:paddingHorizontal="20dp"
-                app:layout_constraintTop_toBottomOf="@id/name_surname_divider">
-
-                <ImageView
-                    android:id="@+id/user_surname_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/user_surname_image"
-                    android:src="@drawable/ic_baseline_group_50"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@id/settings_program_name" />
 
-                <TextView
-                    android:id="@+id/info_surname_text"
-                    style="@style/KindOfUserDataTextViews"
-                    android:text="@string/surname"
-                    app:layout_constraintStart_toEndOf="@id/user_surname_image"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/info_surname"
-                    style="@style/UserDataTextViews"
-                    android:text="@={viewModel.user.surname}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/user_surname_image"
-                    app:layout_constraintTop_toBottomOf="@id/info_surname_text" />
-
-                <ImageView
-                    android:id="@+id/change_surname_button"
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/user_nickname_container"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/change_surname"
-                    android:src="@drawable/ic_baseline_create_24"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="50dp"
+                    android:paddingHorizontal="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/settings_author">
+
+                    <ImageView
+                        android:id="@+id/user_nickname_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/user_nickname_image"
+                        android:src="@drawable/ic_baseline_star_50"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/info_nickname_text"
+                        style="@style/KindOfUserDataTextViews"
+                        android:text="@string/nickname"
+                        app:layout_constraintStart_toEndOf="@id/user_nickname_image"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/info_nickname"
+                        style="@style/UserDataTextViews"
+                        android:text="@={viewModel.user.nickname}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/user_nickname_image"
+                        app:layout_constraintTop_toBottomOf="@id/info_nickname_text" />
+
+                    <ImageView
+                        android:id="@+id/change_nickname_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/change_nickname"
+                        android:src="@drawable/ic_baseline_create_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:id="@+id/nickname_name_divider"
+                    style="@style/DividerForUserData"
+                    app:layout_constraintBottom_toTopOf="@id/name_container"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <View
-                android:id="@+id/surname_email_divider"
-                style="@style/DividerForUserData"
-                app:layout_constraintBottom_toTopOf="@id/email_container"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/surname_container" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/email_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:paddingHorizontal="20dp"
-                app:layout_constraintTop_toBottomOf="@id/surname_email_divider">
-
-                <ImageView
-                    android:id="@+id/user_email_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/user_email_image"
-                    android:src="@drawable/ic_baseline_email_50"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@id/user_nickname_container" />
 
-                <TextView
-                    android:id="@+id/info_email_text"
-                    style="@style/KindOfUserDataTextViews"
-                    android:text="@string/email"
-                    app:layout_constraintStart_toEndOf="@id/user_email_image"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/info_email"
-                    style="@style/UserDataTextViews"
-                    android:text="@={viewModel.user.email}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/user_email_image"
-                    app:layout_constraintTop_toBottomOf="@id/info_email_text" />
-
-                <ImageView
-                    android:id="@+id/change_email_button"
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/name_container"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/change_email"
-                    android:src="@drawable/ic_baseline_create_24"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="25dp"
+                    android:paddingHorizontal="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/nickname_name_divider">
+
+                    <ImageView
+                        android:id="@+id/user_name_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/user_name_image"
+                        android:src="@drawable/ic_baseline_person_50"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/info_name_text"
+                        style="@style/KindOfUserDataTextViews"
+                        android:text="@string/name"
+                        app:layout_constraintStart_toEndOf="@id/user_name_image"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/info_name"
+                        style="@style/UserDataTextViews"
+                        android:text="@={viewModel.user.name}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/user_name_image"
+                        app:layout_constraintTop_toBottomOf="@id/info_name_text" />
+
+                    <ImageView
+                        android:id="@+id/change_name_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/change_name"
+                        android:src="@drawable/ic_baseline_create_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:id="@+id/name_surname_divider"
+                    style="@style/DividerForUserData"
+                    app:layout_constraintBottom_toTopOf="@id/surname_container"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <View
-                android:id="@+id/email_country_divider"
-                style="@style/DividerForUserData"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/email_container" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/country_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:paddingHorizontal="20dp"
-                app:layout_constraintTop_toBottomOf="@id/email_country_divider">
-
-                <ImageView
-                    android:id="@+id/user_country_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/user_country_image"
-                    android:src="@drawable/ic_baseline_location_on_50"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@id/name_container" />
 
-                <TextView
-                    android:id="@+id/info_country_text"
-                    style="@style/KindOfUserDataTextViews"
-                    android:text="@string/country"
-                    app:layout_constraintStart_toEndOf="@id/user_country_image"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/info_country"
-                    style="@style/UserDataTextViews"
-                    android:text="@={viewModel.user.country}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/user_country_image"
-                    app:layout_constraintTop_toBottomOf="@id/info_country_text" />
-
-                <ImageView
-                    android:id="@+id/change_country_button"
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/surname_container"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/change_country"
-                    android:src="@drawable/ic_baseline_create_24"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="25dp"
+                    android:paddingHorizontal="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/name_surname_divider">
+
+                    <ImageView
+                        android:id="@+id/user_surname_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/user_surname_image"
+                        android:src="@drawable/ic_baseline_group_50"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/info_surname_text"
+                        style="@style/KindOfUserDataTextViews"
+                        android:text="@string/surname"
+                        app:layout_constraintStart_toEndOf="@id/user_surname_image"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/info_surname"
+                        style="@style/UserDataTextViews"
+                        android:text="@={viewModel.user.surname}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/user_surname_image"
+                        app:layout_constraintTop_toBottomOf="@id/info_surname_text" />
+
+                    <ImageView
+                        android:id="@+id/change_surname_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/change_surname"
+                        android:src="@drawable/ic_baseline_create_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:id="@+id/surname_email_divider"
+                    style="@style/DividerForUserData"
+                    app:layout_constraintBottom_toTopOf="@id/email_container"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/surname_container" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/email_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:paddingHorizontal="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/surname_email_divider">
+
+                    <ImageView
+                        android:id="@+id/user_email_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/user_email_image"
+                        android:src="@drawable/ic_baseline_email_50"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/info_email_text"
+                        style="@style/KindOfUserDataTextViews"
+                        android:text="@string/email"
+                        app:layout_constraintStart_toEndOf="@id/user_email_image"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/info_email"
+                        style="@style/UserDataTextViews"
+                        android:text="@={viewModel.user.email}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/user_email_image"
+                        app:layout_constraintTop_toBottomOf="@id/info_email_text" />
+
+                    <ImageView
+                        android:id="@+id/change_email_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/change_email"
+                        android:src="@drawable/ic_baseline_create_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:id="@+id/email_country_divider"
+                    style="@style/DividerForUserData"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/email_container" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/country_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:paddingHorizontal="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/email_country_divider">
+
+                    <ImageView
+                        android:id="@+id/user_country_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/user_country_image"
+                        android:src="@drawable/ic_baseline_location_on_50"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/info_country_text"
+                        style="@style/KindOfUserDataTextViews"
+                        android:text="@string/country"
+                        app:layout_constraintStart_toEndOf="@id/user_country_image"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/info_country"
+                        style="@style/UserDataTextViews"
+                        android:text="@={viewModel.user.country}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/user_country_image"
+                        app:layout_constraintTop_toBottomOf="@id/info_country_text" />
+
+                    <ImageView
+                        android:id="@+id/change_country_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/change_country"
+                        android:src="@drawable/ic_baseline_create_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:id="@+id/country_divider"
+                    style="@style/DividerForUserData"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/country_container" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/password_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:paddingHorizontal="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/country_divider">
+
+                    <ImageView
+                        android:id="@+id/user_password_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/user_password_image"
+                        android:src="@drawable/ic_baseline_security_50"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/info_password_text"
+                        style="@style/KindOfUserDataTextViews"
+                        android:text="@string/password"
+                        app:layout_constraintStart_toEndOf="@id/user_password_image"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/password_text"
+                        style="@style/UserDataTextViews"
+                        android:text="@string/password_starts"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/user_password_image"
+                        app:layout_constraintTop_toBottomOf="@id/info_password_text" />
+
+                    <ImageView
+                        android:id="@+id/change_password_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/change_password"
+                        android:src="@drawable/ic_baseline_create_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:id="@+id/password_divider"
+                    style="@style/DividerForUserData"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/password_container" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <View
-                android:id="@+id/country_divider"
-                style="@style/DividerForUserData"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/country_container" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+        </androidx.core.widget.NestedScrollView>
     </FrameLayout>
 
 

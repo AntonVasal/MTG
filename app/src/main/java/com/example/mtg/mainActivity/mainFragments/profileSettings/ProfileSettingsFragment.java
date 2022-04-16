@@ -48,45 +48,45 @@ public class ProfileSettingsFragment extends Fragment {
         binding.changeNicknameButton.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
             bundle.putInt(TYPE_FRAGMENTS,1);
-            if(Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.profileSettingsFragment ){
-                navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
-            }
+            letsGoToConfirmPassword(bundle);
         });
         binding.changeNameButton.setOnClickListener(view ->{
             Bundle bundle = new Bundle();
             bundle.putInt(TYPE_FRAGMENTS,2);
-            if(Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.profileSettingsFragment ){
-                navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
-            }
+            letsGoToConfirmPassword(bundle);
         });
         binding.changeSurnameButton.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
             bundle.putInt(TYPE_FRAGMENTS,3);
-            if(Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.profileSettingsFragment ){
-                navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
-            }
+            letsGoToConfirmPassword(bundle);
         });
         binding.changeEmailButton.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
             bundle.putInt(TYPE_FRAGMENTS,4);
-            if(Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.profileSettingsFragment ){
-                navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
-            }
+            letsGoToConfirmPassword(bundle);
         });
         binding.changeCountryButton.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
             bundle.putInt(TYPE_FRAGMENTS,5);
-            if(Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.profileSettingsFragment ){
-                navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
-            }
+            letsGoToConfirmPassword(bundle);
+        });
+        binding.changePasswordButton.setOnClickListener(view -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt(TYPE_FRAGMENTS,6);
+            letsGoToConfirmPassword(bundle);
         });
     }
 
 
+    private void letsGoToConfirmPassword(Bundle bundle){
+        if(Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.profileSettingsFragment ){
+            navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
+        }
+    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile_settings, container, false);
         binding.setLifecycleOwner(requireActivity());
         ProfileViewModel profileSettingsViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);

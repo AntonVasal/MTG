@@ -111,6 +111,8 @@ public class RegisterFragment extends Fragment {
             return;
         }
 
+        binding.registerProgressBar.setVisibility(View.VISIBLE);
+
         new Thread(() -> mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -124,15 +126,18 @@ public class RegisterFragment extends Fragment {
                                     if (task1.isSuccessful()) {
                                         requireActivity().runOnUiThread(() -> {
                                             if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.registerFragment) {
+                                                binding.registerProgressBar.setVisibility(View.GONE);
                                                 navController.popBackStack();
                                             }
                                         });
                                     } else {
+                                        requireActivity().runOnUiThread(() -> binding.registerProgressBar.setVisibility(View.GONE));
                                         Toast.makeText(getContext(), "Something went wrong. Please try again.", Toast.LENGTH_LONG).show();
                                     }
                                 }
                         );
                     } else {
+                        requireActivity().runOnUiThread(() -> binding.registerProgressBar.setVisibility(View.GONE));
                         Toast.makeText(getContext(), "Registration failed! Please, try again!", Toast.LENGTH_LONG).show();
                     }
                 })).start();

@@ -87,12 +87,15 @@ public class ResetPasswordFragment extends Fragment {
             binding.resetEmailEditText.requestFocus();
             return;
         }
+        binding.resetPasswordProgressBar.setVisibility(View.VISIBLE);
 
         new Thread(() -> mAuth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
             if(task.isSuccessful()){
+                requireActivity().runOnUiThread(() -> binding.resetPasswordProgressBar.setVisibility(View.GONE));
                 Toast.makeText(getContext(),"Please, check your email to reset password!",Toast.LENGTH_LONG)
                         .show();
             }else{
+                requireActivity().runOnUiThread(() -> binding.resetPasswordProgressBar.setVisibility(View.GONE));
                 Toast.makeText(getContext(),"Something went wrong. Please, try again!", Toast.LENGTH_LONG)
                         .show();
             }

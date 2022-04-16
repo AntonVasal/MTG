@@ -100,6 +100,9 @@
     <string name="name_is_required">Name is required!</string>
     <string name="nickname_is_required">Nickname is required!</string>
     <string name="surname_is_required">Surname is required!</string>
+    <string name="user_password_image">user password image</string>
+    <string name="password_starts">********</string>
+    <string name="change_password">change password</string>
 
     <string-array name="types_of_number">
         <item>Natural numbers</item>

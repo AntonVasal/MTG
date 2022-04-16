@@ -29,6 +29,7 @@ import java.util.Objects;
 public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
 
     private FragmentProfileSettingsPasswordConfirmationBinding binding;
+    private FirebaseAuth mAuth;
     private String password;
     private String email;
     private NavController navController;
@@ -51,6 +52,7 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         new Thread(() -> firebaseFirestore.collection(USERS).document(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
                 .get().addOnSuccessListener(documentSnapshot -> {
                     UserRegisterProfileModel userRegisterProfileModel = documentSnapshot.toObject(UserRegisterProfileModel.class);
@@ -78,6 +80,15 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
 
 
     private void initListeners() {
+        binding.forgetPassword.setOnClickListener(view -> new Thread(() -> mAuth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                Toast.makeText(getContext(),"Please, check your email to reset password!",Toast.LENGTH_LONG)
+                        .show();
+            }else{
+                Toast.makeText(getContext(),"Something went wrong. Please, try again!", Toast.LENGTH_LONG)
+                        .show();
+            }
+        })).start());
         binding.confirmPasswordBackButton.setOnClickListener(view -> {
             if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.profileSettingsPasswordConfirmationFragment) {
                 navController.popBackStack();
@@ -128,6 +139,10 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
                                     case 5:
                                         navDirections = ProfileSettingsPasswordConfirmationFragmentDirections
                                                 .actionProfileSettingsPasswordConfirmationFragmentToChangeCountryFragment();
+                                        break;
+                                    case 6:
+                                        navDirections = ProfileSettingsPasswordConfirmationFragmentDirections.
+                                                actionProfileSettingsPasswordConfirmationFragmentToChangePasswordFragment();
                                         break;
                                 }
                                 NavDirections finalNavDirections = navDirections;

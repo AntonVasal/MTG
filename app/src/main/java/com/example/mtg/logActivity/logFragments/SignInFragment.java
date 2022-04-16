@@ -126,6 +126,8 @@ public class SignInFragment extends Fragment {
             return;
         }
 
+        binding.signInProgressBar.setVisibility(View.VISIBLE);
+
         new Thread(() -> mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -133,16 +135,19 @@ public class SignInFragment extends Fragment {
                 if (user.isEmailVerified()) {
 //                    if (Objects.requireNonNull(navController.getCurrentDestination()).getId()==R.id.signInFragment){
                     requireActivity().runOnUiThread(() -> {
+                        binding.signInProgressBar.setVisibility(View.GONE);
                         startActivity(new Intent(getActivity(), MainActivity.class));
                         requireActivity().finish();
                     });
 //                    }
                 } else {
                     user.sendEmailVerification();
+                    binding.signInProgressBar.setVisibility(View.GONE);
                     Toast.makeText(getContext(), "Please, check your email to verify your account!", Toast.LENGTH_LONG).show();
                 }
 
             } else {
+                requireActivity().runOnUiThread(() -> binding.signInProgressBar.setVisibility(View.GONE));
                 Toast.makeText(getContext(), "Authentication is failed! Please, try again!", Toast.LENGTH_LONG).show();
             }
         })).start();
