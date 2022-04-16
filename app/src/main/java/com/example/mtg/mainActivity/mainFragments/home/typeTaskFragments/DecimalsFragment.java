@@ -49,31 +49,29 @@ public class DecimalsFragment extends Fragment {
         binding.addText.setOnClickListener(view -> {
             bundle.putInt(TYPE_NUMBER, 3);
             bundle.putInt(TASK_TYPE, 1);
-//            if(Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.mainFragment2){
-            navController.navigate(R.id.action_mainFragment2_to_countFragment, bundle);
-//            }
+            letsCount();
         });
         binding.multiText.setOnClickListener(view -> {
             bundle.putInt(TYPE_NUMBER, 3);
             bundle.putInt(TASK_TYPE, 2);
-//            if(Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.mainFragment2){
-            navController.navigate(R.id.action_mainFragment2_to_countFragment, bundle);
-//            }
+            letsCount();
         });
         binding.subText.setOnClickListener(view -> {
             bundle.putInt(TYPE_NUMBER, 3);
             bundle.putInt(TASK_TYPE, 3);
-//            if(Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.mainFragment2){
-            navController.navigate(R.id.action_mainFragment2_to_countFragment, bundle);
-//            }
+            letsCount();
         });
         binding.divText.setOnClickListener(view -> {
             bundle.putInt(TYPE_NUMBER, 3);
             bundle.putInt(TASK_TYPE, 4);
-//            if(Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.mainFragment2){
-            navController.navigate(R.id.action_mainFragment2_to_countFragment, bundle);
-//            }
+            letsCount();
         });
+    }
+
+    private void letsCount(){
+        if(Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.mainFragment2){
+            navController.navigate(R.id.action_mainFragment2_to_countFragment, bundle);
+        }
     }
 
     @Override

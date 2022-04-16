@@ -69,7 +69,7 @@ public class ChangeNameFragment extends Fragment {
         });
         binding.changeButton.setOnClickListener(view -> {
             if (Objects.requireNonNull(binding.forChange.getText()).toString().trim().isEmpty()) {
-                binding.changeEditText.setError("Name can not be empty");
+                binding.changeEditText.setError(getResources().getString(R.string.name_is_required));
                 binding.changeEditText.requestFocus();
                 return;
             }

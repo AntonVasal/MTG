@@ -93,6 +93,13 @@
     <string name="change_country">change country</string>
     <string name="confirm_password">confirm password</string>
     <string name="logo">logo</string>
+    <string name="pls_provide_valid_email">Please, provide valid email!</string>
+    <string name="email_is_required">Email is required!</string>
+    <string name="password_is_required">Password is required!</string>
+    <string name="min_password">Min password length should be 6 characters!</string>
+    <string name="name_is_required">Name is required!</string>
+    <string name="nickname_is_required">Nickname is required!</string>
+    <string name="surname_is_required">Surname is required!</string>
 
     <string-array name="types_of_number">
         <item>Natural numbers</item>

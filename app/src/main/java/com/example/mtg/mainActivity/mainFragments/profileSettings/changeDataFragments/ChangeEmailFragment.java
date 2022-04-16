@@ -71,12 +71,12 @@ public class ChangeEmailFragment extends Fragment {
         binding.changeButton.setOnClickListener(view -> {
             String email = Objects.requireNonNull(binding.forChange.getText()).toString().trim();
             if (email.isEmpty()) {
-                binding.changeEditText.setError("Email can not be empty");
+                binding.changeEditText.setError(getResources().getString(R.string.email_is_required));
                 binding.changeEditText.requestFocus();
                 return;
             }
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                binding.changeEditText.setError("Please, provide valid email!");
+                binding.changeEditText.setError(getResources().getString(R.string.pls_provide_valid_email));
                 binding.changeEditText.requestFocus();
                 return;
             }

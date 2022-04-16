@@ -46,7 +46,6 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
     private int score;
     private int tasks;
 
-
     private FragmentResultsRecyclerBinding binding;
     private BottomSheetResultsDialogBinding dialogBinding;
 
@@ -57,7 +56,6 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
         firebaseFirestore = FirebaseFirestore.getInstance();
         View view = binding.getRoot();
         addViewModel = new ViewModelProvider(requireActivity()).get(AddViewModel.class);
-
         return view;
     }
 
@@ -89,7 +87,6 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
             binding.decButton.setEnabled(true);
             generateItem();
         });
-
         binding.intButton.setOnClickListener(view -> {
             binding.natButton.setEnabled(true);
             binding.intButton.setEnabled(false);
@@ -103,7 +100,6 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
                 }
             });
         });
-
         binding.decButton.setOnClickListener(view -> {
             binding.natButton.setEnabled(true);
             binding.intButton.setEnabled(true);
@@ -121,9 +117,9 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
 
     @Override
     public void onItemClick(int position, int typeNumber) {
-        switch (typeNumber) {
-            case 1:
-                addViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), addResultsModels -> {
+        addViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), addResultsModels -> {
+            switch (typeNumber) {
+                case 1:
                     if (resultsDialog != null && resultsDialog.isShowing()) {
                         for (int i = 0; i < addResultsNaturalsModels.size(); i++) {
                             if (addResultsNaturalsModels.get(i).getId().equals(id)) {
@@ -136,10 +132,8 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
                         id = addResultsNaturalsModels.get(position).getId();
                         loadDataFromFirestoreAndMakeDialogMethod();
                     }
-                });
-                break;
-            case 2:
-                addViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), addResultsModels -> {
+                    break;
+                case 2:
                     if (resultsDialog != null && resultsDialog.isShowing()) {
                         for (int i = 0; i < addResultsIntegersModels.size(); i++) {
                             if (addResultsIntegersModels.get(i).getId().equals(id)) {
@@ -152,10 +146,8 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
                         id = addResultsIntegersModels.get(position).getId();
                         loadDataFromFirestoreAndMakeDialogMethod();
                     }
-                });
-                break;
-            case 3:
-                addViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), addResultsModels -> {
+                    break;
+                case 3:
                     if (resultsDialog != null && resultsDialog.isShowing()) {
                         for (int i = 0; i < addResultsDecimalsModels.size(); i++) {
                             if (addResultsDecimalsModels.get(i).getId().equals(id)) {
@@ -168,11 +160,10 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
                         id = addResultsDecimalsModels.get(position).getId();
                         loadDataFromFirestoreAndMakeDialogMethod();
                     }
-                });
-                break;
-        }
+                    break;
+            }
+        });
     }
-
 
     private void sortNaturalModels(ArrayList<AddResultsModel> userResultsModels) {
         userResultsModels.sort((addResultsModel, t1) -> t1.getAddNaturalScore() - addResultsModel.getAddNaturalScore());
@@ -225,9 +216,11 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
                         name = userRegisterProfileModel.getName();
                         country = userRegisterProfileModel.getCountry();
                         if (resultsDialog == null || !resultsDialog.isShowing()) {
-                            dialogBinding = BottomSheetResultsDialogBinding.inflate(getLayoutInflater());
-                            resultsDialog = new ResultsDialog(requireContext(), dialogBinding, name, nickname, imageUrl, country, score, tasks);
-                            requireActivity().runOnUiThread(() -> resultsDialog.show());
+                            requireActivity().runOnUiThread(() -> {
+                                dialogBinding = BottomSheetResultsDialogBinding.inflate(getLayoutInflater());
+                                resultsDialog = new ResultsDialog(requireContext(), dialogBinding, name, nickname, imageUrl, country, score, tasks);
+                                resultsDialog.show();
+                            });
                         } else {
                             requireActivity().runOnUiThread(() -> {
                                 resultsDialog.loadData(name, nickname, imageUrl, country, score, tasks);

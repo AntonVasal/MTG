@@ -67,6 +67,7 @@ public class ProfileFragment extends Fragment {
     private static final String SUB = "sub";
     private static final String USERS = "users";
     private static final String EMPTY_IMAGE = "empty image uri";
+    private static final String NO_IMAGE = "no image";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -114,7 +115,7 @@ public class ProfileFragment extends Fragment {
 
     private void setData() {
         profileViewModel.getUser().observe(getViewLifecycleOwner(), userRegisterProfileModel -> {
-            if (userRegisterProfileModel.getImageUrl() == null || userRegisterProfileModel.getImageUrl().equals("no image") || userRegisterProfileModel.getImageUrl().equals("")) {
+            if (userRegisterProfileModel.getImageUrl() == null || userRegisterProfileModel.getImageUrl().equals(NO_IMAGE) || userRegisterProfileModel.getImageUrl().equals("")) {
                 binding.userProfileImage.setImageResource(R.drawable.ic_baseline_person_150);
             } else {
                 String img = userRegisterProfileModel.getImageUrl();
@@ -131,9 +132,9 @@ public class ProfileFragment extends Fragment {
         binding.changeProfileImgImage.setOnClickListener(view -> showChangeImageDialog());
         binding.settingsButton.setOnClickListener(view -> {
             NavDirections action = MainFragmentDirections.actionMainFragment2ToProfileSettingsFragment();
-//            if (Objects.requireNonNull(navController.getCurrentDestination()).getId()==R.id.mainFragment2){
-            navController.navigate(action);
-//            }
+            if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.mainFragment2) {
+                navController.navigate(action);
+            }
         });
     }
 

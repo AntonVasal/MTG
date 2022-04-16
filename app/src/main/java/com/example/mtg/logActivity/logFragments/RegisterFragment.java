@@ -1,6 +1,8 @@
 package com.example.mtg.logActivity.logFragments;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +31,8 @@ public class RegisterFragment extends Fragment {
     private FirebaseFirestore mFirebaseFirestore;
     private String userID;
     private NavController navController;
+    private static final String USERS = "users";
+    private static final String NO_IMAGE = "users";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,7 +44,7 @@ public class RegisterFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentRegisterBinding.inflate(inflater,container,false);
+        binding = FragmentRegisterBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         mAuth = FirebaseAuth.getInstance();
         mFirebaseFirestore = FirebaseFirestore.getInstance();
@@ -67,117 +71,138 @@ public class RegisterFragment extends Fragment {
         String nickname = Objects.requireNonNull(binding.nickname.getText()).toString().trim();
         String country = binding.countryPicker.getSelectedCountryName();
 
-
-        //valid email
-        if(email.isEmpty()){
-            binding.registerEmailEditText.setError("Email is required!");
+        if (email.isEmpty()) {
+            binding.registerEmailEditText.setError(getResources().getString(R.string.email_is_required));
             binding.registerEmailEditText.requestFocus();
             return;
         }
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            binding.registerEmailEditText.setError("Please, provide valid email!");
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            binding.registerEmailEditText.setError(getResources().getString(R.string.pls_provide_valid_email));
             binding.registerEmailEditText.requestFocus();
             return;
         }
 
-        //valid password
-        if (password.isEmpty()){
-            binding.registerPasswordEditText.setError("Password is required");
+        if (password.isEmpty()) {
+            binding.registerPasswordEditText.setError(getResources().getString(R.string.password_is_required));
             binding.registerPasswordEditText.requestFocus();
             return;
         }
-        if (password.length() < 6){
-            binding.registerPasswordEditText.setError("Min password length should be 6 characters!");
+        if (password.length() < 6) {
+            binding.registerPasswordEditText.setError(getResources().getString(R.string.min_password));
             binding.registerPasswordEditText.requestFocus();
             return;
         }
 
-        //valid nickname
-        if (nickname.isEmpty()){
-            binding.registerUserNicknameEditText.setError("Nickname is required!");
+        if (nickname.isEmpty()) {
+            binding.registerUserNicknameEditText.setError(getResources().getString(R.string.nickname_is_required));
             binding.registerUserNicknameEditText.requestFocus();
             return;
         }
 
-        //valid name
-        if (name.isEmpty()){
-            binding.registerUserNameEditText.setError("Name is required!");
+        if (name.isEmpty()) {
+            binding.registerUserNameEditText.setError(getResources().getString(R.string.name_is_required));
             binding.registerUserNameEditText.requestFocus();
             return;
         }
 
-        //valid surname
-        if (surname.isEmpty()){
-            binding.registerUserSurnameEditText.setError("Surname is required!");
+        if (surname.isEmpty()) {
+            binding.registerUserSurnameEditText.setError(getResources().getString(R.string.surname_is_required));
             binding.registerUserSurnameEditText.requestFocus();
             return;
         }
 
-
-
-        mAuth.createUserWithEmailAndPassword(email,password)
+        new Thread(() -> mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()){
+                    if (task.isSuccessful()) {
 
                         userID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
-                        UserRegisterProfileModel user = new UserRegisterProfileModel(name, surname, nickname, email, country,"no image");
+                        UserRegisterProfileModel user = new UserRegisterProfileModel(name, surname, nickname, email, country, NO_IMAGE);
 
-                        mFirebaseFirestore.collection("users").document(userID).set(user).addOnCompleteListener(
+                        mFirebaseFirestore.collection(USERS).document(userID).set(user).addOnCompleteListener(
                                 task1 -> {
-                                    if(task1.isSuccessful()){
-                                        Toast.makeText(getContext(),"Data has been already put into database.", Toast.LENGTH_LONG).show();
-                                    }
-                                    else {
-                                        Toast.makeText(getContext(),"Something went wrong. Please try again.",Toast.LENGTH_LONG).show();
+                                    if (task1.isSuccessful()) {
+                                        requireActivity().runOnUiThread(() -> {
+                                            if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.registerFragment) {
+                                                navController.popBackStack();
+                                            }
+                                        });
+                                    } else {
+                                        Toast.makeText(getContext(), "Something went wrong. Please try again.", Toast.LENGTH_LONG).show();
                                     }
                                 }
                         );
-                        if (navController.getCurrentDestination().getId()==R.id.registerFragment){
-                            navController.popBackStack();
-                        }
-//                        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(
-//                                task12 -> {
-//                                    if (task12.isSuccessful()){
-//
-//                                            startActivity(new Intent(getActivity(), MainActivity.class));
-//                                            requireActivity().finish();
-//
-//                                    } else {
-//                                        Toast.makeText(getContext(),"Auto-authentication is failed! Please, try again!", Toast.LENGTH_LONG).show();
-//                                    }
-//                                }
-//
-//                        );
-
-                    }else{
-                        Toast.makeText(getContext(),"Registration failed! Please, try again!",Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getContext(), "Registration failed! Please, try again!", Toast.LENGTH_LONG).show();
                     }
-                });
-
-
+                })).start();
     }
 
     private void textSelected() {
-        binding.email.setOnClickListener(view -> {
-            binding.registerEmailEditText.setError(null);
-            binding.registerEmailEditText.clearFocus();
+        binding.email.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (binding.registerEmailEditText.getError() != null) {
+                    binding.registerEmailEditText.setErrorEnabled(false);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
         });
-        binding.password.setOnClickListener(view -> {
-            binding.registerPasswordEditText.setError(null);
-            binding.registerPasswordEditText.clearFocus();
+
+        binding.password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (binding.registerPasswordEditText.getError()!=null){
+                    binding.registerPasswordEditText.setErrorEnabled(false);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable editable) { }
         });
-        binding.name.setOnClickListener(view -> {
-            binding.registerUserNameEditText.setError(null);
-            binding.registerUserNameEditText.clearFocus();
+
+        binding.name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (binding.registerUserNameEditText.getError() != null) {
+                    binding.registerUserNameEditText.setErrorEnabled(false);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable editable) { }
         });
-        binding.nickname.setOnClickListener(view -> {
-            binding.registerUserNicknameEditText.setError(null);
-            binding.registerUserNicknameEditText.clearFocus();
+
+        binding.nickname.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (binding.registerUserNicknameEditText.getError() != null) {
+                    binding.registerUserNicknameEditText.setErrorEnabled(false);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable editable) { }
         });
-        binding.surname.setOnClickListener(view -> {
-            binding.registerUserSurnameEditText.setError(null);
-            binding.registerUserSurnameEditText.clearFocus();
+
+        binding.surname.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (binding.registerUserSurnameEditText.getError() != null) {
+                    binding.registerUserSurnameEditText.setErrorEnabled(false);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable editable) { }
         });
     }
 

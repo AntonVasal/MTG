@@ -1,6 +1,8 @@
 package com.example.mtg.logActivity.logFragments;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,11 +53,18 @@ public class ResetPasswordFragment extends Fragment {
     }
 
     private void textChanged() {
-        binding.emailForReset.setOnClickListener(view -> {
-            binding.resetEmailEditText.setError(null);
-            binding.resetEmailEditText.clearFocus();
+        binding.emailForReset.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (binding.resetEmailEditText.getError()!=null){
+                    binding.resetEmailEditText.setErrorEnabled(false);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable editable) { }
         });
-
     }
 
     private void initListeners() {
@@ -68,18 +77,18 @@ public class ResetPasswordFragment extends Fragment {
         String email = Objects.requireNonNull(binding.emailForReset.getText()).toString().trim();
 
         if (email.isEmpty()){
-            binding.resetEmailEditText.setError("Email is required!");
+            binding.resetEmailEditText.setError(getResources().getString(R.string.email_is_required));
             binding.resetEmailEditText.requestFocus();
             return;
         }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            binding.resetEmailEditText.setError("Please, provide valid email!");
+            binding.resetEmailEditText.setError(getResources().getString(R.string.pls_provide_valid_email));
             binding.resetEmailEditText.requestFocus();
             return;
         }
 
-        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
+        new Thread(() -> mAuth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 Toast.makeText(getContext(),"Please, check your email to reset password!",Toast.LENGTH_LONG)
                         .show();
@@ -87,7 +96,7 @@ public class ResetPasswordFragment extends Fragment {
                 Toast.makeText(getContext(),"Something went wrong. Please, try again!", Toast.LENGTH_LONG)
                         .show();
             }
-        });
+        })).start();
     }
 
     @Override

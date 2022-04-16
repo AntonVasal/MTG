@@ -34,17 +34,7 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
     private static final String TYPE_FRAGMENTS = "typeFragments";
     private static final String USERS = "users";
     private static final String FAILED = "Failed";
-
     private int typeFragments;
-
-//    public static ProfileSettingsPasswordConfirmationFragment newInstance(int typeFragments){
-//        Bundle args = new Bundle();
-//        args.putInt(TYPE_FRAGMENTS, typeFragments);
-//        ProfileSettingsPasswordConfirmationFragment f = new ProfileSettingsPasswordConfirmationFragment();
-//        f.setArguments(args);
-//        return f;
-//    }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,13 +69,13 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
             password = Objects.requireNonNull(binding.passwordForConfirm.getText()).toString().trim();
 
             if (password.isEmpty()) {
-                binding.confirmPasswordEditText.setError("Password is required");
+                binding.confirmPasswordEditText.setError(getResources().getString(R.string.password_is_required));
                 binding.confirmPasswordEditText.requestFocus();
                 return;
             }
 
             if (password.length() < 6) {
-                binding.confirmPasswordEditText.setError("Min password length should be 6 characters!");
+                binding.confirmPasswordEditText.setError(getResources().getString(R.string.min_password));
                 binding.confirmPasswordEditText.requestFocus();
                 return;
             }
