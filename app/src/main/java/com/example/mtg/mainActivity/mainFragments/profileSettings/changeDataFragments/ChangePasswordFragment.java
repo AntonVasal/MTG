@@ -72,7 +72,7 @@ public class ChangePasswordFragment extends Fragment {
     }
 
     private void setViewData() {
-        binding.changeEditText.setHint(R.string.password);
+        binding.changeEditText.setHint(R.string.new_password);
         binding.forChange.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
         binding.changeEditText.setStartIconDrawable(R.drawable.ic_baseline_security_24);
         binding.changeEditText.setEndIconMode(TextInputLayout.END_ICON_PASSWORD_TOGGLE);

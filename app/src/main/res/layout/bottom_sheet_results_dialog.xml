@@ -48,10 +48,8 @@
 
             <TextView
                 android:id="@+id/nickname_text_dialog"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/MainUserNicknameText"
                 android:layout_marginTop="15dp"
-                android:textColor="@color/white"
                 android:textSize="40sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -61,14 +59,8 @@
 
         <TextView
             android:id="@+id/info_text_dialog"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp"
+            style="@style/InfoTitle"
             android:text="@string/account_info"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image_layout_dialog" />
 
@@ -200,14 +192,9 @@
 
         <TextView
             android:id="@+id/count_info_dialog"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            style="@style/InfoTitle"
             android:layout_marginTop="15dp"
             android:text="@string/count_info"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/country_divider_dialog" />
 

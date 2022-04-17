@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="BasicTextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
     <style name="CountButtonStyle" parent="Widget.MaterialComponents.Button">
         <item name="android:backgroundTint">@color/white</item>
         <item name="android:textColor">@color/black</item>
@@ -8,18 +13,14 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="UserDataTextViews" parent="Widget.MaterialComponents.TextView">
+    <style name="UserDataTextViews" parent="BasicTextView">
         <item name="android:textSize">@dimen/text_for_user_data</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:layout_marginStart">7dp</item>
     </style>
     
-    <style name="KindOfUserDataTextViews" parent="Widget.MaterialComponents.TextView">
+    <style name="KindOfUserDataTextViews" parent="BasicTextView">
         <item name="android:textSize">@dimen/text_for_user_data</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_marginStart">5dp</item>
         <item name="android:textColor">@color/blue_bright</item>
         <item name="android:textStyle">bold</item>
@@ -31,6 +32,141 @@
         <item name="android:background">@color/blue_bright</item>
         <item name="android:layout_marginHorizontal">20dp</item>
         <item name="android:layout_marginTop">5dp</item>
+    </style>
+
+    <style name="BasicMainText" parent="BasicTextView">
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="MainTitleText" parent="BasicMainText">
+        <item name="android:textSize">80sp</item>
+        <item name="android:text">@string/mtg</item>
+    </style>
+
+    <style name="MainAuthorText" parent="BasicMainText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:text">@string/made_by_vay</item>
+    </style>
+
+    <style name="MainButtonForWorkingWithUser" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:textColor">@color/blue_bright</item>
+        <item name="android:layout_marginHorizontal">30dp</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="AuthHelpTextForUser" parent="BasicTextView">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ClassicProgressBar">
+        <item name="android:layout_width">70dp</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:elevation">20dp</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:indeterminateTint">@color/darker_grey</item>
+    </style>
+
+    <style name="CountryCodePicker">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginHorizontal">30dp</item>
+        <item name="ccp_defaultNameCode">UA</item>
+        <item name="ccp_showFullName">true</item>
+        <item name="ccp_textSize">24sp</item>
+        <item name="ccp_showNameCode">false</item>
+        <item name="ccp_showPhoneCode">false</item>
+    </style>
+
+    <style name="ClassicBackButton" parent="Widget.AppCompat.ImageButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="backgroundTint">@color/transparent</item>
+        <item name="android:src">@drawable/ic_baseline_arrow_back_50</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginStart">10dp</item>
+    </style>
+
+    <style name="RecyclerItemText" parent="Widget.MaterialComponents.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="ClassicBackButton.Black" parent="ClassicBackButton">
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:src">@drawable/ic_baseline_arrow_back_50_black</item>
+        <item name="android:layout_marginStart">20dp</item>
+    </style>
+
+    <style name="InfoTitle" parent="BasicTextView">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">30dp</item>
+        <item name="android:layout_marginStart">20dp</item>
+    </style>
+
+    <style name="BasicMainDataText" parent="BasicTextView">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="MainUserNicknameText" parent="BasicMainDataText">
+        <item name="android:textSize">50sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">20dp</item>
+    </style>
+
+    <style name="MainUserEmailText" parent="BasicMainDataText">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="BasicTextInputLayout">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginHorizontal">30dp</item>
+    </style>
+
+    <style name="BasicTextInputEditText">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="backgroundTint">@color/white</item>
+    </style>
+
+    <style name="BasicTextInputEditText.Password" parent="BasicTextInputEditText">
+        <item name="android:inputType">textPassword</item>
+    </style>
+
+    <style name="BasicTextInputEditText.Email" parent="BasicTextInputEditText">
+        <item name="android:inputType">textEmailAddress</item>
+    </style>
+
+    <style name="BasicTextInputLayout.Password" parent="BasicTextInputLayout">
+        <item name="endIconMode">password_toggle</item>
+        <item name="startIconDrawable">@drawable/ic_baseline_security_24</item>
+        <item name="android:hint">@string/password</item>
+    </style>
+
+    <style name="BasicTextInputLayout.Email" parent="BasicTextInputLayout">
+        <item name="startIconDrawable">@drawable/ic_baseline_email_24</item>
+        <item name="android:hint">@string/email</item>
+    </style>
+
+    <style name="BasicTextInputLayout.Nickname" parent="BasicTextInputLayout">
+        <item name="startIconDrawable">@drawable/ic_baseline_star_24</item>
+        <item name="android:hint">@string/nickname</item>
+    </style>
+
+    <style name="BasicTextInputLayout.Name" parent="BasicTextInputLayout">
+        <item name="startIconDrawable">@drawable/ic_baseline_person_24</item>
+        <item name="android:hint">@string/name</item>
+    </style>
+
+    <style name="BasicTextInputLayout.Surname" parent="BasicTextInputLayout">
+        <item name="startIconDrawable">@drawable/ic_baseline_group_24</item>
+        <item name="android:hint">@string/surname</item>
     </style>
 
 </resources>
