@@ -1,4 +1,4 @@
-package com.example.mtg.mainActivity.count;
+package com.example.mtg.mainActivity.countFragment;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -14,11 +14,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.mtg.mainActivity.count.countResultsToFirestoreSetters.CountResultsToFirestoreSettersOperator;
-import com.example.mtg.mainActivity.count.tasksGenerators.AdvantageTasksGenerator;
-import com.example.mtg.mainActivity.count.tasksGenerators.MediumPlusTasksGenerator;
-import com.example.mtg.mainActivity.count.tasksGenerators.MediumTasksGenerator;
-import com.example.mtg.mainActivity.count.tasksGenerators.PrimaryTasksGenerator;
+import com.example.mtg.mainActivity.countFragment.countResultsToFirestoreSetters.CountResultsToFirestoreSettersOperator;
+import com.example.mtg.mainActivity.countFragment.tasksGenerators.AdvantageTasksGenerator;
+import com.example.mtg.mainActivity.countFragment.tasksGenerators.MediumPlusTasksGenerator;
+import com.example.mtg.mainActivity.countFragment.tasksGenerators.MediumTasksGenerator;
+import com.example.mtg.mainActivity.countFragment.tasksGenerators.PrimaryTasksGenerator;
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentCountBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,15 +41,6 @@ public class CountFragment extends Fragment {
     private CountResultsToFirestoreSettersOperator countResultsToFirestoreSettersOperator;
     private static final String TYPE_NUMBER = "typeNumber";
     private static final String TASK_TYPE = "taskType";
-
-//    public static CountFragment newInstance(int taskType,int typeNumber){
-//        Bundle args = new Bundle();
-//        args.putInt(TASK_TYPE,taskType);
-//        args.putInt(TYPE_NUMBER,typeNumber);
-//        CountFragment f = new CountFragment();
-//        f.setArguments(args);
-//        return f;
-//    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -305,14 +296,10 @@ public class CountFragment extends Fragment {
         dialog.show();
     }
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
-
-
-
 
 }

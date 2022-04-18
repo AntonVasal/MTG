@@ -1,15 +1,15 @@
-package com.example.mtg.mainActivity.count.tasksGenerators;
+package com.example.mtg.mainActivity.countFragment.tasksGenerators;
 
 import com.example.mtg.databinding.FragmentCountBinding;
 
 import java.util.Locale;
 import java.util.Random;
 
-public class MediumTasksGenerator {
+public class MediumPlusTasksGenerator {
 
     private final FragmentCountBinding binding;
 
-    public MediumTasksGenerator(FragmentCountBinding binding) {
+    public MediumPlusTasksGenerator(FragmentCountBinding binding) {
         this.binding = binding;
     }
 
@@ -18,10 +18,10 @@ public class MediumTasksGenerator {
         int a;
         int b;
         do {
-            a = random.nextInt(5000) - 2500;
-            b = random.nextInt(48) + 2;
-            if (b != 25 && b != 26) {
-                b = b - 25;
+            a = random.nextInt(10000) - 5000;
+            b = random.nextInt(98) + 2;
+            if (b != 50 && b != 51) {
+                b = b - 50;
             }
         } while (a % b != 0);
         String task;
@@ -39,8 +39,8 @@ public class MediumTasksGenerator {
 
     public void generateIntegerMultiTask() {
         Random random = new Random();
-        int a = random.nextInt(50) - 25;
-        int b = random.nextInt(50) - 25;
+        int a = random.nextInt(100) - 50;
+        int b = random.nextInt(100) - 50;
         String task;
         if (a >= 0 && b >= 0) {
             task = a + " x " + b + " = ";
@@ -56,8 +56,8 @@ public class MediumTasksGenerator {
 
     public void generateIntegerSubTask() {
         Random random = new Random();
-        int a = random.nextInt(5000) - 2500;
-        int b = random.nextInt(5000) - 2500;
+        int a = random.nextInt(10000) - 5000;
+        int b = random.nextInt(10000) - 5000;
         String task;
         if (a >= 0 && b >= 0) {
             task = a + " - " + b + " = ";
@@ -73,8 +73,8 @@ public class MediumTasksGenerator {
 
     public void generateIntegerAddTask() {
         Random random = new Random();
-        int a = random.nextInt(5000) - 2500;
-        int b = random.nextInt(5000) - 2500;
+        int a = random.nextInt(10000) - 5000;
+        int b = random.nextInt(10000) - 5000;
         String task;
         if (a >= 0 && b >= 0) {
             task = a + " + " + b + " = ";
@@ -93,8 +93,8 @@ public class MediumTasksGenerator {
         int a;
         int b;
         do {
-            a = random.nextInt(2500);
-            b = random.nextInt(23) + 2;
+            a = random.nextInt(5000);
+            b = random.nextInt(48) + 2;
         } while (a % b != 0);
         String task = a + " : " + b + " = ";
         binding.taskText.setText(task);
@@ -102,8 +102,8 @@ public class MediumTasksGenerator {
 
     public void generateNaturalSubTask() {
         Random random = new Random();
-        int a = random.nextInt(2500);
-        int b = random.nextInt(2500);
+        int a = random.nextInt(5000);
+        int b = random.nextInt(5000);
         String task;
         if (a > b) {
             task = a + " - " + b + " = ";
@@ -115,16 +115,16 @@ public class MediumTasksGenerator {
 
     public void generateNaturalMultiTask() {
         Random random = new Random();
-        int a = random.nextInt(25);
-        int b = random.nextInt(25);
+        int a = random.nextInt(50);
+        int b = random.nextInt(50);
         String task = a + " x " + b + " = ";
         binding.taskText.setText(task);
     }
 
     public void generateNaturalAddTask() {
         Random random = new Random();
-        int a = random.nextInt(2500);
-        int b = random.nextInt(2500);
+        int a = random.nextInt(5000);
+        int b = random.nextInt(5000);
         String task = a + " + " + b + " = ";
         binding.taskText.setText(task);
     }
@@ -139,10 +139,10 @@ public class MediumTasksGenerator {
         String[] doubles;
         do {
             random1 = new Random().nextDouble();
-            a = 1.0 + (random1 * (250.0 - 0.0));
+            a = 1.0 + (random1 * (500.0 - 0.0));
             a = Double.parseDouble(String.format(Locale.US, "%.1f", a));
             random2 = new Random().nextDouble();
-            b = 1.0 + (random2 * (25.0 - 0.0));
+            b = 1.0 + (random2 * (50.0 - 0.0));
             b = Double.parseDouble(String.format(Locale.US, "%.1f", b));
             c = a / b;
             doubleForTask = String.valueOf(c);
@@ -154,11 +154,11 @@ public class MediumTasksGenerator {
 
     private void generateDecimalSubTask() {
         double random1 = new Random().nextDouble();
-        double a = 0.0 + (random1 * (250.0 - 0.0));
-        a = Double.parseDouble(String.format(Locale.US, "%.1f", a));
+        double a = 0.0 + (random1 * (500.0 - 0.0));
+        a = Double.parseDouble(String.format(Locale.US, "%.2f", a));
         double random2 = new Random().nextDouble();
-        double b = 0.0 + (random2 * (250.0 - 0.0));
-        b = Double.parseDouble(String.format(Locale.US, "%.1f", b));
+        double b = 0.0 + (random2 * (500.0 - 0.0));
+        b = Double.parseDouble(String.format(Locale.US, "%.2f", b));
         String task;
         if (a > b) {
             task = a + " - " + b + " = ";
@@ -170,10 +170,10 @@ public class MediumTasksGenerator {
 
     private void generateDecimalMultiTask() {
         double random1 = new Random().nextDouble();
-        double a = 0.0 + (random1 * (3.0 - 0.0));
+        double a = 0.0 + (random1 * (5.0 - 0.0));
         a = Double.parseDouble(String.format(Locale.US, "%.1f", a));
         double random2 = new Random().nextDouble();
-        double b = 0.0 + (random2 * (2.0 - 0.0));
+        double b = 0.0 + (random2 * (5.0 - 0.0));
         b = Double.parseDouble(String.format(Locale.US, "%.1f", b));
         String task = a + " * " + b + " = ";
         binding.taskText.setText(task);
@@ -181,11 +181,11 @@ public class MediumTasksGenerator {
 
     private void generateDecimalAddTask() {
         double random1 = new Random().nextDouble();
-        double a = 0.0 + (random1 * (250.0 - 0.0));
-        a = Double.parseDouble(String.format(Locale.US, "%.1f", a));
+        double a = 0.0 + (random1 * (500.0 - 0.0));
+        a = Double.parseDouble(String.format(Locale.US, "%.2f", a));
         double random2 = new Random().nextDouble();
-        double b = 0.0 + (random2 * (250.0 - 0.0));
-        b = Double.parseDouble(String.format(Locale.US, "%.1f", b));
+        double b = 0.0 + (random2 * (500.0 - 0.0));
+        b = Double.parseDouble(String.format(Locale.US, "%.2f", b));
         String task = a + " + " + b + " = ";
         binding.taskText.setText(task);
     }
@@ -242,4 +242,6 @@ public class MediumTasksGenerator {
                 break;
         }
     }
+
+
 }

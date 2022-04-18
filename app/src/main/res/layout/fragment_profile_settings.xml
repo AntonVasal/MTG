@@ -53,17 +53,14 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/user_nickname_container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/UserDataConstraintLayout.Settings"
                     android:layout_marginTop="50dp"
-                    android:paddingHorizontal="20dp"
                     app:layout_constraintTop_toBottomOf="@id/settings_author">
 
                     <ImageView
                         android:id="@+id/user_nickname_image"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/NicknameImageView"
                         android:contentDescription="@string/user_nickname_image"
-                        android:src="@drawable/ic_baseline_star_50"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -85,10 +82,8 @@
 
                     <ImageView
                         android:id="@+id/change_nickname_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/ChangeDataImageView"
                         android:contentDescription="@string/change_nickname"
-                        android:src="@drawable/ic_baseline_create_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -105,17 +100,13 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/name_container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:paddingHorizontal="20dp"
+                    style="@style/UserDataConstraintLayout.Settings"
                     app:layout_constraintTop_toBottomOf="@id/nickname_name_divider">
 
                     <ImageView
                         android:id="@+id/user_name_image"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/NameImageView"
                         android:contentDescription="@string/user_name_image"
-                        android:src="@drawable/ic_baseline_person_50"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -137,10 +128,8 @@
 
                     <ImageView
                         android:id="@+id/change_name_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/ChangeDataImageView"
                         android:contentDescription="@string/change_name"
-                        android:src="@drawable/ic_baseline_create_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -157,17 +146,13 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/surname_container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:paddingHorizontal="20dp"
+                    style="@style/UserDataConstraintLayout.Settings"
                     app:layout_constraintTop_toBottomOf="@id/name_surname_divider">
 
                     <ImageView
                         android:id="@+id/user_surname_image"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/SurnameImageView"
                         android:contentDescription="@string/user_surname_image"
-                        android:src="@drawable/ic_baseline_group_50"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -189,10 +174,8 @@
 
                     <ImageView
                         android:id="@+id/change_surname_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/ChangeDataImageView"
                         android:contentDescription="@string/change_surname"
-                        android:src="@drawable/ic_baseline_create_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -209,17 +192,13 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/email_container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:paddingHorizontal="20dp"
+                    style="@style/UserDataConstraintLayout.Settings"
                     app:layout_constraintTop_toBottomOf="@id/surname_email_divider">
 
                     <ImageView
                         android:id="@+id/user_email_image"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/EmailImageView"
                         android:contentDescription="@string/user_email_image"
-                        android:src="@drawable/ic_baseline_email_50"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -241,10 +220,8 @@
 
                     <ImageView
                         android:id="@+id/change_email_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:contentDescription="@string/change_email"
-                        android:src="@drawable/ic_baseline_create_24"
+                        style="@style/ChangeDataImageView"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -260,17 +237,13 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/country_container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:paddingHorizontal="20dp"
+                    style="@style/UserDataConstraintLayout.Settings"
                     app:layout_constraintTop_toBottomOf="@id/email_country_divider">
 
                     <ImageView
                         android:id="@+id/user_country_image"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/CountryImageView"
                         android:contentDescription="@string/user_country_image"
-                        android:src="@drawable/ic_baseline_location_on_50"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -292,10 +265,8 @@
 
                     <ImageView
                         android:id="@+id/change_country_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/ChangeDataImageView"
                         android:contentDescription="@string/change_country"
-                        android:src="@drawable/ic_baseline_create_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -311,17 +282,13 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/password_container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:paddingHorizontal="20dp"
+                    style="@style/UserDataConstraintLayout.Settings"
                     app:layout_constraintTop_toBottomOf="@id/country_divider">
 
                     <ImageView
                         android:id="@+id/user_password_image"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/PasswordImageView"
                         android:contentDescription="@string/user_password_image"
-                        android:src="@drawable/ic_baseline_security_50"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -343,10 +310,8 @@
 
                     <ImageView
                         android:id="@+id/change_password_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/ChangeDataImageView"
                         android:contentDescription="@string/change_password"
-                        android:src="@drawable/ic_baseline_create_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />

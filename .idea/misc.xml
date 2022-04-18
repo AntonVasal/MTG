@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/MTG/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/MTG/app/src/main/res/drawable/anim_list_for_tasks_types_reverse.xml" value="0.2703125" />
+        <entry key="..\:/MTG/app/src/main/res/drawable/backgroud_for_tasks_types_blue.xml" value="0.2703125" />
+        <entry key="..\:/MTG/app/src/main/res/drawable/background_for_types_tasks_white.xml" value="0.2703125" />
         <entry key="..\:/MTG/app/src/main/res/drawable/color_for_bottom_nav.xml" value="0.25925925925925924" />
         <entry key="..\:/MTG/app/src/main/res/drawable/color_for_resullts_bottom_bar.xml" value="0.17777777777777778" />
         <entry key="..\:/MTG/app/src/main/res/drawable/gradient_1.xml" value="0.19907407407407407" />
@@ -40,6 +43,7 @@
         <entry key="..\:/MTG/app/src/main/res/drawable/ic_baseline_star_50.xml" value="0.1585" />
         <entry key="..\:/MTG/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2703125" />
         <entry key="..\:/MTG/app/src/main/res/drawable/mtg.xml" value="0.17407407407407408" />
+        <entry key="..\:/MTG/app/src/main/res/drawable/shape_for_types_task.xml" value="0.2703125" />
         <entry key="..\:/MTG/app/src/main/res/drawable/splash_screen.xml" value="0.264" />
         <entry key="..\:/MTG/app/src/main/res/layout/activity_log.xml" value="0.18342391304347827" />
         <entry key="..\:/MTG/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
@@ -55,7 +59,7 @@
         <entry key="..\:/MTG/app/src/main/res/layout/fragment_change_surname.xml" value="0.24010416666666667" />
         <entry key="..\:/MTG/app/src/main/res/layout/fragment_count.xml" value="0.2" />
         <entry key="..\:/MTG/app/src/main/res/layout/fragment_decimals.xml" value="0.25416666666666665" />
-        <entry key="..\:/MTG/app/src/main/res/layout/fragment_home.xml" value="0.1793478260869565" />
+        <entry key="..\:/MTG/app/src/main/res/layout/fragment_home.xml" value="0.264" />
         <entry key="..\:/MTG/app/src/main/res/layout/fragment_integer.xml" value="0.11927083333333334" />
         <entry key="..\:/MTG/app/src/main/res/layout/fragment_main.xml" value="0.18032786885245902" />
         <entry key="..\:/MTG/app/src/main/res/layout/fragment_natural.xml" value="0.25416666666666665" />

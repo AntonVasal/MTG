@@ -1,4 +1,4 @@
-package com.example.mtg.mainActivity.count;
+package com.example.mtg.mainActivity.countFragment;
 
 import com.example.mtg.databinding.FragmentCountBinding;
 

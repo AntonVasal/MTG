@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <import type="android.view.View"/>
         <variable
@@ -18,9 +19,8 @@
 
         <ProgressBar
             android:id="@+id/profile_progress_bar"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:visibility="gone"
+            style="@style/ClassicProgressBarLight"
+            tools:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,9 +72,7 @@
                     android:id="@+id/user_profile_image"
                     android:layout_width="170dp"
                     android:layout_height="170dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_baseline_person_150"
-                    android:background="@color/white"
+                    style="@style/MainUserImageView"
                     android:contentDescription="@string/user_image" />
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
@@ -85,8 +83,7 @@
                 android:id="@+id/change_profile_image_card_view"
                 app:cardCornerRadius="25dp">
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/BasicImageView"
                     android:padding="5dp"
                     android:background="@color/blue_bright"
                     android:src="@drawable/ic_baseline_photo_camera_24"
@@ -122,17 +119,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/user_nickname_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:paddingHorizontal="20dp"
+            style="@style/UserDataConstraintLayout"
             app:layout_constraintTop_toBottomOf="@id/info_text">
 
             <ImageView
                 android:id="@+id/user_nickname_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/NicknameImageView"
                 android:contentDescription="@string/user_nickname_image"
-                android:src="@drawable/ic_baseline_star_50"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -164,17 +157,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/name_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingHorizontal="20dp"
+            style="@style/UserDataConstraintLayout"
             app:layout_constraintTop_toBottomOf="@id/nickname_name_divider">
 
             <ImageView
                 android:id="@+id/user_name_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/NameImageView"
                 android:contentDescription="@string/user_name_image"
-                android:src="@drawable/ic_baseline_person_50"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -206,17 +195,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/surname_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingHorizontal="20dp"
+            style="@style/UserDataConstraintLayout"
             app:layout_constraintTop_toBottomOf="@id/name_surname_divider">
 
             <ImageView
                 android:id="@+id/user_surname_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/SurnameImageView"
                 android:contentDescription="@string/user_surname_image"
-                android:src="@drawable/ic_baseline_group_50"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -248,17 +233,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/email_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingHorizontal="20dp"
+            style="@style/UserDataConstraintLayout"
             app:layout_constraintTop_toBottomOf="@id/surname_email_divider">
 
             <ImageView
                 android:id="@+id/user_email_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/EmailImageView"
                 android:contentDescription="@string/user_email_image"
-                android:src="@drawable/ic_baseline_email_50"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -287,19 +268,15 @@
             app:layout_constraintTop_toBottomOf="@id/email_container" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/country_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingHorizontal="20dp"
+            android:id="@+id/country_container"
+            style="@style/UserDataConstraintLayout"
             app:layout_constraintTop_toBottomOf="@id/email_country_divider">
 
             <ImageView
                 android:id="@+id/user_country_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/CountryImageView"
                 android:contentDescription="@string/user_country_image"
-                android:src="@drawable/ic_baseline_location_on_50"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

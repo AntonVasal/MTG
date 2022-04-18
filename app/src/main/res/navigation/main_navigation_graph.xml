@@ -52,6 +52,9 @@
         <action
             android:id="@+id/action_profileSettingsPasswordConfirmationFragment_to_changePasswordFragment"
             app:destination="@id/changePasswordFragment" />
+        <action
+            android:id="@+id/action_profileSettingsPasswordConfirmationFragment_to_passwordYouRememberFragment"
+            app:destination="@id/passwordYouRememberFragment" />
     </fragment>
     <fragment
         android:id="@+id/changeNameFragment"
@@ -80,7 +83,7 @@
         tools:layout="@layout/fragment_change_data"/>
     <fragment
         android:id="@+id/countFragment"
-        android:name="com.example.mtg.mainActivity.count.CountFragment"
+        android:name="com.example.mtg.mainActivity.countFragment.CountFragment"
         android:label="CountFragment"
         tools:layout="@layout/fragment_count">
         <argument
@@ -118,5 +121,10 @@
         android:id="@+id/changePasswordFragment"
         android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.changeDataFragments.ChangePasswordFragment"
         android:label="ChangePasswordFragment"
+        tools:layout="@layout/fragment_change_data"/>
+    <fragment
+        android:id="@+id/passwordYouRememberFragment"
+        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.forgetPasswordFragment.PasswordYouRememberFragment"
+        android:label="PasswordYouRememberFragment"
         tools:layout="@layout/fragment_change_data"/>
 </navigation>

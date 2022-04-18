@@ -104,6 +104,8 @@
     <string name="password_starts">********</string>
     <string name="new_password">New password</string>
     <string name="change_password">change password</string>
+    <string name="confirm">confirm</string>
+    <string name="password_you_remember">Password, you remember</string>
 
     <string-array name="types_of_number">
         <item>Natural numbers</item>

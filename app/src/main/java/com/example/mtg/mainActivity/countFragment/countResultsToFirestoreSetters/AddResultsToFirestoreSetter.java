@@ -1,42 +1,43 @@
-package com.example.mtg.mainActivity.count.countResultsToFirestoreSetters;
+package com.example.mtg.mainActivity.countFragment.countResultsToFirestoreSetters;
 
 import android.util.Log;
 
 import com.example.mtg.logActivity.models.UserRegisterProfileModel;
-import com.example.mtg.mainActivity.count.countModels.SubResultsModel;
+import com.example.mtg.mainActivity.countFragment.countModels.AddResultsModel;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class SubResultsToFirestoreSetter {
+public class AddResultsToFirestoreSetter {
 
     private final FirebaseFirestore mFirebaseFirestore;
     private static final String TAG = "MainActivity";
     private static final String SUCCESS = "Success";
     private static final String FAILED = "Failed";
-    private static final String SUB = "sub";
+    private static final String ADD = "add";
     private static final String USERS = "users";
     private String nickname;
     private String url;
 
-    public SubResultsToFirestoreSetter(FirebaseFirestore mFirebaseFirestore) {
+    public AddResultsToFirestoreSetter(FirebaseFirestore mFirebaseFirestore) {
         this.mFirebaseFirestore = mFirebaseFirestore;
     }
-    public void setSubDecimalResults(int score, int tasksAmount, String userID) {
-        new Thread(() -> mFirebaseFirestore.collection(SUB)
+
+    public void setAddDecimalResults(int score, int tasksAmount, String userID) {
+        new Thread(() -> mFirebaseFirestore.collection(ADD)
                 .document(userID)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
-                    SubResultsModel subResultsModel = documentSnapshot
-                            .toObject(SubResultsModel.class);
-                    if (subResultsModel == null) {
+                    AddResultsModel addResultsModel = documentSnapshot
+                            .toObject(AddResultsModel.class);
+                    if (addResultsModel == null) {
                         mFirebaseFirestore.collection(USERS).document(userID)
                                 .get().addOnSuccessListener(documentSnapshot1 -> {
                             UserRegisterProfileModel userRegisterProfileModel = documentSnapshot1.toObject(UserRegisterProfileModel.class);
                             assert userRegisterProfileModel != null;
                             nickname = userRegisterProfileModel.getNickname();
                             url = userRegisterProfileModel.getImageUrl();
-                            SubResultsModel subResultsModel1 = new SubResultsModel(0, 0, 0, 0, score, tasksAmount, nickname,url,userID);
-                            mFirebaseFirestore.collection(SUB).document(userID)
-                                    .set(subResultsModel1).addOnCompleteListener(task -> {
+                            AddResultsModel addResultsModel1 = new AddResultsModel(0, 0, 0, 0, score, tasksAmount,nickname,url,userID);
+                            mFirebaseFirestore.collection(ADD).document(userID)
+                                    .set(addResultsModel1).addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
                                     Log.i(TAG, SUCCESS);
                                 } else {
@@ -45,13 +46,13 @@ public class SubResultsToFirestoreSetter {
                             });
                         });
                     } else {
-                        int oldScore = subResultsModel.getSubDecimalScore();
+                        int oldScore = addResultsModel.getAddDecimalScore();
                         if (score > oldScore) {
-                            subResultsModel.setSubDecimalScore(score);
-                            subResultsModel.setSubDecimalTasksAmount(tasksAmount);
-                            mFirebaseFirestore.collection(SUB)
+                            addResultsModel.setAddDecimalScore(score);
+                            addResultsModel.setAddDecimalTasksAmount(tasksAmount);
+                            mFirebaseFirestore.collection(ADD)
                                     .document(userID)
-                                    .set(subResultsModel)
+                                    .set(addResultsModel)
                                     .addOnCompleteListener(task -> {
                                         if (task.isSuccessful()) {
                                             Log.i(TAG, SUCCESS);
@@ -61,27 +62,26 @@ public class SubResultsToFirestoreSetter {
                                     });
                         }
                     }
-                })
-        ).start();
+                })).start();
     }
 
-    public void setSubIntegerResults(int score, int tasksAmount, String userID) {
-        new Thread(() -> mFirebaseFirestore.collection(SUB)
+    public void setAddIntegerResults(int score, int tasksAmount, String userID) {
+        new Thread(() -> mFirebaseFirestore.collection(ADD)
                 .document(userID)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
-                    SubResultsModel subResultsModel = documentSnapshot
-                            .toObject(SubResultsModel.class);
-                    if (subResultsModel == null) {
+                    AddResultsModel addResultsModel = documentSnapshot
+                            .toObject(AddResultsModel.class);
+                    if (addResultsModel == null) {
                         mFirebaseFirestore.collection(USERS).document(userID)
                                 .get().addOnSuccessListener(documentSnapshot1 -> {
                             UserRegisterProfileModel userRegisterProfileModel = documentSnapshot1.toObject(UserRegisterProfileModel.class);
                             assert userRegisterProfileModel != null;
                             nickname = userRegisterProfileModel.getNickname();
                             url = userRegisterProfileModel.getImageUrl();
-                            SubResultsModel subResultsModel1 = new SubResultsModel(0, 0, score, tasksAmount, 0, 0,nickname,url, userID);
-                            mFirebaseFirestore.collection(SUB).document(userID)
-                                    .set(subResultsModel1).addOnCompleteListener(task -> {
+                            AddResultsModel addResultsModel1 = new AddResultsModel(0, 0, score, tasksAmount, 0, 0,nickname,url, userID);
+                            mFirebaseFirestore.collection(ADD).document(userID)
+                                    .set(addResultsModel1).addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
                                     Log.i(TAG, SUCCESS);
                                 } else {
@@ -90,13 +90,13 @@ public class SubResultsToFirestoreSetter {
                             });
                         });
                     } else {
-                        int oldScore = subResultsModel.getSubIntegerScore();
+                        int oldScore = addResultsModel.getAddIntegerScore();
                         if (score > oldScore) {
-                            subResultsModel.setSubIntegerScore(score);
-                            subResultsModel.setSubIntegerTasksAmount(tasksAmount);
-                            mFirebaseFirestore.collection(SUB)
+                            addResultsModel.setAddIntegerScore(score);
+                            addResultsModel.setAddIntegerTasksAmount(tasksAmount);
+                            mFirebaseFirestore.collection(ADD)
                                     .document(userID)
-                                    .set(subResultsModel)
+                                    .set(addResultsModel)
                                     .addOnCompleteListener(task -> {
                                         if (task.isSuccessful()) {
                                             Log.i(TAG, SUCCESS);
@@ -106,27 +106,26 @@ public class SubResultsToFirestoreSetter {
                                     });
                         }
                     }
-                })
-        ).start();
+                })).start();
     }
 
-    public void setSubNaturalResults(int score, int tasksAmount, String userID) {
-        new Thread(() -> mFirebaseFirestore.collection(SUB)
+    public void setAddNaturalResults(int score, int tasksAmount, String userID) {
+        new Thread(() -> mFirebaseFirestore.collection(ADD)
                 .document(userID)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
-                    SubResultsModel subResultsModel = documentSnapshot
-                            .toObject(SubResultsModel.class);
-                    if (subResultsModel == null) {
+                    AddResultsModel addResultsModel = documentSnapshot
+                            .toObject(AddResultsModel.class);
+                    if (addResultsModel == null) {
                         mFirebaseFirestore.collection(USERS).document(userID)
                                 .get().addOnSuccessListener(documentSnapshot1 -> {
                             UserRegisterProfileModel userRegisterProfileModel = documentSnapshot1.toObject(UserRegisterProfileModel.class);
                             assert userRegisterProfileModel != null;
                             nickname = userRegisterProfileModel.getNickname();
                             url = userRegisterProfileModel.getImageUrl();
-                            SubResultsModel subResultsModel1 = new SubResultsModel(score, tasksAmount, 0, 0, 0, 0,nickname,url, userID);
-                            mFirebaseFirestore.collection(SUB).document(userID)
-                                    .set(subResultsModel1).addOnCompleteListener(task -> {
+                            AddResultsModel addResultsModel1 = new AddResultsModel(score, tasksAmount, 0, 0, 0, 0,nickname,url, userID);
+                            mFirebaseFirestore.collection(ADD).document(userID)
+                                    .set(addResultsModel1).addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
                                     Log.i(TAG, SUCCESS);
                                 } else {
@@ -135,13 +134,13 @@ public class SubResultsToFirestoreSetter {
                             });
                         });
                     } else {
-                        int oldScore = subResultsModel.getSubNaturalScore();
+                        int oldScore = addResultsModel.getAddNaturalScore();
                         if (score > oldScore) {
-                            subResultsModel.setSubNaturalScore(score);
-                            subResultsModel.setSubNaturalTasksAmount(tasksAmount);
-                            mFirebaseFirestore.collection(SUB)
+                            addResultsModel.setAddNaturalScore(score);
+                            addResultsModel.setAddNaturalTasksAmount(tasksAmount);
+                            mFirebaseFirestore.collection(ADD)
                                     .document(userID)
-                                    .set(subResultsModel)
+                                    .set(addResultsModel)
                                     .addOnCompleteListener(task -> {
                                         if (task.isSuccessful()) {
                                             Log.i(TAG, SUCCESS);
@@ -151,7 +150,8 @@ public class SubResultsToFirestoreSetter {
                                     });
                         }
                     }
-                })
-        ).start();
+                })).start();
     }
+
+
 }

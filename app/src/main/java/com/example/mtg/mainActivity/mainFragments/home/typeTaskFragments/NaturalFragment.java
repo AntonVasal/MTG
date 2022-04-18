@@ -45,6 +45,8 @@ public class NaturalFragment extends Fragment {
         initListeners();
     }
 
+
+
     private void initListeners() {
         binding.addText.setOnClickListener(view -> {
             bundle.putInt(TYPE_NUMBER, 1);

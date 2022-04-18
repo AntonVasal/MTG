@@ -1,4 +1,4 @@
-package com.example.mtg.mainActivity.count.countResultsToFirestoreSetters;
+package com.example.mtg.mainActivity.countFragment.countResultsToFirestoreSetters;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;

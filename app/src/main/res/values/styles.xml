@@ -6,11 +6,46 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="CountButtonStyle" parent="Widget.MaterialComponents.Button">
-        <item name="android:backgroundTint">@color/white</item>
-        <item name="android:textColor">@color/black</item>
+    <style name="BasicButton" parent="Widget.MaterialComponents.Button">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="BasicImageView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="BasicImageButton" parent="Widget.AppCompat.ImageButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/transparent</item>
+    </style>
+
+    <style name="MainUserImageView" parent="BasicImageView">
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:src">@drawable/ic_baseline_person_150</item>
+    </style>
+
+    <style name="MainUserImageViewCard" parent="Widget.MaterialComponents.CardView">
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">150dp</item>
+        <item name="cardCornerRadius">75dp</item>
+    </style>
+
+    <style name="UserDataConstraintLayout">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginHorizontal">20dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+
+    <style name="UserDataConstraintLayout.Settings" parent="UserDataConstraintLayout">
+        <item name="android:layout_marginTop">25dp</item>
+    </style>
+
+    <style name="CountButtonStyle" parent="BasicButton">
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="UserDataTextViews" parent="BasicTextView">
@@ -62,11 +97,14 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="ClassicProgressBar">
+    <style name="ClassicProgressBarLight" parent="Widget.AppCompat.ProgressBar">
         <item name="android:layout_width">70dp</item>
         <item name="android:layout_height">70dp</item>
         <item name="android:elevation">20dp</item>
         <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="ClassicProgressBar" parent="ClassicProgressBarLight">
         <item name="android:indeterminateTint">@color/darker_grey</item>
     </style>
 
@@ -167,6 +205,42 @@
     <style name="BasicTextInputLayout.Surname" parent="BasicTextInputLayout">
         <item name="startIconDrawable">@drawable/ic_baseline_group_24</item>
         <item name="android:hint">@string/surname</item>
+    </style>
+
+    <style name="NicknameImageView" parent="BasicImageView">
+        <item name="android:src">@drawable/ic_baseline_star_50</item>
+    </style>
+
+    <style name="NameImageView" parent="BasicImageView">
+        <item name="android:src">@drawable/ic_baseline_person_50</item>
+    </style>
+
+    <style name="SurnameImageView" parent="BasicImageView">
+        <item name="android:src">@drawable/ic_baseline_group_50</item>
+    </style>
+
+    <style name="EmailImageView" parent="BasicImageView">
+        <item name="android:src">@drawable/ic_baseline_email_50</item>
+    </style>
+
+    <style name="PasswordImageView" parent="BasicImageView">
+        <item name="android:src">@drawable/ic_baseline_security_50</item>
+    </style>
+
+    <style name="ChangeDataImageView" parent="BasicImageView">
+        <item name="android:src">@drawable/ic_baseline_create_24</item>
+    </style>
+
+    <style name="CountryImageView" parent="BasicImageView">
+        <item name="android:src">@drawable/ic_baseline_location_on_50</item>
+    </style>
+
+    <style name="ScoreImageView" parent="BasicImageView">
+        <item name="android:src">@drawable/ic_baseline_emoji_events_50</item>
+    </style>
+
+    <style name="TasksImageView" parent="BasicImageView">
+        <item name="android:src">@drawable/ic_baseline_done_50</item>
     </style>
 
 </resources>

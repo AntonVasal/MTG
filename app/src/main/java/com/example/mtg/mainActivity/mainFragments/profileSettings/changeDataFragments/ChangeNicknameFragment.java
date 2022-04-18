@@ -17,10 +17,10 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentChangeDataBinding;
 import com.example.mtg.logActivity.models.UserRegisterProfileModel;
-import com.example.mtg.mainActivity.count.countModels.AddResultsModel;
-import com.example.mtg.mainActivity.count.countModels.DivResultsModel;
-import com.example.mtg.mainActivity.count.countModels.MultiResultsModel;
-import com.example.mtg.mainActivity.count.countModels.SubResultsModel;
+import com.example.mtg.mainActivity.countFragment.countModels.AddResultsModel;
+import com.example.mtg.mainActivity.countFragment.countModels.DivResultsModel;
+import com.example.mtg.mainActivity.countFragment.countModels.MultiResultsModel;
+import com.example.mtg.mainActivity.countFragment.countModels.SubResultsModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 

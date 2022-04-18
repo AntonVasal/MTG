@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.mtg.R;
-import com.example.mtg.mainActivity.count.countModels.AddResultsModel;
-import com.example.mtg.mainActivity.count.countModels.DivResultsModel;
-import com.example.mtg.mainActivity.count.countModels.MultiResultsModel;
-import com.example.mtg.mainActivity.count.countModels.SubResultsModel;
+import com.example.mtg.mainActivity.countFragment.countModels.AddResultsModel;
+import com.example.mtg.mainActivity.countFragment.countModels.DivResultsModel;
+import com.example.mtg.mainActivity.countFragment.countModels.MultiResultsModel;
+import com.example.mtg.mainActivity.countFragment.countModels.SubResultsModel;
 
 import java.util.ArrayList;
 

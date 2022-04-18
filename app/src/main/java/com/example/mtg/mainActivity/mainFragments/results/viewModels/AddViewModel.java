@@ -5,7 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.mtg.mainActivity.count.countModels.AddResultsModel;
+import com.example.mtg.mainActivity.countFragment.countModels.AddResultsModel;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
 

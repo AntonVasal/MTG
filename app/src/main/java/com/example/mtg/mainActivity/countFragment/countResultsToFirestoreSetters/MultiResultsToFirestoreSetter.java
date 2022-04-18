@@ -1,43 +1,43 @@
-package com.example.mtg.mainActivity.count.countResultsToFirestoreSetters;
+package com.example.mtg.mainActivity.countFragment.countResultsToFirestoreSetters;
 
 import android.util.Log;
 
 import com.example.mtg.logActivity.models.UserRegisterProfileModel;
-import com.example.mtg.mainActivity.count.countModels.DivResultsModel;
+import com.example.mtg.mainActivity.countFragment.countModels.MultiResultsModel;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class DivResultsToFirestoreSetter {
+public class MultiResultsToFirestoreSetter {
 
     private final FirebaseFirestore mFirebaseFirestore;
     private static final String TAG = "MainActivity";
     private static final String SUCCESS = "Success";
     private static final String FAILED = "Failed";
-    private static final String DIV = "div";
+    private static final String MULTI = "multi";
     private static final String USERS = "users";
     private String nickname;
     private String url;
 
-    public DivResultsToFirestoreSetter(FirebaseFirestore mFirebaseFirestore) {
+    public MultiResultsToFirestoreSetter(FirebaseFirestore mFirebaseFirestore) {
         this.mFirebaseFirestore = mFirebaseFirestore;
     }
 
-    public void setDivDecimalResults(int score, int tasksAmount, String userID) {
-        new Thread(() -> mFirebaseFirestore.collection(DIV)
+    public void setMultiDecimalResults(int score, int tasksAmount, String userID) {
+        new Thread(() -> mFirebaseFirestore.collection(MULTI)
                 .document(userID)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
-                    DivResultsModel divResultsModel = documentSnapshot
-                            .toObject(DivResultsModel.class);
-                    if (divResultsModel == null) {
+                    MultiResultsModel multiResultsModel = documentSnapshot
+                            .toObject(MultiResultsModel.class);
+                    if (multiResultsModel == null) {
                         mFirebaseFirestore.collection(USERS).document(userID)
                                 .get().addOnSuccessListener(documentSnapshot1 -> {
                             UserRegisterProfileModel userRegisterProfileModel = documentSnapshot1.toObject(UserRegisterProfileModel.class);
                             assert userRegisterProfileModel != null;
                             nickname = userRegisterProfileModel.getNickname();
                             url = userRegisterProfileModel.getImageUrl();
-                            DivResultsModel divResultsModel1 = new DivResultsModel(0, 0, 0, 0, score, tasksAmount,nickname,url, userID);
-                            mFirebaseFirestore.collection(DIV).document(userID)
-                                    .set(divResultsModel1).addOnCompleteListener(task -> {
+                            MultiResultsModel multiResultsModel1 = new MultiResultsModel(0, 0, 0, 0, score, tasksAmount,nickname,url, userID);
+                            mFirebaseFirestore.collection(MULTI).document(userID)
+                                    .set(multiResultsModel1).addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
                                     Log.i(TAG, SUCCESS);
                                 } else {
@@ -46,13 +46,13 @@ public class DivResultsToFirestoreSetter {
                             });
                         });
                     } else {
-                        int oldScore = divResultsModel.getDivDecimalScore();
+                        int oldScore = multiResultsModel.getMultiDecimalScore();
                         if (score > oldScore) {
-                            divResultsModel.setDivDecimalScore(score);
-                            divResultsModel.setDivDecimalTasksAmount(tasksAmount);
-                            mFirebaseFirestore.collection(DIV)
+                            multiResultsModel.setMultiDecimalScore(score);
+                            multiResultsModel.setMultiDecimalTasksAmount(tasksAmount);
+                            mFirebaseFirestore.collection(MULTI)
                                     .document(userID)
-                                    .set(divResultsModel)
+                                    .set(multiResultsModel)
                                     .addOnCompleteListener(task -> {
                                         if (task.isSuccessful()) {
                                             Log.i(TAG, SUCCESS);
@@ -66,23 +66,23 @@ public class DivResultsToFirestoreSetter {
         ).start();
     }
 
-    public void setDivIntegerResults(int score, int tasksAmount, String userID) {
-        new Thread(() -> mFirebaseFirestore.collection(DIV)
+    public void setMultiIntegerResults(int score, int tasksAmount, String userID) {
+        new Thread(() -> mFirebaseFirestore.collection(MULTI)
                 .document(userID)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
-                    DivResultsModel divResultsModel = documentSnapshot
-                            .toObject(DivResultsModel.class);
-                    if (divResultsModel == null) {
+                    MultiResultsModel multiResultsModel = documentSnapshot
+                            .toObject(MultiResultsModel.class);
+                    if (multiResultsModel == null) {
                         mFirebaseFirestore.collection(USERS).document(userID)
                                 .get().addOnSuccessListener(documentSnapshot1 -> {
                             UserRegisterProfileModel userRegisterProfileModel = documentSnapshot1.toObject(UserRegisterProfileModel.class);
                             assert userRegisterProfileModel != null;
                             nickname = userRegisterProfileModel.getNickname();
                             url = userRegisterProfileModel.getImageUrl();
-                            DivResultsModel divResultsModel1 = new DivResultsModel(0, 0, score, tasksAmount, 0, 0,nickname,url, userID);
-                            mFirebaseFirestore.collection(DIV).document(userID)
-                                    .set(divResultsModel1).addOnCompleteListener(task -> {
+                            MultiResultsModel multiResultsModel1 = new MultiResultsModel(0, 0, 0, score, tasksAmount, 0,nickname,url, userID);
+                            mFirebaseFirestore.collection(MULTI).document(userID)
+                                    .set(multiResultsModel1).addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
                                     Log.i(TAG, SUCCESS);
                                 } else {
@@ -91,13 +91,13 @@ public class DivResultsToFirestoreSetter {
                             });
                         });
                     } else {
-                        int oldScore = divResultsModel.getDivIntegerScore();
+                        int oldScore = multiResultsModel.getMultiIntegerScore();
                         if (score > oldScore) {
-                            divResultsModel.setDivIntegerScore(score);
-                            divResultsModel.setDivIntegerTasksAmount(tasksAmount);
-                            mFirebaseFirestore.collection(DIV)
+                            multiResultsModel.setMultiIntegerScore(score);
+                            multiResultsModel.setMultiIntegerTasksAmount(tasksAmount);
+                            mFirebaseFirestore.collection(MULTI)
                                     .document(userID)
-                                    .set(divResultsModel)
+                                    .set(multiResultsModel)
                                     .addOnCompleteListener(task -> {
                                         if (task.isSuccessful()) {
                                             Log.i(TAG, SUCCESS);
@@ -111,23 +111,23 @@ public class DivResultsToFirestoreSetter {
         ).start();
     }
 
-    public void setDivNaturalResults(int score, int tasksAmount, String userID) {
-        new Thread(() -> mFirebaseFirestore.collection(DIV)
+    public void setMultiNaturalResults(int score, int tasksAmount, String userID) {
+        new Thread(() -> mFirebaseFirestore.collection(MULTI)
                 .document(userID)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
-                    DivResultsModel divResultsModel = documentSnapshot
-                            .toObject(DivResultsModel.class);
-                    if (divResultsModel == null) {
+                    MultiResultsModel multiResultsModel = documentSnapshot
+                            .toObject(MultiResultsModel.class);
+                    if (multiResultsModel == null) {
                         mFirebaseFirestore.collection(USERS).document(userID)
                                 .get().addOnSuccessListener(documentSnapshot1 -> {
                             UserRegisterProfileModel userRegisterProfileModel = documentSnapshot1.toObject(UserRegisterProfileModel.class);
                             assert userRegisterProfileModel != null;
                             nickname = userRegisterProfileModel.getNickname();
                             url = userRegisterProfileModel.getImageUrl();
-                            DivResultsModel divResultsModel1 = new DivResultsModel(score, tasksAmount, 0, 0, 0, 0,nickname,url, userID);
-                            mFirebaseFirestore.collection(DIV).document(userID)
-                                    .set(divResultsModel1).addOnCompleteListener(task -> {
+                            MultiResultsModel multiResultsModel1 = new MultiResultsModel(score, tasksAmount, 0, 0, 0, 0,nickname,url, userID);
+                            mFirebaseFirestore.collection(MULTI).document(userID)
+                                    .set(multiResultsModel1).addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
                                     Log.i(TAG, SUCCESS);
                                 } else {
@@ -136,13 +136,13 @@ public class DivResultsToFirestoreSetter {
                             });
                         });
                     } else {
-                        int oldScore = divResultsModel.getDivNaturalScore();
+                        int oldScore = multiResultsModel.getMultiNaturalScore();
                         if (score > oldScore) {
-                            divResultsModel.setDivNaturalScore(score);
-                            divResultsModel.setDivNaturalTasksAmount(tasksAmount);
-                            mFirebaseFirestore.collection(DIV)
+                            multiResultsModel.setMultiNaturalScore(score);
+                            multiResultsModel.setMultiNaturalTasksAmount(tasksAmount);
+                            mFirebaseFirestore.collection(MULTI)
                                     .document(userID)
-                                    .set(divResultsModel)
+                                    .set(multiResultsModel)
                                     .addOnCompleteListener(task -> {
                                         if (task.isSuccessful()) {
                                             Log.i(TAG, SUCCESS);

@@ -1,4 +1,4 @@
-package com.example.mtg.mainActivity.count.countModels;
+package com.example.mtg.mainActivity.countFragment.countModels;
 
 public class SubResultsModel {
     private int subNaturalScore;

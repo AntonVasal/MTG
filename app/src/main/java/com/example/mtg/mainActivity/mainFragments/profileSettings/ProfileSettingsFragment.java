@@ -25,12 +25,14 @@ public class ProfileSettingsFragment extends Fragment {
     private FragmentProfileSettingsBindingImpl binding;
     private NavController navController;
     private static final String TYPE_FRAGMENTS = "typeFragments";
+    private Bundle bundle;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         NavHostFragment navHostFragment = (NavHostFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container_view);
         navController = Objects.requireNonNull(navHostFragment).getNavController();
+        bundle = new Bundle();
     }
 
     @Override
@@ -46,32 +48,26 @@ public class ProfileSettingsFragment extends Fragment {
             }
         });
         binding.changeNicknameButton.setOnClickListener(view -> {
-            Bundle bundle = new Bundle();
             bundle.putInt(TYPE_FRAGMENTS,1);
             letsGoToConfirmPassword(bundle);
         });
         binding.changeNameButton.setOnClickListener(view ->{
-            Bundle bundle = new Bundle();
             bundle.putInt(TYPE_FRAGMENTS,2);
             letsGoToConfirmPassword(bundle);
         });
         binding.changeSurnameButton.setOnClickListener(view -> {
-            Bundle bundle = new Bundle();
             bundle.putInt(TYPE_FRAGMENTS,3);
             letsGoToConfirmPassword(bundle);
         });
         binding.changeEmailButton.setOnClickListener(view -> {
-            Bundle bundle = new Bundle();
             bundle.putInt(TYPE_FRAGMENTS,4);
             letsGoToConfirmPassword(bundle);
         });
         binding.changeCountryButton.setOnClickListener(view -> {
-            Bundle bundle = new Bundle();
             bundle.putInt(TYPE_FRAGMENTS,5);
             letsGoToConfirmPassword(bundle);
         });
         binding.changePasswordButton.setOnClickListener(view -> {
-            Bundle bundle = new Bundle();
             bundle.putInt(TYPE_FRAGMENTS,6);
             letsGoToConfirmPassword(bundle);
         });
