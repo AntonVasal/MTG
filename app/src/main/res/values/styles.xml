@@ -46,6 +46,10 @@
     <style name="CountButtonStyle" parent="BasicButton">
         <item name="android:backgroundTint">@color/white</item>
         <item name="android:textColor">@color/black</item>
+        <item name="android:elevation">15dp</item>
+        <item name="strokeColor">@color/black</item>
+        <item name="strokeWidth">2dp</item>
+
     </style>
 
     <style name="UserDataTextViews" parent="BasicTextView">
@@ -89,7 +93,9 @@
         <item name="backgroundTint">@color/white</item>
         <item name="android:textColor">@color/blue_bright</item>
         <item name="android:layout_marginHorizontal">30dp</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:elevation">15dp</item>
+        <item name="cornerRadius">20dp</item>
+        <item name="android:textSize">30sp</item>
     </style>
 
     <style name="AuthHelpTextForUser" parent="BasicTextView">
@@ -165,6 +171,7 @@
 
     <style name="BasicTextInputLayout">
         <item name="android:layout_height">wrap_content</item>
+        <item name="">@color/transparent</item>
         <item name="android:layout_marginHorizontal">30dp</item>
     </style>
 

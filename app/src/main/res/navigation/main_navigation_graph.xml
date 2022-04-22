@@ -11,7 +11,11 @@
         tools:layout="@layout/fragment_profile_settings">
         <action
             android:id="@+id/action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment"
-            app:destination="@id/profileSettingsPasswordConfirmationFragment" />
+            app:destination="@id/profileSettingsPasswordConfirmationFragment"
+            app:enterAnim="@anim/fragment_horizontal_close_animation"
+            app:exitAnim="@anim/fragment_to_left"
+            app:popEnterAnim="@anim/fragment_horizontal_open_animation"
+            app:popExitAnim="@anim/fragment_to_right" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment2"
@@ -20,10 +24,18 @@
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment2_to_profileSettingsFragment"
-            app:destination="@id/profileSettingsFragment" />
+            app:destination="@id/profileSettingsFragment"
+            app:enterAnim="@anim/fragment_horizontal_close_animation"
+            app:exitAnim="@anim/fragment_to_left"
+            app:popEnterAnim="@anim/fragment_horizontal_open_animation"
+            app:popExitAnim="@anim/fragment_to_right" />
         <action
             android:id="@+id/action_mainFragment2_to_countFragment"
-            app:destination="@id/countFragment" />
+            app:destination="@id/countFragment"
+            app:enterAnim="@anim/fragment_close_vertical"
+            app:exitAnim="@anim/to_bottom"
+            app:popEnterAnim="@anim/fragment_open_veritcal"
+            app:popExitAnim="@anim/to_top" />
     </fragment>
     <fragment
         android:id="@+id/profileSettingsPasswordConfirmationFragment"
@@ -36,25 +48,53 @@
             app:argType="integer" />
         <action
             android:id="@+id/action_profileSettingsPasswordConfirmationFragment_to_changeNameFragment"
-            app:destination="@id/changeNameFragment" />
+            app:destination="@id/changeNameFragment"
+            app:enterAnim="@anim/fragment_horizontal_close_animation"
+            app:exitAnim="@anim/fragment_to_left"
+            app:popEnterAnim="@anim/fragment_horizontal_open_animation"
+            app:popExitAnim="@anim/fragment_to_right" />
         <action
             android:id="@+id/action_profileSettingsPasswordConfirmationFragment_to_changeNicknameFragment"
-            app:destination="@id/changeNicknameFragment" />
+            app:destination="@id/changeNicknameFragment"
+            app:enterAnim="@anim/fragment_horizontal_close_animation"
+            app:exitAnim="@anim/fragment_to_left"
+            app:popEnterAnim="@anim/fragment_horizontal_open_animation"
+            app:popExitAnim="@anim/fragment_to_right" />
         <action
             android:id="@+id/action_profileSettingsPasswordConfirmationFragment_to_changeSurnameFragment"
-            app:destination="@id/changeSurnameFragment" />
+            app:destination="@id/changeSurnameFragment"
+            app:enterAnim="@anim/fragment_horizontal_close_animation"
+            app:exitAnim="@anim/fragment_to_left"
+            app:popEnterAnim="@anim/fragment_horizontal_open_animation"
+            app:popExitAnim="@anim/fragment_to_right" />
         <action
             android:id="@+id/action_profileSettingsPasswordConfirmationFragment_to_changeCountryFragment"
-            app:destination="@id/changeCountryFragment" />
+            app:destination="@id/changeCountryFragment"
+            app:enterAnim="@anim/fragment_horizontal_close_animation"
+            app:exitAnim="@anim/fragment_to_left"
+            app:popEnterAnim="@anim/fragment_horizontal_open_animation"
+            app:popExitAnim="@anim/fragment_to_right" />
         <action
             android:id="@+id/action_profileSettingsPasswordConfirmationFragment_to_changeEmailFragment"
-            app:destination="@id/changeEmailFragment" />
+            app:destination="@id/changeEmailFragment"
+            app:enterAnim="@anim/fragment_horizontal_close_animation"
+            app:exitAnim="@anim/fragment_to_left"
+            app:popEnterAnim="@anim/fragment_horizontal_open_animation"
+            app:popExitAnim="@anim/fragment_to_right" />
         <action
             android:id="@+id/action_profileSettingsPasswordConfirmationFragment_to_changePasswordFragment"
-            app:destination="@id/changePasswordFragment" />
+            app:destination="@id/changePasswordFragment"
+            app:enterAnim="@anim/fragment_horizontal_close_animation"
+            app:exitAnim="@anim/fragment_to_left"
+            app:popEnterAnim="@anim/fragment_horizontal_open_animation"
+            app:popExitAnim="@anim/fragment_to_right" />
         <action
             android:id="@+id/action_profileSettingsPasswordConfirmationFragment_to_passwordYouRememberFragment"
-            app:destination="@id/passwordYouRememberFragment" />
+            app:destination="@id/passwordYouRememberFragment"
+            app:enterAnim="@anim/fragment_close_vertical"
+            app:exitAnim="@anim/to_bottom"
+            app:popEnterAnim="@anim/fragment_open_veritcal"
+            app:popExitAnim="@anim/to_top" />
     </fragment>
     <fragment
         android:id="@+id/changeNameFragment"

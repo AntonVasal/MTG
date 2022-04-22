@@ -14,15 +14,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.mtg.R;
+import com.example.mtg.databinding.FragmentCountBinding;
 import com.example.mtg.mainActivity.countFragment.countResultsToFirestoreSetters.CountResultsToFirestoreSettersOperator;
 import com.example.mtg.mainActivity.countFragment.tasksGenerators.AdvantageTasksGenerator;
 import com.example.mtg.mainActivity.countFragment.tasksGenerators.MediumPlusTasksGenerator;
 import com.example.mtg.mainActivity.countFragment.tasksGenerators.MediumTasksGenerator;
 import com.example.mtg.mainActivity.countFragment.tasksGenerators.PrimaryTasksGenerator;
-import com.example.mtg.R;
-import com.example.mtg.databinding.FragmentCountBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class CountFragment extends Fragment {
 
@@ -31,8 +34,9 @@ public class CountFragment extends Fragment {
     private int typeNumber;
     FirebaseFirestore mFirebaseFirestore;
     FirebaseAuth mAuth;
-    private int a,b,g,k,resultCounter,amountOfTask;
-    private double c,d,l,z;
+    private int intNumberOneForRevision, intNumberTwoForRevision, intUserAnswer, intRightAnswer,resultCounter,amountOfTask;
+    private double l;
+    private double z;
     private AdvantageTasksGenerator advantageTasksGenerator;
     private MediumPlusTasksGenerator mediumPlusTasksGenerator;
     private MediumTasksGenerator mediumTasksGenerator;
@@ -41,6 +45,9 @@ public class CountFragment extends Fragment {
     private CountResultsToFirestoreSettersOperator countResultsToFirestoreSettersOperator;
     private static final String TYPE_NUMBER = "typeNumber";
     private static final String TASK_TYPE = "taskType";
+    private BigDecimal numberOneForRevision;
+    private BigDecimal numberTwoForRevision;
+    private BigDecimal revisionNumber;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -109,6 +116,7 @@ public class CountFragment extends Fragment {
                 binding.taskText.setText("");
                 calculateTaskRight();
                 if(typeNumber == 3){
+                    z = revisionNumber.doubleValue();
                     if(z==l){
                         setResults(true);
                         tasksComplexity();
@@ -116,7 +124,7 @@ public class CountFragment extends Fragment {
                        mistakeMethod();
                     }
                 }else{
-                    if(k==g){
+                    if(intRightAnswer == intUserAnswer){
                         setResults(true);
                         tasksComplexity();
                     }else{
@@ -167,20 +175,22 @@ public class CountFragment extends Fragment {
     private void parseTask() {
         String[] answers;
         if (typeNumber == 2) {
-            g = Integer.parseInt(binding.userAnswerText.getText().toString());
+            intUserAnswer = Integer.parseInt(binding.userAnswerText.getText().toString());
             answers = binding.taskText.getText().toString().split(" ");
-            a = Integer.parseInt(answers[0].replace("(","").replace(")",""));
-            b = Integer.parseInt(answers[2].replace("(","").replace(")",""));
+            intNumberOneForRevision = Integer.parseInt(answers[0].replace("(","").replace(")",""));
+            intNumberTwoForRevision = Integer.parseInt(answers[2].replace("(","").replace(")",""));
         } else if (typeNumber == 1){
-            g = Integer.parseInt(binding.userAnswerText.getText().toString());
+            intUserAnswer = Integer.parseInt(binding.userAnswerText.getText().toString());
             answers = binding.taskText.getText().toString().split(" ");
-            a = Integer.parseInt(answers[0]);
-            b = Integer.parseInt(answers[2]);
+            intNumberOneForRevision = Integer.parseInt(answers[0]);
+            intNumberTwoForRevision = Integer.parseInt(answers[2]);
         } else{
             l = Double.parseDouble(binding.userAnswerText.getText().toString());
             answers = binding.taskText.getText().toString().split(" ");
-            c = Double.parseDouble(answers[0]);
-            d = Double.parseDouble(answers[2]);
+            double c = Double.parseDouble(answers[0]);
+            double d = Double.parseDouble(answers[2]);
+            numberOneForRevision = BigDecimal.valueOf(c);
+            numberTwoForRevision = BigDecimal.valueOf(d);
         }
     }
 
@@ -191,40 +201,40 @@ public class CountFragment extends Fragment {
         switch (taskType){
             case 1:
                 if(typeNumber == 3){
-                    z = c + d;
+                    revisionNumber = numberOneForRevision.add(numberTwoForRevision);
                 }else{
-                    k = a + b;
+                    intRightAnswer = intNumberOneForRevision + intNumberTwoForRevision;
                 }
                 break;
             case 2:
                 if(typeNumber == 3){
-                    z = c * d;
+                    revisionNumber = numberOneForRevision.multiply(numberTwoForRevision);
                 }else{
-                    k = a * b;
+                    intRightAnswer = intNumberOneForRevision * intNumberTwoForRevision;
                 }
                 break;
             case 3:
                 if (typeNumber == 2){
-                    k = a-b;
+                    intRightAnswer = intNumberOneForRevision - intNumberTwoForRevision;
                 }else if(typeNumber == 1){
-                    if(a>b){
-                        k = a-b;
+                    if(intNumberOneForRevision > intNumberTwoForRevision){
+                        intRightAnswer = intNumberOneForRevision - intNumberTwoForRevision;
                     }else{
-                        k = b-a;
+                        intRightAnswer = intNumberTwoForRevision - intNumberOneForRevision;
                     }
                 }else{
-                    if (c>d){
-                        z = c - d;
+                    if (numberOneForRevision.compareTo(numberTwoForRevision) > 0 ){
+                        revisionNumber = numberOneForRevision.subtract(numberTwoForRevision);
                     }else{
-                        z = d - c;
+                        revisionNumber = numberTwoForRevision.subtract(numberOneForRevision);
                     }
                 }
                 break;
             case 4:
                 if (typeNumber ==3){
-                    z = c / d;
+                    revisionNumber = numberOneForRevision.divide(numberTwoForRevision,4, RoundingMode.DOWN);
                 }else{
-                    k = a / b;
+                    intRightAnswer = intNumberOneForRevision / intNumberTwoForRevision;
                 }
                 break;
         }

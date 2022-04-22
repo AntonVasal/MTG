@@ -13,7 +13,7 @@
             android:id="@+id/image_layout_dialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/gradient_for_profile"
+            android:background="@drawable/gradient_blue_dark"
             android:padding="20dp"
             app:layout_constraintTop_toTopOf="parent">
 

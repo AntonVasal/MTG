@@ -89,10 +89,10 @@ public class ProfileFragment extends Fragment {
         setData();
         initListeners();
 
-        AnimationDrawable animationDrawableForProfileDetails = (AnimationDrawable) binding.mainDetailsContainer.getBackground();
-        animationDrawableForProfileDetails.setEnterFadeDuration(2500);
-        animationDrawableForProfileDetails.setExitFadeDuration(5000);
-        animationDrawableForProfileDetails.start();
+//        AnimationDrawable animationDrawableForProfileDetails = (AnimationDrawable) binding.mainDetailsContainer.getBackground();
+//        animationDrawableForProfileDetails.setEnterFadeDuration(2500);
+//        animationDrawableForProfileDetails.setExitFadeDuration(5000);
+//        animationDrawableForProfileDetails.start();
     }
 
     @Override

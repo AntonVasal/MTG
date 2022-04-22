@@ -1,19 +1,17 @@
 package com.example.mtg.logActivity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.navigation.NavController;
-import androidx.navigation.NavGraph;
-import androidx.navigation.fragment.NavHostFragment;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.example.mtg.logActivity.logFragments.SignInFragment;
-import com.example.mtg.mainActivity.MainActivity;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.NavGraph;
+import androidx.navigation.fragment.NavHostFragment;
+
 import com.example.mtg.R;
+import com.example.mtg.mainActivity.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
