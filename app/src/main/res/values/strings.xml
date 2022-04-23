@@ -55,7 +55,7 @@
     <string name="made_by_vai">Made by VAI</string>
     <string name="sign_in">Sign in</string>
     <string name="reset_password">Reset password</string>
-    <string name="forget_password">Forget password?</string>
+    <string name="forget_password">Forgot password?</string>
     <string name="new_account">New account?</string>
     <string name="register">Register</string>
     <string name="back_button">back button</string>
@@ -106,6 +106,9 @@
     <string name="change_password">change password</string>
     <string name="confirm">confirm</string>
     <string name="password_you_remember">Password, you remember</string>
+    <string name="reset_password_image">reset password image</string>
+    <string name="reset">reset</string>
+    <string name="register_image">register image</string>
 
     <string-array name="types_of_number">
         <item>Natural numbers</item>

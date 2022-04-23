@@ -21,4 +21,5 @@
     <color name="darker_grey">@android:color/darker_gray</color>
     <color name="yellow_light">#EBFF25</color>
     <color name="violet">#420760</color>
+    <color name="blue_dirty">#2A3C9C</color>
 </resources>
