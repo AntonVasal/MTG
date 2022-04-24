@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -24,6 +25,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
+                android:layout_marginBottom="20dp"
                 android:layout_height="match_parent">
 
                 <ImageView
@@ -33,52 +35,51 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/settings_program_name"
-                    style="@style/MainTitleText"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
+                <ImageView
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="15dp"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:contentDescription="@string/register_image"
+                    android:id="@+id/settings_image"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/ic_user_settings"/>
 
                 <TextView
-                    android:id="@+id/settings_author"
-                    style="@style/MainAuthorText"
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/settings_program_name" />
+                    android:id="@+id/info_nickname_text"
+                    style="@style/KindOfUserDataTextViews"
+                    android:text="@string/nickname"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="5dp"
+                    app:layout_constraintStart_toStartOf="@id/user_nickname_container"
+                    app:layout_constraintBottom_toTopOf="@id/user_nickname_container" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/user_nickname_container"
                     android:layout_width="match_parent"
                     style="@style/UserDataConstraintLayout.Settings"
                     android:layout_marginTop="50dp"
-                    app:layout_constraintTop_toBottomOf="@id/settings_author">
+                    app:layout_constraintTop_toBottomOf="@id/settings_image">
 
                     <ImageView
                         android:id="@+id/user_nickname_image"
                         style="@style/NicknameImageView"
+                        android:layout_marginStart="10dp"
                         android:contentDescription="@string/user_nickname_image"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/info_nickname_text"
-                        style="@style/KindOfUserDataTextViews"
-                        android:text="@string/nickname"
-                        app:layout_constraintStart_toEndOf="@id/user_nickname_image"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
+                        tools:text="@string/nickname"
                         android:id="@+id/info_nickname"
                         style="@style/UserDataTextViews"
+                        android:layout_marginVertical="10dp"
                         android:text="@={viewModel.user.nickname}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/user_nickname_image"
-                        app:layout_constraintTop_toBottomOf="@id/info_nickname_text" />
+                        app:layout_constraintTop_toTopOf="parent"/>
 
                     <ImageView
                         android:id="@+id/change_nickname_button"
@@ -89,42 +90,39 @@
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <View
-                    android:id="@+id/nickname_name_divider"
-                    style="@style/DividerForUserData"
-                    app:layout_constraintBottom_toTopOf="@id/name_container"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/user_nickname_container" />
+                <TextView
+                    android:id="@+id/info_name_text"
+                    style="@style/KindOfUserDataTextViews"
+                    android:text="@string/name"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="5dp"
+                    app:layout_constraintStart_toStartOf="@id/name_container"
+                    app:layout_constraintBottom_toTopOf="@id/name_container" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/name_container"
                     android:layout_width="match_parent"
                     style="@style/UserDataConstraintLayout.Settings"
-                    app:layout_constraintTop_toBottomOf="@id/nickname_name_divider">
+                    app:layout_constraintTop_toBottomOf="@id/user_nickname_container">
 
                     <ImageView
                         android:id="@+id/user_name_image"
                         style="@style/NameImageView"
+                        android:layout_marginStart="10dp"
                         android:contentDescription="@string/user_name_image"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/info_name_text"
-                        style="@style/KindOfUserDataTextViews"
-                        android:text="@string/name"
-                        app:layout_constraintStart_toEndOf="@id/user_name_image"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
                         android:id="@+id/info_name"
                         style="@style/UserDataTextViews"
                         android:text="@={viewModel.user.name}"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="@string/name"
+                        android:layout_marginVertical="10dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/user_name_image"
-                        app:layout_constraintTop_toBottomOf="@id/info_name_text" />
+                        app:layout_constraintStart_toEndOf="@id/user_name_image" />
 
                     <ImageView
                         android:id="@+id/change_name_button"
@@ -135,42 +133,40 @@
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <View
-                    android:id="@+id/name_surname_divider"
-                    style="@style/DividerForUserData"
-                    app:layout_constraintBottom_toTopOf="@id/surname_container"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/name_container" />
+
+                <TextView
+                    android:id="@+id/info_surname_text"
+                    style="@style/KindOfUserDataTextViews"
+                    android:text="@string/surname"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="5dp"
+                    app:layout_constraintStart_toStartOf="@id/surname_container"
+                    app:layout_constraintBottom_toTopOf="@id/surname_container" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/surname_container"
                     android:layout_width="match_parent"
                     style="@style/UserDataConstraintLayout.Settings"
-                    app:layout_constraintTop_toBottomOf="@id/name_surname_divider">
+                    app:layout_constraintTop_toBottomOf="@id/name_container">
 
                     <ImageView
                         android:id="@+id/user_surname_image"
                         style="@style/SurnameImageView"
+                        android:layout_marginStart="10dp"
                         android:contentDescription="@string/user_surname_image"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/info_surname_text"
-                        style="@style/KindOfUserDataTextViews"
-                        android:text="@string/surname"
-                        app:layout_constraintStart_toEndOf="@id/user_surname_image"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
                         android:id="@+id/info_surname"
                         style="@style/UserDataTextViews"
+                        android:layout_marginVertical="10dp"
+                        tools:text="@string/surname"
                         android:text="@={viewModel.user.surname}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/user_surname_image"
-                        app:layout_constraintTop_toBottomOf="@id/info_surname_text" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
                         android:id="@+id/change_surname_button"
@@ -181,42 +177,39 @@
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <View
-                    android:id="@+id/surname_email_divider"
-                    style="@style/DividerForUserData"
-                    app:layout_constraintBottom_toTopOf="@id/email_container"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/surname_container" />
+                <TextView
+                    android:id="@+id/info_email_text"
+                    style="@style/KindOfUserDataTextViews"
+                    android:text="@string/email"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="15dp"
+                    app:layout_constraintStart_toStartOf="@id/email_container"
+                    app:layout_constraintBottom_toTopOf="@id/email_container" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/email_container"
                     android:layout_width="match_parent"
                     style="@style/UserDataConstraintLayout.Settings"
-                    app:layout_constraintTop_toBottomOf="@id/surname_email_divider">
+                    app:layout_constraintTop_toBottomOf="@id/surname_container">
 
                     <ImageView
                         android:id="@+id/user_email_image"
                         style="@style/EmailImageView"
+                        android:layout_marginStart="10dp"
                         android:contentDescription="@string/user_email_image"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/info_email_text"
-                        style="@style/KindOfUserDataTextViews"
-                        android:text="@string/email"
-                        app:layout_constraintStart_toEndOf="@id/user_email_image"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
                         android:id="@+id/info_email"
                         style="@style/UserDataTextViews"
+                        tools:text="@string/email"
+                        android:layout_marginVertical="10dp"
                         android:text="@={viewModel.user.email}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/user_email_image"
-                        app:layout_constraintTop_toBottomOf="@id/info_email_text" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
                         android:id="@+id/change_email_button"
@@ -227,21 +220,24 @@
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <View
-                    android:id="@+id/email_country_divider"
-                    style="@style/DividerForUserData"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/email_container" />
+                <TextView
+                    android:id="@+id/info_country_text"
+                    style="@style/KindOfUserDataTextViews"
+                    android:text="@string/country"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="5dp"
+                    app:layout_constraintStart_toStartOf="@id/country_container"
+                    app:layout_constraintBottom_toTopOf="@id/country_container" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/country_container"
                     android:layout_width="match_parent"
                     style="@style/UserDataConstraintLayout.Settings"
-                    app:layout_constraintTop_toBottomOf="@id/email_country_divider">
+                    app:layout_constraintTop_toBottomOf="@id/email_container">
 
                     <ImageView
                         android:id="@+id/user_country_image"
+                        android:layout_marginStart="10dp"
                         style="@style/CountryImageView"
                         android:contentDescription="@string/user_country_image"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -249,19 +245,14 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/info_country_text"
-                        style="@style/KindOfUserDataTextViews"
-                        android:text="@string/country"
-                        app:layout_constraintStart_toEndOf="@id/user_country_image"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
                         android:id="@+id/info_country"
                         style="@style/UserDataTextViews"
                         android:text="@={viewModel.user.country}"
+                        tools:text="@string/country"
+                        android:layout_marginVertical="10dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/user_country_image"
-                        app:layout_constraintTop_toBottomOf="@id/info_country_text" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
                         android:id="@+id/change_country_button"
@@ -272,33 +263,30 @@
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <View
-                    android:id="@+id/country_divider"
-                    style="@style/DividerForUserData"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/country_container" />
+                <TextView
+                    android:id="@+id/info_password_text"
+                    style="@style/KindOfUserDataTextViews"
+                    android:text="@string/password"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="5dp"
+                    app:layout_constraintStart_toStartOf="@id/password_container"
+                    app:layout_constraintBottom_toTopOf="@id/password_container" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/password_container"
                     android:layout_width="match_parent"
                     style="@style/UserDataConstraintLayout.Settings"
-                    app:layout_constraintTop_toBottomOf="@id/country_divider">
+                    app:layout_constraintTop_toBottomOf="@id/country_container">
 
                     <ImageView
                         android:id="@+id/user_password_image"
                         style="@style/PasswordImageView"
+                        android:layout_marginStart="10dp"
                         android:contentDescription="@string/user_password_image"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/info_password_text"
-                        style="@style/KindOfUserDataTextViews"
-                        android:text="@string/password"
-                        app:layout_constraintStart_toEndOf="@id/user_password_image"
-                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/password_text"
@@ -306,7 +294,8 @@
                         android:text="@string/password_starts"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/user_password_image"
-                        app:layout_constraintTop_toBottomOf="@id/info_password_text" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginVertical="10dp"/>
 
                     <ImageView
                         android:id="@+id/change_password_button"
@@ -317,12 +306,6 @@
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <View
-                    android:id="@+id/password_divider"
-                    style="@style/DividerForUserData"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/password_container" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </FrameLayout>
