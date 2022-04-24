@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -60,6 +62,7 @@ public class ChangeCountryFragment extends Fragment {
         binding.changeEditText.setVisibility(View.INVISIBLE);
         binding.changeButton.setText(R.string.change_country);
         binding.countryPickerForChange.setVisibility(View.VISIBLE);
+        binding.changeImage.setImageDrawable(ResourcesCompat.getDrawable(requireActivity().getResources(),R.drawable.ic_location_country,requireActivity().getTheme()));
     }
 
     private void initListeners() {

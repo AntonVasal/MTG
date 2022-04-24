@@ -31,7 +31,7 @@
         android:id="@+id/main_bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue_bright"
+        android:background="@drawable/gradient_for_bottom_navigation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,6 +41,7 @@
         app:mbn_countTextColor="@color/white"
         app:mbn_defaultIconColor="@color/blue"
         app:mbn_rippleColor="#2f424242"
+        android:elevation="10dp"
         app:mbn_selectedIconColor="@color/blue_bright"
         app:mbn_shadowColor="#1f212121" />
 

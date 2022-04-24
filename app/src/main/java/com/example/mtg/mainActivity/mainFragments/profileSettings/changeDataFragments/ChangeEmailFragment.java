@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -80,6 +81,7 @@ public class ChangeEmailFragment extends Fragment {
         binding.changeEditText.setHint(R.string.email);
         binding.changeEditText.setStartIconDrawable(R.drawable.ic_baseline_email_24);
         binding.changeButton.setText(R.string.change_email);
+        binding.changeImage.setImageDrawable(ResourcesCompat.getDrawable(requireActivity().getResources(),R.drawable.ic_email_yellow_white,requireActivity().getTheme()));
     }
 
     private void initListeners() {

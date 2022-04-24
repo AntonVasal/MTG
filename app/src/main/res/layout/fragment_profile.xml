@@ -2,309 +2,648 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.example.mtg.mainActivity.mainFragments.profile.viewModel.ProfileViewModel" />
     </data>
 
-<androidx.core.widget.NestedScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ProgressBar
-            android:id="@+id/profile_progress_bar"
-            style="@style/ClassicProgressBarLight"
-            tools:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/main_details_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/gradient_blue_dark"
-            android:paddingBottom="15dp"
-            app:layout_constraintTop_toTopOf="parent">
+            android:paddingBottom="20dp"
+            android:layout_height="match_parent">
 
-            <ImageButton
-                android:id="@+id/log_out_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:backgroundTint="@color/transparent"
-                android:contentDescription="@string/log_out_button"
-                android:src="@drawable/ic_baseline_exit_to_app_50"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:id="@+id/settings_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="15dp"
-                android:backgroundTint="@color/transparent"
-                android:contentDescription="@string/settings"
-                android:src="@drawable/ic_baseline_create_50"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/profile_image_card_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                app:cardCornerRadius="85dp"
+            <ProgressBar
+                android:id="@+id/profile_progress_bar"
+                style="@style/ClassicProgressBarLight"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/main_details_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/gradient_for_app"
+                android:paddingBottom="40dp"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:id="@+id/user_profile_image"
-                    android:layout_width="170dp"
-                    android:layout_height="170dp"
-                    style="@style/MainUserImageView"
-                    android:contentDescription="@string/user_image" />
-            </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:layout_constraintEnd_toEndOf="@+id/profile_image_card_view"
-                app:layout_constraintBottom_toBottomOf="@+id/profile_image_card_view"
-                android:id="@+id/change_profile_image_card_view"
-                app:cardCornerRadius="25dp">
-                <ImageView
-                    style="@style/BasicImageView"
-                    android:padding="5dp"
-                    android:background="@color/blue_bright"
-                    android:src="@drawable/ic_baseline_photo_camera_24"
-                    android:id="@+id/change_profile_img_image"
-                    android:contentDescription="@string/change_profile_image"/>
-            </androidx.cardview.widget.CardView>
+                <ImageButton
+                    android:id="@+id/log_out_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/transparent"
+                    android:contentDescription="@string/log_out_button"
+                    android:src="@drawable/ic_baseline_exit_to_app_50"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/settings_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:backgroundTint="@color/transparent"
+                    android:contentDescription="@string/settings"
+                    android:src="@drawable/ic_baseline_create_50"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/profile_image_card_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    app:cardCornerRadius="80dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/user_profile_image"
+                        style="@style/MainUserImageView"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        android:contentDescription="@string/user_image" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/change_profile_image_card_view"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:cardCornerRadius="25dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/profile_image_card_view"
+                    app:layout_constraintEnd_toEndOf="@+id/profile_image_card_view">
+
+                    <ImageView
+                        android:id="@+id/change_profile_img_image"
+                        style="@style/BasicImageView"
+                        android:background="@color/blue_bright"
+                        android:contentDescription="@string/change_profile_image"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_baseline_photo_camera_24" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/user_nickname"
+                    style="@style/MainUserNicknameText"
+                    android:text="@={viewModel.user.nickname}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/profile_image_card_view"
+                    tools:text="@string/nickname" />
+
+                <TextView
+                    android:id="@+id/user_email"
+                    style="@style/MainUserEmailText"
+                    android:text="@={viewModel.user.email}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/user_nickname"
+                    tools:text="@string/email" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <TextView
-                android:id="@+id/user_nickname"
-                style="@style/MainUserNicknameText"
-                android:text="@={viewModel.user.nickname}"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/info_text"
+                style="@style/InfoTitle"
+                android:elevation="5dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/account_info"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/profile_image_card_view" />
+                app:layout_constraintTop_toBottomOf="@id/main_details_container" />
 
             <TextView
-                android:id="@+id/user_email"
-                style="@style/MainUserEmailText"
-                android:text="@={viewModel.user.email}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/user_nickname" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/info_text"
-            style="@style/InfoTitle"
-            android:layout_marginTop="20dp"
-            android:text="@string/account_info"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/main_details_container" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/user_nickname_container"
-            android:layout_width="match_parent"
-            style="@style/UserDataConstraintLayout"
-            app:layout_constraintTop_toBottomOf="@id/info_text">
-
-            <ImageView
-                android:id="@+id/user_nickname_image"
-                style="@style/NicknameImageView"
-                android:contentDescription="@string/user_nickname_image"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                style="@style/KindOfUserDataTextViews"
+                android:elevation="5dp"
                 android:id="@+id/info_nickname_text"
-                android:text="@string/nickname"
-                app:layout_constraintStart_toEndOf="@id/user_nickname_image"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                style="@style/UserDataTextViews"
-                android:id="@+id/info_nickname"
-                android:text="@={viewModel.user.nickname}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/user_nickname_image"
-                app:layout_constraintTop_toBottomOf="@id/info_nickname_text" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <View
-            android:id="@+id/nickname_name_divider"
-            style="@style/DividerForUserData"
-            app:layout_constraintBottom_toTopOf="@id/name_container"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/user_nickname_container" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/name_container"
-            android:layout_width="match_parent"
-            style="@style/UserDataConstraintLayout"
-            app:layout_constraintTop_toBottomOf="@id/nickname_name_divider">
-
-            <ImageView
-                android:id="@+id/user_name_image"
-                style="@style/NameImageView"
-                android:contentDescription="@string/user_name_image"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
                 style="@style/KindOfUserDataTextViews"
-                android:id="@+id/info_name_text"
-                android:text="@string/name"
-                app:layout_constraintStart_toEndOf="@id/user_name_image"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/nickname"
+                app:layout_constraintBottom_toTopOf="@id/user_nickname_container"
+                app:layout_constraintStart_toStartOf="@id/user_nickname_container" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/user_nickname_container"
+                style="@style/UserDataConstraintLayout"
+                android:layout_width="match_parent"
+                android:elevation="5dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="40dp"
+                app:layout_constraintTop_toBottomOf="@id/info_text">
+
+                <ImageView
+                    android:id="@+id/user_nickname_image"
+                    style="@style/NicknameImageView"
+                    android:layout_marginStart="15dp"
+                    android:contentDescription="@string/user_nickname_image"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/info_nickname"
+                    style="@style/UserDataTextViews"
+                    android:layout_marginVertical="10dp"
+                    android:text="@={viewModel.user.nickname}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/user_nickname_image"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/nickname" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                style="@style/UserDataTextViews"
-                android:id="@+id/info_name"
-                android:text="@={viewModel.user.name}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/user_name_image"
-                app:layout_constraintTop_toBottomOf="@id/info_name_text" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:id="@+id/info_name_text"
+                style="@style/KindOfUserDataTextViews"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="5dp"
+                android:elevation="5dp"
+                android:text="@string/name"
+                app:layout_constraintBottom_toTopOf="@id/name_container"
+                app:layout_constraintStart_toStartOf="@id/name_container" />
 
-        <View
-            android:id="@+id/name_surname_divider"
-            style="@style/DividerForUserData"
-            app:layout_constraintBottom_toTopOf="@id/surname_container"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/name_container" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/name_container"
+                style="@style/UserDataConstraintLayout"
+                android:layout_marginHorizontal="20dp"
+                android:layout_width="match_parent"
+                android:elevation="5dp"
+                app:layout_constraintTop_toBottomOf="@id/user_nickname_container">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/surname_container"
-            android:layout_width="match_parent"
-            style="@style/UserDataConstraintLayout"
-            app:layout_constraintTop_toBottomOf="@id/name_surname_divider">
+                <ImageView
+                    android:id="@+id/user_name_image"
+                    style="@style/NameImageView"
+                    android:layout_marginStart="15dp"
+                    android:contentDescription="@string/user_name_image"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/user_surname_image"
-                style="@style/SurnameImageView"
-                android:contentDescription="@string/user_surname_image"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/info_name"
+                    style="@style/UserDataTextViews"
+                    android:layout_marginVertical="10dp"
+                    android:text="@={viewModel.user.name}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/user_name_image"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/name" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/info_surname_text"
                 style="@style/KindOfUserDataTextViews"
+                android:layout_marginStart="15dp"
+                android:elevation="5dp"
+                android:layout_marginBottom="5dp"
                 android:text="@string/surname"
-                app:layout_constraintStart_toEndOf="@id/user_surname_image"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toTopOf="@id/surname_container"
+                app:layout_constraintStart_toStartOf="@id/surname_container" />
 
-            <TextView
-                style="@style/UserDataTextViews"
-                android:id="@+id/info_surname"
-                android:text="@={viewModel.user.surname}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/user_surname_image"
-                app:layout_constraintTop_toBottomOf="@id/info_surname_text" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_marginHorizontal="20dp"
+                android:id="@+id/surname_container"
+                android:elevation="5dp"
+                style="@style/UserDataConstraintLayout"
+                android:layout_width="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/name_container">
 
-        <View
-            android:id="@+id/surname_email_divider"
-            style="@style/DividerForUserData"
-            app:layout_constraintBottom_toTopOf="@id/email_container"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/surname_container" />
+                <ImageView
+                    android:id="@+id/user_surname_image"
+                    style="@style/SurnameImageView"
+                    android:layout_marginStart="15dp"
+                    android:contentDescription="@string/user_surname_image"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/email_container"
-            android:layout_width="match_parent"
-            style="@style/UserDataConstraintLayout"
-            app:layout_constraintTop_toBottomOf="@id/surname_email_divider">
-
-            <ImageView
-                android:id="@+id/user_email_image"
-                style="@style/EmailImageView"
-                android:contentDescription="@string/user_email_image"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/info_surname"
+                    style="@style/UserDataTextViews"
+                    android:layout_marginVertical="10dp"
+                    android:text="@={viewModel.user.surname}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/user_surname_image"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/surname" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/info_email_text"
                 style="@style/KindOfUserDataTextViews"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="5dp"
+                android:elevation="5dp"
                 android:text="@string/email"
-                app:layout_constraintStart_toEndOf="@id/user_email_image"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toTopOf="@id/email_container"
+                app:layout_constraintStart_toStartOf="@id/email_container" />
 
-            <TextView
-                android:id="@+id/info_email"
-                style="@style/UserDataTextViews"
-                android:text="@={viewModel.user.email}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/user_email_image"
-                app:layout_constraintTop_toBottomOf="@id/info_email_text" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/email_container"
+                android:layout_marginHorizontal="20dp"
+                android:elevation="5dp"
+                style="@style/UserDataConstraintLayout"
+                android:layout_width="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/surname_container">
 
-        <View
-            android:id="@+id/email_country_divider"
-            style="@style/DividerForUserData"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/email_container" />
+                <ImageView
+                    android:id="@+id/user_email_image"
+                    style="@style/EmailImageView"
+                    android:layout_marginStart="15dp"
+                    android:contentDescription="@string/user_email_image"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:id="@+id/country_container"
-            style="@style/UserDataConstraintLayout"
-            app:layout_constraintTop_toBottomOf="@id/email_country_divider">
-
-            <ImageView
-                android:id="@+id/user_country_image"
-                style="@style/CountryImageView"
-                android:contentDescription="@string/user_country_image"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/info_email"
+                    style="@style/UserDataTextViews"
+                    android:layout_marginVertical="10dp"
+                    android:text="@={viewModel.user.email}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/user_email_image"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/email" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/info_country_text"
                 style="@style/KindOfUserDataTextViews"
+                android:layout_marginStart="15dp"
+                android:elevation="5dp"
+                android:layout_marginBottom="5dp"
                 android:text="@string/country"
-                app:layout_constraintStart_toEndOf="@id/user_country_image"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toTopOf="@id/country_container"
+                app:layout_constraintStart_toStartOf="@id/country_container" />
 
-            <TextView
-                android:id="@+id/info_country"
-                style="@style/UserDataTextViews"
-                android:text="@={viewModel.user.country}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/user_country_image"
-                app:layout_constraintTop_toBottomOf="@id/info_country_text" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/country_container"
+                style="@style/UserDataConstraintLayout"
+                android:layout_marginHorizontal="20dp"
+                android:elevation="5dp"
+                android:layout_width="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/email_container">
+
+                <ImageView
+                    android:id="@+id/user_country_image"
+                    style="@style/CountryImageView"
+                    android:layout_marginStart="15dp"
+                    android:contentDescription="@string/user_country_image"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/info_country"
+                    style="@style/UserDataTextViews"
+                    android:layout_marginVertical="10dp"
+                    android:text="@={viewModel.user.country}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/user_country_image"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/country" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <!--            <androidx.cardview.widget.CardView-->
+            <!--                android:id="@+id/details_card"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginHorizontal="20dp"-->
+            <!--                android:layout_marginTop="-100dp"-->
+            <!--                app:cardCornerRadius="20dp"-->
+            <!--                app:cardElevation="5dp"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/main_details_container">-->
+
+            <!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    android:layout_marginBottom="30dp">-->
+
+            <!--                    <TextView-->
+            <!--                        android:id="@+id/info_text"-->
+            <!--                        style="@style/InfoTitle"-->
+            <!--                        android:layout_marginStart="40dp"-->
+            <!--                        android:layout_marginTop="20dp"-->
+            <!--                        android:text="@string/public_info"-->
+            <!--                        app:layout_constraintStart_toStartOf="parent"-->
+            <!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--                    <TextView-->
+            <!--                        android:id="@+id/info_nickname_text"-->
+            <!--                        style="@style/KindOfUserDataTextViews"-->
+            <!--                        android:layout_marginStart="15dp"-->
+            <!--                        android:layout_marginBottom="5dp"-->
+            <!--                        android:text="@string/nickname"-->
+            <!--                        app:layout_constraintBottom_toTopOf="@id/user_nickname_container"-->
+            <!--                        app:layout_constraintStart_toStartOf="@id/user_nickname_container" />-->
+
+            <!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+            <!--                        android:id="@+id/user_nickname_container"-->
+            <!--                        style="@style/UserDataConstraintLayout"-->
+            <!--                        android:layout_width="match_parent"-->
+            <!--                        android:layout_marginTop="40dp"-->
+            <!--                        app:layout_constraintTop_toBottomOf="@id/info_text">-->
+
+            <!--                        <ImageView-->
+            <!--                            android:id="@+id/user_nickname_image"-->
+            <!--                            style="@style/NicknameImageView"-->
+            <!--                            android:layout_marginStart="15dp"-->
+            <!--                            android:contentDescription="@string/user_nickname_image"-->
+            <!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                            app:layout_constraintStart_toStartOf="parent"-->
+            <!--                            app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--                        <TextView-->
+            <!--                            android:id="@+id/info_nickname"-->
+            <!--                            style="@style/UserDataTextViews"-->
+            <!--                            android:layout_marginVertical="10dp"-->
+            <!--                            android:text="@={viewModel.user.nickname}"-->
+            <!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                            app:layout_constraintStart_toEndOf="@id/user_nickname_image"-->
+            <!--                            app:layout_constraintTop_toTopOf="parent"-->
+            <!--                            tools:text="@string/nickname" />-->
+            <!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+            <!--                    <TextView-->
+            <!--                        android:id="@+id/info_name_text"-->
+            <!--                        style="@style/KindOfUserDataTextViews"-->
+            <!--                        android:layout_marginStart="15dp"-->
+            <!--                        android:layout_marginBottom="5dp"-->
+            <!--                        android:text="@string/name"-->
+            <!--                        app:layout_constraintBottom_toTopOf="@id/name_container"-->
+            <!--                        app:layout_constraintStart_toStartOf="@id/name_container" />-->
+
+            <!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+            <!--                        android:id="@+id/name_container"-->
+            <!--                        style="@style/UserDataConstraintLayout"-->
+            <!--                        android:layout_width="match_parent"-->
+            <!--                        app:layout_constraintTop_toBottomOf="@id/user_nickname_container">-->
+
+            <!--                        <ImageView-->
+            <!--                            android:id="@+id/user_name_image"-->
+            <!--                            style="@style/NameImageView"-->
+            <!--                            android:layout_marginStart="15dp"-->
+            <!--                            android:contentDescription="@string/user_name_image"-->
+            <!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                            app:layout_constraintStart_toStartOf="parent"-->
+            <!--                            app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--                        <TextView-->
+            <!--                            android:id="@+id/info_name"-->
+            <!--                            style="@style/UserDataTextViews"-->
+            <!--                            android:layout_marginVertical="10dp"-->
+            <!--                            android:text="@={viewModel.user.name}"-->
+            <!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                            app:layout_constraintStart_toEndOf="@id/user_name_image"-->
+            <!--                            app:layout_constraintTop_toTopOf="parent"-->
+            <!--                            tools:text="@string/name" />-->
+            <!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+            <!--                    <TextView-->
+            <!--                        android:id="@+id/info_country_text"-->
+            <!--                        style="@style/KindOfUserDataTextViews"-->
+            <!--                        android:layout_marginStart="15dp"-->
+            <!--                        android:layout_marginBottom="5dp"-->
+            <!--                        android:text="@string/country"-->
+            <!--                        app:layout_constraintBottom_toTopOf="@id/country_container"-->
+            <!--                        app:layout_constraintStart_toStartOf="@id/country_container" />-->
+
+            <!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+            <!--                        android:id="@+id/country_container"-->
+            <!--                        style="@style/UserDataConstraintLayout"-->
+            <!--                        android:layout_width="match_parent"-->
+            <!--                        app:layout_constraintTop_toBottomOf="@id/name_container">-->
+
+            <!--                        <ImageView-->
+            <!--                            android:id="@+id/user_country_image"-->
+            <!--                            style="@style/CountryImageView"-->
+            <!--                            android:layout_marginStart="15dp"-->
+            <!--                            android:contentDescription="@string/user_country_image"-->
+            <!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                            app:layout_constraintStart_toStartOf="parent"-->
+            <!--                            app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--                        <TextView-->
+            <!--                            android:id="@+id/info_country"-->
+            <!--                            style="@style/UserDataTextViews"-->
+            <!--                            android:layout_marginVertical="10dp"-->
+            <!--                            android:text="@={viewModel.user.country}"-->
+            <!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                            app:layout_constraintStart_toEndOf="@id/user_country_image"-->
+            <!--                            app:layout_constraintTop_toTopOf="parent"-->
+            <!--                            tools:text="@string/country" />-->
+            <!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+            <!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+            <!--            </androidx.cardview.widget.CardView>-->
+
+            <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+            <!--            android:id="@+id/user_nickname_container"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            style="@style/UserDataConstraintLayout"-->
+            <!--            app:layout_constraintTop_toBottomOf="@id/details_card">-->
+
+            <!--            <ImageView-->
+            <!--                android:id="@+id/user_nickname_image"-->
+            <!--                style="@style/NicknameImageView"-->
+            <!--                android:contentDescription="@string/user_nickname_image"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--            <TextView-->
+            <!--                style="@style/KindOfUserDataTextViews"-->
+            <!--                android:id="@+id/info_nickname_text"-->
+            <!--                android:text="@string/nickname"-->
+            <!--                app:layout_constraintStart_toEndOf="@id/user_nickname_image"-->
+            <!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--            <TextView-->
+            <!--                style="@style/UserDataTextViews"-->
+            <!--                android:id="@+id/info_nickname"-->
+            <!--                android:text="@={viewModel.user.nickname}"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintStart_toEndOf="@id/user_nickname_image"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/info_nickname_text" />-->
+            <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+            <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+            <!--            android:id="@+id/name_container"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            style="@style/UserDataConstraintLayout"-->
+            <!--            app:layout_constraintTop_toBottomOf="@id/details_card">-->
+
+            <!--            <ImageView-->
+            <!--                android:id="@+id/user_name_image"-->
+            <!--                style="@style/NameImageView"-->
+            <!--                android:contentDescription="@string/user_name_image"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--            <TextView-->
+            <!--                style="@style/KindOfUserDataTextViews"-->
+            <!--                android:id="@+id/info_name_text"-->
+            <!--                android:text="@string/name"-->
+            <!--                app:layout_constraintStart_toEndOf="@id/user_name_image"-->
+            <!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--            <TextView-->
+            <!--                style="@style/UserDataTextViews"-->
+            <!--                android:id="@+id/info_name"-->
+            <!--                android:text="@={viewModel.user.name}"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintStart_toEndOf="@id/user_name_image"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/info_name_text" />-->
+            <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+            <!--            <androidx.cardview.widget.CardView-->
+            <!--                android:id="@+id/private_details_card"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginHorizontal="20dp"-->
+            <!--                android:layout_marginTop="20dp"-->
+            <!--                app:cardCornerRadius="20dp"-->
+            <!--                app:cardElevation="8dp"-->
+            <!--                android:layout_marginBottom="20dp"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/details_card">-->
+
+            <!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_marginBottom="30dp"-->
+            <!--                    android:layout_height="match_parent">-->
+
+            <!--                    <TextView-->
+            <!--                        android:id="@+id/info_private_text"-->
+            <!--                        style="@style/InfoTitle"-->
+            <!--                        android:layout_marginStart="40dp"-->
+            <!--                        android:layout_marginTop="20dp"-->
+            <!--                        android:text="@string/private_info"-->
+            <!--                        app:layout_constraintStart_toStartOf="parent"-->
+            <!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--                    <TextView-->
+            <!--                        android:id="@+id/info_surname_text"-->
+            <!--                        style="@style/KindOfUserDataTextViews"-->
+            <!--                        android:text="@string/surname"-->
+            <!--                        android:layout_marginStart="15dp"-->
+            <!--                        android:layout_marginBottom="5dp"-->
+            <!--                        app:layout_constraintBottom_toTopOf="@id/surname_container"-->
+            <!--                        app:layout_constraintStart_toStartOf="@id/surname_container" />-->
+
+            <!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+            <!--                        android:id="@+id/surname_container"-->
+            <!--                        style="@style/UserDataConstraintLayout"-->
+            <!--                        android:layout_width="match_parent"-->
+            <!--                        app:layout_constraintTop_toBottomOf="@id/info_private_text">-->
+
+            <!--                        <ImageView-->
+            <!--                            android:id="@+id/user_surname_image"-->
+            <!--                            style="@style/SurnameImageView"-->
+            <!--                            android:layout_marginStart="15dp"-->
+            <!--                            android:contentDescription="@string/user_surname_image"-->
+            <!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                            app:layout_constraintStart_toStartOf="parent"-->
+            <!--                            app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--                        <TextView-->
+            <!--                            android:id="@+id/info_surname"-->
+            <!--                            style="@style/UserDataTextViews"-->
+            <!--                            android:layout_marginVertical="10dp"-->
+            <!--                            android:text="@={viewModel.user.surname}"-->
+            <!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                            app:layout_constraintStart_toEndOf="@id/user_surname_image"-->
+            <!--                            app:layout_constraintTop_toTopOf="parent"-->
+            <!--                            tools:text="@string/surname" />-->
+            <!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+            <!--                    <TextView-->
+            <!--                        android:id="@+id/info_email_text"-->
+            <!--                        style="@style/KindOfUserDataTextViews"-->
+            <!--                        android:text="@string/email"-->
+            <!--                        android:layout_marginStart="15dp"-->
+            <!--                        android:layout_marginBottom="5dp"-->
+            <!--                        app:layout_constraintStart_toStartOf="@id/email_container"-->
+            <!--                        app:layout_constraintBottom_toTopOf="@id/email_container" />-->
+
+            <!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+            <!--                        android:id="@+id/email_container"-->
+            <!--                        style="@style/UserDataConstraintLayout"-->
+            <!--                        android:layout_width="match_parent"-->
+            <!--                        app:layout_constraintTop_toBottomOf="@id/surname_container">-->
+
+            <!--                        <ImageView-->
+            <!--                            android:id="@+id/user_email_image"-->
+            <!--                            style="@style/EmailImageView"-->
+            <!--                            android:layout_marginStart="15dp"-->
+            <!--                            android:contentDescription="@string/user_email_image"-->
+            <!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                            app:layout_constraintStart_toStartOf="parent"-->
+            <!--                            app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--                        <TextView-->
+            <!--                            android:id="@+id/info_email"-->
+            <!--                            style="@style/UserDataTextViews"-->
+            <!--                            android:text="@={viewModel.user.email}"-->
+            <!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                            android:layout_marginVertical="10dp"-->
+            <!--                            tools:text="@string/email"-->
+            <!--                            app:layout_constraintStart_toEndOf="@id/user_email_image"-->
+            <!--                            app:layout_constraintTop_toTopOf="parent" />-->
+            <!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+            <!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+            <!--            </androidx.cardview.widget.CardView>-->
+
+            <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:id="@+id/country_container"-->
+            <!--            style="@style/UserDataConstraintLayout"-->
+            <!--            app:layout_constraintTop_toBottomOf="@id/email_container">-->
+
+            <!--            <ImageView-->
+            <!--                android:id="@+id/user_country_image"-->
+            <!--                style="@style/CountryImageView"-->
+            <!--                android:contentDescription="@string/user_country_image"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--            <TextView-->
+            <!--                android:id="@+id/info_country_text"-->
+            <!--                style="@style/KindOfUserDataTextViews"-->
+            <!--                android:text="@string/country"-->
+            <!--                app:layout_constraintStart_toEndOf="@id/user_country_image"-->
+            <!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--            <TextView-->
+            <!--                android:id="@+id/info_country"-->
+            <!--                style="@style/UserDataTextViews"-->
+            <!--                android:text="@={viewModel.user.country}"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintStart_toEndOf="@id/user_country_image"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/info_country_text" />-->
+            <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <View
-            android:id="@+id/country_divider"
-            style="@style/DividerForUserData"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/country_container" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </layout>

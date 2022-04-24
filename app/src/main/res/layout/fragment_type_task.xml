@@ -6,59 +6,53 @@
     android:layout_height="match_parent"
     tools:context=".mainActivity.mainFragments.home.typeTaskFragments.IntegerFragment">
 
-    <TextView
+    <ImageView
         android:id="@+id/add_text"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/anim_list_for_tasks_types_reverse"
-        android:gravity="center"
+        android:src="@drawable/ic_plus"
+        android:padding="60dp"
+        android:background="@color/blue_dirty"
+        android:contentDescription="@string/addition"
         app:layout_constraintBottom_toTopOf="@+id/multi_text"
-        android:text="@string/add"
-        android:textColor="@color/black"
-        android:textSize="28sp"
         app:layout_constraintEnd_toStartOf="@+id/sub_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <ImageView
         android:id="@+id/sub_text"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/anim_list_for_tasks_types"
-        android:gravity="center"
-        android:text="@string/sub"
-        android:textColor="@color/white"
-        android:textSize="28sp"
+        android:src="@drawable/ic_minus"
+        android:padding="60dp"
+        android:contentDescription="@string/subtraction"
         app:layout_constraintBottom_toTopOf="@id/div_text"
         app:layout_constraintStart_toEndOf="@+id/add_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <TextView
+    <ImageView
         android:id="@+id/multi_text"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/anim_list_for_tasks_types"
-        android:gravity="center"
-        android:text="@string/multi"
-        android:textColor="@color/white"
-        android:textSize="28sp"
+        android:padding="60dp"
+        android:contentDescription="@string/multiplication"
+        android:src="@drawable/ic_multiply"
         app:layout_constraintTop_toBottomOf="@id/add_text"
         app:layout_constraintEnd_toStartOf="@+id/div_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
+    <ImageView
         android:id="@+id/div_text"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/anim_list_for_tasks_types_reverse"
-        android:gravity="center"
-        android:text="@string/div"
+        android:contentDescription="@string/division"
+        android:src="@drawable/ic_division"
         app:layout_constraintTop_toBottomOf="@id/sub_text"
-        android:textColor="@color/black"
-        android:textSize="28sp"
+        android:padding="60dp"
+        android:background="@color/blue_dirty"
         app:layout_constraintStart_toEndOf="@+id/multi_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/gradient_blue_dark">
+    android:background="@drawable/gradient_for_app">
 
 
     <LinearLayout

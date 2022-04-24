@@ -14,7 +14,7 @@
             android:id="@+id/change_type_in_result_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/blue_bright"
+            android:background="@drawable/gradient_for_bottom_navigation"
             android:orientation="horizontal"
             android:weightSum="90"
             app:layout_constraintTop_toTopOf="parent">
@@ -54,6 +54,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/recycler_layout"
             android:layout_width="match_parent"
+            android:elevation="10dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/change_type_in_result_container">
@@ -64,14 +65,14 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:visibility="visible"
-                android:indeterminateTint="@color/white"
+                android:indeterminateTint="@color/blue_dirty"
                 android:id="@+id/recycler_progress_bar"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/result_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/gradient_for_recycler" />
+                android:background="@color/white" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

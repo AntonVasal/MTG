@@ -109,6 +109,10 @@
     <string name="reset_password_image">reset password image</string>
     <string name="reset">reset</string>
     <string name="register_image">register image</string>
+    <string name="password_confirm_image">password confirm image</string>
+    <string name="change_data_image">change data image</string>
+    <string name="public_info">Public Info</string>
+    <string name="private_info">Private Info</string>
 
     <string-array name="types_of_number">
         <item>Natural numbers</item>

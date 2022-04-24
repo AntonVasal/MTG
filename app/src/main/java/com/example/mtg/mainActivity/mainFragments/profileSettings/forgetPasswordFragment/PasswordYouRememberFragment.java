@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -120,6 +121,7 @@ public class PasswordYouRememberFragment extends Fragment {
 
     private void setViewsData() {
         binding.changeEditText.setHint(R.string.password_you_remember);
+        binding.changeImage.setImageDrawable(ResourcesCompat.getDrawable(requireActivity().getResources(),R.drawable.ic_password_forgot,requireActivity().getTheme()));
         binding.forChange.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
         binding.changeEditText.setStartIconDrawable(R.drawable.ic_baseline_security_24);
         binding.changeEditText.setEndIconMode(TextInputLayout.END_ICON_PASSWORD_TOGGLE);

@@ -44,6 +44,14 @@ public class IntegerFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initListeners();
+        setImages();
+    }
+
+    private void setImages() {
+        binding.addText.setImageResource(R.drawable.ic_plus_green);
+        binding.subText.setImageResource(R.drawable.ic_minus_green);
+        binding.divText.setImageResource(R.drawable.ic_div_green);
+        binding.multiText.setImageResource(R.drawable.ic_multi_green);
     }
 
     private void initListeners() {

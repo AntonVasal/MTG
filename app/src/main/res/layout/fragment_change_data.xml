@@ -3,8 +3,9 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/gradient_for_app"
+    android:background="@color/white"
     android:layout_height="match_parent">
+
     <ProgressBar
         style="@style/ClassicProgressBar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -13,54 +14,96 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible"
         android:id="@+id/change_data_progress_bar"/>
-    <ImageButton
-        style="@style/ClassicBackButton"
-        android:id="@+id/change_back_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/back_button" />
-    <TextView
-        style="@style/MainTitleText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="100dp"
-        android:textColor="@color/white"
-        android:id="@+id/change_program_name"/>
-    <TextView
-        style="@style/MainAuthorText"
-        android:id="@+id/change_author"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/change_program_name"/>
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/change_edit_text"
-        android:layout_width="match_parent"
-        style="@style/BasicTextInputLayout"
-        app:layout_constraintTop_toBottomOf="@id/change_author"
-        android:layout_marginTop="70dp">
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:id="@+id/for_change"
-            style="@style/BasicTextInputEditText" />
 
-    </com.google.android.material.textfield.TextInputLayout>
-    <Button
-        style="@style/MainButtonForWorkingWithUser"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/change_card"
+        android:layout_marginBottom="-80dp"
+        android:background="@drawable/blue_background_part"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageButton
+            style="@style/ClassicBackButton"
+            android:id="@+id/change_back_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/back_button" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/change_image"
+        android:elevation="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/change_button"
-        android:text=""
-        app:layout_constraintTop_toBottomOf="@id/change_edit_text"
-        android:layout_marginTop="40dp"/>
-    <com.hbb20.CountryCodePicker
-        android:visibility="gone"
-        android:background="@color/white"
-        style="@style/CountryCodePicker"
-        android:id="@+id/country_picker_for_change"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/change_data_image"
+        android:layout_marginTop="60dp"/>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        app:layout_constraintTop_toBottomOf="@id/change_author"
-        android:layout_marginTop="70dp" />
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="150dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="20dp"
+        app:layout_constraintTop_toBottomOf="@id/change_image"
+        android:id="@+id/change_card">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_marginBottom="20dp"
+            android:layout_height="match_parent">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/change_edit_text"
+                android:layout_width="match_parent"
+                style="@style/BasicTextInputLayout"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="30dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:id="@+id/for_change"
+                    tools:text="New data"
+                    style="@style/BasicTextInputEditText" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <Button
+                style="@style/MainButtonForWorkingWithUser.BlueGradient"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/change_button"
+                tools:text="change"
+                app:layout_constraintTop_toBottomOf="@id/change_edit_text"
+                android:layout_marginTop="20dp" />
+            <com.hbb20.CountryCodePicker
+                android:visibility="gone"
+                android:background="@drawable/shape_for_cpp"
+                style="@style/CountryCodePicker"
+                app:ccpDialog_cornerRadius="20dp"
+                android:padding="2dp"
+                android:id="@+id/country_picker_for_change"
+                android:layout_width="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="30dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+<!--    <TextView-->
+<!--        style="@style/MainTitleText"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        android:layout_marginTop="100dp"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:id="@+id/change_program_name"/>-->
+<!--    <TextView-->
+<!--        style="@style/MainAuthorText"-->
+<!--        android:id="@+id/change_author"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:textColor="@color/white"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/change_program_name"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

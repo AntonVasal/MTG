@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -77,6 +78,7 @@ public class ChangePasswordFragment extends Fragment {
         binding.changeEditText.setStartIconDrawable(R.drawable.ic_baseline_security_24);
         binding.changeEditText.setEndIconMode(TextInputLayout.END_ICON_PASSWORD_TOGGLE);
         binding.changeButton.setText(R.string.change_password);
+        binding.changeImage.setImageDrawable(ResourcesCompat.getDrawable(requireActivity().getResources(),R.drawable.ic_key_password,requireActivity().getTheme()));
     }
 
     private void initListeners() {
