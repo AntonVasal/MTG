@@ -59,4 +59,9 @@ dependencies {
     implementation 'com.etebarian:meow-bottom-navigation:1.2.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.32"
 
+    implementation ('com.github.Drjacky:ImagePicker:2.1.13'){
+        exclude group: 'com.github.yalantis', module: 'ucrop'
+    }
+    implementation 'com.yalantis:ucrop:2.2.0-native'
+
 }

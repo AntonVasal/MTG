@@ -22,4 +22,7 @@
     <color name="yellow_light">#EBFF25</color>
     <color name="violet">#420760</color>
     <color name="blue_dirty">#2A3C9C</color>
+    <color name="count_blue">#00D7DF</color>
+    <color name="count_green">#6DC82A</color>
+    <color name="count_yellow">#FFCD00</color>
 </resources>

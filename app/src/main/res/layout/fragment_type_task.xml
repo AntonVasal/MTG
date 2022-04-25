@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/count_layout"
+    android:background="@color/count_blue"
     tools:context=".mainActivity.mainFragments.home.typeTaskFragments.IntegerFragment">
 
     <ImageView
@@ -12,7 +14,7 @@
         android:layout_height="0dp"
         android:src="@drawable/ic_plus"
         android:padding="60dp"
-        android:background="@color/blue_dirty"
+        android:background="@drawable/shape_for_top_count_images_blue"
         android:contentDescription="@string/addition"
         app:layout_constraintBottom_toTopOf="@+id/multi_text"
         app:layout_constraintEnd_toStartOf="@+id/sub_text"
@@ -25,6 +27,7 @@
         android:layout_height="0dp"
         android:src="@drawable/ic_minus"
         android:padding="60dp"
+        android:background="@drawable/shape_for_top_count_images_white"
         android:contentDescription="@string/subtraction"
         app:layout_constraintBottom_toTopOf="@id/div_text"
         app:layout_constraintStart_toEndOf="@+id/add_text"
@@ -37,6 +40,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:padding="60dp"
+        android:background="@drawable/shape_for_bottom_count_images_white"
         android:contentDescription="@string/multiplication"
         android:src="@drawable/ic_multiply"
         app:layout_constraintTop_toBottomOf="@id/add_text"
@@ -52,7 +56,7 @@
         android:src="@drawable/ic_division"
         app:layout_constraintTop_toBottomOf="@id/sub_text"
         android:padding="60dp"
-        android:background="@color/blue_dirty"
+        android:background="@drawable/shape_for_bottom_count_images_blue"
         app:layout_constraintStart_toEndOf="@+id/multi_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

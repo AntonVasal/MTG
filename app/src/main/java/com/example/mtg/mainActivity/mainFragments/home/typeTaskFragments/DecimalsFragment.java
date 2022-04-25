@@ -43,7 +43,17 @@ public class DecimalsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initListeners();
+        setImages();
     }
+
+    private void setImages() {
+        binding.addText.setImageResource(R.drawable.plus_yellow);
+        binding.subText.setImageResource(R.drawable.minus_yellow);
+        binding.divText.setImageResource(R.drawable.division_yellow);
+        binding.countLayout.setBackgroundColor(requireActivity().getResources().getColor(R.color.count_yellow,requireActivity().getTheme()));
+        binding.multiText.setImageResource(R.drawable.multiply_yellow);
+    }
+
 
     private void initListeners() {
         binding.addText.setOnClickListener(view -> {

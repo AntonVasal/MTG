@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="15dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:layout_marginBottom="20dp"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,29 +55,34 @@
         <TextView
             android:id="@+id/info_text_dialog"
             style="@style/InfoTitle"
+            android:layout_marginStart="40dp"
             android:text="@string/account_info"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image_layout_dialog" />
 
+        <TextView
+            android:id="@+id/info_nickname_text_dialog"
+            style="@style/KindOfUserDataTextViews"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/nickname"
+            app:layout_constraintBottom_toTopOf="@id/user_nickname_container_dialog"
+            app:layout_constraintStart_toStartOf="@id/user_nickname_container_dialog" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/user_nickname_container_dialog"
-            android:layout_width="match_parent"
             style="@style/UserDataConstraintLayout"
+            android:layout_width="match_parent"
             app:layout_constraintTop_toBottomOf="@id/info_text_dialog">
 
             <ImageView
                 android:id="@+id/user_nickname_image_dialog"
                 style="@style/NicknameImageView"
+                android:layout_marginVertical="10dp"
+                android:layout_marginStart="10dp"
                 android:contentDescription="@string/user_nickname_image"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/info_nickname_text_dialog"
-                style="@style/KindOfUserDataTextViews"
-                android:text="@string/nickname"
-                app:layout_constraintStart_toEndOf="@id/user_nickname_image_dialog"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -84,121 +91,114 @@
                 android:text=""
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/user_nickname_image_dialog"
-                app:layout_constraintTop_toBottomOf="@id/info_nickname_text_dialog" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/nickname" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <View
-            android:id="@+id/nickname_name_divider_dialog"
-            style="@style/DividerForUserData"
+        <TextView
+            android:id="@+id/info_name_text_dialog"
+            style="@style/KindOfUserDataTextViews"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/name"
             app:layout_constraintBottom_toTopOf="@id/name_container_dialog"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/user_nickname_container_dialog" />
-
+            app:layout_constraintStart_toStartOf="@id/name_container_dialog" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/name_container_dialog"
-            android:layout_width="match_parent"
             style="@style/UserDataConstraintLayout"
-            app:layout_constraintTop_toBottomOf="@id/nickname_name_divider_dialog">
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/user_nickname_container_dialog">
 
             <ImageView
                 android:id="@+id/user_name_image_dialog"
                 style="@style/NameImageView"
+                android:layout_marginVertical="10dp"
+                android:layout_marginStart="10dp"
                 android:contentDescription="@string/user_name_image"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/info_name_text_dialog"
-                style="@style/KindOfUserDataTextViews"
-                android:text="@string/name"
-                app:layout_constraintStart_toEndOf="@id/user_name_image_dialog"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
                 android:id="@+id/info_name_dialog"
                 style="@style/UserDataTextViews"
-                android:text=""
+                tools:text="Anton"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/user_name_image_dialog"
-                app:layout_constraintTop_toBottomOf="@id/info_name_text_dialog" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <View
-            android:id="@+id/name_country_divider_dialog"
-            style="@style/DividerForUserData"
+        <TextView
+            android:id="@+id/info_country_text_dialog"
+            style="@style/KindOfUserDataTextViews"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/country"
             app:layout_constraintBottom_toTopOf="@id/country_container_dialog"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/name_container_dialog" />
+            app:layout_constraintStart_toStartOf="@id/country_container_dialog" />
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
 
             android:id="@+id/country_container_dialog"
-            android:layout_width="match_parent"
             style="@style/UserDataConstraintLayout"
-            app:layout_constraintTop_toBottomOf="@id/name_country_divider_dialog">
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/name_container_dialog">
 
             <ImageView
                 android:id="@+id/user_country_image_dialog"
                 style="@style/CountryImageView"
+                android:layout_marginVertical="10dp"
+                android:layout_marginStart="10dp"
                 android:contentDescription="@string/user_country_image"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/info_country_text_dialog"
-                style="@style/KindOfUserDataTextViews"
-                android:text="@string/country"
-                app:layout_constraintStart_toEndOf="@id/user_country_image_dialog"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/info_country_dialog"
                 style="@style/UserDataTextViews"
+                tools:text="Ukraine"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/user_country_image_dialog"
-                app:layout_constraintTop_toBottomOf="@id/info_country_text_dialog" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <View
-            android:id="@+id/country_divider_dialog"
-            style="@style/DividerForUserData"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/country_container_dialog" />
 
         <TextView
             android:id="@+id/count_info_dialog"
             style="@style/InfoTitle"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="15dp"
             android:text="@string/count_info"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/country_divider_dialog" />
+            app:layout_constraintTop_toBottomOf="@id/country_container_dialog" />
+
+        <TextView
+            android:id="@+id/info_score_text_dialog"
+            style="@style/KindOfUserDataTextViews"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/score_upper"
+            app:layout_constraintBottom_toTopOf="@id/score_container_dialog"
+            app:layout_constraintStart_toStartOf="@id/score_container_dialog" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
 
             android:id="@+id/score_container_dialog"
-            android:layout_width="match_parent"
             style="@style/UserDataConstraintLayout"
+            android:layout_width="match_parent"
             app:layout_constraintTop_toBottomOf="@id/count_info_dialog">
 
             <ImageView
                 android:id="@+id/user_score_image_dialog"
                 style="@style/ScoreImageView"
+                android:layout_marginVertical="10dp"
+                android:layout_marginStart="10dp"
                 android:contentDescription="@string/user_country_image"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/info_score_text_dialog"
-                style="@style/KindOfUserDataTextViews"
-                android:text="@string/score_upper"
-                app:layout_constraintStart_toEndOf="@id/user_score_image_dialog"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -206,53 +206,45 @@
                 style="@style/UserDataTextViews"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/user_score_image_dialog"
-                app:layout_constraintTop_toBottomOf="@id/info_score_text_dialog" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="1000" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <View
-            android:id="@+id/score_divider_dialog"
-            style="@style/DividerForUserData"
+
+        <TextView
+            android:id="@+id/info_tasks_text_dialog"
+            style="@style/KindOfUserDataTextViews"
+            android:text="@string/tasks_upper"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="5dp"
             app:layout_constraintBottom_toTopOf="@id/tasks_container_dialog"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/score_container_dialog" />
+            app:layout_constraintStart_toStartOf="@id/tasks_container_dialog" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
 
             android:id="@+id/tasks_container_dialog"
-            android:layout_width="match_parent"
             style="@style/UserDataConstraintLayout"
-            app:layout_constraintTop_toBottomOf="@id/score_divider_dialog">
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/score_container_dialog">
 
             <ImageView
                 android:id="@+id/user_tasks_image_dialog"
                 style="@style/TasksImageView"
+                android:layout_marginVertical="10dp"
+                android:layout_marginStart="10dp"
                 android:contentDescription="@string/user_country_image"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/info_tasks_text_dialog"
-                style="@style/KindOfUserDataTextViews"
-                android:text="@string/tasks_upper"
-                app:layout_constraintStart_toEndOf="@id/user_tasks_image_dialog"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
                 android:id="@+id/info_tasks_dialog"
                 style="@style/UserDataTextViews"
+                tools:text="50"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/user_tasks_image_dialog"
-                app:layout_constraintTop_toBottomOf="@id/info_tasks_text_dialog" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <View
-            android:id="@+id/tasks_divider_dialog"
-            style="@style/DividerForUserData"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tasks_container_dialog" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

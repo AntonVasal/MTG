@@ -1,9 +1,10 @@
 package com.example.mtg.mainActivity.mainFragments.profile;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,13 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
-import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -37,6 +37,7 @@ import com.example.mtg.mainActivity.countFragment.countModels.MultiResultsModel;
 import com.example.mtg.mainActivity.countFragment.countModels.SubResultsModel;
 import com.example.mtg.mainActivity.mainFragments.MainFragmentDirections;
 import com.example.mtg.mainActivity.mainFragments.profile.viewModel.ProfileViewModel;
+import com.github.drjacky.imagepicker.ImagePicker;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -44,7 +45,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Objects;
+
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
+import kotlin.jvm.internal.Intrinsics;
 
 public class ProfileFragment extends Fragment {
 
@@ -53,11 +60,8 @@ public class ProfileFragment extends Fragment {
     private ProfileViewModel profileViewModel;
     private FirebaseFirestore firebaseFirestore;
     private StorageReference storageReference;
-    private ActivityResultLauncher<String> mGetContent;
     private String downloadUrl = "";
-    private Dialog imageDialog;
     private NavController navController;
-    private static final String IMAGE = "image/*";
     private static final String TAG = "MainActivity";
     private static final String SUCCESS = "Success";
     private static final String FAILED = "Failed";
@@ -68,14 +72,20 @@ public class ProfileFragment extends Fragment {
     private static final String USERS = "users";
     private static final String EMPTY_IMAGE = "empty image uri";
     private static final String NO_IMAGE = "no image";
+    private ActivityResultLauncher<Intent> launcher;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mGetContent = registerForActivityResult(
-                new ActivityResultContracts.GetContent(),
-                this::uploadFile
-        );
+        launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), (ActivityResult result) -> {
+            if (result.getResultCode() == RESULT_OK) {
+                assert result.getData() != null;
+                Uri uri = result.getData().getData();
+                uploadFile(uri);
+            } else if (result.getResultCode() == ImagePicker.RESULT_ERROR) {
+                Log.i(TAG, FAILED);
+            }
+        });
         NavHostFragment navHostFragment = (NavHostFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container_view);
         navController = Objects.requireNonNull(navHostFragment).getNavController();
     }
@@ -84,15 +94,9 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         binding.profileProgressBar.setVisibility(View.VISIBLE);
         setData();
         initListeners();
-
-//        AnimationDrawable animationDrawableForProfileDetails = (AnimationDrawable) binding.mainDetailsContainer.getBackground();
-//        animationDrawableForProfileDetails.setEnterFadeDuration(2500);
-//        animationDrawableForProfileDetails.setExitFadeDuration(5000);
-//        animationDrawableForProfileDetails.start();
     }
 
     @Override
@@ -128,8 +132,8 @@ public class ProfileFragment extends Fragment {
 
     private void initListeners() {
         binding.logOutButton.setOnClickListener(view1 -> showExitDialog());
-        binding.userProfileImage.setOnClickListener(view -> showChangeImageDialog());
-        binding.changeProfileImgImage.setOnClickListener(view -> showChangeImageDialog());
+        binding.userProfileImage.setOnClickListener(view -> changeImage());
+        binding.changeProfileImgImage.setOnClickListener(view -> changeImage());
         binding.settingsButton.setOnClickListener(view -> {
             NavDirections action = MainFragmentDirections.actionMainFragment2ToProfileSettingsFragment();
             if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.mainFragment2) {
@@ -155,31 +159,23 @@ public class ProfileFragment extends Fragment {
         dialog.show();
     }
 
-    private void showChangeImageDialog() {
-        imageDialog = new Dialog(requireActivity());
-        imageDialog.setContentView(R.layout.exit_dialog);
-
-        ConstraintLayout constraintLayout = imageDialog.findViewById(R.id.exit_dialog_main_layout);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2500);
-        animationDrawable.setExitFadeDuration(5000);
-        animationDrawable.start();
-
-        TextView changeImage = imageDialog.findViewById(R.id.are_you_sure_text);
-        changeImage.setText(getString(R.string.do_you_wanna_change_image));
-
-        MaterialButton cancel = imageDialog.findViewById(R.id.cancel_dialog_button);
-        cancel.setOnClickListener(view -> imageDialog.dismiss());
-
-        MaterialButton change = imageDialog.findViewById(R.id.exit_dialog_button);
-        change.setText(getString(R.string.change_image));
-        change.setOnClickListener(view -> {
-            mGetContent.launch(IMAGE);
-            binding.profileProgressBar.setVisibility(View.VISIBLE);
-        });
-
-        imageDialog.show();
+    private void changeImage() {
+        ImagePicker.Companion.with(requireActivity())
+                .crop()
+                .cropOval()
+                .maxResultSize(512, 512, true)
+                .createIntentFromDialog(new Function1() {
+                    public Object invoke(Object var1) {
+                        this.invoke((Intent) var1);
+                        return Unit.INSTANCE;
+                    }
+                    public final void invoke(@NotNull Intent it) {
+                        Intrinsics.checkNotNullParameter(it, "it");
+                        launcher.launch(it);
+                    }
+                });
     }
+
 
     private String fileExtension(Uri uri) {
         ContentResolver contentResolver = requireActivity().getContentResolver();
@@ -187,9 +183,10 @@ public class ProfileFragment extends Fragment {
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
+
     private void uploadFile(Uri imageUri) {
+        binding.profileProgressBar.setVisibility(View.VISIBLE);
         if (imageUri != null) {
-            imageDialog.dismiss();
             new Thread(() -> {
                 String nameImg = String.valueOf(System.currentTimeMillis());
                 final StorageReference fileReference = storageReference.child(nameImg +
@@ -299,14 +296,15 @@ public class ProfileFragment extends Fragment {
             }).start();
         } else {
             Log.i(TAG, EMPTY_IMAGE);
-            imageDialog.dismiss();
             binding.profileProgressBar.setVisibility(View.GONE);
         }
     }
+
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
+
 }

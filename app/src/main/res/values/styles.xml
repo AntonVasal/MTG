@@ -49,6 +49,7 @@
         <item name="android:backgroundTint">@color/white</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:elevation">15dp</item>
+        <item name="cornerRadius">15dp</item>
         <item name="strokeColor">@color/black</item>
         <item name="strokeWidth">2dp</item>
 
@@ -272,11 +273,11 @@
     </style>
 
     <style name="ScoreImageView" parent="BasicImageView">
-        <item name="android:src">@drawable/ic_baseline_emoji_events_50</item>
+        <item name="android:src">@drawable/ic_baseline_emoji_events_24</item>
     </style>
 
     <style name="TasksImageView" parent="BasicImageView">
-        <item name="android:src">@drawable/ic_baseline_done_50</item>
+        <item name="android:src">@drawable/ic_baseline_done_24</item>
     </style>
 
 </resources>

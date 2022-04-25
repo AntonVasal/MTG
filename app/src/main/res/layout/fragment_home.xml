@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:background="@drawable/gradient_for_bottom_navigation"
         android:id="@+id/main_tabs"
-        app:tabTextColor="#252525"
+        app:tabTextColor="#182050"
         android:elevation="10dp"
         app:tabSelectedTextColor="@color/white"
         app:tabIndicator="@color/transparent"
