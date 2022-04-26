@@ -16,7 +16,6 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentChangeDataBinding;
-import com.example.mtg.logActivity.models.UserRegisterProfileModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -60,15 +59,19 @@ public class ChangeSurnameFragment extends Fragment {
     private void textChanged() {
         binding.forChange.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (binding.changeEditText.getError()!=null){
+                if (binding.changeEditText.getError() != null) {
                     binding.changeEditText.setErrorEnabled(false);
                 }
             }
+
             @Override
-            public void afterTextChanged(Editable editable) { }
+            public void afterTextChanged(Editable editable) {
+            }
         });
     }
 
@@ -95,26 +98,22 @@ public class ChangeSurnameFragment extends Fragment {
             String surname = binding.forChange.getText().toString().trim();
             String id = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
             new Thread(() -> firebaseFirestore.collection(USERS).document(id)
-                    .get().addOnSuccessListener(documentSnapshot -> {
-                        UserRegisterProfileModel userRegisterProfileModel = documentSnapshot.toObject(UserRegisterProfileModel.class);
-                        assert userRegisterProfileModel != null;
-                        userRegisterProfileModel.setSurname(surname);
-                        firebaseFirestore.collection(USERS).document(id)
-                                .set(userRegisterProfileModel).addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                Log.i(TAG, SUCCESS);
-                                if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.changeSurnameFragment) {
-                                    requireActivity().runOnUiThread(() -> {
-                                        binding.changeDataProgressBar.setVisibility(View.GONE);
-                                        navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment,true);
-                                    });
-                                }
-                            } else {
-                                requireActivity().runOnUiThread(() -> binding.changeDataProgressBar.setVisibility(View.GONE));
-                                Log.i(TAG, FAILED);
+                    .update("surname", surname)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Log.i(TAG, SUCCESS);
+                            if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.changeSurnameFragment) {
+                                requireActivity().runOnUiThread(() -> {
+                                    binding.changeDataProgressBar.setVisibility(View.GONE);
+                                    navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment, true);
+                                });
                             }
-                        });
-                    })).start();
+                        } else {
+                            requireActivity().runOnUiThread(() -> binding.changeDataProgressBar.setVisibility(View.GONE));
+                            Log.i(TAG, FAILED);
+                        }
+                    })
+            ).start();
         });
     }
 

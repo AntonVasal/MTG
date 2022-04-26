@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -16,7 +15,6 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentChangeDataBinding;
-import com.example.mtg.logActivity.models.UserRegisterProfileModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -62,7 +60,7 @@ public class ChangeCountryFragment extends Fragment {
         binding.changeEditText.setVisibility(View.INVISIBLE);
         binding.changeButton.setText(R.string.change_country);
         binding.countryPickerForChange.setVisibility(View.VISIBLE);
-        binding.changeImage.setImageDrawable(ResourcesCompat.getDrawable(requireActivity().getResources(),R.drawable.ic_location_country,requireActivity().getTheme()));
+        binding.changeImage.setImageDrawable(ResourcesCompat.getDrawable(requireActivity().getResources(), R.drawable.ic_location_country, requireActivity().getTheme()));
     }
 
     private void initListeners() {
@@ -75,31 +73,23 @@ public class ChangeCountryFragment extends Fragment {
             binding.changeDataProgressBar.setVisibility(View.VISIBLE);
             String country = binding.countryPickerForChange.getSelectedCountryName();
             new Thread(() -> firebaseFirestore.collection(USERS)
-                    .document(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())
-                    .get().addOnSuccessListener(documentSnapshot -> {
-
-                        UserRegisterProfileModel userRegisterProfileModel = documentSnapshot.toObject(UserRegisterProfileModel.class);
-                        assert userRegisterProfileModel != null;
-                        userRegisterProfileModel.setCountry(country);
-
-                        firebaseFirestore.collection(USERS)
-                                .document(firebaseAuth.getCurrentUser().getUid())
-                                .set(userRegisterProfileModel)
-                                .addOnCompleteListener(task -> {
-                                    if (task.isSuccessful()) {
-                                        Log.i(TAG, SUCCESS);
-                                        if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.changeCountryFragment) {
-                                            requireActivity().runOnUiThread(() -> {
-                                                binding.changeDataProgressBar.setVisibility(View.GONE);
-                                                navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment,true);
-                                            });
-                                        }
-                                    } else {
-                                        requireActivity().runOnUiThread(() -> binding.changeDataProgressBar.setVisibility(View.GONE));
-                                        Log.i(TAG, FAILED);
+                            .document(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())
+                            .update("country", country)
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    Log.i(TAG, SUCCESS);
+                                    if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.changeCountryFragment) {
+                                        requireActivity().runOnUiThread(() -> {
+                                            binding.changeDataProgressBar.setVisibility(View.GONE);
+                                            navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment, true);
+                                        });
                                     }
-                                });
-                    })).start();
+                                } else {
+                                    requireActivity().runOnUiThread(() -> binding.changeDataProgressBar.setVisibility(View.GONE));
+                                    Log.i(TAG, FAILED);
+                                }
+                            })
+            ).start();
         });
     }
 

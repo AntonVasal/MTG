@@ -172,13 +172,13 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
         subResultsNaturalsModels.removeIf(subResultsModel -> subResultsModel.getSubNaturalScore() == 0);
     }
 
-    private void sortIntegersModels(ArrayList<SubResultsModel> subResultsModels){
+    private void sortIntegersModels(ArrayList<SubResultsModel> subResultsModels) {
         subResultsModels.sort((subResultsModel, t1) -> t1.getSubIntegerScore() - subResultsModel.getSubIntegerScore());
         subResultsIntegersModels = new ArrayList<>(subResultsModels);
         subResultsIntegersModels.removeIf(subResultsModel -> subResultsModel.getSubIntegerScore() == 0);
     }
 
-    private void sortDecimalsModels(ArrayList<SubResultsModel> subResultsModels){
+    private void sortDecimalsModels(ArrayList<SubResultsModel> subResultsModels) {
         subResultsModels.sort((subResultsModel, t1) -> t1.getSubDecimalScore() - subResultsModel.getSubDecimalScore());
         subResultsDecimalsModels = new ArrayList<>(subResultsModels);
         subResultsDecimalsModels.removeIf(subResultsModel -> subResultsModel.getSubDecimalScore() == 0);
@@ -216,13 +216,13 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
                         assert userRegisterProfileModel != null;
                         name = userRegisterProfileModel.getName();
                         country = userRegisterProfileModel.getCountry();
-                        if (resultsDialog == null || !resultsDialog.isShowing()) {
+                        if ((resultsDialog == null || !resultsDialog.isShowing()) && this.isVisible()) {
                             requireActivity().runOnUiThread(() -> {
                                 dialogBinding = BottomSheetResultsDialogBinding.inflate(getLayoutInflater());
                                 resultsDialog = new ResultsDialog(requireContext(), dialogBinding, name, nickname, imageUrl, country, score, tasks);
                                 resultsDialog.show();
                             });
-                        } else {
+                        } else if (this.isVisible()) {
                             requireActivity().runOnUiThread(() -> {
                                 resultsDialog.loadData(name, nickname, imageUrl, country, score, tasks);
                                 resultsDialog.setDataInViews();

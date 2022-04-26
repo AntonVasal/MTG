@@ -61,15 +61,19 @@ public class ChangeNameFragment extends Fragment {
     private void textChanged() {
         binding.forChange.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (binding.changeEditText.getError()!=null){
+                if (binding.changeEditText.getError() != null) {
                     binding.changeEditText.setErrorEnabled(false);
                 }
             }
+
             @Override
-            public void afterTextChanged(Editable editable) { }
+            public void afterTextChanged(Editable editable) {
+            }
         });
     }
 
@@ -86,6 +90,7 @@ public class ChangeNameFragment extends Fragment {
                 navController.popBackStack();
             }
         });
+
         binding.changeButton.setOnClickListener(view -> {
             if (Objects.requireNonNull(binding.forChange.getText()).toString().trim().isEmpty()) {
                 binding.changeEditText.setError(getResources().getString(R.string.name_is_required));
@@ -95,27 +100,24 @@ public class ChangeNameFragment extends Fragment {
             binding.changeDataProgressBar.setVisibility(View.VISIBLE);
             String name = binding.forChange.getText().toString().trim();
             String id = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
-            new Thread(() -> firebaseFirestore.collection(USERS).document(id)
-                    .get().addOnSuccessListener(documentSnapshot -> {
-                        UserRegisterProfileModel userRegisterProfileModel = documentSnapshot.toObject(UserRegisterProfileModel.class);
-                        assert userRegisterProfileModel != null;
-                        userRegisterProfileModel.setName(name);
-                        firebaseFirestore.collection(USERS).document(id)
-                                .set(userRegisterProfileModel).addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                Log.i(TAG, SUCCESS);
-                                if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.changeNameFragment) {
-                                    requireActivity().runOnUiThread(() -> {
-                                        binding.changeDataProgressBar.setVisibility(View.GONE);
-                                        navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment,true);
-                                    });
-                                }
-                            } else {
-                                requireActivity().runOnUiThread(() -> binding.changeDataProgressBar.setVisibility(View.GONE));
-                                Log.i(TAG, FAILED);
+            new Thread(() ->
+                    firebaseFirestore.collection(USERS).document(id)
+                            .update("name", name)
+                            .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Log.i(TAG, SUCCESS);
+                            if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.changeNameFragment) {
+                                requireActivity().runOnUiThread(() -> {
+                                    binding.changeDataProgressBar.setVisibility(View.GONE);
+                                    navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment, true);
+                                });
                             }
-                        });
-                    })).start();
+                        } else {
+                            requireActivity().runOnUiThread(() -> binding.changeDataProgressBar.setVisibility(View.GONE));
+                            Log.i(TAG, FAILED);
+                        }
+                    })
+            ).start();
         });
     }
 

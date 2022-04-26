@@ -14,6 +14,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,12 +63,14 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/profile_image_card_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
                     app:cardCornerRadius="80dp"
+                    app:strokeWidth="2dp"
+                    app:strokeColor="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -78,13 +81,15 @@
                         android:layout_width="160dp"
                         android:layout_height="160dp"
                         android:contentDescription="@string/user_image" />
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
+                    app:strokeColor="@color/white"
+                    app:strokeWidth="2dp"
                     android:id="@+id/change_profile_image_card_view"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    app:cardCornerRadius="25dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:cardCornerRadius="20dp"
                     app:layout_constraintBottom_toBottomOf="@+id/profile_image_card_view"
                     app:layout_constraintEnd_toEndOf="@+id/profile_image_card_view">
 
@@ -95,7 +100,7 @@
                         android:contentDescription="@string/change_profile_image"
                         android:padding="5dp"
                         android:src="@drawable/ic_baseline_photo_camera_24" />
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
 
                 <TextView
                     android:id="@+id/user_nickname"

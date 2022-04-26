@@ -71,15 +71,16 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
 
     private void generateItem() {
         multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
-            if (multiResultsModels != null && multiResultsModels.size() != 0){
+            if (multiResultsModels != null && multiResultsModels.size() != 0) {
                 sortNaturalsModels(multiResultsModels);
-                adapter = new ResultsRecyclerViewAdapter(getContext(),2,1,this);
+                adapter = new ResultsRecyclerViewAdapter(getContext(), 2, 1, this);
                 adapter.setMultiItemList(multiResultsNaturalsModels);
                 binding.resultRecycler.setAdapter(adapter);
                 binding.recyclerProgressBar.setVisibility(View.GONE);
             }
         });
     }
+
     private void initListeners() {
         binding.natButton.setOnClickListener(view -> {
             binding.natButton.setEnabled(false);
@@ -92,9 +93,9 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
             binding.intButton.setEnabled(false);
             binding.decButton.setEnabled(true);
             multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
-                if (multiResultsModels != null && multiResultsModels.size() != 0){
+                if (multiResultsModels != null && multiResultsModels.size() != 0) {
                     sortIntegersModels(multiResultsModels);
-                    adapter = new ResultsRecyclerViewAdapter(getContext(),2,2,this);
+                    adapter = new ResultsRecyclerViewAdapter(getContext(), 2, 2, this);
                     adapter.setMultiItemList(multiResultsIntegersModels);
                     binding.resultRecycler.setAdapter(adapter);
                 }
@@ -106,9 +107,9 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
             binding.intButton.setEnabled(true);
             binding.decButton.setEnabled(false);
             multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
-                if (multiResultsModels != null && multiResultsModels.size() != 0){
+                if (multiResultsModels != null && multiResultsModels.size() != 0) {
                     sortDecimalsModels(multiResultsModels);
-                    adapter = new ResultsRecyclerViewAdapter(getContext(),2,3,this);
+                    adapter = new ResultsRecyclerViewAdapter(getContext(), 2, 3, this);
                     adapter.setMultiItemList(multiResultsDecimalsModels);
                     binding.resultRecycler.setAdapter(adapter);
                 }
@@ -119,7 +120,7 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
     @Override
     public void onItemClick(int position, int typeNumber) {
         multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
-            switch (typeNumber){
+            switch (typeNumber) {
                 case 1:
                     if (resultsDialog != null && resultsDialog.isShowing()) {
                         for (int i = 0; i < multiResultsNaturalsModels.size(); i++) {
@@ -169,19 +170,19 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
     private void sortNaturalsModels(ArrayList<MultiResultsModel> multiResultsModels) {
         multiResultsModels.sort((multiResultsModel, t1) -> t1.getMultiNaturalScore() - multiResultsModel.getMultiNaturalScore());
         multiResultsNaturalsModels = new ArrayList<>(multiResultsModels);
-        multiResultsNaturalsModels.removeIf(multiResultsModel -> multiResultsModel.getMultiNaturalScore()==0);
+        multiResultsNaturalsModels.removeIf(multiResultsModel -> multiResultsModel.getMultiNaturalScore() == 0);
     }
 
-    private void sortIntegersModels(ArrayList<MultiResultsModel> multiResultsModels){
+    private void sortIntegersModels(ArrayList<MultiResultsModel> multiResultsModels) {
         multiResultsModels.sort((multiResultsModel, t1) -> t1.getMultiIntegerScore() - multiResultsModel.getMultiIntegerScore());
         multiResultsIntegersModels = new ArrayList<>(multiResultsModels);
-        multiResultsIntegersModels.removeIf(multiResultsModel -> multiResultsModel.getMultiIntegerScore()==0);
+        multiResultsIntegersModels.removeIf(multiResultsModel -> multiResultsModel.getMultiIntegerScore() == 0);
     }
 
-    private void sortDecimalsModels(ArrayList<MultiResultsModel> multiResultsModels){
+    private void sortDecimalsModels(ArrayList<MultiResultsModel> multiResultsModels) {
         multiResultsModels.sort((multiResultsModel, t1) -> t1.getMultiDecimalScore() - multiResultsModel.getMultiDecimalScore());
         multiResultsDecimalsModels = new ArrayList<>(multiResultsModels);
-        multiResultsDecimalsModels.removeIf(multiResultsModel -> multiResultsModel.getMultiDecimalScore()==0);
+        multiResultsDecimalsModels.removeIf(multiResultsModel -> multiResultsModel.getMultiDecimalScore() == 0);
     }
 
     private void loadDataNaturalMethod(int position) {
@@ -216,13 +217,13 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
                         assert userRegisterProfileModel != null;
                         name = userRegisterProfileModel.getName();
                         country = userRegisterProfileModel.getCountry();
-                        if (resultsDialog == null || !resultsDialog.isShowing()) {
+                        if ((resultsDialog == null || !resultsDialog.isShowing()) && this.isVisible()) {
                             requireActivity().runOnUiThread(() -> {
                                 dialogBinding = BottomSheetResultsDialogBinding.inflate(getLayoutInflater());
                                 resultsDialog = new ResultsDialog(requireContext(), dialogBinding, name, nickname, imageUrl, country, score, tasks);
                                 resultsDialog.show();
                             });
-                        } else {
+                        } else if (this.isVisible()) {
                             requireActivity().runOnUiThread(() -> {
                                 resultsDialog.loadData(name, nickname, imageUrl, country, score, tasks);
                                 resultsDialog.setDataInViews();

@@ -64,15 +64,19 @@ public class ChangeEmailFragment extends Fragment {
     private void textChanged() {
         binding.forChange.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (binding.changeEditText.getError()!=null){
+                if (binding.changeEditText.getError() != null) {
                     binding.changeEditText.setErrorEnabled(false);
                 }
             }
+
             @Override
-            public void afterTextChanged(Editable editable) { }
+            public void afterTextChanged(Editable editable) {
+            }
         });
     }
 
@@ -81,7 +85,7 @@ public class ChangeEmailFragment extends Fragment {
         binding.changeEditText.setHint(R.string.email);
         binding.changeEditText.setStartIconDrawable(R.drawable.ic_baseline_email_24);
         binding.changeButton.setText(R.string.change_email);
-        binding.changeImage.setImageDrawable(ResourcesCompat.getDrawable(requireActivity().getResources(),R.drawable.ic_email_yellow_white,requireActivity().getTheme()));
+        binding.changeImage.setImageDrawable(ResourcesCompat.getDrawable(requireActivity().getResources(), R.drawable.ic_email_yellow_white, requireActivity().getTheme()));
     }
 
     private void initListeners() {
@@ -115,31 +119,25 @@ public class ChangeEmailFragment extends Fragment {
         });
     }
 
+
     private void setEmailToMainCollection(String email) {
         String id = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
-        firebaseFirestore.collection(USERS)
-                .document(id)
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    UserRegisterProfileModel userRegisterProfileModel = documentSnapshot.toObject(UserRegisterProfileModel.class);
-                    assert userRegisterProfileModel != null;
-                    userRegisterProfileModel.setEmail(email);
-                    firebaseFirestore.collection(USERS).document(id)
-                            .set(userRegisterProfileModel)
-                            .addOnCompleteListener(task -> {
-                                if (task.isSuccessful()) {
-                                    Log.i(TAG, SUCCESS);
-                                    if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.changeEmailFragment) {
-                                        requireActivity().runOnUiThread(() -> {
-                                            binding.changeDataProgressBar.setVisibility(View.GONE);
-                                            navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment,true);
-                                        });
-                                    }
-                                } else {
-                                    requireActivity().runOnUiThread(() -> binding.changeDataProgressBar.setVisibility(View.GONE));
-                                    Log.i(TAG, FAILED);
-                                }
+
+        firebaseFirestore.collection(USERS).document(id)
+                .update("email", email)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.i(TAG, SUCCESS);
+                        if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.changeEmailFragment) {
+                            requireActivity().runOnUiThread(() -> {
+                                binding.changeDataProgressBar.setVisibility(View.GONE);
+                                navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment, true);
                             });
+                        }
+                    } else {
+                        requireActivity().runOnUiThread(() -> binding.changeDataProgressBar.setVisibility(View.GONE));
+                        Log.i(TAG, FAILED);
+                    }
                 });
     }
 

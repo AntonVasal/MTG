@@ -108,7 +108,7 @@
         <entry key="..\:/MTG/app/src/main/res/drawable/shape_for_types_task.xml" value="0.2703125" />
         <entry key="..\:/MTG/app/src/main/res/drawable/splash_screen.xml" value="0.264" />
         <entry key="..\:/MTG/app/src/main/res/layout/activity_log.xml" value="0.18342391304347827" />
-        <entry key="..\:/MTG/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
+        <entry key="..\:/MTG/app/src/main/res/layout/activity_main.xml" value="0.8" />
         <entry key="..\:/MTG/app/src/main/res/layout/bottom_sheet_results_dialog.xml" value="0.264" />
         <entry key="..\:/MTG/app/src/main/res/layout/divider_for_user_data.xml" value="0.22592592592592592" />
         <entry key="..\:/MTG/app/src/main/res/layout/exit_dialog.xml" value="0.264" />
@@ -138,6 +138,7 @@
         <entry key="..\:/MTG/app/src/main/res/layout/fragment_type_task.xml" value="0.2" />
         <entry key="..\:/MTG/app/src/main/res/layout/item_for_results.xml" value="0.25416666666666665" />
         <entry key="..\:/MTG/app/src/main/res/layout/mtg.xml" value="0.25416666666666665" />
+        <entry key="..\:/MTG/app/src/main/res/layout/recycler_layout_animation.xml" value="0.13020833333333334" />
         <entry key="..\:/MTG/app/src/main/res/layout/spalsh_activity.xml" value="0.25416666666666665" />
         <entry key="..\:/MTG/app/src/main/res/menu/main_bottom_navigation_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/MTG/app/src/main/res/mipmap-anydpi-26/mtg.xml" value="0.14739583333333334" />

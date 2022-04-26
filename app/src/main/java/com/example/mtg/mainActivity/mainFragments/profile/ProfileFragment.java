@@ -30,11 +30,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentProfileBinding;
 import com.example.mtg.logActivity.LogActivity;
-import com.example.mtg.logActivity.models.UserRegisterProfileModel;
-import com.example.mtg.mainActivity.countFragment.countModels.AddResultsModel;
-import com.example.mtg.mainActivity.countFragment.countModels.DivResultsModel;
-import com.example.mtg.mainActivity.countFragment.countModels.MultiResultsModel;
-import com.example.mtg.mainActivity.countFragment.countModels.SubResultsModel;
 import com.example.mtg.mainActivity.mainFragments.MainFragmentDirections;
 import com.example.mtg.mainActivity.mainFragments.profile.viewModel.ProfileViewModel;
 import com.github.drjacky.imagepicker.ImagePicker;
@@ -62,6 +57,7 @@ public class ProfileFragment extends Fragment {
     private StorageReference storageReference;
     private String downloadUrl = "";
     private NavController navController;
+    private String img;
     private static final String TAG = "MainActivity";
     private static final String SUCCESS = "Success";
     private static final String FAILED = "Failed";
@@ -122,7 +118,7 @@ public class ProfileFragment extends Fragment {
             if (userRegisterProfileModel.getImageUrl() == null || userRegisterProfileModel.getImageUrl().equals(NO_IMAGE) || userRegisterProfileModel.getImageUrl().equals("")) {
                 binding.userProfileImage.setImageResource(R.drawable.ic_baseline_person_150);
             } else {
-                String img = userRegisterProfileModel.getImageUrl();
+                img = userRegisterProfileModel.getImageUrl();
                 Glide.with(this).load(img).apply(new RequestOptions().override(170, 170)).into(binding.userProfileImage);
             }
             binding.profileProgressBar.setVisibility(View.GONE);
@@ -169,6 +165,7 @@ public class ProfileFragment extends Fragment {
                         this.invoke((Intent) var1);
                         return Unit.INSTANCE;
                     }
+
                     public final void invoke(@NotNull Intent it) {
                         Intrinsics.checkNotNullParameter(it, "it");
                         launcher.launch(it);
@@ -199,92 +196,42 @@ public class ProfileFragment extends Fragment {
                     return fileReference.getDownloadUrl();
                 }).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+
+                        if (!img.isEmpty()) {
+                            String[] strings = img.split("\\?");
+                            strings = strings[0].split("/o/");
+                            storageReference.child(strings[1]).delete().addOnCompleteListener(task16 -> {
+                                if (task16.isSuccessful()) {
+                                    Log.i(TAG, SUCCESS);
+                                } else {
+                                    Log.i(TAG, FAILED);
+                                }
+                            });
+                        }
+
                         Uri downloadUri = task.getResult();
                         assert downloadUri != null;
                         downloadUrl = downloadUri.toString();
-                        /////////////////////////////////////////////////
+
                         firebaseFirestore.collection(ADD).document(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
-                                .get().addOnSuccessListener(documentSnapshot -> {
-                            AddResultsModel addResultsModel = documentSnapshot.toObject(AddResultsModel.class);
-                            assert addResultsModel != null;
-                            addResultsModel.setImageUrl(downloadUrl);
-                            firebaseFirestore.collection(ADD).document(mAuth.getCurrentUser().getUid())
-                                    .set(addResultsModel).addOnCompleteListener(task12 -> {
-                                if (task12.isSuccessful()) {
-                                    Log.i(TAG, SUCCESS);
-                                } else {
-                                    Log.i(TAG, FAILED);
-                                }
-                            });
-                        });
-                        ////////////////////////////////////////////////
-                        firebaseFirestore.collection(MULTI).document(mAuth.getCurrentUser().getUid())
-                                .get().addOnSuccessListener(documentSnapshot -> {
-                            MultiResultsModel multiResultsModel = documentSnapshot.toObject(MultiResultsModel.class);
-                            assert multiResultsModel != null;
-                            multiResultsModel.setImageUrl(downloadUrl);
-                            firebaseFirestore.collection(MULTI).document(mAuth.getCurrentUser().getUid())
-                                    .set(multiResultsModel).addOnCompleteListener(task13 -> {
-                                if (task13.isSuccessful()) {
-                                    Log.i(TAG, SUCCESS);
-                                } else {
-                                    Log.i(TAG, FAILED);
-                                }
-                            });
-                        });
-                        ///////////////////////////////////////////////
-                        firebaseFirestore.collection(SUB).document(mAuth.getCurrentUser().getUid())
-                                .get().addOnSuccessListener(documentSnapshot -> {
-                            SubResultsModel subResultsModel = documentSnapshot.toObject(SubResultsModel.class);
-                            assert subResultsModel != null;
-                            subResultsModel.setImageUrl(downloadUrl);
-                            firebaseFirestore.collection(SUB).document(mAuth.getCurrentUser().getUid())
-                                    .set(subResultsModel).addOnCompleteListener(task14 -> {
-                                if (task14.isSuccessful()) {
-                                    Log.i(TAG, SUCCESS);
-                                } else {
-                                    Log.i(TAG, FAILED);
-                                }
-                            });
-                        });
-                        //////////////////////////////////////////////
-                        firebaseFirestore.collection(DIV).document(mAuth.getCurrentUser().getUid())
-                                .get().addOnSuccessListener(documentSnapshot -> {
-                            DivResultsModel divResultsModel = documentSnapshot.toObject(DivResultsModel.class);
-                            assert divResultsModel != null;
-                            divResultsModel.setImageUrl(downloadUrl);
-                            firebaseFirestore.collection(DIV).document(mAuth.getCurrentUser().getUid())
-                                    .set(divResultsModel).addOnCompleteListener(task15 -> {
-                                if (task15.isSuccessful()) {
-                                    Log.i(TAG, SUCCESS);
-                                } else {
-                                    Log.i(TAG, FAILED);
-                                }
-                            });
-                        });
-                        //////////////////////////////////////////////
-                        firebaseFirestore.collection(USERS)
-                                .document(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
-                                .get().addOnSuccessListener(documentSnapshot -> {
-                            UserRegisterProfileModel userRegisterProfileModel = documentSnapshot
-                                    .toObject(UserRegisterProfileModel.class);
-                            assert userRegisterProfileModel != null;
-                            userRegisterProfileModel.setImageUrl("");
-                            userRegisterProfileModel.setImageUrl(downloadUrl);
-                            firebaseFirestore.collection(USERS).document(mAuth.getCurrentUser().getUid())
-                                    .set(userRegisterProfileModel).addOnCompleteListener(task1 -> {
-                                if (task1.isSuccessful()) {
-                                    Log.i(TAG, SUCCESS);
-                                } else {
-                                    Log.i(TAG, FAILED);
-                                }
-                            });
-                            try {
-                                requireActivity().runOnUiThread(() -> binding.profileProgressBar.setVisibility(View.GONE));
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        });
+                                .update("imageUrl", downloadUrl);
+                        firebaseFirestore.collection(SUB).document(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
+                                .update("imageUrl", downloadUrl);
+                        firebaseFirestore.collection(DIV).document(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
+                                .update("imageUrl", downloadUrl);
+                        firebaseFirestore.collection(MULTI).document(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
+                                .update("imageUrl", downloadUrl);
+                        firebaseFirestore.collection(USERS).document(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
+                                .update("imageUrl", downloadUrl);
+
+
+
+                        try {
+                            requireActivity().runOnUiThread(() -> binding.profileProgressBar.setVisibility(View.GONE));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
                     } else {
                         try {
                             requireActivity().runOnUiThread(() -> binding.profileProgressBar.setVisibility(View.GONE));

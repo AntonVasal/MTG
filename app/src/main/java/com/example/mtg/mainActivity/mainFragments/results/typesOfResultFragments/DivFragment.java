@@ -216,13 +216,13 @@ public class DivFragment extends Fragment implements OnItemResultsRecyclerClickI
                         assert userRegisterProfileModel != null;
                         name = userRegisterProfileModel.getName();
                         country = userRegisterProfileModel.getCountry();
-                        if (resultsDialog == null || !resultsDialog.isShowing()) {
+                        if ((resultsDialog == null || !resultsDialog.isShowing()) && this.isVisible()) {
                             requireActivity().runOnUiThread(() -> {
                                 dialogBinding = BottomSheetResultsDialogBinding.inflate(getLayoutInflater());
                                 resultsDialog = new ResultsDialog(requireContext(), dialogBinding, name, nickname, imageUrl, country, score, tasks);
                                 resultsDialog.show();
                             });
-                        } else {
+                        } else if (this.isVisible()) {
                             requireActivity().runOnUiThread(() -> {
                                 resultsDialog.loadData(name, nickname, imageUrl, country, score, tasks);
                                 resultsDialog.setDataInViews();

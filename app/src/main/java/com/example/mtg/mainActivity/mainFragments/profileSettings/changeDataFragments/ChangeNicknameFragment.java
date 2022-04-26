@@ -16,11 +16,6 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentChangeDataBinding;
-import com.example.mtg.logActivity.models.UserRegisterProfileModel;
-import com.example.mtg.mainActivity.countFragment.countModels.AddResultsModel;
-import com.example.mtg.mainActivity.countFragment.countModels.DivResultsModel;
-import com.example.mtg.mainActivity.countFragment.countModels.MultiResultsModel;
-import com.example.mtg.mainActivity.countFragment.countModels.SubResultsModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -69,15 +64,19 @@ public class ChangeNicknameFragment extends Fragment {
     private void textChanged() {
         binding.forChange.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (binding.changeEditText.getError()!=null){
+                if (binding.changeEditText.getError() != null) {
                     binding.changeEditText.setErrorEnabled(false);
                 }
             }
+
             @Override
-            public void afterTextChanged(Editable editable) { }
+            public void afterTextChanged(Editable editable) {
+            }
         });
     }
 
@@ -110,88 +109,67 @@ public class ChangeNicknameFragment extends Fragment {
     }
 
     private void sendNicknameToFirestore(String nickname, String id) {
-        firebaseFirestore.collection(USERS).document(id).get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    UserRegisterProfileModel userRegisterProfileModel = documentSnapshot.toObject(UserRegisterProfileModel.class);
-                    assert userRegisterProfileModel != null;
-                    userRegisterProfileModel.setNickname(nickname);
-                    firebaseFirestore.collection(USERS).document(id).set(userRegisterProfileModel).addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            sendNicknameToCountFirestore(nickname, id);
-                            if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.changeNicknameFragment) {
-                                requireActivity().runOnUiThread(() -> {
-                                    binding.changeDataProgressBar.setVisibility(View.GONE);
-                                    navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment,true);
-                                });
-                            }
-                        } else {
-                            requireActivity().runOnUiThread(() -> binding.changeDataProgressBar.setVisibility(View.GONE));
+        firebaseFirestore.collection(USERS).document(id)
+                .update("nickname", nickname)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        sendNicknameToCountFirestore(nickname, id);
+                        if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.changeNicknameFragment) {
+                            requireActivity().runOnUiThread(() -> {
+                                binding.changeDataProgressBar.setVisibility(View.GONE);
+                                navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment, true);
+                            });
                         }
-                    });
+                    } else {
+                        requireActivity().runOnUiThread(() -> binding.changeDataProgressBar.setVisibility(View.GONE));
+                    }
                 });
+
     }
 
     private void sendNicknameToCountFirestore(String nickname, String id) {
-        firebaseFirestore.collection(ADD).document(id).get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    AddResultsModel addResultsModel = documentSnapshot.toObject(AddResultsModel.class);
-                    assert addResultsModel != null;
-                    addResultsModel.setNickname(nickname);
-                    firebaseFirestore.collection(ADD).document(id)
-                            .set(addResultsModel)
-                            .addOnCompleteListener(task -> {
-                                if (task.isSuccessful()) {
-                                    Log.i(TAG, SUCCESS);
-                                } else {
-                                    Log.i(TAG, FAILED);
-                                }
-                            });
+        firebaseFirestore.collection(ADD).document(id)
+                .update("nickname", nickname)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.i(TAG, SUCCESS);
+                    } else {
+                        Log.i(TAG, FAILED);
+                    }
                 });
-        firebaseFirestore.collection(DIV).document(id).get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    DivResultsModel divResultsModel = documentSnapshot.toObject(DivResultsModel.class);
-                    assert divResultsModel != null;
-                    divResultsModel.setNickname(nickname);
-                    firebaseFirestore.collection(DIV).document(id)
-                            .set(divResultsModel)
-                            .addOnCompleteListener(task -> {
-                                if (task.isSuccessful()) {
-                                    Log.i(TAG, SUCCESS);
-                                } else {
-                                    Log.i(TAG, FAILED);
-                                }
-                            });
+
+        firebaseFirestore.collection(DIV).document(id)
+                .update("nickname", nickname)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.i(TAG, SUCCESS);
+                    } else {
+                        Log.i(TAG, FAILED);
+                    }
                 });
-        firebaseFirestore.collection(SUB).document(id).get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    SubResultsModel subResultsModel = documentSnapshot.toObject(SubResultsModel.class);
-                    assert subResultsModel != null;
-                    subResultsModel.setNickname(nickname);
-                    firebaseFirestore.collection(SUB).document(id)
-                            .set(subResultsModel)
-                            .addOnCompleteListener(task -> {
-                                if (task.isSuccessful()) {
-                                    Log.i(TAG, SUCCESS);
-                                } else {
-                                    Log.i(TAG, FAILED);
-                                }
-                            });
+
+
+        firebaseFirestore.collection(SUB).document(id)
+                .update("nickname", nickname)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.i(TAG, SUCCESS);
+                    } else {
+                        Log.i(TAG, FAILED);
+                    }
                 });
-        firebaseFirestore.collection(MULTI).document(id).get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    MultiResultsModel multiResultsModel = documentSnapshot.toObject(MultiResultsModel.class);
-                    assert multiResultsModel != null;
-                    multiResultsModel.setNickname(nickname);
-                    firebaseFirestore.collection(MULTI).document(id)
-                            .set(multiResultsModel)
-                            .addOnCompleteListener(task -> {
-                                if (task.isSuccessful()) {
-                                    Log.i(TAG, SUCCESS);
-                                } else {
-                                    Log.i(TAG, FAILED);
-                                }
-                            });
+
+
+        firebaseFirestore.collection(MULTI).document(id)
+                .update("nickname",nickname)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.i(TAG, SUCCESS);
+                    } else {
+                        Log.i(TAG, FAILED);
+                    }
                 });
+
     }
 
     @Override

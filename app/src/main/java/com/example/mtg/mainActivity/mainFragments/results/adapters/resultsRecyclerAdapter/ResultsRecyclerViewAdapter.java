@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -64,7 +63,6 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
 
     @Override
     public void onBindViewHolder(@NonNull ResultsRecyclerViewHolder holder, int position) {
-        holder.cardView.startAnimation(AnimationUtils.loadAnimation(mContext,R.anim.anim_for_recycler));
         switch (typeTask) {
             case 1:
                 Glide.with(mContext)
