@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MTG">
         <activity
-            android:name=".splashActivity.SplashActivity"
+            android:name=".ui.activities.splashActivity.SplashActivity"
             android:theme="@style/Theme.Splash"
             android:exported="true" >
             <intent-filter>
@@ -23,10 +23,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".logActivity.LogActivity"
+            android:name=".ui.activities.logActivity.LogActivity"
             android:exported="true"/>
         <activity
-            android:name=".mainActivity.MainActivity"
+            android:name=".ui.activities.mainActivity.MainActivity"
             android:exported="true" />
     </application>
 

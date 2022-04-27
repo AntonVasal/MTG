@@ -6,7 +6,7 @@
     app:startDestination="@id/mainFragment2">
     <fragment
         android:id="@+id/profileSettingsFragment"
-        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.ProfileSettingsFragment"
+        android:name="com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.ProfileSettingsFragment"
         android:label="ProfileSettingsFragment"
         tools:layout="@layout/fragment_profile_settings">
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/mainFragment2"
-        android:name="com.example.mtg.mainActivity.mainFragments.MainFragment"
+        android:name="com.example.mtg.ui.activities.mainActivity.mainFragments.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/fragment_main">
         <action
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileSettingsPasswordConfirmationFragment"
-        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.confirmPasswordFragment.ProfileSettingsPasswordConfirmationFragment"
+        android:name="com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.confirmPasswordFragment.ProfileSettingsPasswordConfirmationFragment"
         android:label="fragment_profile_settings_password_confirmation"
         tools:layout="@layout/fragment_profile_settings_password_confirmation">
         <argument
@@ -98,32 +98,32 @@
     </fragment>
     <fragment
         android:id="@+id/changeNameFragment"
-        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.changeDataFragments.ChangeNameFragment"
+        android:name="com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.changeDataFragments.ChangeNameFragment"
         android:label="fragment_change_name"
         tools:layout="@layout/fragment_change_data"/>
     <fragment
         android:id="@+id/changeNicknameFragment"
-        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.changeDataFragments.ChangeNicknameFragment"
+        android:name="com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.changeDataFragments.ChangeNicknameFragment"
         android:label="fragment_change_nickname"
         tools:layout="@layout/fragment_change_data"/>
     <fragment
         android:id="@+id/changeSurnameFragment"
-        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.changeDataFragments.ChangeSurnameFragment"
+        android:name="com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.changeDataFragments.ChangeSurnameFragment"
         android:label="fragment_change_surname"
         tools:layout="@layout/fragment_change_data"/>
     <fragment
         android:id="@+id/changeCountryFragment"
-        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.changeDataFragments.ChangeCountryFragment"
+        android:name="com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.changeDataFragments.ChangeCountryFragment"
         android:label="fragment_change_country"
         tools:layout="@layout/fragment_change_data"/>
     <fragment
         android:id="@+id/changeEmailFragment"
-        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.changeDataFragments.ChangeEmailFragment"
+        android:name="com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.changeDataFragments.ChangeEmailFragment"
         android:label="fragment_change_email"
         tools:layout="@layout/fragment_change_data"/>
     <fragment
         android:id="@+id/countFragment"
-        android:name="com.example.mtg.mainActivity.countFragment.CountFragment"
+        android:name="com.example.mtg.ui.activities.mainActivity.countFragment.CountFragment"
         android:label="CountFragment"
         tools:layout="@layout/fragment_count">
         <argument
@@ -137,7 +137,7 @@
     </fragment>
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.example.mtg.logActivity.logFragments.SignInFragment"
+        android:name="com.example.mtg.ui.activities.logActivity.logFragments.SignInFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in" >
         <action
@@ -157,22 +157,22 @@
     </fragment>
     <fragment
         android:id="@+id/resetPasswordFragment"
-        android:name="com.example.mtg.logActivity.logFragments.ResetPasswordFragment"
+        android:name="com.example.mtg.ui.activities.logActivity.logFragments.ResetPasswordFragment"
         android:label="fragment_reset_password"
         tools:layout="@layout/fragment_reset_password" />
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.mtg.logActivity.logFragments.RegisterFragment"
+        android:name="com.example.mtg.ui.activities.logActivity.logFragments.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" />
     <fragment
         android:id="@+id/changePasswordFragment"
-        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.changeDataFragments.ChangePasswordFragment"
+        android:name="com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.changeDataFragments.ChangePasswordFragment"
         android:label="ChangePasswordFragment"
         tools:layout="@layout/fragment_change_data"/>
     <fragment
         android:id="@+id/passwordYouRememberFragment"
-        android:name="com.example.mtg.mainActivity.mainFragments.profileSettings.forgetPasswordFragment.PasswordYouRememberFragment"
+        android:name="com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.forgetPasswordFragment.PasswordYouRememberFragment"
         android:label="PasswordYouRememberFragment"
         tools:layout="@layout/fragment_change_data"/>
 </navigation>

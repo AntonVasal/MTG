@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.mtg.mainActivity.mainFragments.profile.viewModel.ProfileViewModel" />
+            type="com.example.mtg.ui.activities.mainActivity.mainFragments.profile.viewModel.ProfileViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -79,6 +79,7 @@
                         android:id="@+id/user_profile_image"
                         style="@style/MainUserImageView"
                         android:layout_width="160dp"
+                        loadImage="@{viewModel.user.imageUrl}"
                         android:layout_height="160dp"
                         android:contentDescription="@string/user_image" />
                 </com.google.android.material.card.MaterialCardView>
