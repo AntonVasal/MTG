@@ -143,6 +143,7 @@ public class RegisterFragment extends Fragment {
                 })).start();
     }
 
+
     private void textSelected() {
         binding.email.addTextChangedListener(new TextWatcher() {
             @Override

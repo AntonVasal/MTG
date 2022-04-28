@@ -111,10 +111,21 @@ public class ProfileFragment extends Fragment {
         return binding.getRoot();
     }
 
+
+
     private void setData() {
-        profileViewModel.getUser().observe(getViewLifecycleOwner(), userRegisterProfileModel -> {
+        profileViewModel.getUser().observe(getViewLifecycleOwner(), data -> {
             binding.profileProgressBar.setVisibility(View.GONE);
-            img = userRegisterProfileModel.getImageUrl();
+            switch (data.status){
+                case SUCCESS:
+                    assert data.data != null;
+                    img = data.data.getImageUrl();
+                    break;
+                case ERROR:
+                    img = "no image";
+                    Log.e(TAG,FAILED);
+            }
+
         });
     }
 
@@ -190,7 +201,7 @@ public class ProfileFragment extends Fragment {
                 }).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
 
-                        if (!img.isEmpty()) {
+                        if (!img.isEmpty() && !img.equals("no image")) {
                             String[] strings = img.split("\\?");
                             strings = strings[0].split("/o/");
                             storageReference.child(strings[1]).delete().addOnCompleteListener(task16 -> {

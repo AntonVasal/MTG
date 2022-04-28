@@ -31,11 +31,13 @@ public class ProfileRepository {
                 .addSnapshotListener((value, error) -> {
                     if (error != null) {
                         Log.e(PROFILE_REPO, FAILED);
+                        userRepositoryCallback.userRepoCallback(ErrorHandlingRepositoryData.error(error.getMessage(), null));
                         return;
                     }
                     if (value != null && value.exists()) {
                         userRegisterProfileModel = value.toObject(UserRegisterProfileModel.class);
-                        userRepositoryCallback.userRepoCallback(userRegisterProfileModel);
+                        assert userRegisterProfileModel != null;
+                        userRepositoryCallback.userRepoCallback(ErrorHandlingRepositoryData.success(userRegisterProfileModel));
                     }
                 })).start();
         }

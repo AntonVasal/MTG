@@ -14,7 +14,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mtg.R;
-import com.example.mtg.databinding.FragmentProfileSettingsBindingImpl;
+import com.example.mtg.databinding.FragmentProfileSettingsBinding;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.profile.viewModel.ProfileViewModel;
 
 import java.util.Objects;
@@ -22,7 +22,7 @@ import java.util.Objects;
 
 public class ProfileSettingsFragment extends Fragment {
 
-    private FragmentProfileSettingsBindingImpl binding;
+    private FragmentProfileSettingsBinding binding;
     private NavController navController;
     private static final String TYPE_FRAGMENTS = "typeFragments";
     private Bundle bundle;
