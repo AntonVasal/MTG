@@ -19,6 +19,7 @@ public class ProfileRepository {
     private static final String PROFILE_REPO = "Profile repo";
     private static final String FAILED = "Failed";
 
+
     public ProfileRepository() {
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
