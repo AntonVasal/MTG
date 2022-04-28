@@ -4,15 +4,14 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mtg.models.profileModel.UserRegisterProfileModel;
-import com.example.mtg.repositories.ErrorHandlingRepositoryData;
+import com.example.mtg.repositories.ErrorHandlerResourse.ErrorHandlingRepositoryData;
 import com.example.mtg.repositories.ProfileRepository;
+import com.example.mtg.repositories.repositoryCallbacks.UpdateProfileCallback;
 
 public class ProfileViewModel extends ViewModel {
 
     private MutableLiveData<ErrorHandlingRepositoryData<UserRegisterProfileModel>> user;
     private ProfileRepository profileRepository;
-//    private UserRegisterProfileModel userRegisterProfileModel;
-
 
     public MutableLiveData<ErrorHandlingRepositoryData<UserRegisterProfileModel>> getUser() {
         profileRepository = new ProfileRepository();
@@ -24,28 +23,16 @@ public class ProfileViewModel extends ViewModel {
     }
 
     private void loadData() {
-//        new Thread(() -> FirebaseFirestore.getInstance()
-//                .collection(USERS)
-//                .document(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
-//                .addSnapshotListener((value, error) -> {
-//                    if (error != null) {
-//                        Log.i(TAG, FAILED);
-//                        return;
-//                    }
-//                    if (value != null && value.exists()) {
-//                        userRegisterProfileModel = value.toObject(UserRegisterProfileModel.class);
-//                        user.postValue(userRegisterProfileModel);
-//                    } else {
-//                        Log.i(TAG, FAILED);
-//                    }
-//                })).start();
         profileRepository.getUserData(userRepoData -> user.postValue(userRepoData));
-
     }
 
-//    public void updateUserName(String name) {
-//       user.postValue(profileRepository.updateUserName(name).getValue());
-//    }
+    public void updateUserName(String name, UpdateProfileCallback updateProfileCallback) {
+        profileRepository.updateUserName(name, updateProfileCallback);
+    }
+
+    public void updateUserCountry(String country, UpdateProfileCallback callback){
+        profileRepository.updateUserCountry(country, callback);
+    }
 
 
 }

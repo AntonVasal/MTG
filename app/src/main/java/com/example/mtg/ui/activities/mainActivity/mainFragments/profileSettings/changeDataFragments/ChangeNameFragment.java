@@ -3,7 +3,6 @@ package com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +10,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mtg.R;
+import com.example.mtg.core.ValidationTextWatchers;
 import com.example.mtg.databinding.FragmentChangeDataBinding;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.example.mtg.ui.activities.mainActivity.mainFragments.profile.viewModel.ProfileViewModel;
 
 import java.util.Objects;
 
@@ -25,13 +25,7 @@ import java.util.Objects;
 public class ChangeNameFragment extends Fragment {
     private FragmentChangeDataBinding binding;
     private NavController navController;
-    private FirebaseFirestore firebaseFirestore;
-    private FirebaseAuth firebaseAuth;
-    private static final String TAG = "MainActivity";
-    private static final String SUCCESS = "Success";
-    private static final String FAILED = "Failed";
-    private static final String USERS = "users";
-
+    private ProfileViewModel profileViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,8 +38,7 @@ public class ChangeNameFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentChangeDataBinding.inflate(inflater, container, false);
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance();
+        profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
         return binding.getRoot();
     }
 
@@ -96,27 +89,22 @@ public class ChangeNameFragment extends Fragment {
                 binding.changeEditText.requestFocus();
                 return;
             }
+
             binding.changeDataProgressBar.setVisibility(View.VISIBLE);
             String name = binding.forChange.getText().toString().trim();
-            String id = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
-            new Thread(() ->
-                    firebaseFirestore.collection(USERS).document(id)
-                            .update("name", name)
-                            .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            Log.i(TAG, SUCCESS);
-                            if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.changeNameFragment) {
-                                requireActivity().runOnUiThread(() -> {
-                                    binding.changeDataProgressBar.setVisibility(View.GONE);
-                                    navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment, true);
-                                });
-                            }
-                        } else {
-                            requireActivity().runOnUiThread(() -> binding.changeDataProgressBar.setVisibility(View.GONE));
-                            Log.i(TAG, FAILED);
-                        }
-                    })
-            ).start();
+
+            profileViewModel.updateUserName(name, status -> {
+                switch (status){
+                    case SUCCESS:
+                        binding.changeDataProgressBar.setVisibility(View.GONE);
+                        navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment, true);
+                        break;
+                    case ERROR:
+                        binding.changeDataProgressBar.setVisibility(View.GONE);
+                        break;
+                }
+            });
+
         });
     }
 

@@ -1,8 +1,8 @@
 package com.example.mtg.repositories;
 
-import android.util.Log;
-
 import com.example.mtg.models.profileModel.UserRegisterProfileModel;
+import com.example.mtg.repositories.ErrorHandlerResourse.ErrorHandlingRepositoryData;
+import com.example.mtg.repositories.repositoryCallbacks.UpdateProfileCallback;
 import com.example.mtg.repositories.repositoryCallbacks.UserRepositoryCallback;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -16,8 +16,7 @@ public class ProfileRepository {
     UserRegisterProfileModel userRegisterProfileModel;
     private static final String USERS = "users";
     private static final String NAME = "name";
-    private static final String PROFILE_REPO = "Profile repo";
-    private static final String FAILED = "Failed";
+    private static final String COUNTRY = "country";
 
 
     public ProfileRepository() {
@@ -30,7 +29,6 @@ public class ProfileRepository {
         new Thread(() -> firebaseFirestore.collection(USERS).document(id)
                 .addSnapshotListener((value, error) -> {
                     if (error != null) {
-                        Log.e(PROFILE_REPO, FAILED);
                         userRepositoryCallback.userRepoCallback(ErrorHandlingRepositoryData.error(error.getMessage(), null));
                         return;
                     }
@@ -40,23 +38,29 @@ public class ProfileRepository {
                         userRepositoryCallback.userRepoCallback(ErrorHandlingRepositoryData.success(userRegisterProfileModel));
                     }
                 })).start();
-        }
+    }
 
 
-//    public MutableLiveData<UserRegisterProfileModel> updateUserName(String name){
-//        firebaseFirestore.collection(USERS).document(id)
-//                .update(NAME,name).addOnCompleteListener(task -> {
-//                   if (task.isSuccessful()){
-//                       userRegisterProfileModel = userLiveData.getValue();
-//                       assert userRegisterProfileModel != null;
-//                       userRegisterProfileModel.setName(name);
-//                       userLiveData.postValue(userRegisterProfileModel);
-//                   }else {
-//                       Log.e(PROFILE_REPO, FAILED);
-//                   }
-//                });
-//        return userLiveData;
-//    }
+    public void updateUserName(String name, UpdateProfileCallback updateProfileCallback) {
+        new Thread(() -> firebaseFirestore.collection(USERS).document(id)
+                .update(NAME, name).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.SUCCESS);
+                    } else {
+                        updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
+                    }
+                })).start();
+    }
 
+    public void updateUserCountry(String country, UpdateProfileCallback updateProfileCallback) {
+        new Thread(() -> firebaseFirestore.collection(USERS).document(id)
+                .update(COUNTRY, country).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.SUCCESS);
+                    } else {
+                        updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
+                    }
+                })).start();
+    }
 
 }
