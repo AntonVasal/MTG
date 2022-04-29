@@ -6,6 +6,7 @@ import com.example.mtg.repositories.repositoryCallbacks.UpdateProfileCallback;
 import com.example.mtg.repositories.repositoryCallbacks.UserRepositoryCallback;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.Objects;
 
@@ -14,10 +15,11 @@ public class ProfileRepository {
     FirebaseAuth firebaseAuth;
     String id;
     UserRegisterProfileModel userRegisterProfileModel;
+    ListenerRegistration listenerRegistration;
     private static final String USERS = "users";
     private static final String NAME = "name";
     private static final String COUNTRY = "country";
-
+    private static final String SURNAME = "surname";
 
     public ProfileRepository() {
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -26,18 +28,18 @@ public class ProfileRepository {
     }
 
     public void getUserData(UserRepositoryCallback userRepositoryCallback) {
-        new Thread(() -> firebaseFirestore.collection(USERS).document(id)
-                .addSnapshotListener((value, error) -> {
-                    if (error != null) {
-                        userRepositoryCallback.userRepoCallback(ErrorHandlingRepositoryData.error(error.getMessage(), null));
-                        return;
-                    }
-                    if (value != null && value.exists()) {
-                        userRegisterProfileModel = value.toObject(UserRegisterProfileModel.class);
-                        assert userRegisterProfileModel != null;
-                        userRepositoryCallback.userRepoCallback(ErrorHandlingRepositoryData.success(userRegisterProfileModel));
-                    }
-                })).start();
+        new Thread(() -> listenerRegistration = firebaseFirestore.collection(USERS).document(id)
+           .addSnapshotListener((value, error) -> {
+               if (error != null) {
+                   userRepositoryCallback.userRepoCallback(ErrorHandlingRepositoryData.error(error.getMessage(), null));
+                   return;
+               }
+               if (value != null && value.exists()) {
+                   userRegisterProfileModel = value.toObject(UserRegisterProfileModel.class);
+                   assert userRegisterProfileModel != null;
+                   userRepositoryCallback.userRepoCallback(ErrorHandlingRepositoryData.success(userRegisterProfileModel));
+               }
+           })).start();
     }
 
 
@@ -55,6 +57,17 @@ public class ProfileRepository {
     public void updateUserCountry(String country, UpdateProfileCallback updateProfileCallback) {
         new Thread(() -> firebaseFirestore.collection(USERS).document(id)
                 .update(COUNTRY, country).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.SUCCESS);
+                    } else {
+                        updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
+                    }
+                })).start();
+    }
+
+    public void updateUserSurname(String surname, UpdateProfileCallback updateProfileCallback) {
+        new Thread(() -> firebaseFirestore.collection(USERS).document(id)
+                .update(SURNAME, surname).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.SUCCESS);
                     } else {

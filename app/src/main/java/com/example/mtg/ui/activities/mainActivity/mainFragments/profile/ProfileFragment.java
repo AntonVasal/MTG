@@ -71,6 +71,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), (ActivityResult result) -> {
             if (result.getResultCode() == RESULT_OK) {
                 assert result.getData() != null;
@@ -80,6 +81,7 @@ public class ProfileFragment extends Fragment {
                 Log.i(TAG, FAILED);
             }
         });
+
         NavHostFragment navHostFragment = (NavHostFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container_view);
         navController = Objects.requireNonNull(navHostFragment).getNavController();
     }

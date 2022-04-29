@@ -6,7 +6,7 @@
     app:startDestination="@id/mainFragment2">
     <fragment
         android:id="@+id/profileSettingsFragment"
-        android:name="com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.ProfileSettingsFragment"
+        android:name="com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.profileSettingsFragment.ProfileSettingsFragment"
         android:label="ProfileSettingsFragment"
         tools:layout="@layout/fragment_profile_settings">
         <action

@@ -15,9 +15,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mtg.R;
-import com.example.mtg.core.ValidationTextWatchers;
 import com.example.mtg.databinding.FragmentChangeDataBinding;
-import com.example.mtg.ui.activities.mainActivity.mainFragments.profile.viewModel.ProfileViewModel;
+import com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.profileSettingsFragment.profileSettingsFragmentViewModel.ProfileSettingsViewModel;
 
 import java.util.Objects;
 
@@ -25,7 +24,7 @@ import java.util.Objects;
 public class ChangeNameFragment extends Fragment {
     private FragmentChangeDataBinding binding;
     private NavController navController;
-    private ProfileViewModel profileViewModel;
+    private ProfileSettingsViewModel profileSettingsViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,7 +37,7 @@ public class ChangeNameFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentChangeDataBinding.inflate(inflater, container, false);
-        profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
+        profileSettingsViewModel = new ViewModelProvider(requireActivity()).get(ProfileSettingsViewModel.class);
         return binding.getRoot();
     }
 
@@ -93,7 +92,7 @@ public class ChangeNameFragment extends Fragment {
             binding.changeDataProgressBar.setVisibility(View.VISIBLE);
             String name = binding.forChange.getText().toString().trim();
 
-            profileViewModel.updateUserName(name, status -> {
+            profileSettingsViewModel.updateUserName(name, status -> {
                 switch (status){
                     case SUCCESS:
                         binding.changeDataProgressBar.setVisibility(View.GONE);

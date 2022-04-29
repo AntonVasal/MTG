@@ -3,7 +3,6 @@ package com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +10,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentChangeDataBinding;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.profileSettingsFragment.profileSettingsFragmentViewModel.ProfileSettingsViewModel;
 
 import java.util.Objects;
 
@@ -25,12 +24,7 @@ import java.util.Objects;
 public class ChangeSurnameFragment extends Fragment {
     private FragmentChangeDataBinding binding;
     private NavController navController;
-    private FirebaseFirestore firebaseFirestore;
-    private FirebaseAuth firebaseAuth;
-    private static final String TAG = "MainActivity";
-    private static final String SUCCESS = "Success";
-    private static final String FAILED = "Failed";
-    private static final String USERS = "users";
+    private ProfileSettingsViewModel profileSettingsViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,8 +37,7 @@ public class ChangeSurnameFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentChangeDataBinding.inflate(inflater, container, false);
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance();
+        profileSettingsViewModel = new ViewModelProvider(requireActivity()).get(ProfileSettingsViewModel.class);
         return binding.getRoot();
     }
 
@@ -88,6 +81,7 @@ public class ChangeSurnameFragment extends Fragment {
                 navController.popBackStack();
             }
         });
+
         binding.changeButton.setOnClickListener(view -> {
             if (Objects.requireNonNull(binding.forChange.getText()).toString().trim().isEmpty()) {
                 binding.changeEditText.setError(getResources().getString(R.string.surname_is_required));
@@ -96,24 +90,17 @@ public class ChangeSurnameFragment extends Fragment {
             }
             binding.changeDataProgressBar.setVisibility(View.VISIBLE);
             String surname = binding.forChange.getText().toString().trim();
-            String id = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
-            new Thread(() -> firebaseFirestore.collection(USERS).document(id)
-                    .update("surname", surname)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            Log.i(TAG, SUCCESS);
-                            if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.changeSurnameFragment) {
-                                requireActivity().runOnUiThread(() -> {
-                                    binding.changeDataProgressBar.setVisibility(View.GONE);
-                                    navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment, true);
-                                });
-                            }
-                        } else {
-                            requireActivity().runOnUiThread(() -> binding.changeDataProgressBar.setVisibility(View.GONE));
-                            Log.i(TAG, FAILED);
-                        }
-                    })
-            ).start();
+            profileSettingsViewModel.updateUserSurname(surname, status -> {
+                switch (status){
+                    case SUCCESS:
+                        binding.changeDataProgressBar.setVisibility(View.GONE);
+                        navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment, true);
+                        break;
+                    case ERROR:
+                        binding.changeDataProgressBar.setVisibility(View.GONE);
+                        break;
+                }
+            });
         });
     }
 

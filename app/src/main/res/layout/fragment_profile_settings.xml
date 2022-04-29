@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.mtg.ui.activities.mainActivity.mainFragments.profile.viewModel.ProfileViewModel" />
+            type="com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.profileSettingsFragment.profileSettingsFragmentViewModel.ProfileSettingsViewModel" />
     </data>
 
 

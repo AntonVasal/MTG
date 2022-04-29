@@ -90,8 +90,6 @@ public class CountFragment extends Fragment {
         });
     }
 
-
-
     public void initListeners() {
         ////////////////////////////////////////////////////////////////////////
         countViewsOperator.typeInButtons(typeNumber);
@@ -135,8 +133,6 @@ public class CountFragment extends Fragment {
         });
     }
 
-
-
     private void mistakeMethod() {
         setResults(false);
         countViewsOperator.buttonEnabledFalse(typeNumber);
@@ -157,7 +153,6 @@ public class CountFragment extends Fragment {
         },1000);
     }
 
-
     private void tasksComplexity() {
         if (SystemClock.elapsedRealtime() - binding.countTimer.getBase() < -180000 || SystemClock.elapsedRealtime() - binding.countTimer.getBase() > 1){
             primaryTasksGenerator.generateTask(taskType,typeNumber);
@@ -170,7 +165,6 @@ public class CountFragment extends Fragment {
         }
 
     }
-
 
     private void parseTask() {
         String[] answers;
@@ -193,9 +187,6 @@ public class CountFragment extends Fragment {
             numberTwoForRevision = BigDecimal.valueOf(d);
         }
     }
-
-
-
 
     private void calculateTaskRight() {
         switch (taskType){
@@ -240,9 +231,6 @@ public class CountFragment extends Fragment {
         }
     }
 
-
-
-
     private void setResults(boolean b) {
         if (b){
             if (SystemClock.elapsedRealtime() - binding.countTimer.getBase() < -180000 || SystemClock.elapsedRealtime() - binding.countTimer.getBase() > 1){
@@ -260,7 +248,6 @@ public class CountFragment extends Fragment {
         String score = getResources().getString(R.string.score) + " " + resultCounter;
         binding.scoreText.setText(score);
     }
-
 
     public void finishCount(){
         countResultsToFirestoreSettersOperator.resultsToFirestore(resultCounter,amountOfTask);

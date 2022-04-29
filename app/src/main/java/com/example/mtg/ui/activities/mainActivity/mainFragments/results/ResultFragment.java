@@ -23,6 +23,11 @@ import java.util.ArrayList;
 
 public class ResultFragment extends Fragment {
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_result, container, false);
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -48,12 +53,6 @@ public class ResultFragment extends Fragment {
                 resultsViewPager,
                 (tab, position) -> tab.setText(fragmentResultsNames[position])
         ).attach();
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_result, container, false);
     }
 
 }

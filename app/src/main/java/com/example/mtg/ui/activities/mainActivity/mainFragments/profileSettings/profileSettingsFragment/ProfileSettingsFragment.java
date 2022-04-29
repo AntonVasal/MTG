@@ -1,4 +1,4 @@
-package com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings;
+package com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.profileSettingsFragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,7 +15,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentProfileSettingsBinding;
-import com.example.mtg.ui.activities.mainActivity.mainFragments.profile.viewModel.ProfileViewModel;
+import com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.profileSettingsFragment.profileSettingsFragmentViewModel.ProfileSettingsViewModel;
 
 import java.util.Objects;
 
@@ -33,6 +33,15 @@ public class ProfileSettingsFragment extends Fragment {
         NavHostFragment navHostFragment = (NavHostFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container_view);
         navController = Objects.requireNonNull(navHostFragment).getNavController();
         bundle = new Bundle();
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile_settings, container, false);
+        binding.setLifecycleOwner(requireActivity());
+        ProfileSettingsViewModel profileSettingsViewModel = new ViewModelProvider(requireActivity()).get(ProfileSettingsViewModel.class);
+        binding.setViewModel(profileSettingsViewModel);
+        return binding.getRoot();
     }
 
     @Override
@@ -78,15 +87,6 @@ public class ProfileSettingsFragment extends Fragment {
         if(Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.profileSettingsFragment ){
             navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment,bundle);
         }
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile_settings, container, false);
-        binding.setLifecycleOwner(requireActivity());
-        ProfileViewModel profileSettingsViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
-        binding.setViewModel(profileSettingsViewModel);
-        return binding.getRoot();
     }
 
     @Override
