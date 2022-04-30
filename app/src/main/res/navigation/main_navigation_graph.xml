@@ -172,7 +172,7 @@
         tools:layout="@layout/fragment_change_data"/>
     <fragment
         android:id="@+id/passwordYouRememberFragment"
-        android:name="com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.forgetPasswordFragment.PasswordYouRememberFragment"
+        android:name="com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.forgotPasswordFragment.PasswordYouRememberFragment"
         android:label="PasswordYouRememberFragment"
         tools:layout="@layout/fragment_change_data"/>
 </navigation>

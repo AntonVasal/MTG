@@ -1,12 +1,15 @@
-package com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.changeDataFragments;
+package com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.forgotPasswordFragment;
 
 import android.os.Bundle;
+import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -15,15 +18,18 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.mtg.R;
 import com.example.mtg.core.ValidationTextWatcher;
 import com.example.mtg.databinding.FragmentChangeDataBinding;
-import com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.profileSettingsFragment.profileSettingsFragmentViewModel.ProfileSettingsViewModel;
+import com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.forgotPasswordFragment.forgotPasswordViewModel.ForgotPasswordViewModel;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
+public class PasswordYouRememberFragment extends Fragment {
 
-public class ChangeSurnameFragment extends Fragment {
-    private FragmentChangeDataBinding binding;
     private NavController navController;
-    private ProfileSettingsViewModel profileSettingsViewModel;
+    private FragmentChangeDataBinding binding;
+    private String password;
+    private ForgotPasswordViewModel forgotPasswordViewModel;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,19 +38,19 @@ public class ChangeSurnameFragment extends Fragment {
         navController = Objects.requireNonNull(navHostFragment).getNavController();
     }
 
+    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentChangeDataBinding.inflate(inflater, container, false);
-        profileSettingsViewModel = new ViewModelProvider(requireActivity()).get(ProfileSettingsViewModel.class);
+        forgotPasswordViewModel = new ViewModelProvider(requireActivity()).get(ForgotPasswordViewModel.class);
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setViewsData();
         initListeners();
-        setViewData();
         textChanged();
     }
 
@@ -53,40 +59,48 @@ public class ChangeSurnameFragment extends Fragment {
         binding.forChange.addTextChangedListener(textWatcher);
     }
 
-
-    private void setViewData() {
-        binding.changeEditText.setHint(R.string.surname);
-        binding.changeEditText.setStartIconDrawable(R.drawable.ic_baseline_group_24);
-        binding.changeButton.setText(R.string.change_surname);
-    }
-
     private void initListeners() {
         binding.changeBackButton.setOnClickListener(view -> {
-            if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.changeSurnameFragment) {
+            if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.passwordYouRememberFragment) {
                 navController.popBackStack();
             }
         });
 
         binding.changeButton.setOnClickListener(view -> {
-            if (Objects.requireNonNull(binding.forChange.getText()).toString().trim().isEmpty()) {
-                binding.changeEditText.setError(getResources().getString(R.string.surname_is_required));
+            password = Objects.requireNonNull(binding.forChange.getText()).toString().trim();
+            if (password.isEmpty()) {
+                binding.changeEditText.setError(getResources().getString(R.string.password_is_required));
+                binding.changeEditText.requestFocus();
+                return;
+            }
+            if (password.length() < 6) {
+                binding.changeEditText.setError(getResources().getString(R.string.min_password));
                 binding.changeEditText.requestFocus();
                 return;
             }
             binding.changeDataProgressBar.setVisibility(View.VISIBLE);
-            String surname = binding.forChange.getText().toString().trim();
-            profileSettingsViewModel.updateUserSurname(surname, status -> {
-                switch (status){
+            forgotPasswordViewModel.sendResetPasswordEmail(status -> {
+                switch (status) {
                     case SUCCESS:
                         binding.changeDataProgressBar.setVisibility(View.GONE);
-                        navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment, true);
                         break;
                     case ERROR:
+                        Log.e("Forgot","Failed");
                         binding.changeDataProgressBar.setVisibility(View.GONE);
                         break;
                 }
             });
         });
+    }
+
+
+    private void setViewsData() {
+        binding.changeEditText.setHint(R.string.password_you_remember);
+        binding.changeImage.setImageDrawable(ResourcesCompat.getDrawable(requireActivity().getResources(), R.drawable.ic_password_forgot, requireActivity().getTheme()));
+        binding.forChange.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        binding.changeEditText.setStartIconDrawable(R.drawable.ic_baseline_security_24);
+        binding.changeEditText.setEndIconMode(TextInputLayout.END_ICON_PASSWORD_TOGGLE);
+        binding.changeButton.setText(R.string.confirm);
     }
 
     @Override

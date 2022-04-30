@@ -3,7 +3,10 @@ package com.example.mtg.repositories;
 import com.example.mtg.models.profileModel.UserRegisterProfileModel;
 import com.example.mtg.repositories.ErrorHandlerResourse.ErrorHandlingRepositoryData;
 import com.example.mtg.repositories.repositoryCallbacks.UpdateProfileCallback;
+import com.example.mtg.repositories.repositoryCallbacks.UserFieldFromRepositoryCallback;
 import com.example.mtg.repositories.repositoryCallbacks.UserRepositoryCallback;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
@@ -29,17 +32,17 @@ public class ProfileRepository {
 
     public void getUserData(UserRepositoryCallback userRepositoryCallback) {
         new Thread(() -> listenerRegistration = firebaseFirestore.collection(USERS).document(id)
-           .addSnapshotListener((value, error) -> {
-               if (error != null) {
-                   userRepositoryCallback.userRepoCallback(ErrorHandlingRepositoryData.error(error.getMessage(), null));
-                   return;
-               }
-               if (value != null && value.exists()) {
-                   userRegisterProfileModel = value.toObject(UserRegisterProfileModel.class);
-                   assert userRegisterProfileModel != null;
-                   userRepositoryCallback.userRepoCallback(ErrorHandlingRepositoryData.success(userRegisterProfileModel));
-               }
-           })).start();
+                .addSnapshotListener((value, error) -> {
+                    if (error != null) {
+                        userRepositoryCallback.userRepoCallback(ErrorHandlingRepositoryData.error(error.getMessage(), null));
+                        return;
+                    }
+                    if (value != null && value.exists()) {
+                        userRegisterProfileModel = value.toObject(UserRegisterProfileModel.class);
+                        assert userRegisterProfileModel != null;
+                        userRepositoryCallback.userRepoCallback(ErrorHandlingRepositoryData.success(userRegisterProfileModel));
+                    }
+                })).start();
     }
 
 
@@ -51,7 +54,7 @@ public class ProfileRepository {
                     } else {
                         updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
                     }
-                })).start();
+                }).addOnFailureListener(e -> updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR))).start();
     }
 
     public void updateUserCountry(String country, UpdateProfileCallback updateProfileCallback) {
@@ -62,7 +65,7 @@ public class ProfileRepository {
                     } else {
                         updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
                     }
-                })).start();
+                }).addOnFailureListener(e -> updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR))).start();
     }
 
     public void updateUserSurname(String surname, UpdateProfileCallback updateProfileCallback) {
@@ -73,7 +76,58 @@ public class ProfileRepository {
                     } else {
                         updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
                     }
-                })).start();
+                }).addOnFailureListener(e -> updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR))).start();
+    }
+
+    private void getUserEmail(UserFieldFromRepositoryCallback callback) {
+        new Thread(() -> firebaseFirestore.collection(USERS).document(id)
+                .get().addOnSuccessListener(documentSnapshot -> {
+                    userRegisterProfileModel = documentSnapshot.toObject(UserRegisterProfileModel.class);
+                    assert userRegisterProfileModel != null;
+                    callback.userFieldCallback(ErrorHandlingRepositoryData.success(userRegisterProfileModel.getEmail()));
+                }).addOnFailureListener(e -> callback.userFieldCallback(ErrorHandlingRepositoryData.error(e.getMessage(), null)))).start();
+    }
+
+    public void sendPasswordResetEmail(UpdateProfileCallback updateProfileCallback) {
+        new Thread(() -> getUserEmail(userField -> {
+            switch (userField.status) {
+                case SUCCESS:
+                    assert userField.data != null;
+                    firebaseAuth.sendPasswordResetEmail(userField.data).addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.SUCCESS);
+                        } else {
+                            updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
+                        }
+                    }).addOnFailureListener(e -> updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR));
+                    break;
+                case ERROR:
+                    updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
+                    break;
+            }
+        })).start();
+    }
+
+    public void reAuthCurrentUser(String password, UpdateProfileCallback callback) {
+        new Thread(() -> getUserEmail(userField -> {
+            switch (userField.status) {
+                case SUCCESS:
+                    assert userField.data != null;
+                    AuthCredential authCredential = EmailAuthProvider.getCredential(userField.data, password);
+                    Objects.requireNonNull(firebaseAuth.getCurrentUser()).reauthenticate(authCredential)
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.SUCCESS);
+                                } else {
+                                    callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
+                                }
+                            }).addOnFailureListener(e -> callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR));
+                    break;
+                case ERROR:
+                    callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
+                    break;
+            }
+        })).start();
     }
 
 }

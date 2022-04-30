@@ -1,9 +1,7 @@
 package com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.changeDataFragments;
 
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.InputType;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +15,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mtg.R;
+import com.example.mtg.core.ValidationTextWatcher;
 import com.example.mtg.databinding.FragmentChangeDataBinding;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -58,18 +57,8 @@ public class ChangePasswordFragment extends Fragment {
     }
 
     private void textChanged() {
-        binding.forChange.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (binding.changeEditText.getError()!=null){
-                    binding.changeEditText.setErrorEnabled(false);
-                }
-            }
-            @Override
-            public void afterTextChanged(Editable editable) { }
-        });
+        ValidationTextWatcher textWatcher = new ValidationTextWatcher(binding.changeEditText);
+        binding.forChange.addTextChangedListener(textWatcher);
     }
 
     private void setViewData() {
