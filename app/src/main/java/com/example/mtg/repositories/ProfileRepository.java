@@ -1,5 +1,7 @@
 package com.example.mtg.repositories;
 
+import android.util.Log;
+
 import com.example.mtg.models.profileModel.UserRegisterProfileModel;
 import com.example.mtg.repositories.ErrorHandlerResourse.ErrorHandlingRepositoryData;
 import com.example.mtg.repositories.repositoryCallbacks.UpdateProfileCallback;
@@ -44,7 +46,6 @@ public class ProfileRepository {
                     }
                 })).start();
     }
-
 
     public void updateUserName(String name, UpdateProfileCallback updateProfileCallback) {
         new Thread(() -> firebaseFirestore.collection(USERS).document(id)
@@ -129,5 +130,24 @@ public class ProfileRepository {
             }
         })).start();
     }
+
+    public void updatePassword(String password, UpdateProfileCallback callback){
+        new Thread(() -> Objects.requireNonNull(firebaseAuth.getCurrentUser()).updatePassword(password)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()){
+                        callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.SUCCESS);
+                    }else{
+                        callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
+                    }
+                }).addOnFailureListener(e -> callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR))).start();
+    }
+
+    public void removeListener(){
+        if (listenerRegistration != null){
+            listenerRegistration.remove();
+            Log.e("Listener","Remove");
+        }
+    }
+
 
 }

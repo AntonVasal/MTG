@@ -78,10 +78,12 @@ public class ChangeNameFragment extends Fragment {
             String name = binding.forChange.getText().toString().trim();
 
             profileSettingsViewModel.updateUserName(name, status -> {
-                switch (status){
+                switch (status) {
                     case SUCCESS:
-                        binding.changeDataProgressBar.setVisibility(View.GONE);
-                        navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment, true);
+                        if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.changeNameFragment) {
+                            binding.changeDataProgressBar.setVisibility(View.GONE);
+                            navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment, true);
+                        }
                         break;
                     case ERROR:
                         binding.changeDataProgressBar.setVisibility(View.GONE);

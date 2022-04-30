@@ -20,7 +20,12 @@ public class ProfileViewModel extends ViewModel {
         return user;
     }
 
-    private void loadData() {
+    public void loadData() {
         profileRepository.getUserData(userRepoData -> user.postValue(userRepoData));
     }
+
+    public void removeListenerRegistration(){
+        profileRepository.removeListener();
+    }
+
 }

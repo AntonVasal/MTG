@@ -36,5 +36,9 @@ public class ProfileSettingsViewModel extends ViewModel {
         profileRepository.updateUserSurname(surname, updateProfileCallback);
     }
 
+    public void updatePassword(String password, UpdateProfileCallback callback){
+        profileRepository.updatePassword(password, callback);
+    }
+
 
 }

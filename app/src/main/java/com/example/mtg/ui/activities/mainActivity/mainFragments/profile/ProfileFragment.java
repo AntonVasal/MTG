@@ -86,7 +86,6 @@ public class ProfileFragment extends Fragment {
         navController = Objects.requireNonNull(navHostFragment).getNavController();
     }
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -98,7 +97,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
         binding.setLifecycleOwner(requireActivity());
 
@@ -108,12 +106,8 @@ public class ProfileFragment extends Fragment {
 
         profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
         binding.setViewModel(profileViewModel);
-
-
         return binding.getRoot();
     }
-
-
 
     private void setData() {
         profileViewModel.getUser().observe(getViewLifecycleOwner(), data -> {
@@ -253,6 +247,17 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        profileViewModel.removeListenerRegistration();
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        profileViewModel.loadData();
+    }
 
     @Override
     public void onDestroyView() {

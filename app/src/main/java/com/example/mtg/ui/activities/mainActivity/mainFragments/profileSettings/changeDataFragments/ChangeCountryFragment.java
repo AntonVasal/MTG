@@ -68,10 +68,12 @@ public class ChangeCountryFragment extends Fragment {
             String country = binding.countryPickerForChange.getSelectedCountryName();
 
             profileSettingsViewModel.updateUserCountry(country, status -> {
-                switch (status){
+                switch (status) {
                     case SUCCESS:
-                        binding.changeDataProgressBar.setVisibility(View.GONE);
-                        navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment, true);
+                        if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.changeCountryFragment) {
+                            binding.changeDataProgressBar.setVisibility(View.GONE);
+                            navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment, true);
+                        }
                         break;
                     case ERROR:
                         binding.changeDataProgressBar.setVisibility(View.GONE);
