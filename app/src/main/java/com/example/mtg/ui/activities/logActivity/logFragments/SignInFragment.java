@@ -2,25 +2,23 @@ package com.example.mtg.ui.activities.logActivity.logFragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.mtg.ui.activities.mainActivity.MainActivity;
 import com.example.mtg.R;
+import com.example.mtg.core.ValidationTextWatcher;
 import com.example.mtg.databinding.FragmentSignInBinding;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.example.mtg.ui.activities.logActivity.logViewModel.LogViewModel;
+import com.example.mtg.ui.activities.mainActivity.MainActivity;
 
 import java.util.Objects;
 
@@ -28,8 +26,8 @@ import java.util.Objects;
 public class SignInFragment extends Fragment {
 
     private FragmentSignInBinding binding;
-    private FirebaseAuth mAuth;
     private NavController navController;
+    private LogViewModel logViewModel;
 
 
     @Override
@@ -44,7 +42,7 @@ public class SignInFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentSignInBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
-        mAuth = FirebaseAuth.getInstance();
+        logViewModel = new ViewModelProvider(requireActivity()).get(LogViewModel.class);
         return view;
     }
 
@@ -56,30 +54,10 @@ public class SignInFragment extends Fragment {
     }
 
     private void textSelected() {
-        binding.password.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (binding.signInPasswordEditText.getError()!=null){
-                    binding.signInPasswordEditText.setErrorEnabled(false);
-                }
-            }
-            @Override
-            public void afterTextChanged(Editable editable) { }
-        });
-        binding.email.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (binding.signInEmailEditText.getError()!=null){
-                    binding.signInEmailEditText.setErrorEnabled(false);
-                }
-            }
-            @Override
-            public void afterTextChanged(Editable editable) { }
-        });
+        ValidationTextWatcher passwordTextWatcher = new ValidationTextWatcher(binding.signInPasswordEditText);
+        binding.password.addTextChangedListener(passwordTextWatcher);
+        ValidationTextWatcher emailTextWatcher = new ValidationTextWatcher(binding.signInEmailEditText);
+        binding.email.addTextChangedListener(emailTextWatcher);
     }
 
     private void initListeners() {
@@ -128,29 +106,18 @@ public class SignInFragment extends Fragment {
 
         binding.signInProgressBar.setVisibility(View.VISIBLE);
 
-        new Thread(() -> mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                assert user != null;
-                if (user.isEmailVerified()) {
-//                    if (Objects.requireNonNull(navController.getCurrentDestination()).getId()==R.id.signInFragment){
-                    requireActivity().runOnUiThread(() -> {
-                        binding.signInProgressBar.setVisibility(View.GONE);
-                        startActivity(new Intent(getActivity(), MainActivity.class));
-                        requireActivity().finish();
-                    });
-//                    }
-                } else {
-                    user.sendEmailVerification();
+        logViewModel.authUser(email, password, status -> {
+            switch (status){
+                case SUCCESS:
                     binding.signInProgressBar.setVisibility(View.GONE);
-                    Toast.makeText(getContext(), "Please, check your email to verify your account!", Toast.LENGTH_LONG).show();
-                }
-
-            } else {
-                requireActivity().runOnUiThread(() -> binding.signInProgressBar.setVisibility(View.GONE));
-                Toast.makeText(getContext(), "Authentication is failed! Please, try again!", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(getActivity(), MainActivity.class));
+                    requireActivity().finish();
+                    break;
+                case ERROR:
+                    binding.signInProgressBar.setVisibility(View.GONE);
             }
-        })).start();
+        });
+
     }
 
     @Override

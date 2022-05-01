@@ -1,8 +1,6 @@
 package com.example.mtg.ui.activities.logActivity.logFragments;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +14,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mtg.R;
+import com.example.mtg.core.ValidationTextWatcher;
 import com.example.mtg.databinding.FragmentRegisterBinding;
 import com.example.mtg.models.profileModel.UserRegisterProfileModel;
 import com.google.firebase.auth.FirebaseAuth;
@@ -143,75 +142,22 @@ public class RegisterFragment extends Fragment {
                 })).start();
     }
 
-
     private void textSelected() {
-        binding.email.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (binding.registerEmailEditText.getError() != null) {
-                    binding.registerEmailEditText.setErrorEnabled(false);
-                }
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-        });
+        ValidationTextWatcher emailTextWatcher = new ValidationTextWatcher(binding.registerEmailEditText);
+        binding.email.addTextChangedListener(emailTextWatcher);
 
-        binding.password.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (binding.registerPasswordEditText.getError()!=null){
-                    binding.registerPasswordEditText.setErrorEnabled(false);
-                }
-            }
-            @Override
-            public void afterTextChanged(Editable editable) { }
-        });
+        ValidationTextWatcher passwordTextWatcher = new ValidationTextWatcher(binding.registerPasswordEditText);
+        binding.password.addTextChangedListener(passwordTextWatcher);
 
-        binding.name.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (binding.registerUserNameEditText.getError() != null) {
-                    binding.registerUserNameEditText.setErrorEnabled(false);
-                }
-            }
-            @Override
-            public void afterTextChanged(Editable editable) { }
-        });
+        ValidationTextWatcher nameTextWatcher = new ValidationTextWatcher(binding.registerUserNameEditText);
+        binding.name.addTextChangedListener(nameTextWatcher);
 
-        binding.nickname.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (binding.registerUserNicknameEditText.getError() != null) {
-                    binding.registerUserNicknameEditText.setErrorEnabled(false);
-                }
-            }
-            @Override
-            public void afterTextChanged(Editable editable) { }
-        });
+        ValidationTextWatcher nicknameTextWatcher = new ValidationTextWatcher(binding.registerUserNicknameEditText);
+        binding.nickname.addTextChangedListener(nicknameTextWatcher);
 
-        binding.surname.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (binding.registerUserSurnameEditText.getError() != null) {
-                    binding.registerUserSurnameEditText.setErrorEnabled(false);
-                }
-            }
-            @Override
-            public void afterTextChanged(Editable editable) { }
-        });
+        ValidationTextWatcher surnameTextWatcher = new ValidationTextWatcher(binding.registerUserSurnameEditText);
+        binding.surname.addTextChangedListener(surnameTextWatcher);
     }
-
 
     @Override
     public void onDestroyView() {
