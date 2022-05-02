@@ -2,9 +2,10 @@ package com.example.mtg.ui.activities.logActivity.logViewModel;
 
 import androidx.lifecycle.ViewModel;
 
-import com.example.mtg.repositories.ErrorHandlerResourse.ErrorHandlingRepositoryData;
+import com.example.mtg.models.profileModel.UserRegisterProfileModel;
 import com.example.mtg.repositories.LogRepository;
 import com.example.mtg.repositories.repositoryCallbacks.UpdateProfileCallback;
+import com.example.mtg.repositories.repositoryCallbacks.UserFieldFromRepositoryCallback;
 
 public class LogViewModel extends ViewModel {
     private final LogRepository logRepository = new LogRepository();
@@ -17,5 +18,8 @@ public class LogViewModel extends ViewModel {
         logRepository.signInUser(email, password, callback);
     }
 
+    public void createNewUser(UserRegisterProfileModel user, String password, UserFieldFromRepositoryCallback callback){
+        logRepository.createNewUser(user, password, callback);
+    }
 
 }

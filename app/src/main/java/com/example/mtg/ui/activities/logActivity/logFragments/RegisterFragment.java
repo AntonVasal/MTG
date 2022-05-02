@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -17,8 +18,7 @@ import com.example.mtg.R;
 import com.example.mtg.core.ValidationTextWatcher;
 import com.example.mtg.databinding.FragmentRegisterBinding;
 import com.example.mtg.models.profileModel.UserRegisterProfileModel;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.example.mtg.ui.activities.logActivity.logViewModel.LogViewModel;
 
 import java.util.Objects;
 
@@ -26,12 +26,10 @@ import java.util.Objects;
 public class RegisterFragment extends Fragment {
 
     private FragmentRegisterBinding binding;
-    private FirebaseAuth mAuth;
-    private FirebaseFirestore mFirebaseFirestore;
-    private String userID;
     private NavController navController;
-    private static final String USERS = "users";
+    private LogViewModel logViewModel;
     private static final String NO_IMAGE = "users";
+    private static final String DATA_NOT_PUSHED = "Data was not pushed to database";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,8 +43,7 @@ public class RegisterFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentRegisterBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
-        mAuth = FirebaseAuth.getInstance();
-        mFirebaseFirestore = FirebaseFirestore.getInstance();
+        logViewModel = new ViewModelProvider(requireActivity()).get(LogViewModel.class);
         return view;
     }
 
@@ -112,34 +109,25 @@ public class RegisterFragment extends Fragment {
 
         binding.registerProgressBar.setVisibility(View.VISIBLE);
 
-        new Thread(() -> mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
+        UserRegisterProfileModel user = new UserRegisterProfileModel(name, surname, nickname, email, country, NO_IMAGE);
 
-                        userID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
-
-                        UserRegisterProfileModel user = new UserRegisterProfileModel(name, surname, nickname, email, country, NO_IMAGE);
-
-                        mFirebaseFirestore.collection(USERS).document(userID).set(user).addOnCompleteListener(
-                                task1 -> {
-                                    if (task1.isSuccessful()) {
-                                        requireActivity().runOnUiThread(() -> {
-                                            if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.registerFragment) {
-                                                binding.registerProgressBar.setVisibility(View.GONE);
-                                                navController.popBackStack();
-                                            }
-                                        });
-                                    } else {
-                                        requireActivity().runOnUiThread(() -> binding.registerProgressBar.setVisibility(View.GONE));
-                                        Toast.makeText(getContext(), "Something went wrong. Please try again.", Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                        );
+        logViewModel.createNewUser(user, password, userField -> {
+            switch (userField.status){
+                case SUCCESS:
+                    binding.registerProgressBar.setVisibility(View.GONE);
+                    navController.popBackStack();
+                    break;
+                case ERROR:
+                    assert userField.message != null;
+                    if (userField.message.equals(DATA_NOT_PUSHED)){
+                        binding.registerProgressBar.setVisibility(View.GONE);
+                        Toast.makeText(getContext(), "Something went wrong. Please try again.", Toast.LENGTH_LONG).show();
                     } else {
-                        requireActivity().runOnUiThread(() -> binding.registerProgressBar.setVisibility(View.GONE));
+                        binding.registerProgressBar.setVisibility(View.GONE);
                         Toast.makeText(getContext(), "Registration failed! Please, try again!", Toast.LENGTH_LONG).show();
                     }
-                })).start();
+            }
+        });
     }
 
     private void textSelected() {
