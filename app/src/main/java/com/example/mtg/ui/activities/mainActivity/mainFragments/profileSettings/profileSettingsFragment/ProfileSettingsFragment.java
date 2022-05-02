@@ -39,14 +39,14 @@ public class ProfileSettingsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile_settings, container, false);
         binding.setLifecycleOwner(requireActivity());
-        ProfileSettingsViewModel profileSettingsViewModel = new ViewModelProvider(requireActivity()).get(ProfileSettingsViewModel.class);
-        binding.setViewModel(profileSettingsViewModel);
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ProfileSettingsViewModel profileSettingsViewModel = new ViewModelProvider(requireActivity()).get(ProfileSettingsViewModel.class);
+        binding.setViewModel(profileSettingsViewModel);
         initListeners();
     }
 

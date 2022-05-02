@@ -71,7 +71,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), (ActivityResult result) -> {
             if (result.getResultCode() == RESULT_OK) {
                 assert result.getData() != null;
@@ -81,32 +80,31 @@ public class ProfileFragment extends Fragment {
                 Log.i(TAG, FAILED);
             }
         });
-
         NavHostFragment navHostFragment = (NavHostFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container_view);
         navController = Objects.requireNonNull(navHostFragment).getNavController();
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        binding.profileProgressBar.setVisibility(View.VISIBLE);
-        setData();
-        initListeners();
-    }
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
         binding.setLifecycleOwner(requireActivity());
+        return binding.getRoot();
+    }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
+        binding.setViewModel(profileViewModel);
         mAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
-
-        profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
-        binding.setViewModel(profileViewModel);
-        return binding.getRoot();
+        binding.profileProgressBar.setVisibility(View.VISIBLE);
+        setData();
+        initListeners();
     }
 
     private void setData() {

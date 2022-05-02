@@ -40,14 +40,13 @@ public class ResetPasswordFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentResetPasswordBinding.inflate(inflater, container, false);
-        View view = binding.getRoot();
-        logViewModel = new ViewModelProvider(requireActivity()).get(LogViewModel.class);
-        return view;
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        logViewModel = new ViewModelProvider(requireActivity()).get(LogViewModel.class);
         initListeners();
         textChanged();
     }

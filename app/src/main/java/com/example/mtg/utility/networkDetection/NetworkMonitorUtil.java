@@ -1,4 +1,4 @@
-package com.example.mtg.utility;
+package com.example.mtg.utility.networkDetection;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

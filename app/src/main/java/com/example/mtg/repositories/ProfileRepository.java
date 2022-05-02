@@ -25,6 +25,10 @@ public class ProfileRepository {
     private static final String NAME = "name";
     private static final String COUNTRY = "country";
     private static final String SURNAME = "surname";
+    private static final String FAILED = "Failed";
+    private static final String EMAIL = "email";
+    private static final String SUCCESS = "Success";
+    private static final String UPLOADING_FAILED = "uploading failed";
 
     public ProfileRepository() {
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -147,6 +151,35 @@ public class ProfileRepository {
             listenerRegistration.remove();
             Log.e("Listener","Remove");
         }
+    }
+
+    public void updateUserEmail(String email, UserFieldFromRepositoryCallback callback){
+        new Thread(() -> Objects.requireNonNull(firebaseAuth.getCurrentUser()).updateEmail(email).addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                updateUserEmailInDatabase(email, status -> {
+                    switch (status){
+                        case SUCCESS:
+                            callback.userFieldCallback(ErrorHandlingRepositoryData.success(SUCCESS));
+                            break;
+                        case ERROR:
+                            callback.userFieldCallback(ErrorHandlingRepositoryData.error(UPLOADING_FAILED,null));
+                            break;
+                    }
+                });
+            }else{
+                callback.userFieldCallback(ErrorHandlingRepositoryData.error(FAILED,null));
+            }
+        }).addOnFailureListener(e -> callback.userFieldCallback(ErrorHandlingRepositoryData.error(FAILED,null)))).start();
+    }
+
+    private void updateUserEmailInDatabase(String email, UpdateProfileCallback callback){
+        new Thread(() -> firebaseFirestore.collection(USERS).document(id).update(EMAIL,email).addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.SUCCESS);
+            }else {
+                callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
+            }
+        }).addOnFailureListener(e -> callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR))).start();
     }
 
 

@@ -2,7 +2,7 @@ package com.example.mtg;
 
 import android.app.Application;
 
-import com.example.mtg.utility.NetworkMonitorUtil;
+import com.example.mtg.utility.networkDetection.NetworkMonitorUtil;
 
 public class App extends Application {
 

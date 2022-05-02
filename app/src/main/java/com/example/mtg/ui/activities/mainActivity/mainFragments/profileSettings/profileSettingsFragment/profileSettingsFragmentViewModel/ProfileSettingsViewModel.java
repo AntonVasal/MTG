@@ -7,6 +7,7 @@ import com.example.mtg.models.profileModel.UserRegisterProfileModel;
 import com.example.mtg.repositories.ErrorHandlerResourse.ErrorHandlingRepositoryData;
 import com.example.mtg.repositories.ProfileRepository;
 import com.example.mtg.repositories.repositoryCallbacks.UpdateProfileCallback;
+import com.example.mtg.repositories.repositoryCallbacks.UserFieldFromRepositoryCallback;
 
 public class ProfileSettingsViewModel extends ViewModel {
     private MutableLiveData<ErrorHandlingRepositoryData<UserRegisterProfileModel>> user;
@@ -38,6 +39,10 @@ public class ProfileSettingsViewModel extends ViewModel {
 
     public void updatePassword(String password, UpdateProfileCallback callback){
         profileRepository.updatePassword(password, callback);
+    }
+
+    public void updateEmail(String email, UserFieldFromRepositoryCallback callback){
+        profileRepository.updateUserEmail(email, callback);
     }
 
 

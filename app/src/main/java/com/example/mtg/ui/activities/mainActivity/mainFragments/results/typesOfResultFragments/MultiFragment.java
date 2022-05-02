@@ -52,15 +52,14 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentResultsRecyclerBinding.inflate(inflater, container, false);
-        View view = binding.getRoot();
-        multiViewModel = new ViewModelProvider(requireActivity()).get(MultiViewModel.class);
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        return view;
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        multiViewModel = new ViewModelProvider(requireActivity()).get(MultiViewModel.class);
+        firebaseFirestore = FirebaseFirestore.getInstance();
         binding.recyclerProgressBar.setVisibility(View.VISIBLE);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         binding.resultRecycler.setLayoutManager(layoutManager);

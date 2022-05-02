@@ -45,13 +45,13 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentProfileSettingsPasswordConfirmationBinding.inflate(inflater, container, false);
-        confirmPasswordViewModel = new ViewModelProvider(requireActivity()).get(ConfirmPasswordViewModel.class);
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        confirmPasswordViewModel = new ViewModelProvider(requireActivity()).get(ConfirmPasswordViewModel.class);
         initListeners();
         textChanged();
     }
