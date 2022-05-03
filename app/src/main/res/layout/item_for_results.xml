@@ -38,16 +38,21 @@
             android:orientation="horizontal"
             android:id="@+id/item_user_data">
             <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 style="@style/RecyclerItemText"
                 android:id="@+id/user_results_name"
                 android:layout_weight="30"
+                android:layout_gravity="center"
                 android:layout_marginStart="8dp"
                 android:text="@string/anton"/>
             <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 style="@style/RecyclerItemText"
                 android:id="@+id/user_score"
                 android:layout_weight="30"
-                android:gravity="center"
+                android:layout_gravity="center"
                 android:text="@string/_10000" />
         </LinearLayout>
     </LinearLayout>

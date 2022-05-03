@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mtg.models.profileModel.UserRegisterProfileModel;
-import com.example.mtg.repositories.ErrorHandlerResourse.ErrorHandlingRepositoryData;
+import com.example.mtg.repositories.errorHandlerResourse.ErrorHandlingRepositoryData;
 import com.example.mtg.repositories.ProfileRepository;
 import com.example.mtg.repositories.repositoryCallbacks.UpdateProfileCallback;
 import com.example.mtg.repositories.repositoryCallbacks.UserFieldFromRepositoryCallback;

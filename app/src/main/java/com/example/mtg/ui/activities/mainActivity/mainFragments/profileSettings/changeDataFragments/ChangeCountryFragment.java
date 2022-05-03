@@ -14,8 +14,10 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mtg.R;
+import com.example.mtg.databinding.DialogErrorOccurBinding;
 import com.example.mtg.databinding.FragmentChangeDataBinding;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.profileSettingsFragment.profileSettingsFragmentViewModel.ProfileSettingsViewModel;
+import com.example.mtg.ui.dialogs.serviceDialogs.ErrorDialog;
 
 import java.util.Objects;
 
@@ -23,6 +25,7 @@ import java.util.Objects;
 public class ChangeCountryFragment extends Fragment {
     private FragmentChangeDataBinding binding;
     private NavController navController;
+    private ErrorDialog errorDialog;
     private ProfileSettingsViewModel profileSettingsViewModel;
 
     @Override
@@ -45,6 +48,11 @@ public class ChangeCountryFragment extends Fragment {
         profileSettingsViewModel = new ViewModelProvider(requireActivity()).get(ProfileSettingsViewModel.class);
         initListeners();
         setViewData();
+        DialogErrorOccurBinding errorOccurBinding = DialogErrorOccurBinding.inflate(getLayoutInflater());
+        errorDialog = new ErrorDialog(requireActivity(),
+                getResources().getString(R.string.update_error_text),
+                getResources().getString(R.string.updating_failed),
+                errorOccurBinding);
     }
 
     private void setViewData() {
@@ -77,6 +85,7 @@ public class ChangeCountryFragment extends Fragment {
                         break;
                     case ERROR:
                         binding.changeDataProgressBar.setVisibility(View.GONE);
+                        errorDialog.show();
                         break;
                 }
             });

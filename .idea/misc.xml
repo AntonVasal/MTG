@@ -64,12 +64,14 @@
         <entry key="..\:/MTG/app/src/main/res/drawable/ic_baseline_settings_50.xml" value="0.1585" />
         <entry key="..\:/MTG/app/src/main/res/drawable/ic_baseline_star_24.xml" value="0.14635416666666667" />
         <entry key="..\:/MTG/app/src/main/res/drawable/ic_baseline_star_50.xml" value="0.1585" />
+        <entry key="..\:/MTG/app/src/main/res/drawable/ic_cube.xml" value="0.191" />
         <entry key="..\:/MTG/app/src/main/res/drawable/ic_div_yellow.xml" value="0.2703125" />
         <entry key="..\:/MTG/app/src/main/res/drawable/ic_division.xml" value="0.2703125" />
         <entry key="..\:/MTG/app/src/main/res/drawable/ic_email_image_large.xml" value="0.18425925925925926" />
         <entry key="..\:/MTG/app/src/main/res/drawable/ic_email_yellow_white.xml" value="0.18425925925925926" />
         <entry key="..\:/MTG/app/src/main/res/drawable/ic_key_password.xml" value="0.18425925925925926" />
         <entry key="..\:/MTG/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2703125" />
+        <entry key="..\:/MTG/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.191" />
         <entry key="..\:/MTG/app/src/main/res/drawable/ic_location_big_image.xml" value="0.18425925925925926" />
         <entry key="..\:/MTG/app/src/main/res/drawable/ic_location_country.xml" value="0.18425925925925926" />
         <entry key="..\:/MTG/app/src/main/res/drawable/ic_logo_main.xml" value="0.264" />
@@ -98,6 +100,7 @@
         <entry key="..\:/MTG/app/src/main/res/drawable/plus_yellow.xml" value="0.2703125" />
         <entry key="..\:/MTG/app/src/main/res/drawable/ripple_count_button.xml" value="0.26666666666666666" />
         <entry key="..\:/MTG/app/src/main/res/drawable/shape_for_bottom_count_images.xml" value="0.2703125" />
+        <entry key="..\:/MTG/app/src/main/res/drawable/shape_for_bottom_count_images_blue.xml" value="0.191" />
         <entry key="..\:/MTG/app/src/main/res/drawable/shape_for_bottom_count_images_white.xml" value="0.2703125" />
         <entry key="..\:/MTG/app/src/main/res/drawable/shape_for_count_images.xml" value="0.2703125" />
         <entry key="..\:/MTG/app/src/main/res/drawable/shape_for_cpp.xml" value="0.24722222222222223" />
@@ -110,6 +113,10 @@
         <entry key="..\:/MTG/app/src/main/res/layout/activity_log.xml" value="0.18342391304347827" />
         <entry key="..\:/MTG/app/src/main/res/layout/activity_main.xml" value="0.8" />
         <entry key="..\:/MTG/app/src/main/res/layout/bottom_sheet_results_dialog.xml" value="0.264" />
+        <entry key="..\:/MTG/app/src/main/res/layout/dialog_bottom_sheet_results.xml" value="0.15217391304347827" />
+        <entry key="..\:/MTG/app/src/main/res/layout/dialog_error_occur.xml" value="0.264" />
+        <entry key="..\:/MTG/app/src/main/res/layout/dialog_exit.xml" value="0.4" />
+        <entry key="..\:/MTG/app/src/main/res/layout/dialog_finish_count.xml" value="0.1911231884057971" />
         <entry key="..\:/MTG/app/src/main/res/layout/divider_for_user_data.xml" value="0.22592592592592592" />
         <entry key="..\:/MTG/app/src/main/res/layout/exit_dialog.xml" value="0.264" />
         <entry key="..\:/MTG/app/src/main/res/layout/finish_count_dialog.xml" value="0.264" />
@@ -127,7 +134,7 @@
         <entry key="..\:/MTG/app/src/main/res/layout/fragment_natural.xml" value="0.25416666666666665" />
         <entry key="..\:/MTG/app/src/main/res/layout/fragment_new.xml" value="0.22735507246376813" />
         <entry key="..\:/MTG/app/src/main/res/layout/fragment_profile.xml" value="0.25025641025641027" />
-        <entry key="..\:/MTG/app/src/main/res/layout/fragment_profile_settings.xml" value="0.264" />
+        <entry key="..\:/MTG/app/src/main/res/layout/fragment_profile_settings.xml" value="0.2" />
         <entry key="..\:/MTG/app/src/main/res/layout/fragment_profile_settings_password_confirmation.xml" value="0.2" />
         <entry key="..\:/MTG/app/src/main/res/layout/fragment_register.xml" value="0.264" />
         <entry key="..\:/MTG/app/src/main/res/layout/fragment_reset_password.xml" value="0.2" />

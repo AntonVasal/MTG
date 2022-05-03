@@ -1,4 +1,4 @@
-package com.example.mtg.repositories.ErrorHandlerResourse;
+package com.example.mtg.repositories.errorHandlerResourse;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

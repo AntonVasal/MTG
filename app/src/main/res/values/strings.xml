@@ -114,6 +114,9 @@
     <string name="public_info">Public Info</string>
     <string name="private_info">Private Info</string>
     <string name="hello_user_naturals_fragment_text">Hello! 😀 You are on the natural numbers training ground where you can do addition, subtraction, division, multiplication tasks with different complexity. 🧮 Let\'s start your training! Choose type of the tasks and become the best counter! 🏆</string>
+    <string name="error_image">error image</string>
+    <string name="update_error_text">Error occurred when we were updating your profile. Please, try to do it again. If error appear a few times, contact us - avasalatij@gmail.com.</string>
+    <string name="updating_failed">Updating failed!</string>
 
     <string-array name="types_of_number">
         <item>Natural numbers</item>
@@ -126,7 +129,6 @@
         <item>Integers</item>
         <item>Decimals</item>
     </string-array>
-
 
     <string-array name="types_of_task_for_tab">
         <item>Add</item>
@@ -141,4 +143,5 @@
         <item>Multiplication</item>
         <item>Division</item>
     </string-array>
+
 </resources>

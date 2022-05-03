@@ -114,6 +114,8 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button1"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             style="@style/CountButtonStyle"
             android:text="@string/_1"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -123,12 +125,16 @@
             android:id="@+id/button2"
             style="@style/CountButtonStyle"
             android:text="@string/_2"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button3"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             style="@style/CountButtonStyle"
             android:text="@string/_3"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -138,6 +144,8 @@
             android:id="@+id/button4"
             style="@style/CountButtonStyle"
             android:text="@string/_4"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintBottom_toTopOf="@id/button1"
             app:layout_constraintStart_toStartOf="parent" />
@@ -146,6 +154,8 @@
             android:id="@+id/button5"
             style="@style/CountButtonStyle"
             android:text="@string/_5"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             app:layout_constraintBottom_toTopOf="@id/button2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -154,6 +164,8 @@
             android:id="@+id/button6"
             style="@style/CountButtonStyle"
             android:text="@string/_6"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             app:layout_constraintBottom_toTopOf="@id/button3"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -161,6 +173,8 @@
             android:id="@+id/button7"
             style="@style/CountButtonStyle"
             android:text="@string/_7"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             app:layout_constraintBottom_toTopOf="@id/button4"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -168,6 +182,8 @@
             android:id="@+id/button8"
             style="@style/CountButtonStyle"
             android:text="@string/_8"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             app:layout_constraintBottom_toTopOf="@id/button5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -176,6 +192,8 @@
             android:id="@+id/button9"
             style="@style/CountButtonStyle"
             android:text="@string/_9"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             app:layout_constraintBottom_toTopOf="@id/button6"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -194,6 +212,8 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button0"
             style="@style/CountButtonStyle"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:text="@string/_0"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -202,6 +222,8 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/ok_button"
             style="@style/CountButtonStyle"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:text="@string/ok"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -211,6 +233,8 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/delete_button"
             style="@style/CountButtonStyle"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:text="@string/delete"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -239,6 +263,8 @@
         android:id="@+id/button_minus"
         style="@style/CountButtonStyle"
         android:layout_marginStart="15dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:text="@string/minus"
         android:textSize="20sp"
         android:visibility="gone"
@@ -252,6 +278,8 @@
         android:layout_marginStart="15dp"
         android:text="@string/dot"
         android:textSize="20sp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

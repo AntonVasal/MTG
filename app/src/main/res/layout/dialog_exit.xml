@@ -16,7 +16,6 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        app:cardElevation="10dp"
         app:cardCornerRadius="35dp">
 
         <ImageView
@@ -56,9 +55,9 @@
             android:backgroundTint="@color/white"
             android:text="@string/cancel"
             android:layout_weight="50"
-            android:layout_marginEnd="5dp"
+            android:layout_marginEnd="7dp"
             android:textSize="12sp"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="7dp"
             android:textColor="@color/blue_bright"
             app:cornerRadius="20dp" />
 
@@ -66,10 +65,10 @@
             android:id="@+id/exit_dialog_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="7dp"
             android:layout_weight="50"
             android:textSize="12sp"
-            android:layout_marginEnd="5dp"
+            android:layout_marginEnd="7dp"
             android:backgroundTint="@color/white"
             android:text="@string/exit"
             android:textColor="@color/blue_bright"

@@ -1,104 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="BasicTextView" parent="Widget.MaterialComponents.TextView">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-
-    <style name="BasicButton" parent="Widget.MaterialComponents.Button">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-
-    <style name="BasicImageView">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-
     <style name="BasicImageButton" parent="Widget.AppCompat.ImageButton">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/transparent</item>
     </style>
 
-    <style name="MainUserImageView" parent="BasicImageView">
+    <style name="MainUserImageView">
         <item name="android:scaleType">centerCrop</item>
         <item name="android:src">@drawable/ic_baseline_person_150</item>
     </style>
 
     <style name="MainUserImageViewCard" parent="Widget.MaterialComponents.CardView">
-        <item name="android:layout_width">150dp</item>
-        <item name="android:layout_height">150dp</item>
-        <item name="cardCornerRadius">75dp</item>
+        <item name="cardCornerRadius">@dimen/large_corner_radius_75</item>
     </style>
 
     <style name="UserDataConstraintLayout">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginHorizontal">35dp</item>
-        <item name="android:layout_marginTop">40dp</item>
-        <item name="android:paddingVertical">5dp</item>
         <item name="android:background">@drawable/shape_for_settings_text_view</item>
     </style>
 
-    <style name="UserDataConstraintLayout.Settings" parent="UserDataConstraintLayout">
-        <item name="android:paddingHorizontal">10dp</item>
-    </style>
 
-    <style name="CountButtonStyle" parent="BasicButton">
+    <style name="CountButtonStyle" parent="Widget.MaterialComponents.Button">
         <item name="android:backgroundTint">@color/white</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:elevation">15dp</item>
-        <item name="cornerRadius">15dp</item>
+        <item name="android:elevation">@dimen/normal_elevation_15</item>
+        <item name="cornerRadius">@dimen/corner_radius_15</item>
         <item name="strokeColor">@color/black</item>
-        <item name="strokeWidth">2dp</item>
+        <item name="strokeWidth">@dimen/normal_stroke_width_2</item>
 
     </style>
 
-    <style name="UserDataTextViews" parent="BasicTextView">
-        <item name="android:textSize">@dimen/text_for_user_data</item>
+    <style name="UserDataTextViews" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">@dimen/for_user_data_text_18</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:layout_marginStart">20dp</item>
     </style>
     
-    <style name="KindOfUserDataTextViews" parent="BasicTextView">
-        <item name="android:textSize">16sp</item>
-        <item name="android:layout_marginStart">5dp</item>
+    <style name="KindOfUserDataTextViews" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">@dimen/king_of_data_text_16</item>
         <item name="android:textColor">@color/blue_dirty</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="DividerForUserData" parent="Widget.MaterialComponents.MaterialDivider">
-        <item name="android:layout_height">2dp</item>
-        <item name="android:layout_width">0dp</item>
-        <item name="android:background">@color/blue_bright</item>
-        <item name="android:layout_marginHorizontal">20dp</item>
-        <item name="android:layout_marginTop">5dp</item>
-    </style>
+<!--    <style name="DividerForUserData" parent="Widget.MaterialComponents.MaterialDivider">-->
+<!--        <item name="android:layout_height">2dp</item>-->
+<!--        <item name="android:layout_width">0dp</item>-->
+<!--        <item name="android:background">@color/blue_bright</item>-->
+<!--        <item name="android:layout_marginHorizontal">20dp</item>-->
+<!--        <item name="android:layout_marginTop">5dp</item>-->
+<!--    </style>-->
 
-    <style name="BasicMainText" parent="BasicTextView">
+    <style name="BasicMainText" parent="Widget.MaterialComponents.TextView">
         <item name="android:textStyle">italic</item>
     </style>
 
-    <style name="MainTitleText" parent="BasicMainText">
-        <item name="android:textSize">80sp</item>
-        <item name="android:text">@string/mtg</item>
-    </style>
+<!--    <style name="MainTitleText" parent="BasicMainText">-->
+<!--        <item name="android:textSize">@dimen/enormous_text_80</item>-->
+<!--        <item name="android:text">@string/mtg</item>-->
+<!--    </style>-->
 
-    <style name="MainAuthorText" parent="BasicMainText">
-        <item name="android:textSize">20sp</item>
-        <item name="android:text">@string/made_by_vay</item>
-    </style>
+<!--    <style name="MainAuthorText" parent="BasicMainText">-->
+<!--        <item name="android:textSize">@dimen/main_elements_text_20</item>-->
+<!--        <item name="android:text">@string/made_by_vay</item>-->
+<!--    </style>-->
 
     <style name="MainButtonForWorkingWithUser" parent="Widget.MaterialComponents.Button">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
         <item name="backgroundTint">@color/white</item>
         <item name="android:textColor">@color/blue</item>
-        <item name="android:layout_marginHorizontal">30dp</item>
-        <item name="android:elevation">15dp</item>
-        <item name="cornerRadius">20dp</item>
-        <item name="android:textSize">25sp</item>
+        <item name="android:elevation">@dimen/normal_elevation_15</item>
+        <item name="cornerRadius">@dimen/corner_radius_20</item>
+        <item name="android:textSize">@dimen/large_text_25</item>
     </style>
 
     <style name="MainButtonForWorkingWithUser.Blue" parent="MainButtonForWorkingWithUser">
@@ -114,20 +83,18 @@
     <style name="MainButtonForWorkingWithUser.BlueGradient" parent="MainButtonForWorkingWithUser">
         <item name="android:textColor">@color/white</item>
         <item name="backgroundTint">@null</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/main_elements_text_20</item>
         <item name="android:background">@drawable/gradient_for_buttons</item>
     </style>
 
-    <style name="AuthHelpTextForUser" parent="BasicTextView">
-        <item name="android:textSize">15sp</item>
-        <item name="android:elevation">15dp</item>
+    <style name="AuthHelpTextForUser" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">@dimen/user_help_text_15</item>
+        <item name="android:elevation">@dimen/normal_elevation_15</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="ClassicProgressBarLight" parent="Widget.AppCompat.ProgressBar">
-        <item name="android:layout_width">70dp</item>
-        <item name="android:layout_height">70dp</item>
-        <item name="android:elevation">1000dp</item>
+        <item name="android:elevation">@dimen/enormous_elevation_1000</item>
         <item name="android:visibility">gone</item>
     </style>
 
@@ -136,87 +103,56 @@
     </style>
 
     <style name="CountryCodePicker">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginHorizontal">30dp</item>
         <item name="ccp_defaultNameCode">UA</item>
         <item name="ccp_showFullName">true</item>
-        <item name="ccp_textSize">24sp</item>
+        <item name="ccp_textSize">@dimen/recycler_item_text_24</item>
         <item name="ccp_showNameCode">false</item>
         <item name="ccp_showPhoneCode">false</item>
     </style>
 
     <style name="ClassicBackButton" parent="Widget.AppCompat.ImageButton">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
         <item name="backgroundTint">@color/transparent</item>
-        <item name="android:src">@drawable/ic_baseline_arrow_back_50</item>
-        <item name="android:layout_marginTop">10dp</item>
-        <item name="android:layout_marginStart">10dp</item>
     </style>
 
     <style name="RecyclerItemText" parent="Widget.MaterialComponents.TextView">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">@dimen/recycler_item_text_24</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:layout_gravity">center_vertical</item>
     </style>
 
-    <style name="ClassicBackButton.Black" parent="ClassicBackButton">
-        <item name="android:layout_marginTop">20dp</item>
-        <item name="android:src">@drawable/ic_baseline_arrow_back_50_black</item>
-        <item name="android:layout_marginStart">20dp</item>
-    </style>
+<!--    <style name="ClassicBackButton.Blue" parent="ClassicBackButton">-->
+<!--        <item name="android:layout_marginTop">20dp</item>-->
+<!--        <item name="android:src">@drawable/ic_baseline_arrow_back_50_blue</item>-->
+<!--        <item name="android:layout_marginStart">20dp</item>-->
+<!--    </style>-->
 
-    <style name="ClassicBackButton.Blue" parent="ClassicBackButton">
-        <item name="android:layout_marginTop">20dp</item>
-        <item name="android:src">@drawable/ic_baseline_arrow_back_50_blue</item>
-        <item name="android:layout_marginStart">20dp</item>
-    </style>
-
-    <style name="InfoTitle" parent="BasicTextView">
-        <item name="android:textSize">30sp</item>
+    <style name="InfoTitle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">@dimen/large_title_text_30</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:layout_marginTop">30dp</item>
-        <item name="android:layout_marginStart">20dp</item>
+
     </style>
 
-    <style name="BasicMainDataText" parent="BasicTextView">
+    <style name="BasicMainDataText" parent="Widget.MaterialComponents.TextView">
         <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="MainUserNicknameText" parent="BasicMainDataText">
-        <item name="android:textSize">36sp</item>
+        <item name="android:textSize">@dimen/large_title_text_36</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:layout_marginTop">20dp</item>
     </style>
 
     <style name="MainUserEmailText" parent="BasicMainDataText">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/main_elements_text_20</item>
     </style>
 
     <style name="BasicTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="boxCornerRadiusBottomEnd">20dp</item>
-        <item name="boxCornerRadiusBottomStart">20dp</item>
-        <item name="boxCornerRadiusTopEnd">20dp</item>
-        <item name="boxCornerRadiusTopStart">20dp</item>
-        <item name="android:elevation">15dp</item>
-        <item name="android:layout_marginHorizontal">30dp</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/corner_radius_20</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/corner_radius_20</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/corner_radius_20</item>
+        <item name="boxCornerRadiusTopStart">@dimen/corner_radius_20</item>
+        <item name="android:elevation">@dimen/normal_elevation_15</item>
     </style>
 
-    <style name="BasicTextInputEditText">
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-
-    <style name="BasicTextInputEditText.Password" parent="BasicTextInputEditText">
-        <item name="android:inputType">textPassword</item>
-    </style>
-
-    <style name="BasicTextInputEditText.Email" parent="BasicTextInputEditText">
-        <item name="android:inputType">textEmailAddress</item>
-    </style>
 
     <style name="BasicTextInputLayout.Password" parent="BasicTextInputLayout">
         <item name="endIconMode">password_toggle</item>
@@ -244,39 +180,39 @@
         <item name="android:hint">@string/surname</item>
     </style>
 
-    <style name="NicknameImageView" parent="BasicImageView">
+    <style name="NicknameImageView">
         <item name="android:src">@drawable/ic_baseline_star_24</item>
     </style>
 
-    <style name="NameImageView" parent="BasicImageView">
+    <style name="NameImageView">
         <item name="android:src">@drawable/ic_baseline_person_24</item>
     </style>
 
-    <style name="SurnameImageView" parent="BasicImageView">
+    <style name="SurnameImageView">
         <item name="android:src">@drawable/ic_baseline_group_24</item>
     </style>
 
-    <style name="EmailImageView" parent="BasicImageView">
+    <style name="EmailImageView">
         <item name="android:src">@drawable/ic_baseline_email_24</item>
     </style>
 
-    <style name="PasswordImageView" parent="BasicImageView">
+    <style name="PasswordImageView">
         <item name="android:src">@drawable/ic_baseline_security_24</item>
     </style>
 
-    <style name="ChangeDataImageView" parent="BasicImageView">
+    <style name="ChangeDataImageView">
         <item name="android:src">@drawable/ic_baseline_create_24</item>
     </style>
 
-    <style name="CountryImageView" parent="BasicImageView">
+    <style name="CountryImageView">
         <item name="android:src">@drawable/ic_baseline_location_on_24</item>
     </style>
 
-    <style name="ScoreImageView" parent="BasicImageView">
+    <style name="ScoreImageView">
         <item name="android:src">@drawable/ic_baseline_emoji_events_24</item>
     </style>
 
-    <style name="TasksImageView" parent="BasicImageView">
+    <style name="TasksImageView">
         <item name="android:src">@drawable/ic_baseline_done_24</item>
     </style>
 

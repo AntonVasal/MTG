@@ -3,10 +3,11 @@ package com.example.mtg.repositories;
 import android.util.Log;
 
 import com.example.mtg.models.profileModel.UserRegisterProfileModel;
-import com.example.mtg.repositories.ErrorHandlerResourse.ErrorHandlingRepositoryData;
+import com.example.mtg.repositories.errorHandlerResourse.ErrorHandlingRepositoryData;
 import com.example.mtg.repositories.repositoryCallbacks.UpdateProfileCallback;
 import com.example.mtg.repositories.repositoryCallbacks.UserFieldFromRepositoryCallback;
 import com.example.mtg.repositories.repositoryCallbacks.UserRepositoryCallback;
+import com.example.mtg.utility.sharedPreferences.SharedPreferencesHolder;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,8 +22,10 @@ public class ProfileRepository {
     String id;
     UserRegisterProfileModel userRegisterProfileModel;
     ListenerRegistration listenerRegistration;
+    SharedPreferencesHolder preferencesHolder;
     private static final String USERS = "users";
     private static final String NAME = "name";
+    private static final String NICKNAME = "nickname";
     private static final String COUNTRY = "country";
     private static final String SURNAME = "surname";
     private static final String FAILED = "Failed";
@@ -31,6 +34,7 @@ public class ProfileRepository {
     private static final String UPLOADING_FAILED = "uploading failed";
 
     public ProfileRepository() {
+        preferencesHolder = SharedPreferencesHolder.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         id = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
@@ -40,7 +44,12 @@ public class ProfileRepository {
         new Thread(() -> listenerRegistration = firebaseFirestore.collection(USERS).document(id)
                 .addSnapshotListener((value, error) -> {
                     if (error != null) {
-                        userRepositoryCallback.userRepoCallback(ErrorHandlingRepositoryData.error(error.getMessage(), null));
+                        userRegisterProfileModel.setName(preferencesHolder.getData(NAME));
+                        userRegisterProfileModel.setNickname(preferencesHolder.getData(NICKNAME));
+                        userRegisterProfileModel.setCountry(preferencesHolder.getData(COUNTRY));
+                        userRegisterProfileModel.setSurname(preferencesHolder.getData(SURNAME));
+                        userRegisterProfileModel.setEmail(preferencesHolder.getData(EMAIL));
+                        userRepositoryCallback.userRepoCallback(ErrorHandlingRepositoryData.error(error.getMessage(), userRegisterProfileModel));
                         return;
                     }
                     if (value != null && value.exists()) {
@@ -55,6 +64,7 @@ public class ProfileRepository {
         new Thread(() -> firebaseFirestore.collection(USERS).document(id)
                 .update(NAME, name).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        preferencesHolder.setData(NAME,name);
                         updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.SUCCESS);
                     } else {
                         updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
@@ -66,6 +76,7 @@ public class ProfileRepository {
         new Thread(() -> firebaseFirestore.collection(USERS).document(id)
                 .update(COUNTRY, country).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        preferencesHolder.setData(COUNTRY,country);
                         updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.SUCCESS);
                     } else {
                         updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
@@ -77,6 +88,7 @@ public class ProfileRepository {
         new Thread(() -> firebaseFirestore.collection(USERS).document(id)
                 .update(SURNAME, surname).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        preferencesHolder.setData(SURNAME,surname);
                         updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.SUCCESS);
                     } else {
                         updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
@@ -84,41 +96,46 @@ public class ProfileRepository {
                 }).addOnFailureListener(e -> updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR))).start();
     }
 
-    private void getUserEmail(UserFieldFromRepositoryCallback callback) {
-        new Thread(() -> firebaseFirestore.collection(USERS).document(id)
-                .get().addOnSuccessListener(documentSnapshot -> {
-                    userRegisterProfileModel = documentSnapshot.toObject(UserRegisterProfileModel.class);
-                    assert userRegisterProfileModel != null;
-                    callback.userFieldCallback(ErrorHandlingRepositoryData.success(userRegisterProfileModel.getEmail()));
-                }).addOnFailureListener(e -> callback.userFieldCallback(ErrorHandlingRepositoryData.error(e.getMessage(), null)))).start();
-    }
+//    private void getUserEmail(UserFieldFromRepositoryCallback callback) {
+//        preferencesHolder.getData(EMAIL);
+//        new Thread(() -> firebaseFirestore.collection(USERS).document(id)
+//                .get().addOnSuccessListener(documentSnapshot -> {
+//                    userRegisterProfileModel = documentSnapshot.toObject(UserRegisterProfileModel.class);
+//                    assert userRegisterProfileModel != null;
+//                    callback.userFieldCallback(ErrorHandlingRepositoryData.success(userRegisterProfileModel.getEmail()));
+//                }).addOnFailureListener(e -> callback.userFieldCallback(ErrorHandlingRepositoryData.error(e.getMessage(), null)))).start();
+//    }
 
     public void sendPasswordResetEmail(UpdateProfileCallback updateProfileCallback) {
-        new Thread(() -> getUserEmail(userField -> {
-            switch (userField.status) {
-                case SUCCESS:
-                    assert userField.data != null;
-                    firebaseAuth.sendPasswordResetEmail(userField.data).addOnCompleteListener(task -> {
+        new Thread(() -> {
+//                getUserEmail(userField -> {
+//            switch (userField.status) {
+//                case SUCCESS:
+//                    assert userField.data != null;
+                    firebaseAuth.sendPasswordResetEmail(preferencesHolder.getData(EMAIL)).addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.SUCCESS);
                         } else {
                             updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
                         }
                     }).addOnFailureListener(e -> updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR));
-                    break;
-                case ERROR:
-                    updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
-                    break;
-            }
-        })).start();
+//                    break;
+//                case ERROR:
+//                    updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
+//                    break;
+//            }
+        }
+//        )
+        ).start();
     }
 
     public void reAuthCurrentUser(String password, UpdateProfileCallback callback) {
-        new Thread(() -> getUserEmail(userField -> {
-            switch (userField.status) {
-                case SUCCESS:
-                    assert userField.data != null;
-                    AuthCredential authCredential = EmailAuthProvider.getCredential(userField.data, password);
+        new Thread(() -> {
+//                getUserEmail(userField -> {
+//            switch (userField.status) {
+//                case SUCCESS:
+//                    assert userField.data != null;
+                    AuthCredential authCredential = EmailAuthProvider.getCredential(preferencesHolder.getData(EMAIL), password);
                     Objects.requireNonNull(firebaseAuth.getCurrentUser()).reauthenticate(authCredential)
                             .addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
@@ -127,12 +144,14 @@ public class ProfileRepository {
                                     callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
                                 }
                             }).addOnFailureListener(e -> callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR));
-                    break;
-                case ERROR:
-                    callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
-                    break;
-            }
-        })).start();
+//                    break;
+//                case ERROR:
+//                    callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
+//                    break;
+//            }
+        }
+//        )
+        ).start();
     }
 
     public void updatePassword(String password, UpdateProfileCallback callback){
@@ -156,6 +175,7 @@ public class ProfileRepository {
     public void updateUserEmail(String email, UserFieldFromRepositoryCallback callback){
         new Thread(() -> Objects.requireNonNull(firebaseAuth.getCurrentUser()).updateEmail(email).addOnCompleteListener(task -> {
             if (task.isSuccessful()){
+                preferencesHolder.setData(EMAIL,email);
                 updateUserEmailInDatabase(email, status -> {
                     switch (status){
                         case SUCCESS:

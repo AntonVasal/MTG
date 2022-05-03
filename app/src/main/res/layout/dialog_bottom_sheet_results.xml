@@ -22,6 +22,8 @@
             <ImageButton
                 android:id="@+id/exit_button_bottom_dialog"
                 style="@style/BasicImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:contentDescription="@string/exit"
                 android:src="@drawable/ic_baseline_close_40"
                 app:layout_constraintStart_toStartOf="parent"
@@ -31,17 +33,23 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/image_card_view_dialog"
                 style="@style/MainUserImageViewCard"
+                android:layout_height="150dp"
+                android:layout_width="150dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:id="@+id/dialog_image"
                     style="@style/MainUserImageView"
                     android:contentDescription="@string/user_image" />
             </androidx.cardview.widget.CardView>
 
             <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:id="@+id/nickname_text_dialog"
                 style="@style/MainUserNicknameText"
                 android:layout_marginTop="15dp"
@@ -53,14 +61,19 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:id="@+id/info_text_dialog"
             style="@style/InfoTitle"
+            android:layout_marginTop="30dp"
             android:layout_marginStart="40dp"
             android:text="@string/account_info"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image_layout_dialog" />
 
         <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:id="@+id/info_nickname_text_dialog"
             style="@style/KindOfUserDataTextViews"
             android:layout_marginStart="15dp"
@@ -72,12 +85,19 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/user_nickname_container_dialog"
             style="@style/UserDataConstraintLayout"
+            android:layout_marginHorizontal="35dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="5dp"
+            android:paddingHorizontal="10dp"
+            android:layout_marginTop="40dp"
             android:layout_width="match_parent"
             app:layout_constraintTop_toBottomOf="@id/info_text_dialog">
 
             <ImageView
                 android:id="@+id/user_nickname_image_dialog"
                 style="@style/NicknameImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
                 android:layout_marginStart="10dp"
                 android:contentDescription="@string/user_nickname_image"
@@ -86,8 +106,11 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:id="@+id/info_nickname_dialog"
                 style="@style/UserDataTextViews"
+                android:layout_marginStart="20dp"
                 android:text=""
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/user_nickname_image_dialog"
@@ -96,6 +119,8 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:id="@+id/info_name_text_dialog"
             style="@style/KindOfUserDataTextViews"
             android:layout_marginStart="15dp"
@@ -108,9 +133,16 @@
             android:id="@+id/name_container_dialog"
             style="@style/UserDataConstraintLayout"
             android:layout_width="match_parent"
+            android:layout_marginHorizontal="35dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="5dp"
+            android:paddingHorizontal="10dp"
+            android:layout_marginTop="40dp"
             app:layout_constraintTop_toBottomOf="@id/user_nickname_container_dialog">
 
             <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/user_name_image_dialog"
                 style="@style/NameImageView"
                 android:layout_marginVertical="10dp"
@@ -121,8 +153,11 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:id="@+id/info_name_dialog"
                 style="@style/UserDataTextViews"
+                android:layout_marginStart="20dp"
                 tools:text="Anton"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/user_name_image_dialog"
@@ -130,6 +165,8 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:id="@+id/info_country_text_dialog"
             style="@style/KindOfUserDataTextViews"
             android:layout_marginStart="15dp"
@@ -144,9 +181,16 @@
             android:id="@+id/country_container_dialog"
             style="@style/UserDataConstraintLayout"
             android:layout_width="match_parent"
+            android:layout_marginHorizontal="35dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="5dp"
+            android:paddingHorizontal="10dp"
+            android:layout_marginTop="40dp"
             app:layout_constraintTop_toBottomOf="@id/name_container_dialog">
 
             <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/user_country_image_dialog"
                 style="@style/CountryImageView"
                 android:layout_marginVertical="10dp"
@@ -157,9 +201,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:id="@+id/info_country_dialog"
                 style="@style/UserDataTextViews"
                 tools:text="Ukraine"
+                android:layout_marginStart="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/user_country_image_dialog"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -167,6 +214,8 @@
 
 
         <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:id="@+id/count_info_dialog"
             style="@style/InfoTitle"
             android:layout_marginStart="40dp"
@@ -176,6 +225,8 @@
             app:layout_constraintTop_toBottomOf="@id/country_container_dialog" />
 
         <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:id="@+id/info_score_text_dialog"
             style="@style/KindOfUserDataTextViews"
             android:layout_marginStart="15dp"
@@ -189,9 +240,16 @@
             android:id="@+id/score_container_dialog"
             style="@style/UserDataConstraintLayout"
             android:layout_width="match_parent"
+            android:layout_marginHorizontal="35dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="5dp"
+            android:paddingHorizontal="10dp"
+            android:layout_marginTop="40dp"
             app:layout_constraintTop_toBottomOf="@id/count_info_dialog">
 
             <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/user_score_image_dialog"
                 style="@style/ScoreImageView"
                 android:layout_marginVertical="10dp"
@@ -202,8 +260,11 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:id="@+id/info_score_dialog"
                 style="@style/UserDataTextViews"
+                android:layout_marginStart="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/user_score_image_dialog"
                 app:layout_constraintTop_toTopOf="parent"
@@ -212,6 +273,8 @@
 
 
         <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:id="@+id/info_tasks_text_dialog"
             style="@style/KindOfUserDataTextViews"
             android:text="@string/tasks_upper"
@@ -224,10 +287,17 @@
 
             android:id="@+id/tasks_container_dialog"
             style="@style/UserDataConstraintLayout"
+            android:layout_marginHorizontal="35dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="5dp"
+            android:paddingHorizontal="10dp"
+            android:layout_marginTop="40dp"
             android:layout_width="match_parent"
             app:layout_constraintTop_toBottomOf="@id/score_container_dialog">
 
             <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/user_tasks_image_dialog"
                 style="@style/TasksImageView"
                 android:layout_marginVertical="10dp"
@@ -238,9 +308,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:id="@+id/info_tasks_dialog"
                 style="@style/UserDataTextViews"
                 tools:text="50"
+                android:layout_marginStart="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/user_tasks_image_dialog"
                 app:layout_constraintTop_toTopOf="parent" />
