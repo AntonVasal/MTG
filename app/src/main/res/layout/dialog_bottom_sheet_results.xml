@@ -43,7 +43,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/dialog_image"
-                    style="@style/MainUserImageView"
+                    android:src="@drawable/ic_baseline_person_150"
+                    android:scaleType="centerCrop"
                     android:contentDescription="@string/user_image" />
             </androidx.cardview.widget.CardView>
 
@@ -95,7 +96,7 @@
 
             <ImageView
                 android:id="@+id/user_nickname_image_dialog"
-                style="@style/NicknameImageView"
+                android:src="@drawable/ic_baseline_star_24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
@@ -144,7 +145,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/user_name_image_dialog"
-                style="@style/NameImageView"
+                android:src="@drawable/ic_baseline_person_24"
                 android:layout_marginVertical="10dp"
                 android:layout_marginStart="10dp"
                 android:contentDescription="@string/user_name_image"
@@ -192,7 +193,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/user_country_image_dialog"
-                style="@style/CountryImageView"
+                android:src="@drawable/ic_baseline_location_on_24"
                 android:layout_marginVertical="10dp"
                 android:layout_marginStart="10dp"
                 android:contentDescription="@string/user_country_image"
@@ -251,7 +252,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/user_score_image_dialog"
-                style="@style/ScoreImageView"
+                android:src="@drawable/ic_baseline_emoji_events_24"
                 android:layout_marginVertical="10dp"
                 android:layout_marginStart="10dp"
                 android:contentDescription="@string/user_country_image"
@@ -299,7 +300,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/user_tasks_image_dialog"
-                style="@style/TasksImageView"
+                android:src="@drawable/ic_baseline_done_24"
                 android:layout_marginVertical="10dp"
                 android:layout_marginStart="10dp"
                 android:contentDescription="@string/user_country_image"

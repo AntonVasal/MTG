@@ -19,6 +19,7 @@ public class LogRepository {
     private static final String NAME = "name";
     private static final String NICKNAME = "nickname";
     private static final String SURNAME = "surname";
+    private static final String IMAGE = "imageUrl";
     private static final String COUNTRY = "country";
     private static final String FAILED_TO_MAKE_USER = "Failed to create user";
     private static final String SUCCESS_CREATING_USER = "User was successfully created and data was pushed to database";
@@ -61,6 +62,7 @@ public class LogRepository {
                 preferencesHolder.setData(EMAIL,user.getEmail());
                 preferencesHolder.setData(SURNAME,user.getSurname());
                 preferencesHolder.setData(COUNTRY,user.getCountry());
+                preferencesHolder.setData(IMAGE,user.getImageUrl());
 
                 setUserDataToFirestore(id, user, status -> {
                     switch (status){

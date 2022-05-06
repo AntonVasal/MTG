@@ -75,7 +75,7 @@
 
                     <ImageView
                         android:id="@+id/user_nickname_image"
-                        style="@style/NicknameImageView"
+                        android:src="@drawable/ic_baseline_star_24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -99,7 +99,7 @@
 
                     <ImageView
                         android:id="@+id/change_nickname_button"
-                        style="@style/ChangeDataImageView"
+                        android:src="@drawable/ic_baseline_create_24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/change_nickname"
@@ -132,7 +132,7 @@
 
                     <ImageView
                         android:id="@+id/user_name_image"
-                        style="@style/NameImageView"
+                        android:src="@drawable/ic_baseline_person_24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -156,7 +156,7 @@
 
                     <ImageView
                         android:id="@+id/change_name_button"
-                        style="@style/ChangeDataImageView"
+                        android:src="@drawable/ic_baseline_create_24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/change_name"
@@ -190,7 +190,7 @@
 
                     <ImageView
                         android:id="@+id/user_surname_image"
-                        style="@style/SurnameImageView"
+                        android:src="@drawable/ic_baseline_group_24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -214,7 +214,7 @@
 
                     <ImageView
                         android:id="@+id/change_surname_button"
-                        style="@style/ChangeDataImageView"
+                        android:src="@drawable/ic_baseline_create_24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/change_surname"
@@ -248,7 +248,7 @@
 
                     <ImageView
                         android:id="@+id/user_email_image"
-                        style="@style/EmailImageView"
+                        android:src="@drawable/ic_baseline_email_24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -272,7 +272,7 @@
 
                     <ImageView
                         android:id="@+id/change_email_button"
-                        style="@style/ChangeDataImageView"
+                        android:src="@drawable/ic_baseline_create_24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/change_email"
@@ -305,7 +305,7 @@
 
                     <ImageView
                         android:id="@+id/user_country_image"
-                        style="@style/CountryImageView"
+                        android:src="@drawable/ic_baseline_location_on_24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -329,7 +329,7 @@
 
                     <ImageView
                         android:id="@+id/change_country_button"
-                        style="@style/ChangeDataImageView"
+                        android:src="@drawable/ic_baseline_create_24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/change_country"
@@ -362,7 +362,7 @@
 
                     <ImageView
                         android:id="@+id/user_password_image"
-                        style="@style/PasswordImageView"
+                        android:src="@drawable/ic_baseline_security_24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -385,7 +385,7 @@
 
                     <ImageView
                         android:id="@+id/change_password_button"
-                        style="@style/ChangeDataImageView"
+                        android:src="@drawable/ic_baseline_create_24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/change_password"

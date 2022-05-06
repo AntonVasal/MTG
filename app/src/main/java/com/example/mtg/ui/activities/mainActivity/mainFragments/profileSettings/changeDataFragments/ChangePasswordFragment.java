@@ -2,7 +2,6 @@ package com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings
 
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +16,11 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mtg.R;
 import com.example.mtg.core.ValidationTextWatcher;
+import com.example.mtg.databinding.DialogErrorOccurBinding;
 import com.example.mtg.databinding.FragmentChangeDataBinding;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.profileSettingsFragment.profileSettingsFragmentViewModel.ProfileSettingsViewModel;
+import com.example.mtg.ui.dialogs.serviceDialogs.ErrorDialog;
+import com.example.mtg.utility.networkDetection.NetworkStateManager;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
@@ -28,8 +30,7 @@ public class ChangePasswordFragment extends Fragment {
     private FragmentChangeDataBinding binding;
     private NavController navController;
     private String password;
-    private static final String TAG = "MainActivity";
-    private static final String FAILED = "Failed";
+    private ErrorDialog errorDialog;
     private ProfileSettingsViewModel profileSettingsViewModel;
 
     @Override
@@ -50,9 +51,24 @@ public class ChangePasswordFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         profileSettingsViewModel = new ViewModelProvider(requireActivity()).get(ProfileSettingsViewModel.class);
+        DialogErrorOccurBinding errorOccurBinding = DialogErrorOccurBinding.inflate(getLayoutInflater());
+        errorDialog = new ErrorDialog(requireActivity(),
+                getResources().getString(R.string.update_password_error_text),
+                getResources().getString(R.string.updating_failed),
+                errorOccurBinding);
+        detectConnection();
         setViewData();
         initListeners();
         textChanged();
+    }
+
+    private void detectConnection() {
+        NetworkStateManager.getInstance().getNetworkConnectivityStatus().observe(getViewLifecycleOwner(),
+                aBoolean -> {
+                    if (!aBoolean && Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.changePasswordFragment) {
+                        navController.popBackStack(R.id.profileSettingsFragment, true);
+                    }
+                });
     }
 
     private void textChanged() {
@@ -99,7 +115,7 @@ public class ChangePasswordFragment extends Fragment {
                         break;
                     case ERROR:
                         binding.changeDataProgressBar.setVisibility(View.GONE);
-                        Log.i(TAG, FAILED);
+                        errorDialog.show();
                         break;
                 }
             });

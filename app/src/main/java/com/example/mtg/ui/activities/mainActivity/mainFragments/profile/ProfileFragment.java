@@ -30,6 +30,7 @@ import com.example.mtg.databinding.FragmentProfileBinding;
 import com.example.mtg.ui.activities.logActivity.LogActivity;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.MainFragmentDirections;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.profile.viewModel.ProfileViewModel;
+import com.example.mtg.utility.networkDetection.NetworkStateManager;
 import com.github.drjacky.imagepicker.ImagePicker;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -55,6 +56,7 @@ public class ProfileFragment extends Fragment {
     private StorageReference storageReference;
     private String downloadUrl = "";
     private NavController navController;
+    private NetworkStateManager networkStateManager;
     private String img;
     private static final String TAG = "MainActivity";
     private static final String SUCCESS = "Success";
@@ -84,8 +86,6 @@ public class ProfileFragment extends Fragment {
         navController = Objects.requireNonNull(navHostFragment).getNavController();
     }
 
-
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -98,13 +98,28 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
+        networkStateManager = NetworkStateManager.getInstance();
         binding.setViewModel(profileViewModel);
         mAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
         binding.profileProgressBar.setVisibility(View.VISIBLE);
+        detectConnection();
         setData();
         initListeners();
+    }
+
+    private void detectConnection() {
+        networkStateManager.getNetworkConnectivityStatus().observe(getViewLifecycleOwner(),
+                aBoolean -> {
+                    if (!aBoolean){
+                        Log.e(TAG,"LOST Internet");
+                        binding.settingsButton.setEnabled(false);
+                    }else{
+                        Log.e(TAG,"Have Internet");
+                        binding.settingsButton.setEnabled(true);
+                    }
+                });
     }
 
     private void setData() {
@@ -122,7 +137,6 @@ public class ProfileFragment extends Fragment {
 
         });
     }
-
 
     private void initListeners() {
         binding.logOutButton.setOnClickListener(view1 -> showExitDialog());
@@ -149,7 +163,6 @@ public class ProfileFragment extends Fragment {
             startActivity(new Intent(getActivity(), LogActivity.class));
             requireActivity().finish();
         });
-
         dialog.show();
     }
 
@@ -170,7 +183,6 @@ public class ProfileFragment extends Fragment {
                     }
                 });
     }
-
 
     private String fileExtension(Uri uri) {
         ContentResolver contentResolver = requireActivity().getContentResolver();
@@ -254,7 +266,12 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        profileViewModel.loadData();
+        Boolean isConnect = networkStateManager.getNetworkConnectivityStatus().getValue();
+        profileViewModel.removeListenerRegistration();
+        assert isConnect != null;
+        if (isConnect){
+            profileViewModel.loadData();
+        }
     }
 
     @Override

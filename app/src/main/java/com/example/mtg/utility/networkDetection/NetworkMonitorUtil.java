@@ -14,9 +14,9 @@ public class NetworkMonitorUtil extends ConnectivityManager.NetworkCallback {
     private final ConnectivityManager mConnectivityManager;
     private final NetworkStateManager mNetworkStateManager;
 
-    public NetworkMonitorUtil(Context context){
+    public NetworkMonitorUtil(Context context) {
         mNetworkRequest = new NetworkRequest.Builder()
-                .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
                 .build();
         mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         mNetworkStateManager = NetworkStateManager.getInstance();
@@ -34,15 +34,15 @@ public class NetworkMonitorUtil extends ConnectivityManager.NetworkCallback {
         mNetworkStateManager.setNetworkConnectivityStatus(false);
     }
 
-    public  void registerNetworkCallbackEvents(){
-        mConnectivityManager.registerNetworkCallback(mNetworkRequest,this);
+    public void registerNetworkCallbackEvents() {
+        mConnectivityManager.registerNetworkCallback(mNetworkRequest, this);
     }
 
-    public void checkNetworkState(){
+    public void checkNetworkState() {
         try {
             NetworkInfo networkInfo = mConnectivityManager.getActiveNetworkInfo();
-            mNetworkStateManager.setNetworkConnectivityStatus(networkInfo !=null && networkInfo.isConnected());
-        }catch (Exception e){
+            mNetworkStateManager.setNetworkConnectivityStatus(networkInfo != null && networkInfo.isConnected());
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

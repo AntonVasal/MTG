@@ -1,13 +1,13 @@
 package com.example.mtg.repositories;
 
-import android.util.Log;
-
 import com.example.mtg.models.profileModel.UserRegisterProfileModel;
 import com.example.mtg.repositories.errorHandlerResourse.ErrorHandlingRepositoryData;
 import com.example.mtg.repositories.repositoryCallbacks.UpdateProfileCallback;
 import com.example.mtg.repositories.repositoryCallbacks.UserFieldFromRepositoryCallback;
 import com.example.mtg.repositories.repositoryCallbacks.UserRepositoryCallback;
 import com.example.mtg.utility.sharedPreferences.SharedPreferencesHolder;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,6 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ProfileRepository {
     FirebaseFirestore firebaseFirestore;
@@ -32,6 +33,10 @@ public class ProfileRepository {
     private static final String EMAIL = "email";
     private static final String SUCCESS = "Success";
     private static final String UPLOADING_FAILED = "uploading failed";
+    private static final String ADD = "add";
+    private static final String DIV = "div";
+    private static final String MULTI = "multi";
+    private static final String SUB = "sub";
 
     public ProfileRepository() {
         preferencesHolder = SharedPreferencesHolder.getInstance();
@@ -64,7 +69,7 @@ public class ProfileRepository {
         new Thread(() -> firebaseFirestore.collection(USERS).document(id)
                 .update(NAME, name).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        preferencesHolder.setData(NAME,name);
+                        preferencesHolder.setData(NAME, name);
                         updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.SUCCESS);
                     } else {
                         updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
@@ -76,7 +81,7 @@ public class ProfileRepository {
         new Thread(() -> firebaseFirestore.collection(USERS).document(id)
                 .update(COUNTRY, country).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        preferencesHolder.setData(COUNTRY,country);
+                        preferencesHolder.setData(COUNTRY, country);
                         updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.SUCCESS);
                     } else {
                         updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
@@ -88,7 +93,7 @@ public class ProfileRepository {
         new Thread(() -> firebaseFirestore.collection(USERS).document(id)
                 .update(SURNAME, surname).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        preferencesHolder.setData(SURNAME,surname);
+                        preferencesHolder.setData(SURNAME, surname);
                         updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.SUCCESS);
                     } else {
                         updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
@@ -96,111 +101,138 @@ public class ProfileRepository {
                 }).addOnFailureListener(e -> updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR))).start();
     }
 
-//    private void getUserEmail(UserFieldFromRepositoryCallback callback) {
-//        preferencesHolder.getData(EMAIL);
-//        new Thread(() -> firebaseFirestore.collection(USERS).document(id)
-//                .get().addOnSuccessListener(documentSnapshot -> {
-//                    userRegisterProfileModel = documentSnapshot.toObject(UserRegisterProfileModel.class);
-//                    assert userRegisterProfileModel != null;
-//                    callback.userFieldCallback(ErrorHandlingRepositoryData.success(userRegisterProfileModel.getEmail()));
-//                }).addOnFailureListener(e -> callback.userFieldCallback(ErrorHandlingRepositoryData.error(e.getMessage(), null)))).start();
-//    }
-
     public void sendPasswordResetEmail(UpdateProfileCallback updateProfileCallback) {
-        new Thread(() -> {
-//                getUserEmail(userField -> {
-//            switch (userField.status) {
-//                case SUCCESS:
-//                    assert userField.data != null;
-                    firebaseAuth.sendPasswordResetEmail(preferencesHolder.getData(EMAIL)).addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.SUCCESS);
-                        } else {
-                            updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
-                        }
-                    }).addOnFailureListener(e -> updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR));
-//                    break;
-//                case ERROR:
-//                    updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
-//                    break;
-//            }
-        }
-//        )
-        ).start();
+        new Thread(() -> firebaseAuth.sendPasswordResetEmail(preferencesHolder.getData(EMAIL)).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.SUCCESS);
+            } else {
+                updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
+            }
+        }).addOnFailureListener(e -> updateProfileCallback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR))).start();
     }
 
     public void reAuthCurrentUser(String password, UpdateProfileCallback callback) {
         new Thread(() -> {
-//                getUserEmail(userField -> {
-//            switch (userField.status) {
-//                case SUCCESS:
-//                    assert userField.data != null;
-                    AuthCredential authCredential = EmailAuthProvider.getCredential(preferencesHolder.getData(EMAIL), password);
-                    Objects.requireNonNull(firebaseAuth.getCurrentUser()).reauthenticate(authCredential)
-                            .addOnCompleteListener(task -> {
-                                if (task.isSuccessful()) {
-                                    callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.SUCCESS);
-                                } else {
-                                    callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
-                                }
-                            }).addOnFailureListener(e -> callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR));
-//                    break;
-//                case ERROR:
-//                    callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
-//                    break;
-//            }
-        }
-//        )
-        ).start();
+            AuthCredential authCredential = EmailAuthProvider.getCredential(preferencesHolder.getData(EMAIL), password);
+            Objects.requireNonNull(firebaseAuth.getCurrentUser()).reauthenticate(authCredential)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.SUCCESS);
+                        } else {
+                            callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
+                        }
+                    }).addOnFailureListener(e -> callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR));
+        }).start();
     }
 
-    public void updatePassword(String password, UpdateProfileCallback callback){
+    public void updatePassword(String password, UpdateProfileCallback callback) {
         new Thread(() -> Objects.requireNonNull(firebaseAuth.getCurrentUser()).updatePassword(password)
                 .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.SUCCESS);
-                    }else{
+                    } else {
                         callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
                     }
                 }).addOnFailureListener(e -> callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR))).start();
     }
 
-    public void removeListener(){
-        if (listenerRegistration != null){
+    public void removeListener() {
+        if (listenerRegistration != null) {
             listenerRegistration.remove();
-            Log.e("Listener","Remove");
         }
     }
 
-    public void updateUserEmail(String email, UserFieldFromRepositoryCallback callback){
+    public void updateUserEmail(String email, UserFieldFromRepositoryCallback callback) {
         new Thread(() -> Objects.requireNonNull(firebaseAuth.getCurrentUser()).updateEmail(email).addOnCompleteListener(task -> {
-            if (task.isSuccessful()){
-                preferencesHolder.setData(EMAIL,email);
+            if (task.isSuccessful()) {
+                preferencesHolder.setData(EMAIL, email);
                 updateUserEmailInDatabase(email, status -> {
-                    switch (status){
+                    switch (status) {
                         case SUCCESS:
                             callback.userFieldCallback(ErrorHandlingRepositoryData.success(SUCCESS));
                             break;
                         case ERROR:
-                            callback.userFieldCallback(ErrorHandlingRepositoryData.error(UPLOADING_FAILED,null));
+                            callback.userFieldCallback(ErrorHandlingRepositoryData.error(UPLOADING_FAILED, null));
                             break;
                     }
                 });
-            }else{
-                callback.userFieldCallback(ErrorHandlingRepositoryData.error(FAILED,null));
+            } else {
+                callback.userFieldCallback(ErrorHandlingRepositoryData.error(FAILED, null));
             }
-        }).addOnFailureListener(e -> callback.userFieldCallback(ErrorHandlingRepositoryData.error(FAILED,null)))).start();
+        }).addOnFailureListener(e -> callback.userFieldCallback(ErrorHandlingRepositoryData.error(FAILED, null)))).start();
     }
 
-    private void updateUserEmailInDatabase(String email, UpdateProfileCallback callback){
-        new Thread(() -> firebaseFirestore.collection(USERS).document(id).update(EMAIL,email).addOnCompleteListener(task -> {
-            if (task.isSuccessful()){
+    private void updateUserEmailInDatabase(String email, UpdateProfileCallback callback) {
+        new Thread(() -> firebaseFirestore.collection(USERS).document(id).update(EMAIL, email).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
                 callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.SUCCESS);
-            }else {
+            } else {
                 callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR);
             }
         }).addOnFailureListener(e -> callback.updateProfileCallback(ErrorHandlingRepositoryData.Status.ERROR))).start();
     }
 
+    public void updateUserNickname(String nickname, UserFieldFromRepositoryCallback callback) {
+        new Thread(() -> firebaseFirestore.collection(USERS).document(id).update(NICKNAME, nickname).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                preferencesHolder.setData(NICKNAME, nickname);
+                updateUserNicknameInCountLists(nickname, userField -> {
+                    switch (userField.status){
+                        case SUCCESS:
+                            callback.userFieldCallback(ErrorHandlingRepositoryData.success(SUCCESS));
+                            break;
+                        case ERROR:
+                            callback.userFieldCallback(ErrorHandlingRepositoryData.error(UPLOADING_FAILED,userField.data));
+                            break;
+                    }
+                });
+            } else {
+                callback.userFieldCallback(ErrorHandlingRepositoryData.error(FAILED, null));
+            }
+        }).addOnFailureListener(e -> callback.userFieldCallback(ErrorHandlingRepositoryData.error(FAILED, null)))
+        ).start();
+    }
+
+    private void updateUserNicknameInCountLists(String nickname, UserFieldFromRepositoryCallback callback) {
+        new Thread(() -> {
+            AtomicInteger counter = new AtomicInteger();
+            Task<Void> uploadTaskSub = firebaseFirestore.collection(SUB).document(id).update(NICKNAME, nickname);
+            Task<Void> uploadTaskMulti = firebaseFirestore.collection(MULTI).document(id).update(NICKNAME, nickname);
+            Task<Void> uploadTaskDiv = firebaseFirestore.collection(DIV).document(id).update(NICKNAME, nickname);
+            firebaseFirestore.collection(ADD).document(id).update(NICKNAME, nickname).addOnCompleteListener(task -> {
+                if (!task.isSuccessful()) {
+                    counter.getAndIncrement();
+                }
+            }).addOnFailureListener(e -> counter.getAndIncrement())
+
+                    .continueWithTask((Continuation<Void, Task<Void>>) task -> uploadTaskSub)
+                    .addOnCompleteListener(task -> {
+                        if (!task.isSuccessful()) {
+                            counter.getAndIncrement();
+                        }
+                    }).addOnFailureListener(e -> counter.getAndIncrement())
+
+                    .continueWithTask((Continuation<Void, Task<Void>>) task -> uploadTaskMulti)
+                    .addOnCompleteListener(task -> {
+                        if (!task.isSuccessful()) {
+                            counter.getAndIncrement();
+                        }
+                    }).addOnFailureListener(e -> counter.getAndIncrement())
+                    .continueWithTask((Continuation<Void, Task<Void>>) task -> uploadTaskDiv)
+                    .addOnCompleteListener(task -> {
+                        if (!task.isSuccessful()){
+                            counter.getAndIncrement();
+                        }
+                        if (counter.get() == 0){
+                            callback.userFieldCallback(ErrorHandlingRepositoryData.success(SUCCESS));
+                        }else{
+                            callback.userFieldCallback(ErrorHandlingRepositoryData.error(UPLOADING_FAILED,counter.toString()));
+                        }
+                    }).addOnFailureListener(e -> {
+                counter.getAndIncrement();
+                callback.userFieldCallback(ErrorHandlingRepositoryData.error(UPLOADING_FAILED, counter.toString()));
+            });
+        }).start();
+    }
 
 }

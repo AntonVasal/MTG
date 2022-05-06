@@ -19,6 +19,7 @@ import com.example.mtg.R;
 import com.example.mtg.core.ValidationTextWatcher;
 import com.example.mtg.databinding.FragmentChangeDataBinding;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.forgotPasswordFragment.forgotPasswordViewModel.ForgotPasswordViewModel;
+import com.example.mtg.utility.networkDetection.NetworkStateManager;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
@@ -49,9 +50,19 @@ public class PasswordYouRememberFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         forgotPasswordViewModel = new ViewModelProvider(requireActivity()).get(ForgotPasswordViewModel.class);
+        detectConnection();
         setViewsData();
         initListeners();
         textChanged();
+    }
+
+    private void detectConnection() {
+        NetworkStateManager.getInstance().getNetworkConnectivityStatus().observe(getViewLifecycleOwner(),
+                aBoolean -> {
+                    if (!aBoolean && Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.passwordYouRememberFragment) {
+                        navController.popBackStack(R.id.profileSettingsFragment, true);
+                    }
+                });
     }
 
     private void textChanged() {
@@ -85,7 +96,7 @@ public class PasswordYouRememberFragment extends Fragment {
                         binding.changeDataProgressBar.setVisibility(View.GONE);
                         break;
                     case ERROR:
-                        Log.e("Forgot","Failed");
+                        Log.e("Forgot", "Failed");
                         binding.changeDataProgressBar.setVisibility(View.GONE);
                         break;
                 }

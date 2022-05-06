@@ -10,7 +10,7 @@ import com.example.mtg.databinding.DialogErrorOccurBinding;
 
 public class ErrorDialog extends Dialog {
 
-    private final String message;
+    private String message;
     private final String title;
     private final DialogErrorOccurBinding binding;
 
@@ -27,5 +27,9 @@ public class ErrorDialog extends Dialog {
         setContentView(binding.getRoot());
         binding.errorDialogTitle.setText(title);
         binding.errorDialogText.setText(message);
+    }
+
+    public void setMessage(String message){
+        this.message = message;
     }
 }

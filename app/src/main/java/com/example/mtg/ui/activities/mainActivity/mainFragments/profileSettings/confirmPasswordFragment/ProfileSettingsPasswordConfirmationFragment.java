@@ -18,6 +18,7 @@ import com.example.mtg.R;
 import com.example.mtg.core.ValidationTextWatcher;
 import com.example.mtg.databinding.FragmentProfileSettingsPasswordConfirmationBinding;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.confirmPasswordFragment.confirmPasswordViewModel.ConfirmPasswordViewModel;
+import com.example.mtg.utility.networkDetection.NetworkStateManager;
 
 import java.util.Objects;
 
@@ -52,8 +53,18 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         confirmPasswordViewModel = new ViewModelProvider(requireActivity()).get(ConfirmPasswordViewModel.class);
+        detectConnection();
         initListeners();
         textChanged();
+    }
+
+    private void detectConnection() {
+        NetworkStateManager.getInstance().getNetworkConnectivityStatus().observe(getViewLifecycleOwner(),
+                aBoolean -> {
+                    if (!aBoolean && Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.profileSettingsPasswordConfirmationFragment) {
+                        navController.popBackStack(R.id.profileSettingsFragment, true);
+                    }
+                });
     }
 
     private void textChanged() {
@@ -93,7 +104,7 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
             binding.confirmPasswordProgressBar.setVisibility(View.VISIBLE);
 
             confirmPasswordViewModel.reAuthCurrentUser(password, status -> {
-                switch (status){
+                switch (status) {
                     case SUCCESS:
                         chooseDirection();
                         if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.profileSettingsPasswordConfirmationFragment) {
