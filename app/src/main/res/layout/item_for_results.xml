@@ -53,7 +53,9 @@
                 style="@style/RecyclerItemText"
                 android:id="@+id/user_score"
                 android:layout_weight="30"
-                android:layout_gravity="center"
+                android:gravity="end"
+                android:layout_marginEnd="30dp"
+                android:layout_gravity="center_vertical"
                 android:text="@string/_10000" />
         </LinearLayout>
     </LinearLayout>

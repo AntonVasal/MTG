@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.mtg.core.listsSorters.MainListsSorter;
 import com.example.mtg.databinding.DialogBottomSheetResultsBinding;
 import com.example.mtg.databinding.FragmentResultsRecyclerBinding;
 import com.example.mtg.models.profileModel.UserRegisterProfileModel;
@@ -30,7 +31,7 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
 
     private ResultsRecyclerViewAdapter adapter;
     private ResultsDialog resultsDialog;
-
+    private MainListsSorter mainListsSorter;
     private String name;
     private String country;
     private String nickname;
@@ -59,6 +60,7 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         multiViewModel = new ViewModelProvider(requireActivity()).get(MultiViewModel.class);
+        mainListsSorter = new MainListsSorter();
         firebaseFirestore = FirebaseFirestore.getInstance();
         binding.recyclerProgressBar.setVisibility(View.VISIBLE);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -70,12 +72,16 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
 
     private void generateItem() {
         multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
-            if (multiResultsModels != null && multiResultsModels.size() != 0) {
-                sortNaturalsModels(multiResultsModels);
-                adapter = new ResultsRecyclerViewAdapter(getContext(), 2, 1, this);
-                adapter.setMultiItemList(multiResultsNaturalsModels);
-                binding.resultRecycler.setAdapter(adapter);
-                binding.recyclerProgressBar.setVisibility(View.GONE);
+            if (multiResultsModels != null) {
+                assert multiResultsModels.data != null;
+                if (multiResultsModels.data.size() != 0) {
+                    mainListsSorter.setMultiList(multiResultsModels.data);
+                    multiResultsNaturalsModels = mainListsSorter.sortMultiNaturalsModels();
+                    adapter = new ResultsRecyclerViewAdapter(getContext(), 2, 1, this);
+                    adapter.setMultiItemList(multiResultsNaturalsModels);
+                    binding.resultRecycler.setAdapter(adapter);
+                    binding.recyclerProgressBar.setVisibility(View.GONE);
+                }
             }
         });
     }
@@ -92,11 +98,15 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
             binding.intButton.setEnabled(false);
             binding.decButton.setEnabled(true);
             multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
-                if (multiResultsModels != null && multiResultsModels.size() != 0) {
-                    sortIntegersModels(multiResultsModels);
-                    adapter = new ResultsRecyclerViewAdapter(getContext(), 2, 2, this);
-                    adapter.setMultiItemList(multiResultsIntegersModels);
-                    binding.resultRecycler.setAdapter(adapter);
+                if (multiResultsModels != null) {
+                    assert multiResultsModels.data != null;
+                    if (multiResultsModels.data.size() != 0) {
+                        mainListsSorter.setMultiList(multiResultsModels.data);
+                        multiResultsIntegersModels = mainListsSorter.sortMultiIntegersModels();
+                        adapter = new ResultsRecyclerViewAdapter(getContext(), 2, 2, this);
+                        adapter.setMultiItemList(multiResultsIntegersModels);
+                        binding.resultRecycler.setAdapter(adapter);
+                    }
                 }
             });
 
@@ -106,11 +116,15 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
             binding.intButton.setEnabled(true);
             binding.decButton.setEnabled(false);
             multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
-                if (multiResultsModels != null && multiResultsModels.size() != 0) {
-                    sortDecimalsModels(multiResultsModels);
-                    adapter = new ResultsRecyclerViewAdapter(getContext(), 2, 3, this);
-                    adapter.setMultiItemList(multiResultsDecimalsModels);
-                    binding.resultRecycler.setAdapter(adapter);
+                if (multiResultsModels != null) {
+                    assert multiResultsModels.data != null;
+                    if (multiResultsModels.data.size() != 0) {
+                        mainListsSorter.setMultiList(multiResultsModels.data);
+                        multiResultsDecimalsModels = mainListsSorter.sortMultiDecimalsModels();
+                        adapter = new ResultsRecyclerViewAdapter(getContext(), 2, 3, this);
+                        adapter.setMultiItemList(multiResultsDecimalsModels);
+                        binding.resultRecycler.setAdapter(adapter);
+                    }
                 }
             });
         });
@@ -164,24 +178,6 @@ public class MultiFragment extends Fragment implements OnItemResultsRecyclerClic
                     break;
             }
         });
-    }
-
-    private void sortNaturalsModels(ArrayList<MultiResultsModel> multiResultsModels) {
-        multiResultsModels.sort((multiResultsModel, t1) -> t1.getMultiNaturalScore() - multiResultsModel.getMultiNaturalScore());
-        multiResultsNaturalsModels = new ArrayList<>(multiResultsModels);
-        multiResultsNaturalsModels.removeIf(multiResultsModel -> multiResultsModel.getMultiNaturalScore() == 0);
-    }
-
-    private void sortIntegersModels(ArrayList<MultiResultsModel> multiResultsModels) {
-        multiResultsModels.sort((multiResultsModel, t1) -> t1.getMultiIntegerScore() - multiResultsModel.getMultiIntegerScore());
-        multiResultsIntegersModels = new ArrayList<>(multiResultsModels);
-        multiResultsIntegersModels.removeIf(multiResultsModel -> multiResultsModel.getMultiIntegerScore() == 0);
-    }
-
-    private void sortDecimalsModels(ArrayList<MultiResultsModel> multiResultsModels) {
-        multiResultsModels.sort((multiResultsModel, t1) -> t1.getMultiDecimalScore() - multiResultsModel.getMultiDecimalScore());
-        multiResultsDecimalsModels = new ArrayList<>(multiResultsModels);
-        multiResultsDecimalsModels.removeIf(multiResultsModel -> multiResultsModel.getMultiDecimalScore() == 0);
     }
 
     private void loadDataNaturalMethod(int position) {

@@ -1,4 +1,4 @@
-package com.example.mtg.core;
+package com.example.mtg.core.textwatchers;
 
 import android.text.Editable;
 import android.text.TextWatcher;

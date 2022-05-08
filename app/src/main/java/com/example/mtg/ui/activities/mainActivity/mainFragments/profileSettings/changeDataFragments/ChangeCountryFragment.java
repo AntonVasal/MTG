@@ -28,6 +28,7 @@ public class ChangeCountryFragment extends Fragment {
     private NavController navController;
     private ErrorDialog errorDialog;
     private ProfileSettingsViewModel profileSettingsViewModel;
+    private DialogErrorOccurBinding errorOccurBinding;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class ChangeCountryFragment extends Fragment {
         detectConnection();
         initListeners();
         setViewData();
-        DialogErrorOccurBinding errorOccurBinding = DialogErrorOccurBinding.inflate(getLayoutInflater());
+        errorOccurBinding = DialogErrorOccurBinding.inflate(getLayoutInflater());
         errorDialog = new ErrorDialog(requireActivity(),
                 getResources().getString(R.string.update_error_text),
                 getResources().getString(R.string.updating_failed),
@@ -107,5 +108,6 @@ public class ChangeCountryFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        errorOccurBinding = null;
     }
 }

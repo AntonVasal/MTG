@@ -34,10 +34,6 @@ import com.example.mtg.utility.networkDetection.NetworkStateManager;
 import com.github.drjacky.imagepicker.ImagePicker;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -52,23 +48,14 @@ public class ProfileFragment extends Fragment {
     private FirebaseAuth mAuth;
     private FragmentProfileBinding binding;
     private ProfileViewModel profileViewModel;
-    private FirebaseFirestore firebaseFirestore;
-    private StorageReference storageReference;
-    private String downloadUrl = "";
     private NavController navController;
     private NetworkStateManager networkStateManager;
     private String img;
     private static final String TAG = "MainActivity";
-    private static final String SUCCESS = "Success";
     private static final String FAILED = "Failed";
-    private static final String ADD = "add";
-    private static final String DIV = "div";
-    private static final String MULTI = "multi";
-    private static final String SUB = "sub";
-    private static final String USERS = "users";
-    private static final String EMPTY_IMAGE = "empty image uri";
-    private static final String NO_IMAGE = "no image";
+    private static final String UPLOADING_FAILED = "uploading failed";
     private ActivityResultLauncher<Intent> launcher;
+    private static final String UPLOADING_FAILED_EVERYWHERE = "uploading failed everywhere";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,8 +88,6 @@ public class ProfileFragment extends Fragment {
         networkStateManager = NetworkStateManager.getInstance();
         binding.setViewModel(profileViewModel);
         mAuth = FirebaseAuth.getInstance();
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        storageReference = FirebaseStorage.getInstance().getReference();
         binding.profileProgressBar.setVisibility(View.VISIBLE);
         detectConnection();
         setData();
@@ -176,7 +161,6 @@ public class ProfileFragment extends Fragment {
                         this.invoke((Intent) var1);
                         return Unit.INSTANCE;
                     }
-
                     public final void invoke(@NotNull Intent it) {
                         Intrinsics.checkNotNullParameter(it, "it");
                         launcher.launch(it);
@@ -190,69 +174,45 @@ public class ProfileFragment extends Fragment {
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
+//              if (!img.isEmpty() && !img.equals("no image")) {
+//        String[] strings = img.split("\\?");
+//        strings = strings[0].split("/o/");
+//        storageReference.child(strings[1]).delete().addOnCompleteListener(task16 -> {
+//            if (task16.isSuccessful()) {
+//                Log.i(TAG, SUCCESS);
+//            } else {
+//                Log.i(TAG, FAILED);
+//            }
+//        });
+//    }
 
     private void uploadFile(Uri imageUri) {
         binding.profileProgressBar.setVisibility(View.VISIBLE);
         if (imageUri != null) {
-            new Thread(() -> {
-                String nameImg = String.valueOf(System.currentTimeMillis());
-                final StorageReference fileReference = storageReference.child(nameImg +
-                        "." + fileExtension(imageUri));
-                UploadTask uploadTask = fileReference.putFile(imageUri);
-                uploadTask.continueWithTask(task -> {
-                    if (!task.isSuccessful()) {
-                        throw Objects.requireNonNull(task.getException());
-                    }
-                    return fileReference.getDownloadUrl();
-                }).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-
-                        if (!img.isEmpty() && !img.equals("no image")) {
-                            String[] strings = img.split("\\?");
-                            strings = strings[0].split("/o/");
-                            storageReference.child(strings[1]).delete().addOnCompleteListener(task16 -> {
-                                if (task16.isSuccessful()) {
-                                    Log.i(TAG, SUCCESS);
-                                } else {
-                                    Log.i(TAG, FAILED);
+                String extension = fileExtension(imageUri);
+                String nameImg;
+                if (extension!=null){
+                    nameImg = System.currentTimeMillis() + "." + extension;
+                }else {
+                    nameImg = System.currentTimeMillis() + "." + "jpg";
+                }
+                profileViewModel.updateUserImage(imageUri, nameImg, userField -> {
+                    switch (userField.status){
+                        case SUCCESS:
+                            binding.profileProgressBar.setVisibility(View.GONE);
+                            break;
+                        case ERROR:
+                            if (userField.message != null) {
+                                if (userField.message.equals(UPLOADING_FAILED_EVERYWHERE) || userField.message.equals(UPLOADING_FAILED)){
+                                    Log.e(TAG,UPLOADING_FAILED_EVERYWHERE);
+                                }else {
+                                    Log.e(TAG,FAILED);
                                 }
-                            });
-                        }
-
-                        Uri downloadUri = task.getResult();
-                        assert downloadUri != null;
-                        downloadUrl = downloadUri.toString();
-
-                        firebaseFirestore.collection(ADD).document(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
-                                .update("imageUrl", downloadUrl);
-                        firebaseFirestore.collection(SUB).document(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
-                                .update("imageUrl", downloadUrl);
-                        firebaseFirestore.collection(DIV).document(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
-                                .update("imageUrl", downloadUrl);
-                        firebaseFirestore.collection(MULTI).document(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
-                                .update("imageUrl", downloadUrl);
-                        firebaseFirestore.collection(USERS).document(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
-                                .update("imageUrl", downloadUrl);
-
-
-
-                        try {
-                            requireActivity().runOnUiThread(() -> binding.profileProgressBar.setVisibility(View.GONE));
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                    } else {
-                        try {
-                            requireActivity().runOnUiThread(() -> binding.profileProgressBar.setVisibility(View.GONE));
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                            }
+                            binding.profileProgressBar.setVisibility(View.GONE);
                     }
                 });
-            }).start();
         } else {
-            Log.i(TAG, EMPTY_IMAGE);
             binding.profileProgressBar.setVisibility(View.GONE);
         }
     }

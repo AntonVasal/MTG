@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="@dimen/margin_20"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/gradient_blue_dark"
-            android:padding="20dp"
+            android:padding="@dimen/padding_20"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageButton
@@ -53,8 +53,8 @@
                 android:layout_width="wrap_content"
                 android:id="@+id/nickname_text_dialog"
                 style="@style/MainUserNicknameText"
-                android:layout_marginTop="15dp"
-                android:textSize="40sp"
+                android:layout_marginTop="@dimen/margin_15"
+                android:textSize="@dimen/large_text_40"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/image_card_view_dialog" />
@@ -66,8 +66,8 @@
             android:layout_width="wrap_content"
             android:id="@+id/info_text_dialog"
             style="@style/InfoTitle"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="40dp"
+            android:layout_marginTop="@dimen/margin_30"
+            android:layout_marginStart="@dimen/margin_40"
             android:text="@string/account_info"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image_layout_dialog" />
@@ -77,8 +77,8 @@
             android:layout_width="wrap_content"
             android:id="@+id/info_nickname_text_dialog"
             style="@style/KindOfUserDataTextViews"
-            android:layout_marginStart="15dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginStart="@dimen/margin_15"
+            android:layout_marginBottom="@dimen/margin_5"
             android:text="@string/nickname"
             app:layout_constraintBottom_toTopOf="@id/user_nickname_container_dialog"
             app:layout_constraintStart_toStartOf="@id/user_nickname_container_dialog" />
@@ -86,11 +86,11 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/user_nickname_container_dialog"
             style="@style/UserDataConstraintLayout"
-            android:layout_marginHorizontal="35dp"
+            android:layout_marginHorizontal="@dimen/margin_35"
             android:layout_height="wrap_content"
-            android:paddingVertical="5dp"
-            android:paddingHorizontal="10dp"
-            android:layout_marginTop="40dp"
+            android:paddingVertical="@dimen/padding_5"
+            android:paddingHorizontal="@dimen/padding_10"
+            android:layout_marginTop="@dimen/margin_40"
             android:layout_width="match_parent"
             app:layout_constraintTop_toBottomOf="@id/info_text_dialog">
 
@@ -99,8 +99,8 @@
                 android:src="@drawable/ic_baseline_star_24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginVertical="@dimen/margin_10"
+                android:layout_marginStart="@dimen/margin_10"
                 android:contentDescription="@string/user_nickname_image"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -111,7 +111,7 @@
                 android:layout_width="wrap_content"
                 android:id="@+id/info_nickname_dialog"
                 style="@style/UserDataTextViews"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="@dimen/margin_20"
                 android:text=""
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/user_nickname_image_dialog"
@@ -124,8 +124,8 @@
             android:layout_width="wrap_content"
             android:id="@+id/info_name_text_dialog"
             style="@style/KindOfUserDataTextViews"
-            android:layout_marginStart="15dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginStart="@dimen/margin_15"
+            android:layout_marginBottom="@dimen/margin_5"
             android:text="@string/name"
             app:layout_constraintBottom_toTopOf="@id/name_container_dialog"
             app:layout_constraintStart_toStartOf="@id/name_container_dialog" />
@@ -134,11 +134,11 @@
             android:id="@+id/name_container_dialog"
             style="@style/UserDataConstraintLayout"
             android:layout_width="match_parent"
-            android:layout_marginHorizontal="35dp"
+            android:layout_marginHorizontal="@dimen/margin_35"
             android:layout_height="wrap_content"
-            android:paddingVertical="5dp"
-            android:paddingHorizontal="10dp"
-            android:layout_marginTop="40dp"
+            android:paddingVertical="@dimen/padding_5"
+            android:paddingHorizontal="@dimen/padding_10"
+            android:layout_marginTop="@dimen/margin_40"
             app:layout_constraintTop_toBottomOf="@id/user_nickname_container_dialog">
 
             <ImageView
@@ -146,8 +146,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/user_name_image_dialog"
                 android:src="@drawable/ic_baseline_person_24"
-                android:layout_marginVertical="10dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginVertical="@dimen/margin_10"
+                android:layout_marginStart="@dimen/margin_10"
                 android:contentDescription="@string/user_name_image"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -158,7 +158,7 @@
                 android:layout_width="wrap_content"
                 android:id="@+id/info_name_dialog"
                 style="@style/UserDataTextViews"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="@dimen/margin_20"
                 tools:text="Anton"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/user_name_image_dialog"
@@ -170,8 +170,8 @@
             android:layout_width="wrap_content"
             android:id="@+id/info_country_text_dialog"
             style="@style/KindOfUserDataTextViews"
-            android:layout_marginStart="15dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginStart="@dimen/margin_15"
+            android:layout_marginBottom="@dimen/margin_5"
             android:text="@string/country"
             app:layout_constraintBottom_toTopOf="@id/country_container_dialog"
             app:layout_constraintStart_toStartOf="@id/country_container_dialog" />
@@ -182,11 +182,11 @@
             android:id="@+id/country_container_dialog"
             style="@style/UserDataConstraintLayout"
             android:layout_width="match_parent"
-            android:layout_marginHorizontal="35dp"
+            android:layout_marginHorizontal="@dimen/margin_35"
             android:layout_height="wrap_content"
-            android:paddingVertical="5dp"
-            android:paddingHorizontal="10dp"
-            android:layout_marginTop="40dp"
+            android:paddingVertical="@dimen/padding_5"
+            android:paddingHorizontal="@dimen/padding_10"
+            android:layout_marginTop="@dimen/margin_40"
             app:layout_constraintTop_toBottomOf="@id/name_container_dialog">
 
             <ImageView
@@ -194,8 +194,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/user_country_image_dialog"
                 android:src="@drawable/ic_baseline_location_on_24"
-                android:layout_marginVertical="10dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginVertical="@dimen/margin_10"
+                android:layout_marginStart="@dimen/margin_10"
                 android:contentDescription="@string/user_country_image"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -207,7 +207,7 @@
                 android:id="@+id/info_country_dialog"
                 style="@style/UserDataTextViews"
                 tools:text="Ukraine"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="@dimen/margin_20"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/user_country_image_dialog"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -219,8 +219,8 @@
             android:layout_width="wrap_content"
             android:id="@+id/count_info_dialog"
             style="@style/InfoTitle"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginStart="@dimen/margin_40"
+            android:layout_marginTop="@dimen/margin_15"
             android:text="@string/count_info"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/country_container_dialog" />
@@ -230,8 +230,8 @@
             android:layout_width="wrap_content"
             android:id="@+id/info_score_text_dialog"
             style="@style/KindOfUserDataTextViews"
-            android:layout_marginStart="15dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginStart="@dimen/margin_15"
+            android:layout_marginBottom="@dimen/margin_5"
             android:text="@string/score_upper"
             app:layout_constraintBottom_toTopOf="@id/score_container_dialog"
             app:layout_constraintStart_toStartOf="@id/score_container_dialog" />
@@ -241,11 +241,11 @@
             android:id="@+id/score_container_dialog"
             style="@style/UserDataConstraintLayout"
             android:layout_width="match_parent"
-            android:layout_marginHorizontal="35dp"
+            android:layout_marginHorizontal="@dimen/margin_35"
             android:layout_height="wrap_content"
-            android:paddingVertical="5dp"
-            android:paddingHorizontal="10dp"
-            android:layout_marginTop="40dp"
+            android:paddingVertical="@dimen/padding_5"
+            android:paddingHorizontal="@dimen/padding_10"
+            android:layout_marginTop="@dimen/margin_40"
             app:layout_constraintTop_toBottomOf="@id/count_info_dialog">
 
             <ImageView
@@ -253,8 +253,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/user_score_image_dialog"
                 android:src="@drawable/ic_baseline_emoji_events_24"
-                android:layout_marginVertical="10dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginVertical="@dimen/margin_10"
+                android:layout_marginStart="@dimen/margin_10"
                 android:contentDescription="@string/user_country_image"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -265,7 +265,7 @@
                 android:layout_width="wrap_content"
                 android:id="@+id/info_score_dialog"
                 style="@style/UserDataTextViews"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="@dimen/margin_20"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/user_score_image_dialog"
                 app:layout_constraintTop_toTopOf="parent"
@@ -279,8 +279,8 @@
             android:id="@+id/info_tasks_text_dialog"
             style="@style/KindOfUserDataTextViews"
             android:text="@string/tasks_upper"
-            android:layout_marginStart="15dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginStart="@dimen/margin_15"
+            android:layout_marginBottom="@dimen/margin_5"
             app:layout_constraintBottom_toTopOf="@id/tasks_container_dialog"
             app:layout_constraintStart_toStartOf="@id/tasks_container_dialog" />
 
@@ -288,11 +288,11 @@
 
             android:id="@+id/tasks_container_dialog"
             style="@style/UserDataConstraintLayout"
-            android:layout_marginHorizontal="35dp"
+            android:layout_marginHorizontal="@dimen/margin_35"
             android:layout_height="wrap_content"
-            android:paddingVertical="5dp"
-            android:paddingHorizontal="10dp"
-            android:layout_marginTop="40dp"
+            android:paddingVertical="@dimen/padding_5"
+            android:paddingHorizontal="@dimen/padding_10"
+            android:layout_marginTop="@dimen/margin_40"
             android:layout_width="match_parent"
             app:layout_constraintTop_toBottomOf="@id/score_container_dialog">
 
@@ -301,8 +301,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/user_tasks_image_dialog"
                 android:src="@drawable/ic_baseline_done_24"
-                android:layout_marginVertical="10dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginVertical="@dimen/margin_10"
+                android:layout_marginStart="@dimen/margin_10"
                 android:contentDescription="@string/user_country_image"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -314,7 +314,7 @@
                 android:id="@+id/info_tasks_dialog"
                 style="@style/UserDataTextViews"
                 tools:text="50"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="@dimen/margin_20"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/user_tasks_image_dialog"
                 app:layout_constraintTop_toTopOf="parent" />

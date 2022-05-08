@@ -48,6 +48,7 @@ public class IntegerFragment extends Fragment {
     }
 
     private void setImages() {
+        binding.helloCard.setCardBackgroundColor(requireActivity().getResources().getColor(R.color.count_green,requireActivity().getTheme()));
         binding.addText.setImageResource(R.drawable.ic_plus_green);
         binding.subText.setImageResource(R.drawable.ic_minus_green);
         binding.divText.setImageResource(R.drawable.ic_div_green);

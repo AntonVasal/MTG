@@ -1,11 +1,14 @@
 package com.example.mtg.ui.activities.mainActivity.mainFragments.profile.viewModel;
 
+import android.net.Uri;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mtg.models.profileModel.UserRegisterProfileModel;
 import com.example.mtg.repositories.errorHandlerResourse.ErrorHandlingRepositoryData;
 import com.example.mtg.repositories.ProfileRepository;
+import com.example.mtg.repositories.repositoryCallbacks.UserFieldFromRepositoryCallback;
 
 public class ProfileViewModel extends ViewModel {
 
@@ -22,6 +25,10 @@ public class ProfileViewModel extends ViewModel {
 
     public void loadData() {
         profileRepository.getUserData(userRepoData -> user.postValue(userRepoData));
+    }
+
+    public void updateUserImage(Uri uri, String imageName, UserFieldFromRepositoryCallback callback){
+        profileRepository.updateUserProfileImage(uri, imageName, callback);
     }
 
     public void removeListenerRegistration(){

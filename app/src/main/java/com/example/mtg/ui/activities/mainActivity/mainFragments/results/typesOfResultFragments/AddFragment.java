@@ -11,33 +11,31 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.mtg.core.listsSorters.MainListsSorter;
 import com.example.mtg.databinding.DialogBottomSheetResultsBinding;
 import com.example.mtg.databinding.FragmentResultsRecyclerBinding;
-import com.example.mtg.models.profileModel.UserRegisterProfileModel;
 import com.example.mtg.models.countModels.AddResultsModel;
+import com.example.mtg.models.profileModel.UserRegisterProfileModel;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.OnItemResultsRecyclerClickInterface;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
-import com.example.mtg.ui.dialogs.resultsDialog.ResultsDialog;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.results.viewModels.AddViewModel;
+import com.example.mtg.ui.dialogs.resultsDialog.ResultsDialog;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class AddFragment extends Fragment implements OnItemResultsRecyclerClickInterface {
 
     private AddViewModel addViewModel;
-
     private ResultsRecyclerViewAdapter adapter;
     private ResultsDialog resultsDialog;
-
     private FirebaseFirestore firebaseFirestore;
-
     private ArrayList<AddResultsModel> addResultsNaturalsModels;
     private ArrayList<AddResultsModel> addResultsIntegersModels;
     private ArrayList<AddResultsModel> addResultsDecimalsModels;
-
     private static final String USERS = "users";
-
+    private MainListsSorter mainListsSorter;
     private String name;
     private String country;
     private String nickname;
@@ -45,7 +43,6 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
     private String id;
     private int score;
     private int tasks;
-
     private FragmentResultsRecyclerBinding binding;
     private DialogBottomSheetResultsBinding dialogBinding;
 
@@ -60,6 +57,7 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         addViewModel = new ViewModelProvider(requireActivity()).get(AddViewModel.class);
+        mainListsSorter = new MainListsSorter();
         firebaseFirestore = FirebaseFirestore.getInstance();
         binding.recyclerProgressBar.setVisibility(View.VISIBLE);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -71,12 +69,15 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
 
     private void generateItem() {
         addViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), userResultsModels -> {
-            if (userResultsModels != null && userResultsModels.size() != 0) {
-                sortNaturalModels(userResultsModels);
-                adapter = new ResultsRecyclerViewAdapter(getContext(), 1, 1, this);
-                adapter.setAddItemList(addResultsNaturalsModels);
-                binding.resultRecycler.setAdapter(adapter);
-                binding.recyclerProgressBar.setVisibility(View.GONE);
+            if (userResultsModels != null) {
+                if (Objects.requireNonNull(userResultsModels.data).size() != 0) {
+                    mainListsSorter.setAddList(userResultsModels.data);
+                    addResultsNaturalsModels = mainListsSorter.sortAddNaturalModels();
+                    adapter = new ResultsRecyclerViewAdapter(getContext(), 1, 1, this);
+                    adapter.setAddItemList(addResultsNaturalsModels);
+                    binding.resultRecycler.setAdapter(adapter);
+                    binding.recyclerProgressBar.setVisibility(View.GONE);
+                }
             }
         });
     }
@@ -93,11 +94,15 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
             binding.intButton.setEnabled(false);
             binding.decButton.setEnabled(true);
             addViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), userResultsModels -> {
-                if (userResultsModels != null && userResultsModels.size() != 0) {
-                    sortIntegerModels(userResultsModels);
-                    adapter = new ResultsRecyclerViewAdapter(getContext(), 1, 2, this);
-                    adapter.setAddItemList(addResultsIntegersModels);
-                    binding.resultRecycler.setAdapter(adapter);
+                if (userResultsModels != null) {
+                    assert userResultsModels.data != null;
+                    if (userResultsModels.data.size() != 0) {
+                        mainListsSorter.setAddList(userResultsModels.data);
+                        addResultsIntegersModels = mainListsSorter.sortAddIntegerModels();
+                        adapter = new ResultsRecyclerViewAdapter(getContext(), 1, 2, this);
+                        adapter.setAddItemList(addResultsIntegersModels);
+                        binding.resultRecycler.setAdapter(adapter);
+                    }
                 }
             });
         });
@@ -106,11 +111,14 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
             binding.intButton.setEnabled(true);
             binding.decButton.setEnabled(false);
             addViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), userResultsModels -> {
-                if (userResultsModels != null && userResultsModels.size() != 0) {
-                    sortDecimalModels(userResultsModels);
-                    adapter = new ResultsRecyclerViewAdapter(getContext(), 1, 3, this);
-                    adapter.setAddItemList(addResultsDecimalsModels);
-                    binding.resultRecycler.setAdapter(adapter);
+                if (userResultsModels != null) {
+                    if (Objects.requireNonNull(userResultsModels.data).size() != 0) {
+                        mainListsSorter.setAddList(userResultsModels.data);
+                        addResultsDecimalsModels = mainListsSorter.sortAddDecimalModels();
+                        adapter = new ResultsRecyclerViewAdapter(getContext(), 1, 3, this);
+                        adapter.setAddItemList(addResultsDecimalsModels);
+                        binding.resultRecycler.setAdapter(adapter);
+                    }
                 }
             });
         });
@@ -164,24 +172,6 @@ public class AddFragment extends Fragment implements OnItemResultsRecyclerClickI
                     break;
             }
         });
-    }
-
-    private void sortNaturalModels(ArrayList<AddResultsModel> userResultsModels) {
-        userResultsModels.sort((addResultsModel, t1) -> t1.getAddNaturalScore() - addResultsModel.getAddNaturalScore());
-        addResultsNaturalsModels = new ArrayList<>(userResultsModels);
-        addResultsNaturalsModels.removeIf(addResultsModel -> addResultsModel.getAddNaturalScore() == 0);
-    }
-
-    private void sortIntegerModels(ArrayList<AddResultsModel> userResultsModels) {
-        userResultsModels.sort((addResultsModel, t1) -> t1.getAddIntegerScore() - addResultsModel.getAddIntegerScore());
-        addResultsIntegersModels = new ArrayList<>(userResultsModels);
-        addResultsIntegersModels.removeIf(addResultsModel -> addResultsModel.getAddIntegerScore() == 0);
-    }
-
-    private void sortDecimalModels(ArrayList<AddResultsModel> userResultsModels) {
-        userResultsModels.sort((addResultsModel, t1) -> t1.getAddDecimalScore() - addResultsModel.getAddDecimalScore());
-        addResultsDecimalsModels = new ArrayList<>(userResultsModels);
-        addResultsDecimalsModels.removeIf(addResultsModel -> addResultsModel.getAddDecimalScore() == 0);
     }
 
     private void loadDataNaturalMethod(int position) {

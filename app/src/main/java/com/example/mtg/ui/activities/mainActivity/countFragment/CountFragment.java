@@ -17,10 +17,10 @@ import androidx.fragment.app.Fragment;
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentCountBinding;
 import com.example.mtg.ui.activities.mainActivity.countFragment.countResultsToFirestoreSetters.CountResultsToFirestoreSettersOperator;
-import com.example.mtg.ui.activities.mainActivity.countFragment.tasksGenerators.AdvantageTasksGenerator;
-import com.example.mtg.ui.activities.mainActivity.countFragment.tasksGenerators.MediumPlusTasksGenerator;
-import com.example.mtg.ui.activities.mainActivity.countFragment.tasksGenerators.MediumTasksGenerator;
-import com.example.mtg.ui.activities.mainActivity.countFragment.tasksGenerators.PrimaryTasksGenerator;
+import com.example.mtg.core.tasksGenerators.AdvantageTasksGenerator;
+import com.example.mtg.core.tasksGenerators.MediumPlusTasksGenerator;
+import com.example.mtg.core.tasksGenerators.MediumTasksGenerator;
+import com.example.mtg.core.tasksGenerators.PrimaryTasksGenerator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 

@@ -11,14 +11,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.mtg.core.listsSorters.MainListsSorter;
 import com.example.mtg.databinding.DialogBottomSheetResultsBinding;
 import com.example.mtg.databinding.FragmentResultsRecyclerBinding;
-import com.example.mtg.models.profileModel.UserRegisterProfileModel;
 import com.example.mtg.models.countModels.DivResultsModel;
+import com.example.mtg.models.profileModel.UserRegisterProfileModel;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.OnItemResultsRecyclerClickInterface;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
-import com.example.mtg.ui.dialogs.resultsDialog.ResultsDialog;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.results.viewModels.DivViewModel;
+import com.example.mtg.ui.dialogs.resultsDialog.ResultsDialog;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class DivFragment extends Fragment implements OnItemResultsRecyclerClickI
 
     private ResultsRecyclerViewAdapter adapter;
     private ResultsDialog resultsDialog;
-
+    private MainListsSorter mainListsSorter;
     private ArrayList<DivResultsModel> divResultsNaturalsModels;
     private ArrayList<DivResultsModel> divResultsIntegersModels;
     private ArrayList<DivResultsModel> divResultsDecimalsModels;
@@ -59,6 +60,7 @@ public class DivFragment extends Fragment implements OnItemResultsRecyclerClickI
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         divViewModel = new ViewModelProvider(requireActivity()).get(DivViewModel.class);
+        mainListsSorter = new MainListsSorter();
         firebaseFirestore = FirebaseFirestore.getInstance();
         binding.recyclerProgressBar.setVisibility(View.VISIBLE);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -70,12 +72,16 @@ public class DivFragment extends Fragment implements OnItemResultsRecyclerClickI
 
     private void generateItem() {
         divViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), divResultsModels -> {
-            if (divResultsModels != null && divResultsModels.size() != 0) {
-                sortNaturalsModels(divResultsModels);
-                adapter = new ResultsRecyclerViewAdapter(getContext(), 4, 1, this);
-                adapter.setDivItemList(divResultsNaturalsModels);
-                binding.resultRecycler.setAdapter(adapter);
-                binding.recyclerProgressBar.setVisibility(View.GONE);
+            if (divResultsModels != null) {
+                assert divResultsModels.data != null;
+                if (divResultsModels.data.size() != 0) {
+                    mainListsSorter.setDivList(divResultsModels.data);
+                    divResultsNaturalsModels = mainListsSorter.sortDivNaturalsModels();
+                    adapter = new ResultsRecyclerViewAdapter(getContext(), 4, 1, this);
+                    adapter.setDivItemList(divResultsNaturalsModels);
+                    binding.resultRecycler.setAdapter(adapter);
+                    binding.recyclerProgressBar.setVisibility(View.GONE);
+                }
             }
         });
     }
@@ -92,11 +98,15 @@ public class DivFragment extends Fragment implements OnItemResultsRecyclerClickI
             binding.intButton.setEnabled(false);
             binding.decButton.setEnabled(true);
             divViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), divResultsModels -> {
-                if (divResultsModels != null && divResultsModels.size() != 0) {
-                    sortIntegersModels(divResultsModels);
-                    adapter = new ResultsRecyclerViewAdapter(getContext(), 4, 2, this);
-                    adapter.setDivItemList(divResultsIntegersModels);
-                    binding.resultRecycler.setAdapter(adapter);
+                if (divResultsModels != null) {
+                    assert divResultsModels.data != null;
+                    if (divResultsModels.data.size() != 0) {
+                        mainListsSorter.setDivList(divResultsModels.data);
+                        divResultsIntegersModels = mainListsSorter.sortDivIntegersModels();
+                        adapter = new ResultsRecyclerViewAdapter(getContext(), 4, 2, this);
+                        adapter.setDivItemList(divResultsIntegersModels);
+                        binding.resultRecycler.setAdapter(adapter);
+                    }
                 }
             });
         });
@@ -105,11 +115,15 @@ public class DivFragment extends Fragment implements OnItemResultsRecyclerClickI
             binding.intButton.setEnabled(true);
             binding.decButton.setEnabled(false);
             divViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), divResultsModels -> {
-                if (divResultsModels != null && divResultsModels.size() != 0) {
-                    sortDecimalsModels(divResultsModels);
-                    adapter = new ResultsRecyclerViewAdapter(getContext(), 4, 3, this);
-                    adapter.setDivItemList(divResultsDecimalsModels);
-                    binding.resultRecycler.setAdapter(adapter);
+                if (divResultsModels != null) {
+                    assert divResultsModels.data != null;
+                    if (divResultsModels.data.size() != 0) {
+                        mainListsSorter.setDivList(divResultsModels.data);
+                        divResultsDecimalsModels = mainListsSorter.sortDivDecimalsModels();
+                        adapter = new ResultsRecyclerViewAdapter(getContext(), 4, 3, this);
+                        adapter.setDivItemList(divResultsDecimalsModels);
+                        binding.resultRecycler.setAdapter(adapter);
+                    }
                 }
             });
         });
@@ -163,24 +177,6 @@ public class DivFragment extends Fragment implements OnItemResultsRecyclerClickI
                     break;
             }
         });
-    }
-
-    private void sortNaturalsModels(ArrayList<DivResultsModel> divResultsModels) {
-        divResultsModels.sort((divResultsModel, t1) -> t1.getDivNaturalScore() - divResultsModel.getDivNaturalScore());
-        divResultsNaturalsModels = new ArrayList<>(divResultsModels);
-        divResultsNaturalsModels.removeIf(divResultsModel -> divResultsModel.getDivNaturalScore() == 0);
-    }
-
-    private void sortIntegersModels(ArrayList<DivResultsModel> divResultsModels) {
-        divResultsModels.sort((divResultsModel, t1) -> t1.getDivIntegerScore() - divResultsModel.getDivIntegerScore());
-        divResultsIntegersModels = new ArrayList<>(divResultsModels);
-        divResultsIntegersModels.removeIf(divResultsModel -> divResultsModel.getDivIntegerScore() == 0);
-    }
-
-    private void sortDecimalsModels(ArrayList<DivResultsModel> divResultsModels) {
-        divResultsModels.sort((divResultsModel, t1) -> t1.getDivDecimalScore() - divResultsModel.getDivDecimalScore());
-        divResultsDecimalsModels = new ArrayList<>(divResultsModels);
-        divResultsDecimalsModels.removeIf(divResultsModel -> divResultsModel.getDivDecimalScore()==0);
     }
 
     private void loadDataNaturalMethod(int position) {

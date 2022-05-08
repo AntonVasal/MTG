@@ -47,6 +47,7 @@ public class DecimalsFragment extends Fragment {
     }
 
     private void setImages() {
+        binding.helloCard.setCardBackgroundColor(requireActivity().getResources().getColor(R.color.count_yellow,requireActivity().getTheme()));
         binding.addText.setImageResource(R.drawable.plus_yellow);
         binding.subText.setImageResource(R.drawable.minus_yellow);
         binding.divText.setImageResource(R.drawable.division_yellow);

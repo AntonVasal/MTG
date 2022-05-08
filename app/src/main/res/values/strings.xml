@@ -113,12 +113,14 @@
     <string name="change_data_image">change data image</string>
     <string name="public_info">Public Info</string>
     <string name="private_info">Private Info</string>
-    <string name="hello_user_naturals_fragment_text">Hello! 😀 You are on the natural numbers training ground where you can do addition, subtraction, division, multiplication tasks with different complexity. 🧮 Let\'s start your training! Choose type of the tasks and become the best counter! 🏆</string>
+    <string name="hello_user_naturals_fragment_text">Hello! 😀 You are on the natural numbers training ground where you can do addition, subtraction, division, multiplication tasks with different complexity. 💻 Let\'s start your training! Choose type of the tasks and become the best counter! 🏆</string>
     <string name="error_image">error image</string>
     <string name="update_error_text">Error occurred when we were updating your profile. Please, try to do it again. If error appear a few times, contact us - avasalatij@gmail.com.</string>
     <string name="update_password_error_text">Error occurred when we were updating your password. Please, try to do it again. If error appear a few times, contact us - avasalatij@gmail.com.</string>
     <string name="update_email_error_text">Error occurred when we were updating your email. Please, try to do it again. If error appear a few times, contact us - avasalatij@gmail.com.</string>
     <string name="updating_failed">Updating failed!</string>
+    <string name="hello_user_integers_fragment_text">Hello! 😀 You are on the integer numbers training ground where you can do addition, subtraction, division, multiplication tasks with different complexity. 💻 Let\'s start your training! Choose type of the tasks and become the best counter! 🏆</string>
+    <string name="hello_user_decimals_fragment_text">Hello! 😀 You are on the decimal numbers training ground where you can do addition, subtraction, division, multiplication tasks with different complexity. 💻 Let\'s start your training! Choose type of the tasks and become the best counter! 🏆</string>
     <string name="uploading_email_error_text">Email was updated successfully but error occurred when we were uploading your email to our database. Please, try to update it again to prevent some errors. If this error appear a few times, contact us - avasalatij@gmail.com.</string>
     <string name="uploading_nickname_error_text">Nickname was updated successfully in your profile but error occurred when we were uploading your email to other database collection. Please, try to update it again to prevent some errors. If this error appear a few times, contact us - avasalatij@gmail.com.</string>
     <string name="loading_data_error_text">Some errors occurred when we try to load your profile data. If you see it a few times, contact us - avasalatij@gmail.com.</string>

@@ -34,6 +34,7 @@ public class ProfileSettingsFragment extends Fragment {
     private ErrorDialog errorDialog;
     private Bundle bundle;
     private ProfileSettingsViewModel profileSettingsViewModel;
+    private DialogErrorOccurBinding errorOccurBinding;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,7 +55,7 @@ public class ProfileSettingsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         profileSettingsViewModel = new ViewModelProvider(requireActivity()).get(ProfileSettingsViewModel.class);
-        DialogErrorOccurBinding errorOccurBinding = DialogErrorOccurBinding.inflate(getLayoutInflater());
+        errorOccurBinding = DialogErrorOccurBinding.inflate(getLayoutInflater());
         errorDialog = new ErrorDialog(requireActivity(),
                 getResources().getString(R.string.loading_data_error_text),
                 getResources().getString(R.string.updating_failed),
@@ -130,5 +131,6 @@ public class ProfileSettingsFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        errorOccurBinding = null;
     }
 }

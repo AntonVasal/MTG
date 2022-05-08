@@ -5,13 +5,29 @@
     <dimen name="main_elements_text_20">20sp</dimen>
     <dimen name="large_title_text_36">36sp</dimen>
     <dimen name="large_title_text_30">30sp</dimen>
-    <dimen name="corner_radius_20">20dp</dimen>
     <dimen name="user_help_text_15">15sp</dimen>
     <dimen name="enormous_text_80">80sp</dimen>
-    <dimen name="large_corner_radius_75">75dp</dimen>
     <dimen name="large_text_25">25sp</dimen>
+    <dimen name="large_text_40">40sp</dimen>
+
     <dimen name="normal_elevation_15">15dp</dimen>
-    <dimen name="corner_radius_15">15dp</dimen>
     <dimen name="enormous_elevation_1000">1000dp</dimen>
+
     <dimen name="normal_stroke_width_2">2dp</dimen>
+
+    <dimen name="corner_radius_20">20dp</dimen>
+    <dimen name="large_corner_radius_75">75dp</dimen>
+    <dimen name="corner_radius_15">15dp</dimen>
+
+    <dimen name="margin_20">20dp</dimen>
+    <dimen name="margin_15">15dp</dimen>
+    <dimen name="margin_30">30dp</dimen>
+    <dimen name="margin_40">40dp</dimen>
+    <dimen name="margin_5">5dp</dimen>
+    <dimen name="margin_35">35dp</dimen>
+    <dimen name="margin_10">10dp</dimen>
+
+    <dimen name="padding_20">20dp</dimen>
+    <dimen name="padding_10">10dp</dimen>
+    <dimen name="padding_5">5dp</dimen>
 </resources>

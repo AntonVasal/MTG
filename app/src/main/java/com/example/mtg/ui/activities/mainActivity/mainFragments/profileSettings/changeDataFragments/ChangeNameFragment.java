@@ -13,7 +13,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mtg.R;
-import com.example.mtg.core.ValidationTextWatcher;
+import com.example.mtg.core.textwatchers.ValidationTextWatcher;
 import com.example.mtg.databinding.DialogErrorOccurBinding;
 import com.example.mtg.databinding.FragmentChangeDataBinding;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.profileSettingsFragment.profileSettingsFragmentViewModel.ProfileSettingsViewModel;
@@ -28,6 +28,7 @@ public class ChangeNameFragment extends Fragment {
     private NavController navController;
     private ProfileSettingsViewModel profileSettingsViewModel;
     private ErrorDialog errorDialog;
+    private DialogErrorOccurBinding errorOccurBinding;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,7 +48,7 @@ public class ChangeNameFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         profileSettingsViewModel = new ViewModelProvider(requireActivity()).get(ProfileSettingsViewModel.class);
-        DialogErrorOccurBinding errorOccurBinding = DialogErrorOccurBinding.inflate(getLayoutInflater());
+        errorOccurBinding = DialogErrorOccurBinding.inflate(getLayoutInflater());
         errorDialog = new ErrorDialog(requireActivity(),
                 getResources().getString(R.string.update_error_text),
                 getResources().getString(R.string.updating_failed),
@@ -118,5 +119,6 @@ public class ChangeNameFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        errorOccurBinding = null;
     }
 }
