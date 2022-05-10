@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/gradient_for_bottom_navigation"
         android:paddingVertical="5dp"
+        android:elevation="@dimen/normal_elevation_20"
         app:layout_constraintTop_toTopOf="parent"
         app:tabIndicator="@color/transparent"
         app:tabSelectedTextColor="@color/black"

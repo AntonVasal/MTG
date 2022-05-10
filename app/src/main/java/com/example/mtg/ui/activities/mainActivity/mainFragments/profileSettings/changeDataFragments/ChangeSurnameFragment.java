@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -77,6 +78,7 @@ public class ChangeSurnameFragment extends Fragment {
         binding.changeEditText.setHint(R.string.surname);
         binding.changeEditText.setStartIconDrawable(R.drawable.ic_baseline_group_24);
         binding.changeButton.setText(R.string.change_surname);
+        binding.changeImage.setImageDrawable(ResourcesCompat.getDrawable(requireActivity().getResources(), R.drawable.ic_meeting_group, requireActivity().getTheme()));
     }
 
     private void initListeners() {

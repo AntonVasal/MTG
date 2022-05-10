@@ -1,5 +1,6 @@
-package com.example.mtg.repositories;
+package com.example.mtg.repositories.userRepositories;
 
+import com.example.mtg.App;
 import com.example.mtg.models.profileModel.UserRegisterProfileModel;
 import com.example.mtg.repositories.errorHandlerResourse.ErrorHandlingRepositoryData;
 import com.example.mtg.repositories.repositoryCallbacks.UpdateProfileCallback;
@@ -26,7 +27,7 @@ public class LogRepository {
     private static final String DATA_NOT_PUSHED = "Data was not pushed to database";
 
     public LogRepository() {
-        preferencesHolder = SharedPreferencesHolder.getInstance();
+        preferencesHolder = SharedPreferencesHolder.getInstance(App.instance);
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
     }

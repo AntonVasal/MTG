@@ -26,8 +26,8 @@
             android:padding="2dp"
             android:layout_marginTop="50dp"
             android:backgroundTint="@color/white"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="20dp"
+            app:cardCornerRadius="@dimen/corner_radius_20"
+            app:cardElevation="@dimen/normal_elevation_20"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -36,7 +36,7 @@
                 android:id="@+id/your_results"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="7dp"
+                android:layout_margin="@dimen/margin_7"
                 android:text="@string/your_results"
                 android:textColor="@color/blue_bright"
                 android:textSize="28sp" />

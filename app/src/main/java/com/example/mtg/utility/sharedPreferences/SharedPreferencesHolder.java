@@ -11,14 +11,11 @@ public class SharedPreferencesHolder {
     public static final String SHARED_NAME = "Data";
     public static final String DEFAULT_STRING = "Empty";
 
-    public static void createInstance(Context context){
+    public static SharedPreferencesHolder getInstance(Context context){
         if (instance==null){
             instance = new SharedPreferencesHolder();
             instance.editShared(context);
         }
-    }
-
-    public static SharedPreferencesHolder getInstance() {
         return instance;
     }
 

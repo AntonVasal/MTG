@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.mtg.models.profileModel.UserRegisterProfileModel;
 import com.example.mtg.repositories.errorHandlerResourse.ErrorHandlingRepositoryData;
-import com.example.mtg.repositories.ProfileRepository;
+import com.example.mtg.repositories.userRepositories.ProfileRepository;
 import com.example.mtg.repositories.repositoryCallbacks.UserFieldFromRepositoryCallback;
 
 public class ProfileViewModel extends ViewModel {

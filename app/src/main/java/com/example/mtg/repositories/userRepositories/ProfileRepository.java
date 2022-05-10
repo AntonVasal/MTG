@@ -1,7 +1,8 @@
-package com.example.mtg.repositories;
+package com.example.mtg.repositories.userRepositories;
 
 import android.net.Uri;
 
+import com.example.mtg.App;
 import com.example.mtg.models.profileModel.UserRegisterProfileModel;
 import com.example.mtg.repositories.errorHandlerResourse.ErrorHandlingRepositoryData;
 import com.example.mtg.repositories.repositoryCallbacks.UpdateProfileCallback;
@@ -46,7 +47,7 @@ public class ProfileRepository {
     private static final String UPLOADING_FAILED_EVERYWHERE = "uploading failed everywhere";
 
     public ProfileRepository() {
-        preferencesHolder = SharedPreferencesHolder.getInstance();
+        preferencesHolder = SharedPreferencesHolder.getInstance(App.instance);
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -276,9 +277,9 @@ public class ProfileRepository {
     private void updateUserImageInMainCollection(String imageUrl, UserFieldFromRepositoryCallback callback) {
         new Thread(() -> firebaseFirestore.collection(USERS).document(id).update(IMAGE_URL, imageUrl).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                preferencesHolder.setData(IMAGE_URL,imageUrl);
+                preferencesHolder.setData(IMAGE_URL, imageUrl);
                 uploadUserImageToCountCollection(imageUrl, userField -> {
-                    switch (userField.status){
+                    switch (userField.status) {
                         case SUCCESS:
                             callback.userFieldCallback(ErrorHandlingRepositoryData.success(SUCCESS));
                             break;
@@ -305,30 +306,30 @@ public class ProfileRepository {
         }).addOnFailureListener(e -> counter.getAndIncrement())
 
                 .continueWithTask(task -> uploadTaskSub).addOnCompleteListener(task -> {
-                    if (!task.isSuccessful()) {
-                        counter.getAndIncrement();
-                    }
-                }).addOnFailureListener(e -> counter.getAndIncrement())
+            if (!task.isSuccessful()) {
+                counter.getAndIncrement();
+            }
+        }).addOnFailureListener(e -> counter.getAndIncrement())
 
                 .continueWithTask(task -> uploadTaskMulti).addOnCompleteListener(task -> {
-                    if (!task.isSuccessful()) {
-                        counter.getAndIncrement();
-                    }
-                }).addOnFailureListener(e -> counter.getAndIncrement())
+            if (!task.isSuccessful()) {
+                counter.getAndIncrement();
+            }
+        }).addOnFailureListener(e -> counter.getAndIncrement())
 
                 .continueWithTask(task -> uploadTaskDiv).addOnCompleteListener(task -> {
-                    if (!task.isSuccessful()) {
-                        counter.getAndIncrement();
-                    }
-                    if (counter.get() == 0) {
-                        callback.userFieldCallback(ErrorHandlingRepositoryData.success(SUCCESS));
-                    } else {
-                        callback.userFieldCallback(ErrorHandlingRepositoryData.error(FAILED, counter.toString()));
-                    }
-                }).addOnFailureListener(e -> {
-                    counter.getAndIncrement();
-                    callback.userFieldCallback(ErrorHandlingRepositoryData.error(FAILED, counter.toString()));
-                }));
+            if (!task.isSuccessful()) {
+                counter.getAndIncrement();
+            }
+            if (counter.get() == 0) {
+                callback.userFieldCallback(ErrorHandlingRepositoryData.success(SUCCESS));
+            } else {
+                callback.userFieldCallback(ErrorHandlingRepositoryData.error(FAILED, counter.toString()));
+            }
+        }).addOnFailureListener(e -> {
+            counter.getAndIncrement();
+            callback.userFieldCallback(ErrorHandlingRepositoryData.error(FAILED, counter.toString()));
+        })).start();
     }
 
 }

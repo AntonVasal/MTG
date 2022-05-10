@@ -1,4 +1,4 @@
-package com.example.mtg.repositories;
+package com.example.mtg.repositories.countRepositories;
 
 import com.example.mtg.models.countModels.AddResultsModel;
 import com.example.mtg.repositories.errorHandlerResourse.ErrorHandlingRepositoryData;

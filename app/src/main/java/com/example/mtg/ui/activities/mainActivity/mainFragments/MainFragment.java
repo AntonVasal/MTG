@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.example.mtg.R;
+import com.example.mtg.ui.activities.mainActivity.mainFragments.apod.ApodFragment;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.home.HomeFragment;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.profile.ProfileFragment;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.results.ResultFragment;
@@ -30,13 +31,16 @@ public class MainFragment extends Fragment {
 
         meowBottomNavigation.add(new MeowBottomNavigation.Model(0,R.drawable.ic_baseline_home_24));
         meowBottomNavigation.add(new MeowBottomNavigation.Model(1,R.drawable.ic_baseline_emoji_events_24));
-        meowBottomNavigation.add(new MeowBottomNavigation.Model(2,R.drawable.ic_baseline_person_24));
+        meowBottomNavigation.add(new MeowBottomNavigation.Model(2,R.drawable.ic_baseline_image_24));
+        meowBottomNavigation.add(new MeowBottomNavigation.Model(3,R.drawable.ic_baseline_person_24));
+
 
         meowBottomNavigation.show(0,true);
 
         ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
         fragmentArrayList.add(new HomeFragment());
         fragmentArrayList.add(new ResultFragment());
+        fragmentArrayList.add(new ApodFragment());
         fragmentArrayList.add(new ProfileFragment());
 
         fragmentManager.beginTransaction().replace(R.id.fragmentContainerView,fragmentArrayList.get(0)).commit();

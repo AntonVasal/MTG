@@ -124,6 +124,7 @@
     <string name="uploading_email_error_text">Email was updated successfully but error occurred when we were uploading your email to our database. Please, try to update it again to prevent some errors. If this error appear a few times, contact us - avasalatij@gmail.com.</string>
     <string name="uploading_nickname_error_text">Nickname was updated successfully in your profile but error occurred when we were uploading your email to other database collection. Please, try to update it again to prevent some errors. If this error appear a few times, contact us - avasalatij@gmail.com.</string>
     <string name="loading_data_error_text">Some errors occurred when we try to load your profile data. If you see it a few times, contact us - avasalatij@gmail.com.</string>
+    <string name="astronomy_picture_of_day">Astronomy Picture Of Day</string>
 
     <string-array name="types_of_number">
         <item>Natural numbers</item>

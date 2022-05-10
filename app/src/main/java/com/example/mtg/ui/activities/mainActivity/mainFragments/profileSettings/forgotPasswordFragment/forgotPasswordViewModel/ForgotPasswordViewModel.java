@@ -2,7 +2,7 @@ package com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings
 
 import androidx.lifecycle.ViewModel;
 
-import com.example.mtg.repositories.ProfileRepository;
+import com.example.mtg.repositories.userRepositories.ProfileRepository;
 import com.example.mtg.repositories.repositoryCallbacks.UpdateProfileCallback;
 
 public class ForgotPasswordViewModel extends ViewModel {

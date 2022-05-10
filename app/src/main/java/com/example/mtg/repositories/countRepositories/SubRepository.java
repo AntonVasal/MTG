@@ -1,6 +1,6 @@
-package com.example.mtg.repositories;
+package com.example.mtg.repositories.countRepositories;
 
-import com.example.mtg.models.countModels.DivResultsModel;
+import com.example.mtg.models.countModels.SubResultsModel;
 import com.example.mtg.repositories.errorHandlerResourse.ErrorHandlingRepositoryData;
 import com.example.mtg.repositories.repositoryCallbacks.ArraysFromRepositoryCallback;
 import com.google.firebase.auth.FirebaseAuth;
@@ -9,46 +9,46 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
-public class DivRepository {
+public class SubRepository {
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth;
-    private static final String DIV = "div";
+    private static final String SUB = "sub";
     private static final String FAILED = "Failed";
 
-    public DivRepository(){
+    public SubRepository(){
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
-    public void loadDivCollection(ArraysFromRepositoryCallback<DivResultsModel> divArray){
-        ArrayList<DivResultsModel> arrayList = new ArrayList<>();
-        new Thread(() -> firebaseFirestore.collection(DIV).addSnapshotListener((value, error) -> {
+    public void loadSubCollection(ArraysFromRepositoryCallback<SubResultsModel> callback){
+        ArrayList<SubResultsModel> arrayList = new ArrayList<>();
+        new Thread(() -> firebaseFirestore.collection(SUB).addSnapshotListener((value, error) -> {
             if (error != null) {
-                divArray.arrayFromRepository(ErrorHandlingRepositoryData.error(error.getMessage(), null));
+                callback.arrayFromRepository(ErrorHandlingRepositoryData.error(error.getMessage(), null));
                 return;
             }
             if (value == null) {
-                divArray.arrayFromRepository(ErrorHandlingRepositoryData.error(FAILED, null));
+                callback.arrayFromRepository(ErrorHandlingRepositoryData.error(FAILED, null));
                 return;
             }
             for (DocumentChange dc : value.getDocumentChanges()) {
-                DivResultsModel divResultsModel = dc.getDocument().toObject(DivResultsModel.class);
+                SubResultsModel subResultsModel = dc.getDocument().toObject(SubResultsModel.class);
                 switch (dc.getType()) {
                     case ADDED:
-                        arrayList.add(divResultsModel);
+                        arrayList.add(subResultsModel);
                         break;
                     case MODIFIED:
                         int k = 0;
-                        String id = divResultsModel.getId();
+                        String id = subResultsModel.getId();
                         for (int i = 0; i < arrayList.size(); i++) {
                             if (arrayList.get(i).getId().equals(id)) {
                                 k = i;
                             }
                         }
-                        arrayList.set(k, divResultsModel);
+                        arrayList.set(k, subResultsModel);
                         break;
                 }
-                divArray.arrayFromRepository(ErrorHandlingRepositoryData.success(arrayList));
+                callback.arrayFromRepository(ErrorHandlingRepositoryData.success(arrayList));
             }
         })).start();
     }

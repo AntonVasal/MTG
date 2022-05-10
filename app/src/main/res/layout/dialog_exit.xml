@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        app:cardCornerRadius="35dp">
+        app:cardCornerRadius="@dimen/corner_radius_35">
 
         <ImageView
             android:id="@+id/dialog_image"
@@ -34,17 +34,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="15dp"
-        android:elevation="10dp"
+        android:layout_marginTop="@dimen/margin_15"
+        android:elevation="@dimen/normal_elevation_10"
         android:id="@+id/are_you_sure_text"
         android:text="@string/are_you_sure"
         android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:textSize="@dimen/main_elements_text_20" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="@dimen/margin_10"
         android:id="@+id/dialog_exit_linear_for_buttons"
         app:layout_constraintBottom_toBottomOf="parent"
         android:weightSum="100">
@@ -55,24 +55,24 @@
             android:backgroundTint="@color/white"
             android:text="@string/cancel"
             android:layout_weight="50"
-            android:layout_marginEnd="7dp"
-            android:textSize="12sp"
-            android:layout_marginStart="7dp"
+            android:layout_marginEnd="@dimen/margin_7"
+            android:textSize="@dimen/small_text_12"
+            android:layout_marginStart="@dimen/margin_7"
             android:textColor="@color/blue_bright"
-            app:cornerRadius="20dp" />
+            app:cornerRadius="@dimen/corner_radius_20" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/exit_dialog_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="7dp"
+            android:layout_marginStart="@dimen/margin_7"
             android:layout_weight="50"
-            android:textSize="12sp"
-            android:layout_marginEnd="7dp"
+            android:textSize="@dimen/small_text_12"
+            android:layout_marginEnd="@dimen/margin_7"
             android:backgroundTint="@color/white"
             android:text="@string/exit"
             android:textColor="@color/blue_bright"
-            app:cornerRadius="20dp" />
+            app:cornerRadius="@dimen/corner_radius_20" />
     </LinearLayout>
 
 

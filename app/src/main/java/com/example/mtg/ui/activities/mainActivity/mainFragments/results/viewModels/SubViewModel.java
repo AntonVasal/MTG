@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mtg.models.countModels.SubResultsModel;
-import com.example.mtg.repositories.SubRepository;
+import com.example.mtg.repositories.countRepositories.SubRepository;
 import com.example.mtg.repositories.errorHandlerResourse.ErrorHandlingRepositoryData;
 
 import java.util.ArrayList;

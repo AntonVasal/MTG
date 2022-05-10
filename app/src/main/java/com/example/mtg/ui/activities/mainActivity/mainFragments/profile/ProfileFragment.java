@@ -234,6 +234,15 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+//    implementation 'androidx.emoji:emoji:1.0.0'
+
+//
+//    Andrey Skakunenko18:17
+//    implementation 'com.github.d-max:spots-dialog:0.7@aar'
+//    Andrey Skakunenko18:19
+//    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+//    https://jitpack.io/p/ybq/android-SpinKit
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

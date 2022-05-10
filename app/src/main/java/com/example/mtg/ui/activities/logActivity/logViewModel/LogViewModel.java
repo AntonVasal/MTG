@@ -3,7 +3,7 @@ package com.example.mtg.ui.activities.logActivity.logViewModel;
 import androidx.lifecycle.ViewModel;
 
 import com.example.mtg.models.profileModel.UserRegisterProfileModel;
-import com.example.mtg.repositories.LogRepository;
+import com.example.mtg.repositories.userRepositories.LogRepository;
 import com.example.mtg.repositories.repositoryCallbacks.UpdateProfileCallback;
 import com.example.mtg.repositories.repositoryCallbacks.UserFieldFromRepositoryCallback;
 
