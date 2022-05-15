@@ -79,7 +79,7 @@ public class ChangeNameFragment extends Fragment {
         binding.changeEditText.setHint(R.string.name);
         binding.changeEditText.setStartIconDrawable(R.drawable.ic_baseline_person_24);
         binding.changeButton.setText(R.string.change_name);
-        binding.changeImage.setImageDrawable(ResourcesCompat.getDrawable(requireActivity().getResources(), R.drawable.ic_graduate_student, requireActivity().getTheme()));
+        binding.changeImage.setImageDrawable(ResourcesCompat.getDrawable(requireActivity().getResources(), R.drawable.ic_computer_wireframe, requireActivity().getTheme()));
     }
 
     private void initListeners() {
@@ -113,7 +113,6 @@ public class ChangeNameFragment extends Fragment {
                         break;
                 }
             });
-
         });
     }
 

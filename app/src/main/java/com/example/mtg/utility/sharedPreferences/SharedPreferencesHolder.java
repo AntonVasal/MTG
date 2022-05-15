@@ -28,7 +28,7 @@ public class SharedPreferencesHolder {
 
     public void setData(String key, String value){
         sharedPrefEditor.putString(key,value);
-        sharedPrefEditor.commit();
+        sharedPrefEditor.apply();
     }
 
     public String getData(String key){

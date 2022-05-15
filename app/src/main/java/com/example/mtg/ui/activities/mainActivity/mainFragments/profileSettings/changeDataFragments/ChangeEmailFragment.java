@@ -82,7 +82,7 @@ public class ChangeEmailFragment extends Fragment {
         binding.changeEditText.setHint(R.string.email);
         binding.changeEditText.setStartIconDrawable(R.drawable.ic_baseline_email_24);
         binding.changeButton.setText(R.string.change_email);
-        binding.changeImage.setImageDrawable(ResourcesCompat.getDrawable(requireActivity().getResources(), R.drawable.ic_email_yellow_white, requireActivity().getTheme()));
+        binding.changeImage.setImageDrawable(ResourcesCompat.getDrawable(requireActivity().getResources(), R.drawable.ic_computer_wireframe, requireActivity().getTheme()));
     }
 
     private void initListeners() {

@@ -5,11 +5,14 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.mtg.R;
 import com.example.mtg.databinding.ItemApodRecyclerBinding;
 import com.example.mtg.models.apodModel.ApodModel;
 
@@ -36,10 +39,11 @@ public class ApodRecyclerAdapter extends RecyclerView.Adapter<ApodRecyclerViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ApodRecyclerViewHolder holder, int position) {
+        holder.binding.apodItemCard.setAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_for_recycler));
         holder.binding.apodItemAuthor.setText(arrayList.get(position).getCopyright());
         holder.binding.apodItemDate.setText(arrayList.get(position).getDate());
         holder.binding.apodItemTitle.setText(arrayList.get(position).getTitle());
-        Glide.with(context).load(arrayList.get(position).getHdUrl()).centerCrop().into(holder.binding.apodItemImage);
+        Glide.with(context).load(arrayList.get(position).getUrl()).centerCrop().into(holder.binding.apodItemImage);
     }
 
     @Override

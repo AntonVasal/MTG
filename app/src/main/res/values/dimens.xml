@@ -22,6 +22,7 @@
     <dimen name="large_corner_radius_75">75dp</dimen>
     <dimen name="corner_radius_15">15dp</dimen>
     <dimen name="corner_radius_35">35dp</dimen>
+    <dimen name="corner_radius_45">45dp</dimen>
 
     <dimen name="margin_20">20dp</dimen>
     <dimen name="margin_15">15dp</dimen>

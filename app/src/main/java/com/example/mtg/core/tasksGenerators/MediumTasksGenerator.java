@@ -93,7 +93,7 @@ public class MediumTasksGenerator {
         int a;
         int b;
         do {
-            a = random.nextInt(2500);
+            a = random.nextInt(2500)+1;
             b = random.nextInt(23) + 2;
         } while (a % b != 0);
         String task = a + " : " + b + " = ";
@@ -102,8 +102,8 @@ public class MediumTasksGenerator {
 
     public void generateNaturalSubTask() {
         Random random = new Random();
-        int a = random.nextInt(2500);
-        int b = random.nextInt(2500);
+        int a = random.nextInt(2500)+1;
+        int b = random.nextInt(2500)+1;
         String task;
         if (a > b) {
             task = a + " - " + b + " = ";
@@ -115,16 +115,16 @@ public class MediumTasksGenerator {
 
     public void generateNaturalMultiTask() {
         Random random = new Random();
-        int a = random.nextInt(25);
-        int b = random.nextInt(25);
+        int a = random.nextInt(25)+1;
+        int b = random.nextInt(25)+1;
         String task = a + " x " + b + " = ";
         binding.taskText.setText(task);
     }
 
     public void generateNaturalAddTask() {
         Random random = new Random();
-        int a = random.nextInt(2500);
-        int b = random.nextInt(2500);
+        int a = random.nextInt(2500)+1;
+        int b = random.nextInt(2500)+1;
         String task = a + " + " + b + " = ";
         binding.taskText.setText(task);
     }

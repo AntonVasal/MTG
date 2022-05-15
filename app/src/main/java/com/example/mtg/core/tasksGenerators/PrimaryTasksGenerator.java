@@ -93,7 +93,7 @@ public class PrimaryTasksGenerator {
         int a;
         int b;
         do {
-            a = random.nextInt(500);
+            a = random.nextInt(500)+1;
             b = random.nextInt(13) + 2;
         } while (a % b != 0);
         String task = a + " : " + b + " = ";
@@ -102,8 +102,8 @@ public class PrimaryTasksGenerator {
 
     public void generateNaturalSubTask() {
         Random random = new Random();
-        int a = random.nextInt(500);
-        int b = random.nextInt(500);
+        int a = random.nextInt(500)+1;
+        int b = random.nextInt(500)+1;
         String task;
         if (a > b) {
             task = a + " - " + b + " = ";
@@ -115,16 +115,16 @@ public class PrimaryTasksGenerator {
 
     public void generateNaturalMultiTask() {
         Random random = new Random();
-        int a = random.nextInt(15);
-        int b = random.nextInt(15);
+        int a = random.nextInt(15)+2;
+        int b = random.nextInt(15)+2;
         String task = a + " x " + b + " = ";
         binding.taskText.setText(task);
     }
 
     public void generateNaturalAddTask() {
         Random random = new Random();
-        int a = random.nextInt(500);
-        int b = random.nextInt(500);
+        int a = random.nextInt(500)+1;
+        int b = random.nextInt(500)+1;
         String task = a + " + " + b + " = ";
         binding.taskText.setText(task);
     }

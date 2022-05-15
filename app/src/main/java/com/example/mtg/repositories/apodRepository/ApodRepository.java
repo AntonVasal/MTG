@@ -27,7 +27,7 @@ public class ApodRepository {
         apodApi = retrofit.create(ApodApi.class);
     }
 
-    public void getApodLists(String url, ApodListCallback callback){
+    public void getApodLists(ApodListCallback callback){
         apodApi.getApodArray().enqueue(new Callback<ArrayList<ApodModel>>() {
             @Override
             public void onResponse(@NonNull Call<ArrayList<ApodModel>> call, @NonNull Response<ArrayList<ApodModel>> response) {

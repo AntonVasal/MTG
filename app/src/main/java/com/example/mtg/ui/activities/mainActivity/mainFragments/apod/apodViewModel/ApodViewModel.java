@@ -14,15 +14,15 @@ public class ApodViewModel extends ViewModel {
     private MutableLiveData<ErrorHandlingRepositoryData<ArrayList<ApodModel>>> apodList;
     private final ApodRepository apodRepository = new ApodRepository();
 
-    public MutableLiveData<ErrorHandlingRepositoryData<ArrayList<ApodModel>>> getApodList(String url) {
+    public MutableLiveData<ErrorHandlingRepositoryData<ArrayList<ApodModel>>> getApodList() {
         if (apodList == null) {
             apodList = new MutableLiveData<>();
-            loadData(url);
+            loadData();
         }
         return apodList;
     }
 
-    private void loadData(String url) {
-        apodRepository.getApodLists(url, data -> apodList.postValue(data));
+    private void loadData() {
+        apodRepository.getApodLists(data -> apodList.postValue(data));
     }
 }

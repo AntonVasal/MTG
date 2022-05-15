@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +18,7 @@ import com.example.mtg.core.textwatchers.ValidationTextWatcher;
 import com.example.mtg.databinding.FragmentProfileSettingsPasswordConfirmationBinding;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.confirmPasswordFragment.confirmPasswordViewModel.ConfirmPasswordViewModel;
 import com.example.mtg.utility.networkDetection.NetworkStateManager;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Objects;
 
@@ -29,7 +29,6 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
     private NavController navController;
     private NavDirections navDirections;
     private static final String TYPE_FRAGMENTS = "typeFragments";
-    private static final String FAILED = "Failed";
     private int typeFragments;
     private ConfirmPasswordViewModel confirmPasswordViewModel;
 
@@ -72,7 +71,6 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
         binding.passwordForConfirm.addTextChangedListener(textWatcher);
     }
 
-
     private void initListeners() {
         binding.forgetPassword.setOnClickListener(view -> {
             if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.profileSettingsPasswordConfirmationFragment) {
@@ -88,38 +86,43 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
 
         binding.confirmPasswordButton.setOnClickListener(view -> {
             password = Objects.requireNonNull(binding.passwordForConfirm.getText()).toString().trim();
-
             if (password.isEmpty()) {
-                binding.confirmPasswordEditText.setError(getResources().getString(R.string.password_is_required));
-                binding.confirmPasswordEditText.requestFocus();
+                userInputError(getResources().getString(R.string.password_is_required));
                 return;
             }
-
             if (password.length() < 6) {
-                binding.confirmPasswordEditText.setError(getResources().getString(R.string.min_password));
-                binding.confirmPasswordEditText.requestFocus();
+                userInputError(getResources().getString(R.string.min_password));
                 return;
             }
-
-            binding.confirmPasswordProgressBar.setVisibility(View.VISIBLE);
-
-            confirmPasswordViewModel.reAuthCurrentUser(password, status -> {
-                switch (status) {
-                    case SUCCESS:
-                        chooseDirection();
-                        if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.profileSettingsPasswordConfirmationFragment) {
-                            binding.confirmPasswordProgressBar.setVisibility(View.GONE);
-                            binding.passwordForConfirm.setText("");
-                            navController.navigate(navDirections);
-                        }
-                        break;
-                    case ERROR:
-                        binding.confirmPasswordProgressBar.setVisibility(View.GONE);
-                        Toast.makeText(requireActivity(), FAILED, Toast.LENGTH_LONG).show();
-                        break;
-                }
-            });
+            confirmPassword();
         });
+    }
+
+    private void confirmPassword() {
+        binding.confirmPasswordProgressBar.setVisibility(View.VISIBLE);
+        confirmPasswordViewModel.reAuthCurrentUser(password, status -> {
+            switch (status) {
+                case SUCCESS:
+                    chooseDirection();
+                    if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.profileSettingsPasswordConfirmationFragment) {
+                        binding.confirmPasswordProgressBar.setVisibility(View.GONE);
+                        binding.passwordForConfirm.setText("");
+                        navController.navigate(navDirections);
+                    }
+                    break;
+                case ERROR:
+                    binding.confirmPasswordProgressBar.setVisibility(View.GONE);
+                    userInputError(getResources().getString(R.string.check_password));
+                    Snackbar snackbar = Snackbar.make(binding.getRoot(),getResources().getString(R.string.confirmation_failed),Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    break;
+            }
+        });
+    }
+
+    private void userInputError(String error){
+        binding.confirmPasswordEditText.setError(error);
+        binding.confirmPasswordEditText.requestFocus();
     }
 
     private void chooseDirection() {

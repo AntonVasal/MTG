@@ -78,7 +78,7 @@ public class ChangeNicknameFragment extends Fragment {
         binding.changeEditText.setHint(R.string.nickname);
         binding.changeEditText.setStartIconDrawable(R.drawable.ic_baseline_star_24);
         binding.changeButton.setText(R.string.change_nickname);
-        binding.changeImage.setImageDrawable(ResourcesCompat.getDrawable(requireActivity().getResources(), R.drawable.ic_diamond_jewel, requireActivity().getTheme()));
+        binding.changeImage.setImageDrawable(ResourcesCompat.getDrawable(requireActivity().getResources(), R.drawable.ic_blogger, requireActivity().getTheme()));
     }
 
     private void initListeners() {

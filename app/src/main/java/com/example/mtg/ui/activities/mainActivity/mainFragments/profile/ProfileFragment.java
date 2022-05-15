@@ -119,7 +119,6 @@ public class ProfileFragment extends Fragment {
                     img = "no image";
                     Log.e(TAG,FAILED);
             }
-
         });
     }
 

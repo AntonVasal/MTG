@@ -78,7 +78,7 @@ public class ChangeSurnameFragment extends Fragment {
         binding.changeEditText.setHint(R.string.surname);
         binding.changeEditText.setStartIconDrawable(R.drawable.ic_baseline_group_24);
         binding.changeButton.setText(R.string.change_surname);
-        binding.changeImage.setImageDrawable(ResourcesCompat.getDrawable(requireActivity().getResources(), R.drawable.ic_meeting_group, requireActivity().getTheme()));
+        binding.changeImage.setImageDrawable(ResourcesCompat.getDrawable(requireActivity().getResources(), R.drawable.ic_computer_browser, requireActivity().getTheme()));
     }
 
     private void initListeners() {

@@ -80,30 +80,36 @@ public class PasswordYouRememberFragment extends Fragment {
         binding.changeButton.setOnClickListener(view -> {
             password = Objects.requireNonNull(binding.forChange.getText()).toString().trim();
             if (password.isEmpty()) {
-                binding.changeEditText.setError(getResources().getString(R.string.password_is_required));
-                binding.changeEditText.requestFocus();
+                userInputError(getResources().getString(R.string.password_is_required));
                 return;
             }
             if (password.length() < 6) {
-                binding.changeEditText.setError(getResources().getString(R.string.min_password));
-                binding.changeEditText.requestFocus();
+                userInputError(getResources().getString(R.string.min_password));
                 return;
             }
-            binding.changeDataProgressBar.setVisibility(View.VISIBLE);
-            forgotPasswordViewModel.sendResetPasswordEmail(status -> {
-                switch (status) {
-                    case SUCCESS:
-                        binding.changeDataProgressBar.setVisibility(View.GONE);
-                        break;
-                    case ERROR:
-                        Log.e("Forgot", "Failed");
-                        binding.changeDataProgressBar.setVisibility(View.GONE);
-                        break;
-                }
-            });
+            sendEmail();
         });
     }
 
+    private void sendEmail(){
+        binding.changeDataProgressBar.setVisibility(View.VISIBLE);
+        forgotPasswordViewModel.sendResetPasswordEmail(status -> {
+            switch (status) {
+                case SUCCESS:
+                    binding.changeDataProgressBar.setVisibility(View.GONE);
+                    break;
+                case ERROR:
+                    Log.e("Forgot", "Failed");
+                    binding.changeDataProgressBar.setVisibility(View.GONE);
+                    break;
+            }
+        });
+    }
+
+    private void userInputError(String error){
+        binding.changeEditText.setError(error);
+        binding.changeEditText.requestFocus();
+    }
 
     private void setViewsData() {
         binding.changeEditText.setHint(R.string.password_you_remember);

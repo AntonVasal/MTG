@@ -83,7 +83,7 @@ public class ChangePasswordFragment extends Fragment {
         binding.changeEditText.setStartIconDrawable(R.drawable.ic_baseline_security_24);
         binding.changeEditText.setEndIconMode(TextInputLayout.END_ICON_PASSWORD_TOGGLE);
         binding.changeButton.setText(R.string.change_password);
-        binding.changeImage.setImageDrawable(ResourcesCompat.getDrawable(requireActivity().getResources(), R.drawable.ic_calendar, requireActivity().getTheme()));
+        binding.changeImage.setImageDrawable(ResourcesCompat.getDrawable(requireActivity().getResources(), R.drawable.ic_computer_browser, requireActivity().getTheme()));
     }
 
     private void initListeners() {

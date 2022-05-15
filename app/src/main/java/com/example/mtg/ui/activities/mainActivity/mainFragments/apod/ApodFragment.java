@@ -8,16 +8,15 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.mtg.databinding.DialogBottomSheetApodBinding;
 import com.example.mtg.databinding.FragmentApodBinding;
 import com.example.mtg.models.apodModel.ApodModel;
-import com.example.mtg.repositories.errorHandlerResourse.ErrorHandlingRepositoryData;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.apod.apodAdapter.ApodRecyclerAdapter;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.apod.apodAdapter.ApodRecyclerOnItemClickInterface;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.apod.apodViewModel.ApodViewModel;
+import com.example.mtg.ui.dialogs.apodDialog.ApodDialog;
 
 import java.util.ArrayList;
 
@@ -26,12 +25,14 @@ public class ApodFragment extends Fragment implements ApodRecyclerOnItemClickInt
     private ApodViewModel apodViewModel;
     private ArrayList<ApodModel> apodModels = new ArrayList<>();
     private ApodRecyclerAdapter adapter;
-
+    private DialogBottomSheetApodBinding bottomSheetApodBinding;
+    private ApodDialog apodDialog;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentApodBinding.inflate(inflater,container,false);
+        bottomSheetApodBinding = DialogBottomSheetApodBinding.inflate(inflater,container,false);
         return binding.getRoot();
     }
 
@@ -39,14 +40,18 @@ public class ApodFragment extends Fragment implements ApodRecyclerOnItemClickInt
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         apodViewModel = new ViewModelProvider(requireActivity()).get(ApodViewModel.class);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
-        binding.apodRecycler.setLayoutManager(layoutManager);
+        apodDialog = new ApodDialog(requireContext(),bottomSheetApodBinding);
         binding.apodRecyclerProgressBar.setVisibility(View.VISIBLE);
         setData();
+        setSearch();
+    }
+
+    private void setSearch() {
+
     }
 
     private void setData() {
-        apodViewModel.getApodList("apod?api_key=DEMO_KEY").observe(getViewLifecycleOwner(), data -> {
+        apodViewModel.getApodList().observe(getViewLifecycleOwner(), data -> {
             switch (data.status){
                 case SUCCESS:
                     apodModels = data.data;
@@ -74,8 +79,19 @@ public class ApodFragment extends Fragment implements ApodRecyclerOnItemClickInt
 //        binding.description.setText(formattedDate);
 //    }
 
+
     @Override
     public void onApodRecyclerItemClick(int position) {
+        apodDialog.setModel(apodModels.get(position));
+        apodDialog.loadData();
+        apodDialog.show();
+    }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        bottomSheetApodBinding = null;
+        binding = null;
     }
 }
+
