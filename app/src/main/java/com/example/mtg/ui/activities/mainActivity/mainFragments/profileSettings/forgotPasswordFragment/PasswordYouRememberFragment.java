@@ -2,7 +2,6 @@ package com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings
 
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,7 @@ import com.example.mtg.core.textwatchers.ValidationTextWatcher;
 import com.example.mtg.databinding.FragmentChangeDataBinding;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.forgotPasswordFragment.forgotPasswordViewModel.ForgotPasswordViewModel;
 import com.example.mtg.utility.networkDetection.NetworkStateManager;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
@@ -76,7 +76,6 @@ public class PasswordYouRememberFragment extends Fragment {
                 navController.popBackStack();
             }
         });
-
         binding.changeButton.setOnClickListener(view -> {
             password = Objects.requireNonNull(binding.forChange.getText()).toString().trim();
             if (password.isEmpty()) {
@@ -91,22 +90,26 @@ public class PasswordYouRememberFragment extends Fragment {
         });
     }
 
-    private void sendEmail(){
+    private void sendEmail() {
         binding.changeDataProgressBar.setVisibility(View.VISIBLE);
         forgotPasswordViewModel.sendResetPasswordEmail(status -> {
+            Snackbar snackbar;
             switch (status) {
                 case SUCCESS:
                     binding.changeDataProgressBar.setVisibility(View.GONE);
+                    snackbar = Snackbar.make(binding.getRoot(), getResources().getString(R.string.check_your_email), Snackbar.LENGTH_LONG);
+                    snackbar.show();
                     break;
                 case ERROR:
-                    Log.e("Forgot", "Failed");
                     binding.changeDataProgressBar.setVisibility(View.GONE);
+                    snackbar = Snackbar.make(binding.getRoot(), getResources().getString(R.string.can_not_send_letter), Snackbar.LENGTH_LONG);
+                    snackbar.show();
                     break;
             }
         });
     }
 
-    private void userInputError(String error){
+    private void userInputError(String error) {
         binding.changeEditText.setError(error);
         binding.changeEditText.requestFocus();
     }

@@ -4,12 +4,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.mtg.R;
 import com.example.mtg.databinding.DialogBottomSheetApodBinding;
 import com.example.mtg.databinding.FragmentApodBinding;
 import com.example.mtg.models.apodModel.ApodModel;
@@ -19,6 +23,7 @@ import com.example.mtg.ui.activities.mainActivity.mainFragments.apod.apodViewMod
 import com.example.mtg.ui.dialogs.apodDialog.ApodDialog;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ApodFragment extends Fragment implements ApodRecyclerOnItemClickInterface {
     private FragmentApodBinding binding;
@@ -47,7 +52,32 @@ public class ApodFragment extends Fragment implements ApodRecyclerOnItemClickInt
     }
 
     private void setSearch() {
+        binding.apodSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String s) {
+                sortApodLists(s);
+                return false;
+            }
+        });
+    }
+
+    private void sortApodLists(String s) {
+        ArrayList<ApodModel> sortedList = new ArrayList<>();
+        ApodModel apodModel;
+        for (int i = 0; i <apodModels.size(); i++) {
+            apodModel = apodModels.get(i);
+            if (apodModel.getDate().toLowerCase(Locale.ROOT).contains(s) || apodModel.getTitle().toLowerCase(Locale.ROOT).contains(s)){
+                sortedList.add(apodModel);
+            }
+        }
+        if (!sortedList.isEmpty()){
+            adapter.setArrayList(sortedList);
+        }
     }
 
     private void setData() {

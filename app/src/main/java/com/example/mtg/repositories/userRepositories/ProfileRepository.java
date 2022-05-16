@@ -70,6 +70,12 @@ public class ProfileRepository {
                     if (value != null && value.exists()) {
                         userRegisterProfileModel = value.toObject(UserRegisterProfileModel.class);
                         assert userRegisterProfileModel != null;
+                        preferencesHolder.setData(NAME,userRegisterProfileModel.getName());
+                        preferencesHolder.setData(NICKNAME,userRegisterProfileModel.getNickname());
+                        preferencesHolder.setData(EMAIL,userRegisterProfileModel.getEmail());
+                        preferencesHolder.setData(SURNAME,userRegisterProfileModel.getSurname());
+                        preferencesHolder.setData(COUNTRY,userRegisterProfileModel.getCountry());
+                        preferencesHolder.setData(IMAGE_URL,userRegisterProfileModel.getImageUrl());
                         userRepositoryCallback.userRepoCallback(ErrorHandlingRepositoryData.success(userRegisterProfileModel));
                     }
                 })).start();

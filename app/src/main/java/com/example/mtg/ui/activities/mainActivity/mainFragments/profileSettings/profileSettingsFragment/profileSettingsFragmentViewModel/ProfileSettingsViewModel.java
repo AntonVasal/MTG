@@ -21,7 +21,7 @@ public class ProfileSettingsViewModel extends ViewModel {
         return user;
     }
 
-    private void loadData() {
+    public void loadData() {
         profileRepository.getUserData(userRepoData -> user.postValue(userRepoData));
     }
 
@@ -47,6 +47,10 @@ public class ProfileSettingsViewModel extends ViewModel {
 
     public void updateNickname(String nickname, UserFieldFromRepositoryCallback callback){
         profileRepository.updateUserNickname(nickname, callback);
+    }
+
+    public void removeListener(){
+        profileRepository.removeListener();
     }
 
 }

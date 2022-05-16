@@ -51,6 +51,7 @@ public class ProfileFragment extends Fragment {
     private NavController navController;
     private NetworkStateManager networkStateManager;
     private String img;
+    private static int counter=0;
     private static final String TAG = "MainActivity";
     private static final String FAILED = "Failed";
     private static final String UPLOADING_FAILED = "uploading failed";
@@ -112,11 +113,11 @@ public class ProfileFragment extends Fragment {
             binding.profileProgressBar.setVisibility(View.GONE);
             switch (data.status){
                 case SUCCESS:
-                    assert data.data != null;
-                    img = data.data.getImageUrl();
+//                    assert data.data != null;
+//                    img = data.data.getImageUrl();
                     break;
                 case ERROR:
-                    img = "no image";
+//                    img = "no image";
                     Log.e(TAG,FAILED);
             }
         });
@@ -186,7 +187,6 @@ public class ProfileFragment extends Fragment {
 //    }
 
     private void uploadFile(Uri imageUri) {
-        binding.profileProgressBar.setVisibility(View.VISIBLE);
         if (imageUri != null) {
                 String extension = fileExtension(imageUri);
                 String nameImg;
@@ -195,25 +195,28 @@ public class ProfileFragment extends Fragment {
                 }else {
                     nameImg = System.currentTimeMillis() + "." + "jpg";
                 }
-                profileViewModel.updateUserImage(imageUri, nameImg, userField -> {
-                    switch (userField.status){
-                        case SUCCESS:
-                            binding.profileProgressBar.setVisibility(View.GONE);
-                            break;
-                        case ERROR:
-                            if (userField.message != null) {
-                                if (userField.message.equals(UPLOADING_FAILED_EVERYWHERE) || userField.message.equals(UPLOADING_FAILED)){
-                                    Log.e(TAG,UPLOADING_FAILED_EVERYWHERE);
-                                }else {
-                                    Log.e(TAG,FAILED);
-                                }
-                            }
-                            binding.profileProgressBar.setVisibility(View.GONE);
-                    }
-                });
-        } else {
-            binding.profileProgressBar.setVisibility(View.GONE);
+               updateImage(imageUri,nameImg);
         }
+    }
+
+    private void updateImage(Uri imageUri, String nameImg) {
+        binding.profileProgressBar.setVisibility(View.VISIBLE);
+        profileViewModel.updateUserImage(imageUri, nameImg, userField -> {
+            switch (userField.status){
+                case SUCCESS:
+                    binding.profileProgressBar.setVisibility(View.GONE);
+                    break;
+                case ERROR:
+                    if (userField.message != null) {
+                        if (userField.message.equals(UPLOADING_FAILED_EVERYWHERE) || userField.message.equals(UPLOADING_FAILED)){
+                            Log.e(TAG,UPLOADING_FAILED_EVERYWHERE);
+                        }else {
+                            Log.e(TAG,FAILED);
+                        }
+                    }
+                    binding.profileProgressBar.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
@@ -227,10 +230,10 @@ public class ProfileFragment extends Fragment {
         super.onViewStateRestored(savedInstanceState);
         Boolean isConnect = networkStateManager.getNetworkConnectivityStatus().getValue();
         profileViewModel.removeListenerRegistration();
-        assert isConnect != null;
-        if (isConnect){
+        if (isConnect!= null && isConnect && counter>0){
             profileViewModel.loadData();
         }
+        counter++;
     }
 
 //    implementation 'androidx.emoji:emoji:1.0.0'

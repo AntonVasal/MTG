@@ -131,6 +131,8 @@
     <string name="astronomy_image">Astronomy image</string>
     <string name="confirmation_failed">Confirmation failed!</string>
     <string name="check_password">Check your password, please!</string>
+    <string name="can_not_send_letter">Can not send email, please try again!</string>
+    <string name="check_your_email">Check your email, please!</string>
 
     <string-array name="types_of_number">
         <item>Natural numbers</item>

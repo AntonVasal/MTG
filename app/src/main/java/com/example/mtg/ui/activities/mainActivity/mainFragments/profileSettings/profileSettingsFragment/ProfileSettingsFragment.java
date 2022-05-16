@@ -32,9 +32,11 @@ public class ProfileSettingsFragment extends Fragment {
     private static final String DATA = "DATA";
     private static final String LOADED = "loaded";
     private ErrorDialog errorDialog;
+    private static int counter = 0;
     private Bundle bundle;
     private ProfileSettingsViewModel profileSettingsViewModel;
     private DialogErrorOccurBinding errorOccurBinding;
+    private NetworkStateManager networkStateManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +56,7 @@ public class ProfileSettingsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        networkStateManager = NetworkStateManager.getInstance();
         profileSettingsViewModel = new ViewModelProvider(requireActivity()).get(ProfileSettingsViewModel.class);
         errorOccurBinding = DialogErrorOccurBinding.inflate(getLayoutInflater());
         errorDialog = new ErrorDialog(requireActivity(),
@@ -67,7 +70,7 @@ public class ProfileSettingsFragment extends Fragment {
     }
 
     private void detectConnection() {
-        NetworkStateManager.getInstance().getNetworkConnectivityStatus().observe(getViewLifecycleOwner(),
+        networkStateManager.getNetworkConnectivityStatus().observe(getViewLifecycleOwner(),
                 aBoolean -> {
                     if (!aBoolean && Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.profileSettingsFragment) {
                         navController.popBackStack();
@@ -120,11 +123,26 @@ public class ProfileSettingsFragment extends Fragment {
         });
     }
 
-
     private void letsGoToConfirmPassword(Bundle bundle) {
         if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.profileSettingsFragment) {
             navController.navigate(R.id.action_profileSettingsFragment_to_profileSettingsPasswordConfirmationFragment, bundle);
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        profileSettingsViewModel.removeListener();
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        Boolean isConnect = networkStateManager.getNetworkConnectivityStatus().getValue();
+        if (isConnect != null && isConnect && counter>0){
+            profileSettingsViewModel.loadData();
+        }
+        counter++;
     }
 
     @Override

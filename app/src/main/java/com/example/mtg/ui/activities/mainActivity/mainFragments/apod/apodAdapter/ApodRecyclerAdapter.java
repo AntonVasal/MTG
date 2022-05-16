@@ -9,6 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 
 public class ApodRecyclerAdapter extends RecyclerView.Adapter<ApodRecyclerViewHolder> {
 
-    private final ArrayList<ApodModel> arrayList;
+    private ArrayList<ApodModel> arrayList;
     private final Context context;
     private final ApodRecyclerOnItemClickInterface recyclerOnItemClickInterface;
 
@@ -28,6 +29,45 @@ public class ApodRecyclerAdapter extends RecyclerView.Adapter<ApodRecyclerViewHo
         this.arrayList = arrayList;
         this.context = context;
         this.recyclerOnItemClickInterface = recyclerOnItemClickInterface;
+    }
+
+    public void setArrayList(ArrayList<ApodModel> arrayList){
+        if (this.arrayList == null){
+            this.arrayList = arrayList;
+        }else {
+            DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
+                @Override
+                public int getOldListSize() {
+                    return ApodRecyclerAdapter.this.arrayList.size();
+                }
+
+                @Override
+                public int getNewListSize() {
+                    return arrayList.size();
+                }
+
+                @Override
+                public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+                    return ApodRecyclerAdapter.this.arrayList.get(oldItemPosition).getTitle().equals(arrayList.get(newItemPosition).getTitle())
+                            || ApodRecyclerAdapter.this.arrayList.get(oldItemPosition).getDate().equals(arrayList.get(newItemPosition).getDate());
+//                            ||ApodRecyclerAdapter.this.arrayList.get(oldItemPosition).getCopyright().equals(arrayList.get(newItemPosition).getCopyright()) ;
+                }
+
+                @Override
+                public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+
+                    ApodModel newApods = ApodRecyclerAdapter.this.arrayList.get(oldItemPosition);
+
+                    ApodModel oldApods = arrayList.get(newItemPosition);
+
+                    return newApods.getTitle().equals(oldApods.getTitle()) ||
+                            newApods.getTitle().equals(oldApods.getDate());
+//                            newApods.getTitle().equals(oldApods.getCopyright());
+                }
+            });
+            this.arrayList = arrayList;
+            result.dispatchUpdatesTo(this);
+        }
     }
 
     @NonNull
