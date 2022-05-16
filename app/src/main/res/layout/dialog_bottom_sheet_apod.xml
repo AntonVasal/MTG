@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/apod_dialog_image"
+                android:contentDescription="@string/astronomy_image"
+                android:layout_width="match_parent"
+                tools:src="@drawable/logo_main"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@color/grey"
+                android:layout_height="300dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginHorizontal="@dimen/padding_20"
+                android:layout_height="wrap_content"
+                android:id="@+id/apod_dialog_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/apod_dialog_image"
+                android:layout_marginBottom="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_20"
+                tools:text="@string/astronomy_picture_of_day"
+                android:textColor="@color/black"
+                android:textSize="@dimen/large_title_text_30"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/padding_10"
+                android:textSize="@dimen/for_user_data_text_18"
+                android:paddingHorizontal="@dimen/padding_20"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@color/black"
+                tools:text="The massive stars of NGC 346 are short lived, but very energetic. The star cluster is embedded in the largest star forming region in the Small Magellanic Cloud, some 210,000 light-years distant. Their winds and radiation sweep out an interstellar cavern in the gas and dust cloud about 200 light-years across, triggering star formation and sculpting the region's dense inner edge. Cataloged as N66, the star forming region also appears to contain a large population of infant stars. A mere 3 to 5 million years old and not yet burning hydrogen in their cores, the infant stars are strewn about the embedded star cluster. In this false-color Hubble Space Telescope image, visible and near-infrared light are seen as blue and green, while light from atomic hydrogen emission is red."
+                app:layout_constraintTop_toBottomOf="@id/apod_dialog_title"
+                android:id="@+id/apod_dialog_text"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="@dimen/padding_20"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/apod_dialog_text"
+                android:paddingHorizontal="@dimen/padding_20"
+                android:textColor="@color/black"
+                android:id="@+id/apod_dialog_date"
+                android:textSize="@dimen/main_elements_text_20"
+                tools:text="2022-05-12"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="@dimen/padding_20"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/apod_dialog_text"
+                android:paddingHorizontal="40dp"
+                android:textColor="@color/black"
+                android:id="@+id/apod_dialog_author"
+                android:textSize="@dimen/main_elements_text_20"
+                tools:text="John "/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
