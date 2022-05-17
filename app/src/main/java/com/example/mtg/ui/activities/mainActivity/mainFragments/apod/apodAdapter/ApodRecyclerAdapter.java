@@ -1,11 +1,8 @@
 package com.example.mtg.ui.activities.mainActivity.mainFragments.apod.apodAdapter;
 
 import android.content.Context;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
@@ -31,10 +28,10 @@ public class ApodRecyclerAdapter extends RecyclerView.Adapter<ApodRecyclerViewHo
         this.recyclerOnItemClickInterface = recyclerOnItemClickInterface;
     }
 
-    public void setArrayList(ArrayList<ApodModel> arrayList){
-        if (this.arrayList == null){
+    public void setArrayList(ArrayList<ApodModel> arrayList) {
+        if (this.arrayList == null) {
             this.arrayList = arrayList;
-        }else {
+        } else {
             DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
                 @Override
                 public int getOldListSize() {
@@ -48,21 +45,16 @@ public class ApodRecyclerAdapter extends RecyclerView.Adapter<ApodRecyclerViewHo
 
                 @Override
                 public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                    return ApodRecyclerAdapter.this.arrayList.get(oldItemPosition).getTitle().equals(arrayList.get(newItemPosition).getTitle())
-                            || ApodRecyclerAdapter.this.arrayList.get(oldItemPosition).getDate().equals(arrayList.get(newItemPosition).getDate());
-//                            ||ApodRecyclerAdapter.this.arrayList.get(oldItemPosition).getCopyright().equals(arrayList.get(newItemPosition).getCopyright()) ;
+                    return ApodRecyclerAdapter.this.arrayList.get(oldItemPosition).getDate().equals(arrayList.get(newItemPosition).getDate());
                 }
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-
                     ApodModel newApods = ApodRecyclerAdapter.this.arrayList.get(oldItemPosition);
 
                     ApodModel oldApods = arrayList.get(newItemPosition);
 
-                    return newApods.getTitle().equals(oldApods.getTitle()) ||
-                            newApods.getTitle().equals(oldApods.getDate());
-//                            newApods.getTitle().equals(oldApods.getCopyright());
+                    return newApods.getDate().equals(oldApods.getDate());
                 }
             });
             this.arrayList = arrayList;
@@ -79,7 +71,7 @@ public class ApodRecyclerAdapter extends RecyclerView.Adapter<ApodRecyclerViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ApodRecyclerViewHolder holder, int position) {
-        holder.binding.apodItemCard.setAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_for_recycler));
+        holder.binding.apodItemCard.setAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_for_recycler));
         holder.binding.apodItemAuthor.setText(arrayList.get(position).getCopyright());
         holder.binding.apodItemDate.setText(arrayList.get(position).getDate());
         holder.binding.apodItemTitle.setText(arrayList.get(position).getTitle());

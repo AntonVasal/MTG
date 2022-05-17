@@ -229,7 +229,6 @@ public class ProfileFragment extends Fragment {
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
         Boolean isConnect = networkStateManager.getNetworkConnectivityStatus().getValue();
-        profileViewModel.removeListenerRegistration();
         if (isConnect!= null && isConnect && counter>0){
             profileViewModel.loadData();
         }

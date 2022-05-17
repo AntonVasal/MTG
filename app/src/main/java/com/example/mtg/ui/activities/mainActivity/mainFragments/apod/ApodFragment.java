@@ -4,16 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.mtg.R;
 import com.example.mtg.databinding.DialogBottomSheetApodBinding;
 import com.example.mtg.databinding.FragmentApodBinding;
 import com.example.mtg.models.apodModel.ApodModel;
@@ -36,8 +33,8 @@ public class ApodFragment extends Fragment implements ApodRecyclerOnItemClickInt
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentApodBinding.inflate(inflater,container,false);
-        bottomSheetApodBinding = DialogBottomSheetApodBinding.inflate(inflater,container,false);
+        binding = FragmentApodBinding.inflate(inflater, container, false);
+        bottomSheetApodBinding = DialogBottomSheetApodBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -45,10 +42,9 @@ public class ApodFragment extends Fragment implements ApodRecyclerOnItemClickInt
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         apodViewModel = new ViewModelProvider(requireActivity()).get(ApodViewModel.class);
-        apodDialog = new ApodDialog(requireContext(),bottomSheetApodBinding);
+        apodDialog = new ApodDialog(requireContext(), bottomSheetApodBinding);
         binding.apodRecyclerProgressBar.setVisibility(View.VISIBLE);
         setData();
-        setSearch();
     }
 
     private void setSearch() {
@@ -60,7 +56,7 @@ public class ApodFragment extends Fragment implements ApodRecyclerOnItemClickInt
 
             @Override
             public boolean onQueryTextChange(String s) {
-                sortApodLists(s);
+                sortApodLists(s.trim());
                 return false;
             }
         });
@@ -69,25 +65,32 @@ public class ApodFragment extends Fragment implements ApodRecyclerOnItemClickInt
     private void sortApodLists(String s) {
         ArrayList<ApodModel> sortedList = new ArrayList<>();
         ApodModel apodModel;
-        for (int i = 0; i <apodModels.size(); i++) {
+        String date;
+        String title;
+        for (int i = 0; i < apodModels.size(); i++) {
             apodModel = apodModels.get(i);
-            if (apodModel.getDate().toLowerCase(Locale.ROOT).contains(s) || apodModel.getTitle().toLowerCase(Locale.ROOT).contains(s)){
+            date = apodModel.getDate().toLowerCase(Locale.ROOT).trim();
+            title = apodModel.getTitle().toLowerCase(Locale.ROOT).trim();
+            if (title.contains(s) || date.contains(s) ) {
                 sortedList.add(apodModel);
             }
         }
-        if (!sortedList.isEmpty()){
+        if (!sortedList.isEmpty()) {
             adapter.setArrayList(sortedList);
+        }else{
+            adapter.setArrayList(new ArrayList<>());
         }
     }
 
     private void setData() {
         apodViewModel.getApodList().observe(getViewLifecycleOwner(), data -> {
-            switch (data.status){
+            switch (data.status) {
                 case SUCCESS:
                     apodModels = data.data;
-                    adapter = new ApodRecyclerAdapter(apodModels, requireContext(),this);
+                    adapter = new ApodRecyclerAdapter(apodModels, requireContext(), this);
                     binding.apodRecycler.setAdapter(adapter);
                     binding.apodRecyclerProgressBar.setVisibility(View.GONE);
+                    setSearch();
                     break;
                 case ERROR:
                     binding.apodRecyclerProgressBar.setVisibility(View.GONE);
@@ -124,4 +127,3 @@ public class ApodFragment extends Fragment implements ApodRecyclerOnItemClickInt
         binding = null;
     }
 }
-
