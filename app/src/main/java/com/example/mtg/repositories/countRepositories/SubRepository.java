@@ -6,6 +6,7 @@ import com.example.mtg.repositories.repositoryCallbacks.ArraysFromRepositoryCall
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
 
@@ -14,15 +15,16 @@ public class SubRepository {
     FirebaseAuth firebaseAuth;
     private static final String SUB = "sub";
     private static final String FAILED = "Failed";
+    private ListenerRegistration listenerRegistration;
 
-    public SubRepository(){
+    public SubRepository() {
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
-    public void loadSubCollection(ArraysFromRepositoryCallback<SubResultsModel> callback){
+    public void loadSubCollection(ArraysFromRepositoryCallback<SubResultsModel> callback) {
         ArrayList<SubResultsModel> arrayList = new ArrayList<>();
-        new Thread(() -> firebaseFirestore.collection(SUB).addSnapshotListener((value, error) -> {
+        new Thread(() -> listenerRegistration = firebaseFirestore.collection(SUB).addSnapshotListener((value, error) -> {
             if (error != null) {
                 callback.arrayFromRepository(ErrorHandlingRepositoryData.error(error.getMessage(), null));
                 return;
@@ -52,4 +54,11 @@ public class SubRepository {
             }
         })).start();
     }
+
+    public void removeListenerRegistration() {
+        if (listenerRegistration!=null){
+            listenerRegistration.remove();
+        }
+    }
+
 }

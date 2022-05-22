@@ -1,37 +1,36 @@
-package com.example.mtg.ui.activities.mainActivity.mainFragments.results.typesOfResultFragments;
+package com.example.mtg.ui.activities.mainActivity.mainFragments.results.typesOfResultFragments.multiFragment;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.mtg.core.listsSorters.MainListsSorter;
+import com.example.mtg.R;
+import com.example.mtg.core.baseFragments.BaseBindingFragment;
 import com.example.mtg.databinding.DialogBottomSheetResultsBinding;
 import com.example.mtg.databinding.FragmentResultsRecyclerBinding;
-import com.example.mtg.models.countModels.SubResultsModel;
+import com.example.mtg.models.countModels.MultiResultsModel;
 import com.example.mtg.models.profileModel.UserRegisterProfileModel;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.OnItemResultsRecyclerClickInterface;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
-import com.example.mtg.ui.activities.mainActivity.mainFragments.results.viewModels.SubViewModel;
+import com.example.mtg.ui.activities.mainActivity.mainFragments.results.resultsViewModel.ResultsViewModel;
+import com.example.mtg.ui.activities.mainActivity.mainFragments.results.typesOfResultFragments.multiFragment.multiViewModel.MultiViewModel;
 import com.example.mtg.ui.dialogs.resultsDialog.ResultsDialog;
+import com.example.mtg.utility.listsSorters.MainListsSorter;
+import com.example.mtg.utility.networkDetection.NetworkStateManager;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
-public class SubFragment extends Fragment implements OnItemResultsRecyclerClickInterface {
+public class MultiFragment extends BaseBindingFragment<FragmentResultsRecyclerBinding> implements OnItemResultsRecyclerClickInterface {
 
     private static final String USERS = "users";
-    private FragmentResultsRecyclerBinding binding;
 
     private ResultsRecyclerViewAdapter adapter;
     private ResultsDialog resultsDialog;
-
+    private MainListsSorter mainListsSorter;
     private String name;
     private String country;
     private String nickname;
@@ -39,46 +38,58 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
     private String id;
     private int score;
     private int tasks;
-    private MainListsSorter mainListsSorter;
-    private ArrayList<SubResultsModel> subResultsNaturalsModels;
-    private ArrayList<SubResultsModel> subResultsIntegersModels;
-    private ArrayList<SubResultsModel> subResultsDecimalsModels;
+    private static int counter = 0;
+    private NetworkStateManager networkStateManager;
+    private ArrayList<MultiResultsModel> multiResultsNaturalsModels;
+    private ArrayList<MultiResultsModel> multiResultsIntegersModels;
+    private ArrayList<MultiResultsModel> multiResultsDecimalsModels;
 
-    private SubViewModel subViewModel;
+    private ResultsViewModel resultsViewModel;
+    private MultiViewModel multiViewModel;
 
     private FirebaseFirestore firebaseFirestore;
     private DialogBottomSheetResultsBinding dialogBinding;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding = FragmentResultsRecyclerBinding.inflate(inflater, container, false);
-        return binding.getRoot();
-    }
-
-    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        subViewModel = new ViewModelProvider(requireActivity()).get(SubViewModel.class);
-        mainListsSorter = new MainListsSorter();
+        networkStateManager = NetworkStateManager.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
+
+        multiViewModel = new ViewModelProvider(requireActivity()).get(MultiViewModel.class);
+        resultsViewModel = new ViewModelProvider(requireActivity()).get(ResultsViewModel.class);
+
+        mainListsSorter = new MainListsSorter();
+
         binding.recyclerProgressBar.setVisibility(View.VISIBLE);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        binding.resultRecycler.setLayoutManager(layoutManager);
-        generateItem();
         binding.natButton.setEnabled(false);
+
+        observeStatus();
+        generateItem();
         initListeners();
     }
 
+    private void observeStatus() {
+        resultsViewModel.getIsOnPause().observe(getViewLifecycleOwner(), isOnPause -> {
+            Boolean isConnect = networkStateManager.getNetworkConnectivityStatus().getValue();
+            if (counter != 0 && !isOnPause && isConnect != null && isConnect) {
+                multiViewModel.loadData();
+            }else if (isOnPause){
+                multiViewModel.removeCollectionListener();
+            }
+            counter++;
+        });
+    }
+
     private void generateItem() {
-        subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
-            if (subResultsModels != null) {
-                assert subResultsModels.data != null;
-                if (subResultsModels.data.size() != 0) {
-                    mainListsSorter.setSubList(subResultsModels.data);
-                    subResultsNaturalsModels = mainListsSorter.sortSubNaturalsModels();
-                    adapter = new ResultsRecyclerViewAdapter(getContext(), 3, 1, this);
-                    adapter.setSubItemList(subResultsNaturalsModels);
+        multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
+            if (multiResultsModels != null) {
+                assert multiResultsModels.data != null;
+                if (multiResultsModels.data.size() != 0) {
+                    mainListsSorter.setMultiList(multiResultsModels.data);
+                    multiResultsNaturalsModels = mainListsSorter.sortMultiNaturalsModels();
+                    adapter = new ResultsRecyclerViewAdapter(getContext(), 2, 1, this);
+                    adapter.setMultiItemList(multiResultsNaturalsModels);
                     binding.resultRecycler.setAdapter(adapter);
                     binding.recyclerProgressBar.setVisibility(View.GONE);
                 }
@@ -97,31 +108,32 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
             binding.natButton.setEnabled(true);
             binding.intButton.setEnabled(false);
             binding.decButton.setEnabled(true);
-            subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
-                if (subResultsModels != null) {
-                    assert subResultsModels.data != null;
-                    if (subResultsModels.data.size() != 0) {
-                        mainListsSorter.setSubList(subResultsModels.data);
-                        subResultsIntegersModels = mainListsSorter.sortSubIntegersModels();
-                        adapter = new ResultsRecyclerViewAdapter(getContext(), 3, 2, this);
-                        adapter.setSubItemList(subResultsIntegersModels);
+            multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
+                if (multiResultsModels != null) {
+                    assert multiResultsModels.data != null;
+                    if (multiResultsModels.data.size() != 0) {
+                        mainListsSorter.setMultiList(multiResultsModels.data);
+                        multiResultsIntegersModels = mainListsSorter.sortMultiIntegersModels();
+                        adapter = new ResultsRecyclerViewAdapter(getContext(), 2, 2, this);
+                        adapter.setMultiItemList(multiResultsIntegersModels);
                         binding.resultRecycler.setAdapter(adapter);
                     }
                 }
             });
+
         });
         binding.decButton.setOnClickListener(view -> {
             binding.natButton.setEnabled(true);
             binding.intButton.setEnabled(true);
             binding.decButton.setEnabled(false);
-            subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
-                if (subResultsModels != null) {
-                    assert subResultsModels.data != null;
-                    if (subResultsModels.data.size() != 0) {
-                        mainListsSorter.setSubList(subResultsModels.data);
-                        subResultsDecimalsModels = mainListsSorter.sortSubDecimalsModels();
-                        adapter = new ResultsRecyclerViewAdapter(getContext(), 3, 3, this);
-                        adapter.setSubItemList(subResultsDecimalsModels);
+            multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
+                if (multiResultsModels != null) {
+                    assert multiResultsModels.data != null;
+                    if (multiResultsModels.data.size() != 0) {
+                        mainListsSorter.setMultiList(multiResultsModels.data);
+                        multiResultsDecimalsModels = mainListsSorter.sortMultiDecimalsModels();
+                        adapter = new ResultsRecyclerViewAdapter(getContext(), 2, 3, this);
+                        adapter.setMultiItemList(multiResultsDecimalsModels);
                         binding.resultRecycler.setAdapter(adapter);
                     }
                 }
@@ -131,47 +143,47 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
 
     @Override
     public void onItemClick(int position, int typeNumber) {
-        subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
+        multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
             switch (typeNumber) {
                 case 1:
                     if (resultsDialog != null && resultsDialog.isShowing()) {
-                        for (int i = 0; i < subResultsNaturalsModels.size(); i++) {
-                            if (subResultsNaturalsModels.get(i).getId().equals(id)) {
+                        for (int i = 0; i < multiResultsNaturalsModels.size(); i++) {
+                            if (multiResultsNaturalsModels.get(i).getId().equals(id)) {
                                 loadDataNaturalMethod(i);
                                 loadDataFromFirestoreAndMakeDialogMethod();
                             }
                         }
                     } else {
                         loadDataNaturalMethod(position);
-                        id = subResultsNaturalsModels.get(position).getId();
+                        id = multiResultsNaturalsModels.get(position).getId();
                         loadDataFromFirestoreAndMakeDialogMethod();
                     }
                     break;
                 case 2:
                     if (resultsDialog != null && resultsDialog.isShowing()) {
-                        for (int i = 0; i < subResultsIntegersModels.size(); i++) {
-                            if (subResultsIntegersModels.get(i).getId().equals(id)) {
+                        for (int i = 0; i < multiResultsIntegersModels.size(); i++) {
+                            if (multiResultsIntegersModels.get(i).getId().equals(id)) {
                                 loadDataIntegerMethod(i);
                                 loadDataFromFirestoreAndMakeDialogMethod();
                             }
                         }
                     } else {
                         loadDataIntegerMethod(position);
-                        id = subResultsIntegersModels.get(position).getId();
+                        id = multiResultsIntegersModels.get(position).getId();
                         loadDataFromFirestoreAndMakeDialogMethod();
                     }
                     break;
                 case 3:
                     if (resultsDialog != null && resultsDialog.isShowing()) {
-                        for (int i = 0; i < subResultsDecimalsModels.size(); i++) {
-                            if (subResultsDecimalsModels.get(i).getId().equals(id)) {
+                        for (int i = 0; i < multiResultsDecimalsModels.size(); i++) {
+                            if (multiResultsDecimalsModels.get(i).getId().equals(id)) {
                                 loadDataDecimalMethod(i);
                                 loadDataFromFirestoreAndMakeDialogMethod();
                             }
                         }
                     } else {
                         loadDataDecimalMethod(position);
-                        id = subResultsDecimalsModels.get(position).getId();
+                        id = multiResultsDecimalsModels.get(position).getId();
                         loadDataFromFirestoreAndMakeDialogMethod();
                     }
                     break;
@@ -180,24 +192,24 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
     }
 
     private void loadDataNaturalMethod(int position) {
-        score = subResultsNaturalsModels.get(position).getSubNaturalScore();
-        tasks = subResultsNaturalsModels.get(position).getSubNaturalTasksAmount();
-        imageUrl = subResultsNaturalsModels.get(position).getImageUrl();
-        nickname = subResultsNaturalsModels.get(position).getNickname();
+        score = multiResultsNaturalsModels.get(position).getMultiNaturalScore();
+        tasks = multiResultsNaturalsModels.get(position).getMultiNaturalTasksAmount();
+        imageUrl = multiResultsNaturalsModels.get(position).getImageUrl();
+        nickname = multiResultsNaturalsModels.get(position).getNickname();
     }
 
     private void loadDataIntegerMethod(int position) {
-        score = subResultsIntegersModels.get(position).getSubIntegerScore();
-        tasks = subResultsIntegersModels.get(position).getSubIntegerTasksAmount();
-        imageUrl = subResultsIntegersModels.get(position).getImageUrl();
-        nickname = subResultsIntegersModels.get(position).getNickname();
+        score = multiResultsIntegersModels.get(position).getMultiIntegerScore();
+        tasks = multiResultsIntegersModels.get(position).getMultiIntegerTasksAmount();
+        imageUrl = multiResultsIntegersModels.get(position).getImageUrl();
+        nickname = multiResultsIntegersModels.get(position).getNickname();
     }
 
     private void loadDataDecimalMethod(int position) {
-        score = subResultsDecimalsModels.get(position).getSubDecimalScore();
-        tasks = subResultsDecimalsModels.get(position).getSubDecimalTasksAmount();
-        imageUrl = subResultsDecimalsModels.get(position).getImageUrl();
-        nickname = subResultsDecimalsModels.get(position).getNickname();
+        score = multiResultsDecimalsModels.get(position).getMultiDecimalScore();
+        tasks = multiResultsDecimalsModels.get(position).getMultiDecimalTasksAmount();
+        imageUrl = multiResultsDecimalsModels.get(position).getImageUrl();
+        nickname = multiResultsDecimalsModels.get(position).getNickname();
     }
 
     private void loadDataFromFirestoreAndMakeDialogMethod() {
@@ -231,5 +243,10 @@ public class SubFragment extends Fragment implements OnItemResultsRecyclerClickI
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_results_recycler;
     }
 }

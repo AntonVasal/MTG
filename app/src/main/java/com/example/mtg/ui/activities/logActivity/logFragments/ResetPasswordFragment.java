@@ -15,9 +15,10 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mtg.R;
-import com.example.mtg.core.textwatchers.ValidationTextWatcher;
+import com.example.mtg.utility.textwatchers.ValidationTextWatcher;
 import com.example.mtg.databinding.FragmentResetPasswordBinding;
 import com.example.mtg.ui.activities.logActivity.logViewModel.LogViewModel;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Objects;
 
@@ -66,14 +67,12 @@ public class ResetPasswordFragment extends Fragment {
         String email = Objects.requireNonNull(binding.emailForReset.getText()).toString().trim();
 
         if (email.isEmpty()) {
-            binding.resetEmailEditText.setError(getResources().getString(R.string.email_is_required));
-            binding.resetEmailEditText.requestFocus();
+            setEmailError(getResources().getString(R.string.email_is_required));
             return;
         }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            binding.resetEmailEditText.setError(getResources().getString(R.string.pls_provide_valid_email));
-            binding.resetEmailEditText.requestFocus();
+            setEmailError(getResources().getString(R.string.pls_provide_valid_email));
             return;
         }
         binding.resetPasswordProgressBar.setVisibility(View.VISIBLE);
@@ -82,16 +81,20 @@ public class ResetPasswordFragment extends Fragment {
             switch (status) {
                 case SUCCESS:
                     binding.resetPasswordProgressBar.setVisibility(View.GONE);
-                    Toast.makeText(getContext(), "Please, check your email to reset password!", Toast.LENGTH_LONG)
-                            .show();
+                    Snackbar.make(binding.getRoot(),R.string.check_your_email,Snackbar.LENGTH_LONG).show();
                     break;
                 case ERROR:
                     binding.resetPasswordProgressBar.setVisibility(View.GONE);
-                    Toast.makeText(getContext(), "Something went wrong. Please, try again!", Toast.LENGTH_LONG)
-                            .show();
+                    setEmailError(getResources().getString(R.string.check_your_email));
+                    Snackbar.make(binding.getRoot(),R.string.can_not_reset_password,Snackbar.LENGTH_LONG).show();
                     break;
             }
         });
+    }
+
+    private void setEmailError(String error){
+        binding.resetEmailEditText.setError(error);
+        binding.resetEmailEditText.requestFocus();
     }
 
     @Override

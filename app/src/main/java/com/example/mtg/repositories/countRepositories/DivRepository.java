@@ -6,6 +6,7 @@ import com.example.mtg.repositories.repositoryCallbacks.ArraysFromRepositoryCall
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,7 @@ public class DivRepository {
     FirebaseAuth firebaseAuth;
     private static final String DIV = "div";
     private static final String FAILED = "Failed";
+    private ListenerRegistration listenerRegistration;
 
     public DivRepository(){
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -22,7 +24,7 @@ public class DivRepository {
 
     public void loadDivCollection(ArraysFromRepositoryCallback<DivResultsModel> divArray){
         ArrayList<DivResultsModel> arrayList = new ArrayList<>();
-        new Thread(() -> firebaseFirestore.collection(DIV).addSnapshotListener((value, error) -> {
+        new Thread(() -> listenerRegistration = firebaseFirestore.collection(DIV).addSnapshotListener((value, error) -> {
             if (error != null) {
                 divArray.arrayFromRepository(ErrorHandlingRepositoryData.error(error.getMessage(), null));
                 return;
@@ -51,5 +53,11 @@ public class DivRepository {
                 divArray.arrayFromRepository(ErrorHandlingRepositoryData.success(arrayList));
             }
         })).start();
+    }
+
+    public void removeListenerRegistration(){
+        if (listenerRegistration!=null){
+            listenerRegistration.remove();
+        }
     }
 }

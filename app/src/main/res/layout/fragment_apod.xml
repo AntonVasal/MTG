@@ -1,80 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <SearchView
-        android:id="@+id/apod_search"
-        android:elevation="@dimen/normal_elevation_15"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/gradient_for_app"
-        android:closeIcon="@drawable/ic_baseline_close_white_24"
-        android:queryHint="@string/search_hint"
-        android:searchHintIcon="@drawable/ic_baseline_search_24"
-        android:searchIcon="@drawable/ic_baseline_search_24"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent">
+
+        <SearchView
+            android:id="@+id/apod_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient_for_app"
+            android:closeIcon="@drawable/ic_baseline_close_white_24"
+            android:elevation="@dimen/normal_elevation_15"
+            android:queryHint="@string/search_hint"
+            android:searchHintIcon="@drawable/ic_baseline_search_24"
+            android:searchIcon="@drawable/ic_baseline_search_24"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-    <androidx.core.widget.ContentLoadingProgressBar
-        android:id="@+id/apod_recycler_progress_bar"
-        style="@style/ClassicProgressBar"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible" />
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/apod_recycler_progress_bar"
+            style="@style/ClassicProgressBar"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
-    <!--    <TextView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:elevation="@dimen/normal_elevation_15"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        android:background="@drawable/gradient_for_bottom_navigation"-->
-    <!--        android:text="@string/astronomy_picture_of_day"-->
-    <!--        android:paddingVertical="@dimen/padding_10"-->
-    <!--        android:textSize="@dimen/large_text_25"-->
-    <!--        android:id="@+id/apod_title"-->
-    <!--        android:textAlignment="center"-->
-    <!--        android:textColor="@color/white"/>-->
+        <!--    <TextView-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:elevation="@dimen/normal_elevation_15"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        app:layout_constraintTop_toTopOf="parent"-->
+        <!--        android:background="@drawable/gradient_for_bottom_navigation"-->
+        <!--        android:text="@string/astronomy_picture_of_day"-->
+        <!--        android:paddingVertical="@dimen/padding_10"-->
+        <!--        android:textSize="@dimen/large_text_25"-->
+        <!--        android:id="@+id/apod_title"-->
+        <!--        android:textAlignment="center"-->
+        <!--        android:textColor="@color/white"/>-->
 
-    <!--    <androidx.appcompat.widget.SearchView-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        app:searchIcon="@drawable/ic_baseline_search_24"-->
-    <!--        android:id="@+id/apod_search_view"-->
-    <!--        android:paddingVertical="@dimen/padding_5"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        android:background="@drawable/gradient_for_bottom_navigation"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        />-->
-    <!--    <Toolbar-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:id="@+id/apod_toolbar"-->
-    <!--        android:layout_height="?attr/actionBarSize"-->
-    <!--        android:background="@drawable/gradient_for_bottom_navigation"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"/>-->
-    <!--    <SearchView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:id="@+id/apod_search"-->
-    <!--        android:searchIcon="@drawable/ic_baseline_search_24"-->
-    <!--        android:closeIcon="@drawable/ic_baseline_close_white_24"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"/>-->
+        <!--    <androidx.appcompat.widget.SearchView-->
+        <!--        android:layout_width="0dp"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        app:searchIcon="@drawable/ic_baseline_search_24"-->
+        <!--        android:id="@+id/apod_search_view"-->
+        <!--        android:paddingVertical="@dimen/padding_5"-->
+        <!--        app:layout_constraintStart_toStartOf="parent"-->
+        <!--        app:layout_constraintEnd_toEndOf="parent"-->
+        <!--        android:background="@drawable/gradient_for_bottom_navigation"-->
+        <!--        app:layout_constraintTop_toTopOf="parent"-->
+        <!--        />-->
+        <!--    <Toolbar-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:id="@+id/apod_toolbar"-->
+        <!--        android:layout_height="?attr/actionBarSize"-->
+        <!--        android:background="@drawable/gradient_for_bottom_navigation"-->
+        <!--        app:layout_constraintTop_toTopOf="parent"/>-->
+        <!--    <SearchView-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:id="@+id/apod_search"-->
+        <!--        android:searchIcon="@drawable/ic_baseline_search_24"-->
+        <!--        android:closeIcon="@drawable/ic_baseline_close_white_24"-->
+        <!--        app:layout_constraintTop_toTopOf="parent"/>-->
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/apod_recycler"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/apod_search" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/apod_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/apod_search" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

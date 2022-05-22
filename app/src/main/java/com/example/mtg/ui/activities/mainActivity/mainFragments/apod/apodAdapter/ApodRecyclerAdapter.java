@@ -72,10 +72,7 @@ public class ApodRecyclerAdapter extends RecyclerView.Adapter<ApodRecyclerViewHo
     @Override
     public void onBindViewHolder(@NonNull ApodRecyclerViewHolder holder, int position) {
         holder.binding.apodItemCard.setAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_for_recycler));
-        holder.binding.apodItemAuthor.setText(arrayList.get(position).getCopyright());
-        holder.binding.apodItemDate.setText(arrayList.get(position).getDate());
-        holder.binding.apodItemTitle.setText(arrayList.get(position).getTitle());
-        Glide.with(context).load(arrayList.get(position).getUrl()).centerCrop().into(holder.binding.apodItemImage);
+        holder.binding.setApodModel(arrayList.get(position));
     }
 
     @Override

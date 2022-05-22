@@ -1,4 +1,4 @@
-package com.example.mtg.ui.activities.mainActivity.mainFragments.results.viewModels;
+package com.example.mtg.ui.activities.mainActivity.mainFragments.results.typesOfResultFragments.multiFragment.multiViewModel;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -21,7 +21,11 @@ public class MultiViewModel extends ViewModel {
         return mutableLiveData;
     }
 
-    private void loadData() {
+    public void loadData() {
         multiRepository.loadMultiCollection(arrayFromRepository -> mutableLiveData.postValue(arrayFromRepository));
+    }
+
+    public void removeCollectionListener(){
+        multiRepository.removeListenerRegistration();
     }
 }

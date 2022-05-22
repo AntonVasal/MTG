@@ -15,10 +15,13 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mtg.R;
-import com.example.mtg.core.textwatchers.ValidationTextWatcher;
+import com.example.mtg.databinding.DialogErrorOccurBinding;
+import com.example.mtg.ui.dialogs.serviceDialogs.ErrorDialog;
+import com.example.mtg.utility.textwatchers.ValidationTextWatcher;
 import com.example.mtg.databinding.FragmentRegisterBinding;
 import com.example.mtg.models.profileModel.UserRegisterProfileModel;
 import com.example.mtg.ui.activities.logActivity.logViewModel.LogViewModel;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Objects;
 
@@ -30,6 +33,8 @@ public class RegisterFragment extends Fragment {
     private LogViewModel logViewModel;
     private static final String NO_IMAGE = "users";
     private static final String DATA_NOT_PUSHED = "Data was not pushed to database";
+    private ErrorDialog errorDialog;
+    private DialogErrorOccurBinding errorOccurBinding;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +47,7 @@ public class RegisterFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentRegisterBinding.inflate(inflater, container, false);
+        errorOccurBinding = DialogErrorOccurBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
 
@@ -49,6 +55,10 @@ public class RegisterFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         logViewModel = new ViewModelProvider(requireActivity()).get(LogViewModel.class);
+        errorDialog = new ErrorDialog(requireActivity(),
+                getResources().getString(R.string.loading_failed),
+                getResources().getString(R.string.failed_to_upload_data),
+                errorOccurBinding);
         initListeners();
         textSelected();
     }
@@ -120,10 +130,11 @@ public class RegisterFragment extends Fragment {
                     assert userField.message != null;
                     if (userField.message.equals(DATA_NOT_PUSHED)){
                         binding.registerProgressBar.setVisibility(View.GONE);
-                        Toast.makeText(getContext(), "Something went wrong. Please try again.", Toast.LENGTH_LONG).show();
+
                     } else {
                         binding.registerProgressBar.setVisibility(View.GONE);
-                        Toast.makeText(getContext(), "Registration failed! Please, try again!", Toast.LENGTH_LONG).show();
+                        Snackbar snackbar = Snackbar.make(binding.getRoot(),R.string.authentication_failed,Snackbar.LENGTH_LONG);
+                        snackbar.show();
                     }
             }
         });
@@ -150,5 +161,6 @@ public class RegisterFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        errorOccurBinding = null;
     }
 }

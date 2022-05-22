@@ -42,6 +42,7 @@
         <entry key="..\:/MTG/app/src/main/res/drawable/ic_baseline_close_40.xml" value="0.14270833333333333" />
         <entry key="..\:/MTG/app/src/main/res/drawable/ic_baseline_close_50.xml" value="0.26256410256410256" />
         <entry key="..\:/MTG/app/src/main/res/drawable/ic_baseline_close_white_24.xml" value="0.1245" />
+        <entry key="..\:/MTG/app/src/main/res/drawable/ic_baseline_computer_24.xml" value="0.198" />
         <entry key="..\:/MTG/app/src/main/res/drawable/ic_baseline_create_24.xml" value="0.17685185185185184" />
         <entry key="..\:/MTG/app/src/main/res/drawable/ic_baseline_create_50.xml" value="0.2703125" />
         <entry key="..\:/MTG/app/src/main/res/drawable/ic_baseline_done_24.xml" value="0.2703125" />
@@ -172,6 +173,9 @@
         <entry key="..\:/MTG/app/src/main/res/mipmap-hdpi/mtg.xml" value="0.17407407407407408" />
         <entry key="..\:/MTG/app/src/main/res/mipmap-hdpi/mtg1.xml" value="0.14739583333333334" />
         <entry key="..\:/MTG/app/src/main/res/mipmap-xhdpi/mtg.xml" value="0.14739583333333334" />
+        <entry key="..\:/Users/ТЕХНОТОП/.gradle/caches/transforms-3/bfb0a9b7caae92c693e5b13a671b693a/transformed/jetified-paper-onboarding-1.1.3/res/drawable/onboarding_pager_circle_icon.xml" value="0.198" />
+        <entry key="..\:/Users/ТЕХНОТОП/.gradle/caches/transforms-3/bfb0a9b7caae92c693e5b13a671b693a/transformed/jetified-paper-onboarding-1.1.3/res/layout/onboarding_pager_layout.xml" value="0.19655797101449277" />
+        <entry key="..\:/Users/ТЕХНОТОП/.gradle/caches/transforms-3/bfb0a9b7caae92c693e5b13a671b693a/transformed/jetified-paper-onboarding-1.1.3/res/layout/onboarding_text_content_layout.xml" value="0.19655797101449277" />
       </map>
     </option>
   </component>

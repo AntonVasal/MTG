@@ -1,4 +1,4 @@
-package com.example.mtg.ui.activities.mainActivity.mainFragments.results.viewModels;
+package com.example.mtg.ui.activities.mainActivity.mainFragments.results.typesOfResultFragments.subFragment.subViewModel;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -13,15 +13,19 @@ public class SubViewModel extends ViewModel {
     private MutableLiveData<ErrorHandlingRepositoryData<ArrayList<SubResultsModel>>> mutableLiveData;
     private final SubRepository subRepository = new SubRepository();
 
-    public MutableLiveData<ErrorHandlingRepositoryData<ArrayList<SubResultsModel>>>  getMutableLiveData(){
-        if (mutableLiveData == null){
+    public MutableLiveData<ErrorHandlingRepositoryData<ArrayList<SubResultsModel>>> getMutableLiveData() {
+        if (mutableLiveData == null) {
             mutableLiveData = new MutableLiveData<>();
             loadData();
         }
         return mutableLiveData;
     }
 
-    private void loadData() {
+    public void loadData() {
         subRepository.loadSubCollection(arrayFromRepository -> mutableLiveData.postValue(arrayFromRepository));
+    }
+
+    public void removeCollectionListener() {
+        subRepository.removeListenerRegistration();
     }
 }

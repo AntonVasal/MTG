@@ -1,25 +1,33 @@
 package com.example.mtg.ui.activities.logActivity.logFragments;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mtg.R;
-import com.example.mtg.core.textwatchers.ValidationTextWatcher;
 import com.example.mtg.databinding.FragmentSignInBinding;
 import com.example.mtg.ui.activities.logActivity.logViewModel.LogViewModel;
 import com.example.mtg.ui.activities.mainActivity.MainActivity;
+import com.example.mtg.utility.sharedPreferences.SharedPreferencesHolder;
+import com.example.mtg.utility.textwatchers.ValidationTextWatcher;
+import com.google.android.material.snackbar.Snackbar;
+import com.ramotion.paperonboarding.PaperOnboardingFragment;
+import com.ramotion.paperonboarding.PaperOnboardingPage;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 
@@ -29,6 +37,38 @@ public class SignInFragment extends Fragment {
     private NavController navController;
     private LogViewModel logViewModel;
 
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        if (SharedPreferencesHolder.getInstance(requireContext()).isFirstOpening("isFirstOpening")) {
+//            PaperOnboardingPage scr1 = new PaperOnboardingPage("MTG",
+//                    "We are happy to see you in our first math app!",
+//                    Color.parseColor("#00ddff"), R.drawable.ic_computer_browser, R.drawable.ic_star);
+//            PaperOnboardingPage scr2 = new PaperOnboardingPage("Train you skills!",
+//                    "We provide you opportunity to train your counting skills by using 12 grounds which generate 48 types of task!",
+//                    Color.parseColor("#ffffff"), R.drawable.ic_mathematical, R.drawable.ic_calculator);
+//            PaperOnboardingPage scr3 = new PaperOnboardingPage("Compete!",
+//                    "You can compete with people all over the world! Become the best counter!",
+//                    Color.parseColor("#00ddff"), R.drawable.ic_trophy, R.drawable.ic_trophy_pixel);
+//            ArrayList<PaperOnboardingPage> elements = new ArrayList<>();
+//            elements.add(scr1);
+//            elements.add(scr2);
+//            elements.add(scr3);
+//
+//            PaperOnboardingFragment onBoardingFragment = PaperOnboardingFragment.newInstance(elements);
+//
+//            FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.add(R.id.sign_container, onBoardingFragment);
+//            fragmentTransaction.commit();
+//
+//            onBoardingFragment.setOnRightOutListener(() -> requireActivity().getSupportFragmentManager().beginTransaction()
+//                    .setCustomAnimations(R.anim.fragment_horizontal_close_animation,
+//                            R.anim.fragment_to_left,
+//                            R.anim.fragment_horizontal_open_animation,
+//                            R.anim.fragment_to_right)
+//                    .remove(onBoardingFragment).commit());
+//        }
+//    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,7 +106,6 @@ public class SignInFragment extends Fragment {
         });
 
         binding.signInButton.setOnClickListener(view -> userLogin());
-
         binding.resetPassword.setOnClickListener(view -> {
             clearTextView();
             navController.navigate(R.id.action_signInFragment_to_resetPasswordFragment);
@@ -81,32 +120,25 @@ public class SignInFragment extends Fragment {
     private void userLogin() {
         String email = Objects.requireNonNull(binding.email.getText()).toString().trim();
         String password = Objects.requireNonNull(binding.password.getText()).toString().trim();
-
         if (email.isEmpty()) {
-            binding.signInEmailEditText.setError(getResources().getString(R.string.email_is_required));
-            binding.signInEmailEditText.requestFocus();
+            setEmailError(getResources().getString(R.string.email_is_required));
             return;
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            binding.signInEmailEditText.setError(getResources().getString(R.string.pls_provide_valid_email));
-            binding.signInEmailEditText.requestFocus();
+            setEmailError(getResources().getString(R.string.pls_provide_valid_email));
             return;
         }
         if (password.isEmpty()) {
-            binding.signInPasswordEditText.setError(getResources().getString(R.string.password_is_required));
-            binding.signInPasswordEditText.requestFocus();
+            setPasswordError(getResources().getString(R.string.password_is_required));
             return;
         }
         if (password.length() < 6) {
-            binding.signInPasswordEditText.setError(getResources().getString(R.string.min_password));
-            binding.signInPasswordEditText.requestFocus();
+            setPasswordError(getResources().getString(R.string.min_password));
             return;
         }
-
         binding.signInProgressBar.setVisibility(View.VISIBLE);
-
         logViewModel.authUser(email, password, status -> {
-            switch (status){
+            switch (status) {
                 case SUCCESS:
                     binding.signInProgressBar.setVisibility(View.GONE);
                     startActivity(new Intent(getActivity(), MainActivity.class));
@@ -114,9 +146,21 @@ public class SignInFragment extends Fragment {
                     break;
                 case ERROR:
                     binding.signInProgressBar.setVisibility(View.GONE);
+                    setPasswordError(getResources().getString(R.string.check_your_email_and_password));
+                    Snackbar snackbar = Snackbar.make(binding.getRoot(), R.string.confirmation_failed, Snackbar.LENGTH_LONG);
+                    snackbar.show();
             }
         });
+    }
 
+    private void setPasswordError(String error) {
+        binding.signInPasswordEditText.setError(error);
+        binding.signInPasswordEditText.requestFocus();
+    }
+
+    private void setEmailError(String error) {
+        binding.signInEmailEditText.setError(error);
+        binding.signInEmailEditText.requestFocus();
     }
 
     @Override

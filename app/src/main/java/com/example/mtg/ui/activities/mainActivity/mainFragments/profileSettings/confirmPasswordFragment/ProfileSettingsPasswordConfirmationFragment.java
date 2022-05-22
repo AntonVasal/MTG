@@ -14,7 +14,7 @@ import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mtg.R;
-import com.example.mtg.core.textwatchers.ValidationTextWatcher;
+import com.example.mtg.utility.textwatchers.ValidationTextWatcher;
 import com.example.mtg.databinding.FragmentProfileSettingsPasswordConfirmationBinding;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.confirmPasswordFragment.confirmPasswordViewModel.ConfirmPasswordViewModel;
 import com.example.mtg.utility.networkDetection.NetworkStateManager;

@@ -1,4 +1,4 @@
-package com.example.mtg.ui.activities.mainActivity.mainFragments.results.viewModels;
+package com.example.mtg.ui.activities.mainActivity.mainFragments.results.typesOfResultFragments.divFragment.divViewModel;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -21,7 +21,11 @@ public class DivViewModel extends ViewModel {
         return mutableLiveData;
     }
 
-    private void loadData() {
+    public void loadData() {
        divRepository.loadDivCollection(arrayFromRepository -> mutableLiveData.postValue(arrayFromRepository));
+    }
+
+    public void removeCollectionListener(){
+        divRepository.removeListenerRegistration();
     }
 }

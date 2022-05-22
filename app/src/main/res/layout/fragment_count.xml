@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E8E8E8"
+    android:background="#D0E5F6"
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -90,7 +90,7 @@
             android:textAlignment="textEnd"
             android:paddingHorizontal="5dp"
             android:textColor="@color/black"
-            android:textSize="25sp" />
+            android:textSize="28sp" />
 
         <TextView
             android:id="@+id/user_answer_text"
@@ -101,7 +101,7 @@
             android:textAlignment="textStart"
             android:layout_weight="45"
             android:textColor="@color/black"
-            android:textSize="25sp" />
+            android:textSize="28sp" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -233,6 +233,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/delete_button"
             style="@style/CountButtonStyle"
+            android:backgroundTint="#FF2600"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="@string/delete"

@@ -1,73 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/apod_item_card"
-    android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:layout_marginHorizontal="20dp"
-    android:layout_marginVertical="@dimen/margin_7"
-    app:cardCornerRadius="@dimen/corner_radius_15"
-    app:cardElevation="@dimen/normal_elevation_15"
-    app:strokeColor="@color/material_on_background_emphasis_medium"
-    app:strokeWidth="@dimen/normal_stroke_width_2">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <variable
+            name="apodModel"
+            type="com.example.mtg.models.apodModel.ApodModel" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/apod_item_card"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="200dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="@dimen/margin_7"
+        app:cardCornerRadius="@dimen/corner_radius_15"
+        app:cardElevation="@dimen/normal_elevation_15"
+        app:strokeColor="@color/material_on_background_emphasis_medium"
+        app:strokeWidth="@dimen/normal_stroke_width_2">
 
-        <ImageView
-            android:id="@+id/apod_item_image"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:contentDescription="@string/astronomy_picture_of_day"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:background="@color/grey"
-            tools:backgroundTint="@color/grey"
-            tools:src="@drawable/ic_logo_main" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/apod_item_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_20"
-            android:layout_marginTop="@dimen/margin_10"
-            android:lines="1"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:textColor="@color/black"
-            android:textSize="@dimen/large_text_25"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/apod_item_image"
-            tools:text="New Galaxy" />
+            <ImageView
+                android:id="@+id/apod_item_image"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:scaleType="centerCrop"
+                apodImage="@{apodModel.hdUrl}"
+                android:contentDescription="@string/astronomy_picture_of_day"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@color/grey"
+                tools:backgroundTint="@color/grey"
+                tools:src="@drawable/ic_logo_main" />
 
-        <TextView
-            android:id="@+id/apod_item_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_20"
-            android:layout_marginBottom="@dimen/margin_10"
-            android:textColor="@color/black"
-            android:textSize="@dimen/king_of_data_text_16"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="10.05.2022" />
+            <TextView
+                android:id="@+id/apod_item_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_10"
+                android:lines="1"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:text="@{apodModel.title}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/large_text_25"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/apod_item_image"
+                tools:text="New Galaxy" />
 
-        <TextView
-            android:id="@+id/apod_item_author"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_20"
-            android:layout_marginBottom="@dimen/margin_10"
-            android:lines="1"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:textAlignment="textEnd"
-            android:textColor="@color/black"
-            android:textSize="@dimen/king_of_data_text_16"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/apod_item_date"
-            tools:text="Mr.Man" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/apod_item_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_20"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:text="@{apodModel.date}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/king_of_data_text_16"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="10.05.2022" />
 
-</com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:id="@+id/apod_item_author"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_30"
+                android:layout_marginEnd="@dimen/margin_20"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
+                android:text='@{apodModel.copyright ?? "" }'
+                android:textAlignment="textEnd"
+                android:textColor="@color/black"
+                android:textSize="@dimen/king_of_data_text_16"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/apod_item_date"
+                tools:text="Mr.Man" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

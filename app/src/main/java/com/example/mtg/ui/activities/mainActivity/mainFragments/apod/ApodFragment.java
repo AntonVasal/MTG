@@ -29,6 +29,7 @@ public class ApodFragment extends Fragment implements ApodRecyclerOnItemClickInt
     private ApodRecyclerAdapter adapter;
     private DialogBottomSheetApodBinding bottomSheetApodBinding;
     private ApodDialog apodDialog;
+    private ArrayList<ApodModel> listForItemClick;
 
     @Nullable
     @Override
@@ -43,6 +44,8 @@ public class ApodFragment extends Fragment implements ApodRecyclerOnItemClickInt
         super.onViewCreated(view, savedInstanceState);
         apodViewModel = new ViewModelProvider(requireActivity()).get(ApodViewModel.class);
         apodDialog = new ApodDialog(requireContext(), bottomSheetApodBinding);
+        adapter = new ApodRecyclerAdapter(new ArrayList<>(), requireContext(), this);
+        binding.apodRecycler.setAdapter(adapter);
         binding.apodRecyclerProgressBar.setVisibility(View.VISIBLE);
         setData();
     }
@@ -71,15 +74,16 @@ public class ApodFragment extends Fragment implements ApodRecyclerOnItemClickInt
             apodModel = apodModels.get(i);
             date = apodModel.getDate().toLowerCase(Locale.ROOT).trim();
             title = apodModel.getTitle().toLowerCase(Locale.ROOT).trim();
-            if (title.contains(s) || date.contains(s) ) {
+            if (title.contains(s) || date.contains(s)) {
                 sortedList.add(apodModel);
             }
         }
         if (!sortedList.isEmpty()) {
             adapter.setArrayList(sortedList);
-        }else{
+        } else {
             adapter.setArrayList(new ArrayList<>());
         }
+        listForItemClick = sortedList;
     }
 
     private void setData() {
@@ -87,8 +91,8 @@ public class ApodFragment extends Fragment implements ApodRecyclerOnItemClickInt
             switch (data.status) {
                 case SUCCESS:
                     apodModels = data.data;
-                    adapter = new ApodRecyclerAdapter(apodModels, requireContext(), this);
-                    binding.apodRecycler.setAdapter(adapter);
+                    listForItemClick = apodModels;
+                    adapter.setArrayList(apodModels);
                     binding.apodRecyclerProgressBar.setVisibility(View.GONE);
                     setSearch();
                     break;
@@ -115,7 +119,7 @@ public class ApodFragment extends Fragment implements ApodRecyclerOnItemClickInt
 
     @Override
     public void onApodRecyclerItemClick(int position) {
-        apodDialog.setModel(apodModels.get(position));
+        apodDialog.setModel(listForItemClick.get(position));
         apodDialog.loadData();
         apodDialog.show();
     }

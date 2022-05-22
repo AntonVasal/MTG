@@ -1,4 +1,4 @@
-package com.example.mtg.ui.activities.mainActivity.mainFragments.results.viewModels;
+package com.example.mtg.ui.activities.mainActivity.mainFragments.results.typesOfResultFragments.addFragment.addViewModel;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -21,7 +21,11 @@ public class AddViewModel extends ViewModel {
         return addList;
     }
 
-    private void loadData(){
+    public void loadData(){
         addRepository.loadAddCollection(arrayFromRepository -> addList.postValue(arrayFromRepository));
+    }
+
+    public void removeCollectionListener(){
+        addRepository.removeListenerRegistration();
     }
 }

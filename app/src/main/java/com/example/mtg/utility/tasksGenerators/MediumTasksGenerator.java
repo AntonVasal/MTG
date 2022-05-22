@@ -1,4 +1,4 @@
-package com.example.mtg.core.tasksGenerators;
+package com.example.mtg.utility.tasksGenerators;
 
 import com.example.mtg.databinding.FragmentCountBinding;
 

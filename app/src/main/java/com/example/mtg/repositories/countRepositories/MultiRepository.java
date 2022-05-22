@@ -6,6 +6,7 @@ import com.example.mtg.repositories.repositoryCallbacks.ArraysFromRepositoryCall
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,7 @@ public class MultiRepository {
     FirebaseAuth firebaseAuth;
     private static final String MULTI = "multi";
     private static final String FAILED = "Failed";
+    private ListenerRegistration listenerRegistration;
 
     public MultiRepository() {
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -22,7 +24,7 @@ public class MultiRepository {
 
     public void loadMultiCollection(ArraysFromRepositoryCallback<MultiResultsModel> callback) {
         ArrayList<MultiResultsModel> arrayList = new ArrayList<>();
-        new Thread(() -> firebaseFirestore.collection(MULTI).addSnapshotListener((value, error) -> {
+        new Thread(() -> listenerRegistration = firebaseFirestore.collection(MULTI).addSnapshotListener((value, error) -> {
             if (error != null) {
                 callback.arrayFromRepository(ErrorHandlingRepositoryData.error(error.getMessage(), null));
                 return;
@@ -51,5 +53,11 @@ public class MultiRepository {
                 callback.arrayFromRepository(ErrorHandlingRepositoryData.success(arrayList));
             }
         })).start();
+    }
+
+    public void removeListenerRegistration(){
+        if (listenerRegistration!=null){
+            listenerRegistration.remove();
+        }
     }
 }

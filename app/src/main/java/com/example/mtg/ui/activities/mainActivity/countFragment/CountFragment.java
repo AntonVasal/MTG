@@ -17,10 +17,10 @@ import androidx.fragment.app.Fragment;
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentCountBinding;
 import com.example.mtg.ui.activities.mainActivity.countFragment.countResultsToFirestoreSetters.CountResultsToFirestoreSettersOperator;
-import com.example.mtg.core.tasksGenerators.AdvantageTasksGenerator;
-import com.example.mtg.core.tasksGenerators.MediumPlusTasksGenerator;
-import com.example.mtg.core.tasksGenerators.MediumTasksGenerator;
-import com.example.mtg.core.tasksGenerators.PrimaryTasksGenerator;
+import com.example.mtg.utility.tasksGenerators.AdvantageTasksGenerator;
+import com.example.mtg.utility.tasksGenerators.MediumPlusTasksGenerator;
+import com.example.mtg.utility.tasksGenerators.MediumTasksGenerator;
+import com.example.mtg.utility.tasksGenerators.PrimaryTasksGenerator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -250,7 +250,9 @@ public class CountFragment extends Fragment {
     }
 
     public void finishCount(){
-        countResultsToFirestoreSettersOperator.resultsToFirestore(resultCounter,amountOfTask);
+        if (resultCounter>0){
+            countResultsToFirestoreSettersOperator.resultsToFirestore(resultCounter,amountOfTask);
+        }
         countViewsOperator.buttonEnabledFalse(typeNumber);
         binding.startButton.setVisibility(View.VISIBLE);
         binding.finishButton.setVisibility(View.GONE);

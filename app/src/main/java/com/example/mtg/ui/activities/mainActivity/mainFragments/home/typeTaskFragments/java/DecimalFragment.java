@@ -1,24 +1,21 @@
-package com.example.mtg.ui.activities.mainActivity.mainFragments.home.typeTaskFragments;
+package com.example.mtg.ui.activities.mainActivity.mainFragments.home.typeTaskFragments.java;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mtg.R;
+import com.example.mtg.core.baseFragments.BaseBindingFragment;
 import com.example.mtg.databinding.FragmentTypeTaskBinding;
 
 import java.util.Objects;
 
-public class DecimalsFragment extends Fragment {
+public class DecimalFragment extends BaseBindingFragment<FragmentTypeTaskBinding> {
 
-    private FragmentTypeTaskBinding binding;
     private Bundle bundle;
     private NavController navController;
     private static final String TYPE_NUMBER = "typeNumber";
@@ -29,19 +26,12 @@ public class DecimalsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         NavHostFragment navHostFragment = (NavHostFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container_view);
         navController = Objects.requireNonNull(navHostFragment).getNavController();
-        bundle = new Bundle();
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding = FragmentTypeTaskBinding.inflate(inflater, container, false);
-        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        bundle = new Bundle();
         initListeners();
         setImages();
     }
@@ -83,6 +73,11 @@ public class DecimalsFragment extends Fragment {
         if(Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.mainFragment2){
             navController.navigate(R.id.action_mainFragment2_to_countFragment, bundle);
         }
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_type_task;
     }
 
     @Override

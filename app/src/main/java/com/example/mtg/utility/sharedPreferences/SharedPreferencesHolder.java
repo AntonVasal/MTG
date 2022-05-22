@@ -11,8 +11,8 @@ public class SharedPreferencesHolder {
     public static final String SHARED_NAME = "Data";
     public static final String DEFAULT_STRING = "Empty";
 
-    public static SharedPreferencesHolder getInstance(Context context){
-        if (instance==null){
+    public static SharedPreferencesHolder getInstance(Context context) {
+        if (instance == null) {
             instance = new SharedPreferencesHolder();
             instance.editShared(context);
         }
@@ -20,19 +20,29 @@ public class SharedPreferencesHolder {
     }
 
     private void editShared(Context context) {
-        userData = context.getSharedPreferences(SHARED_NAME,Context.MODE_PRIVATE);
+        userData = context.getSharedPreferences(SHARED_NAME, Context.MODE_PRIVATE);
         sharedPrefEditor = userData.edit();
     }
 
-    private SharedPreferencesHolder(){}
+    private SharedPreferencesHolder() {
+    }
 
-    public void setData(String key, String value){
-        sharedPrefEditor.putString(key,value);
+    public void setData(String key, String value) {
+        sharedPrefEditor.putString(key, value);
         sharedPrefEditor.apply();
     }
 
-    public String getData(String key){
-        return userData.getString(key,DEFAULT_STRING);
+    public String getData(String key) {
+        return userData.getString(key, DEFAULT_STRING);
+    }
+
+    public boolean isFirstOpening(String key) {
+        return userData.getBoolean(key, true);
+    }
+
+    public void setIsFirstOpening(String key, boolean value){
+        sharedPrefEditor.putBoolean(key, value);
+        sharedPrefEditor.apply();
     }
 
 }

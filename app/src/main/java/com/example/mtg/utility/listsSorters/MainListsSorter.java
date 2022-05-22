@@ -1,4 +1,4 @@
-package com.example.mtg.core.listsSorters;
+package com.example.mtg.utility.listsSorters;
 
 import com.example.mtg.models.countModels.AddResultsModel;
 import com.example.mtg.models.countModels.DivResultsModel;
