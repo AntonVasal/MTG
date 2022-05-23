@@ -21,7 +21,7 @@
         android:elevation="2dp"
         android:background="@drawable/borders_for_timer"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/margin_40"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_height="wrap_content">
         <TextView
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:elevation="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/margin_40"
         android:background="@drawable/borders_for_timer"
         android:padding="5dp"
         android:text="@string/score_0"
@@ -65,6 +65,7 @@
         android:orientation="horizontal"
         android:layout_marginHorizontal="15dp"
         android:weightSum="100"
+        android:paddingVertical="4dp"
         android:elevation="15dp"
         android:background="@drawable/borders_for_count_layout"
         android:layout_marginBottom="40dp"
@@ -80,7 +81,7 @@
 
         <TextView
             android:id="@+id/task_text"
-            android:layout_weight="55"
+            android:layout_weight="58"
             android:paddingVertical="5dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -99,7 +100,7 @@
             android:maxLines="1"
             android:paddingVertical="5dp"
             android:textAlignment="textStart"
-            android:layout_weight="45"
+            android:layout_weight="42"
             android:textColor="@color/black"
             android:textSize="28sp" />
     </LinearLayout>
@@ -237,6 +238,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="@string/delete"
+            android:textSize="@dimen/small_text_14"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

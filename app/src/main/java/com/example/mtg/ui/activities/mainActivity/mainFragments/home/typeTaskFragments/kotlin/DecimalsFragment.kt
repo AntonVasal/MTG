@@ -18,7 +18,7 @@ class DecimalsFragment(override val typeNumber: Int = 3) : BaseTypeTaskFragment(
             addText.setImageResource(R.drawable.plus_yellow)
             subText.setImageResource(R.drawable.minus_yellow)
             divText.setImageResource(R.drawable.division_yellow)
-            multiText.setImageResource(R.drawable.minus_yellow)
+            multiText.setImageResource(R.drawable.multiply_yellow)
         }
     }
 

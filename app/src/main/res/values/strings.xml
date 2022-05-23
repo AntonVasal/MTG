@@ -113,7 +113,7 @@
     <string name="change_data_image">change data image</string>
     <string name="public_info">Public Info</string>
     <string name="private_info">Private Info</string>
-    <string name="hello_user_naturals_fragment_text">Hello! 😀 You are on the natural numbers training ground where you can do addition, subtraction, division, multiplication tasks with different complexity. 💻 Let\'s start your training! Choose type of the tasks and become the best counter! 🏆</string>
+    <string name="hello_user_naturals_fragment_text">Hello! 😀 You are on the natural numbers training ground where you can do addition, subtraction, division, multiplication tasks with different complexity. 💻 Let\'s start your training!</string>
     <string name="error_image">error image</string>
     <string name="update_error_text">Error occurred when we were updating your profile. Please, try to do it again. If error appear a few times, contact us - avasalatij@gmail.com.</string>
     <string name="update_password_error_text">Error occurred when we were updating your password. Please, try to do it again. If error appear a few times, contact us - avasalatij@gmail.com.</string>
@@ -139,6 +139,11 @@
     <string name="authentication_failed">Authentication failed!</string>
     <string name="can_not_reset_password">Failed to send reset password email!</string>
     <string name="failed_to_upload_data">Your account was creating successfully but error occurred, when we tried to save your information. Please try to update it by your own, after sign in. If you won`t be able to do it,contact us - avasalatij@gmail.com.</string>
+    <string name="addition_training_ground">Addition training ground</string>
+    <string name="subtraction_training_ground">Subtraction training ground</string>
+    <string name="multiplication_training_ground">Multiplication training ground</string>
+    <string name="division_training_ground">Division training ground</string>
+    <string name="swipe_horizontally_or_click_on_tabs_to_change_type_of_numbers">Swipe horizontally or click on tabs to change type of numbers</string>
 
     <string-array name="types_of_number">
         <item>Natural numbers</item>

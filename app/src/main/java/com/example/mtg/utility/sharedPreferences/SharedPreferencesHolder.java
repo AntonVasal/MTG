@@ -45,4 +45,14 @@ public class SharedPreferencesHolder {
         sharedPrefEditor.apply();
     }
 
+    public boolean isSawTutorial(String key) {
+        return userData.getBoolean(key, false);
+    }
+
+    public void setIsSawTutorial(String key, boolean value){
+        sharedPrefEditor.putBoolean(key, value);
+        sharedPrefEditor.apply();
+    }
+
+
 }

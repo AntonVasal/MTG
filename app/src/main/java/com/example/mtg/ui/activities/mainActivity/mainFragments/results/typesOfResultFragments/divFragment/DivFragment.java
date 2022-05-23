@@ -63,22 +63,22 @@ public class DivFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
         binding.recyclerProgressBar.setVisibility(View.VISIBLE);
         binding.natButton.setEnabled(false);
 
-        observeStatus();
+//        observeStatus();
         generateItem();
         initListeners();
     }
 
-    private void observeStatus() {
-        resultsViewModel.getIsOnPause().observe(getViewLifecycleOwner(), isOnPause -> {
-            Boolean isConnect = networkStateManager.getNetworkConnectivityStatus().getValue();
-            if (counter != 0 && !isOnPause && isConnect != null && isConnect) {
-                divViewModel.loadData();
-            }else if (isOnPause){
-                divViewModel.removeCollectionListener();
-            }
-            counter++;
-        });
-    }
+//    private void observeStatus() {
+//        resultsViewModel.getIsOnPause().observe(getViewLifecycleOwner(), isOnPause -> {
+//            Boolean isConnect = networkStateManager.getNetworkConnectivityStatus().getValue();
+//            if (counter != 0 && !isOnPause && isConnect != null && isConnect) {
+//                divViewModel.loadData();
+//            }else if (isOnPause){
+//                divViewModel.removeCollectionListener();
+//            }
+//            counter++;
+//        });
+//    }
 
     private void generateItem() {
         divViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), divResultsModels -> {

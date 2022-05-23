@@ -25,5 +25,5 @@
     <color name="count_blue">#00D7DF</color>
     <color name="count_green">#6DC82A</color>
     <color name="count_yellow">#FFCD00</color>
-    <color name="spotlight_background">#54000000</color>
+    <color name="spotlight_background">#8C000000</color>
 </resources>

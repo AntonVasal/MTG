@@ -11,6 +11,8 @@ import com.example.mtg.retrofit.RetrofitClient;
 
 import java.util.ArrayList;
 
+import io.reactivex.functions.BiConsumer;
+import io.reactivex.observers.DisposableSingleObserver;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,20 +30,28 @@ public class ApodRepository {
     }
 
     public void getApodLists(ApodListCallback callback){
-        apodApi.getApodArray().enqueue(new Callback<ArrayList<ApodModel>>() {
-            @Override
-            public void onResponse(@NonNull Call<ArrayList<ApodModel>> call, @NonNull Response<ArrayList<ApodModel>> response) {
-                if (response.isSuccessful()){
-                    assert response.body() != null;
-                    callback.apodListFromRepository(ErrorHandlingRepositoryData.success(response.body()));
-                }else{
-                    callback.apodListFromRepository(ErrorHandlingRepositoryData.error(FAILED,null));
-                }
-            }
-            @Override
-            public void onFailure(@NonNull Call<ArrayList<ApodModel>> call, @NonNull Throwable t) {
+        new Thread(() -> apodApi.getApodArray().subscribe((apodModels, throwable) -> {
+            if (throwable!=null){
                 callback.apodListFromRepository(ErrorHandlingRepositoryData.error(FAILED,null));
+            }else{
+                callback.apodListFromRepository(ErrorHandlingRepositoryData.success(apodModels));
             }
-        });
+        })).start();
+
+//                new Callback<ArrayList<ApodModel>>() {
+//            @Override
+//            public void onResponse(@NonNull Call<ArrayList<ApodModel>> call, @NonNull Response<ArrayList<ApodModel>> response) {
+//                if (response.isSuccessful()){
+//                    assert response.body() != null;
+//                    callback.apodListFromRepository(ErrorHandlingRepositoryData.success(response.body()));
+//                }else{
+//                    callback.apodListFromRepository(ErrorHandlingRepositoryData.error(FAILED,null));
+//                }
+//            }
+//            @Override
+//            public void onFailure(@NonNull Call<ArrayList<ApodModel>> call, @NonNull Throwable t) {
+//                callback.apodListFromRepository(ErrorHandlingRepositoryData.error(FAILED,null));
+//            }
+//        });
     }
 }

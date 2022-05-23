@@ -25,6 +25,8 @@ public class ApodDialog extends BottomSheetDialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(binding.getRoot());
+        binding.apodDialogAuthor.setSelected(true);
+        binding.apodDialogTitle.setSelected(true);
     }
 
     public void loadData() {
@@ -32,6 +34,8 @@ public class ApodDialog extends BottomSheetDialog {
         binding.apodDialogText.setText(model.getExplanation());
         if (model.getCopyright()!=null){
             binding.apodDialogAuthor.setText(model.getCopyright());
+        }else{
+            binding.apodDialogAuthor.setText("");
         }
         binding.apodDialogDate.setText(model.getDate());
         Glide.with(App.instance).load(model.getHdUrl()).centerCrop().into(binding.apodDialogImage);

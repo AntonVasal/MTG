@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/MTG/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/MTG/app/src/main/res/drawable/anim_list_for_tasks_types.xml" value="0.198" />
         <entry key="..\:/MTG/app/src/main/res/drawable/anim_list_for_tasks_types_reverse.xml" value="0.2703125" />
         <entry key="..\:/MTG/app/src/main/res/drawable/backgroud_for_tasks_types_blue.xml" value="0.2703125" />
         <entry key="..\:/MTG/app/src/main/res/drawable/background_for_types_tasks_white.xml" value="0.2703125" />
@@ -36,6 +37,7 @@
         <entry key="..\:/MTG/app/src/main/res/drawable/ic_baseline_arrow_back_50.xml" value="0.149" />
         <entry key="..\:/MTG/app/src/main/res/drawable/ic_baseline_arrow_back_50_black.xml" value="0.17685185185185184" />
         <entry key="..\:/MTG/app/src/main/res/drawable/ic_baseline_arrow_back_50_blue.xml" value="0.24722222222222223" />
+        <entry key="..\:/MTG/app/src/main/res/drawable/ic_baseline_arrow_downward_24.xml" value="0.198" />
         <entry key="..\:/MTG/app/src/main/res/drawable/ic_baseline_arrow_forward_24.xml" value="0.26979166666666665" />
         <entry key="..\:/MTG/app/src/main/res/drawable/ic_baseline_close_22.xml" value="0.26256410256410256" />
         <entry key="..\:/MTG/app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.26256410256410256" />
@@ -161,6 +163,12 @@
         <entry key="..\:/MTG/app/src/main/res/layout/fragment_type_task.xml" value="0.2" />
         <entry key="..\:/MTG/app/src/main/res/layout/item_apod_recycler.xml" value="0.23777173913043478" />
         <entry key="..\:/MTG/app/src/main/res/layout/item_for_results.xml" value="0.25416666666666665" />
+        <entry key="..\:/MTG/app/src/main/res/layout/layout_add_tutorial.xml" value="0.19655797101449277" />
+        <entry key="..\:/MTG/app/src/main/res/layout/layout_div_tutorial.xml" value="0.19655797101449277" />
+        <entry key="..\:/MTG/app/src/main/res/layout/layout_multi_tutorial.xml" value="0.19655797101449277" />
+        <entry key="..\:/MTG/app/src/main/res/layout/layout_numbers_tutorial.xml" value="0.19655797101449277" />
+        <entry key="..\:/MTG/app/src/main/res/layout/layout_sub_tutorial.xml" value="0.19655797101449277" />
+        <entry key="..\:/MTG/app/src/main/res/layout/layout_tutorial_add.xml" value="0.1585144927536232" />
         <entry key="..\:/MTG/app/src/main/res/layout/mtg.xml" value="0.25416666666666665" />
         <entry key="..\:/MTG/app/src/main/res/layout/recycler_layout_animation.xml" value="0.13020833333333334" />
         <entry key="..\:/MTG/app/src/main/res/layout/spalsh_activity.xml" value="0.25416666666666665" />

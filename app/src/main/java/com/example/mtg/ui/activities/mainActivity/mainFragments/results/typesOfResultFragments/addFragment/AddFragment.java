@@ -1,5 +1,6 @@
 package com.example.mtg.ui.activities.mainActivity.mainFragments.results.typesOfResultFragments.addFragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 
@@ -21,9 +22,11 @@ import com.example.mtg.ui.dialogs.resultsDialog.ResultsDialog;
 import com.example.mtg.utility.listsSorters.MainListsSorter;
 import com.example.mtg.utility.networkDetection.NetworkStateManager;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.concurrent.Executor;
 
 public class AddFragment extends BaseBindingFragment<FragmentResultsRecyclerBinding> implements OnItemResultsRecyclerClickInterface {
 
@@ -57,28 +60,26 @@ public class AddFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
         addViewModel = new ViewModelProvider(requireActivity()).get(AddViewModel.class);
 
         resultsViewModel = new ViewModelProvider(requireActivity()).get(ResultsViewModel.class);
-
-        mainListsSorter = new MainListsSorter();
         resultsDialog = new ResultsDialog(requireContext(), null, "", "", "", "", 0, 0);
-
+        mainListsSorter = new MainListsSorter();
         binding.recyclerProgressBar.setVisibility(View.VISIBLE);
         binding.natButton.setEnabled(false);
-        observeStatus();
+//        observeStatus();
         generateItem();
         initListeners();
     }
 
-    private void observeStatus() {
-        resultsViewModel.getIsOnPause().observe(getViewLifecycleOwner(), isOnPause -> {
-            Boolean isConnect = networkStateManager.getNetworkConnectivityStatus().getValue();
-            if (counter != 0 && !isOnPause && isConnect != null && isConnect) {
-                addViewModel.loadData();
-            }else if (isOnPause){
-                addViewModel.removeCollectionListener();
-            }
-            counter++;
-        });
-    }
+//    private void observeStatus() {
+//        resultsViewModel.getIsOnPause().observe(getViewLifecycleOwner(), isOnPause -> {
+//            Boolean isConnect = networkStateManager.getNetworkConnectivityStatus().getValue();
+//            if (counter != 0 && !isOnPause && isConnect != null && isConnect) {
+//                addViewModel.loadData();
+//            } else if (isOnPause) {
+//                addViewModel.removeCollectionListener();
+//            }
+//            counter++;
+//        });
+//    }
 
     private void generateItem() {
         addViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), userResultsModels -> {
@@ -88,7 +89,7 @@ public class AddFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
                     addResultsNaturalsModels = mainListsSorter.sortAddNaturalModels();
                     adapter = new ResultsRecyclerViewAdapter(getContext(), 1, 1, this);
                     adapter.setAddItemList(addResultsNaturalsModels);
-                    binding.resultRecycler.setAdapter(adapter);
+                    binding.resultRecycler.swapAdapter(adapter,true);
                     binding.recyclerProgressBar.setVisibility(View.GONE);
                 }
             }
@@ -114,7 +115,7 @@ public class AddFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
                         addResultsIntegersModels = mainListsSorter.sortAddIntegerModels();
                         adapter = new ResultsRecyclerViewAdapter(getContext(), 1, 2, this);
                         adapter.setAddItemList(addResultsIntegersModels);
-                        binding.resultRecycler.setAdapter(adapter);
+                        binding.resultRecycler.swapAdapter(adapter,true);
                     }
                 }
             });
@@ -130,7 +131,7 @@ public class AddFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
                         addResultsDecimalsModels = mainListsSorter.sortAddDecimalModels();
                         adapter = new ResultsRecyclerViewAdapter(getContext(), 1, 3, this);
                         adapter.setAddItemList(addResultsDecimalsModels);
-                        binding.resultRecycler.setAdapter(adapter);
+                        binding.resultRecycler.swapAdapter(adapter,true);
                     }
                 }
             });
@@ -139,52 +140,52 @@ public class AddFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
 
     @Override
     public void onItemClick(int position, int typeNumber) {
-        addViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), addResultsModels -> {
-            switch (typeNumber) {
-                case 1:
-                    if (resultsDialog != null && resultsDialog.isShowing()) {
-                        for (int i = 0; i < addResultsNaturalsModels.size(); i++) {
-                            if (addResultsNaturalsModels.get(i).getId().equals(id)) {
-                                loadDataNaturalMethod(i);
-                                loadDataFromFirestoreAndMakeDialogMethod();
+            addViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), addResultsModels -> {
+                switch (typeNumber) {
+                    case 1:
+                        if (resultsDialog != null && resultsDialog.isShowing()) {
+                            for (int i = 0; i < addResultsNaturalsModels.size(); i++) {
+                                if (addResultsNaturalsModels.get(i).getId().equals(id)) {
+                                    loadDataNaturalMethod(i);
+                                    loadDataFromFirestoreAndMakeDialogMethod();
+                                }
                             }
+                        } else {
+                            loadDataNaturalMethod(position);
+                            id = addResultsNaturalsModels.get(position).getId();
+                            loadDataFromFirestoreAndMakeDialogMethod();
                         }
-                    } else {
-                        loadDataNaturalMethod(position);
-                        id = addResultsNaturalsModels.get(position).getId();
-                        loadDataFromFirestoreAndMakeDialogMethod();
-                    }
-                    break;
-                case 2:
-                    if (resultsDialog != null && resultsDialog.isShowing()) {
-                        for (int i = 0; i < addResultsIntegersModels.size(); i++) {
-                            if (addResultsIntegersModels.get(i).getId().equals(id)) {
-                                loadDataNaturalMethod(i);
-                                loadDataFromFirestoreAndMakeDialogMethod();
+                        break;
+                    case 2:
+                        if (resultsDialog != null && resultsDialog.isShowing()) {
+                            for (int i = 0; i < addResultsIntegersModels.size(); i++) {
+                                if (addResultsIntegersModels.get(i).getId().equals(id)) {
+                                    loadDataNaturalMethod(i);
+                                    loadDataFromFirestoreAndMakeDialogMethod();
+                                }
                             }
+                        } else {
+                            loadDataIntegerMethod(position);
+                            id = addResultsIntegersModels.get(position).getId();
+                            loadDataFromFirestoreAndMakeDialogMethod();
                         }
-                    } else {
-                        loadDataIntegerMethod(position);
-                        id = addResultsIntegersModels.get(position).getId();
-                        loadDataFromFirestoreAndMakeDialogMethod();
-                    }
-                    break;
-                case 3:
-                    if (resultsDialog != null && resultsDialog.isShowing()) {
-                        for (int i = 0; i < addResultsDecimalsModels.size(); i++) {
-                            if (addResultsDecimalsModels.get(i).getId().equals(id)) {
-                                loadDataNaturalMethod(i);
-                                loadDataFromFirestoreAndMakeDialogMethod();
+                        break;
+                    case 3:
+                        if (resultsDialog != null && resultsDialog.isShowing()) {
+                            for (int i = 0; i < addResultsDecimalsModels.size(); i++) {
+                                if (addResultsDecimalsModels.get(i).getId().equals(id)) {
+                                    loadDataNaturalMethod(i);
+                                    loadDataFromFirestoreAndMakeDialogMethod();
+                                }
                             }
+                        } else {
+                            loadDataDecimalMethod(position);
+                            id = addResultsDecimalsModels.get(position).getId();
+                            loadDataFromFirestoreAndMakeDialogMethod();
                         }
-                    } else {
-                        loadDataDecimalMethod(position);
-                        id = addResultsDecimalsModels.get(position).getId();
-                        loadDataFromFirestoreAndMakeDialogMethod();
-                    }
-                    break;
-            }
-        });
+                        break;
+                }
+            });
     }
 
     private void loadDataNaturalMethod(int position) {

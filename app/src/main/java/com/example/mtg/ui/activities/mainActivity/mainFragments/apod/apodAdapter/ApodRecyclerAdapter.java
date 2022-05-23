@@ -72,6 +72,8 @@ public class ApodRecyclerAdapter extends RecyclerView.Adapter<ApodRecyclerViewHo
     @Override
     public void onBindViewHolder(@NonNull ApodRecyclerViewHolder holder, int position) {
         holder.binding.apodItemCard.setAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_for_recycler));
+        holder.binding.apodItemAuthor.setSelected(true);
+        holder.binding.apodItemTitle.setSelected(true);
         holder.binding.setApodModel(arrayList.get(position));
     }
 

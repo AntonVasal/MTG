@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class AddViewModel extends ViewModel {
     private final AddRepository addRepository = new AddRepository();
-    private MutableLiveData<ErrorHandlingRepositoryData<ArrayList<AddResultsModel>>> addList;
+    MutableLiveData<ErrorHandlingRepositoryData<ArrayList<AddResultsModel>>> addList;
 
     public MutableLiveData<ErrorHandlingRepositoryData<ArrayList<AddResultsModel>>> getUserResultsModel() {
         if (addList == null) {

@@ -64,22 +64,22 @@ public class MultiFragment extends BaseBindingFragment<FragmentResultsRecyclerBi
         binding.recyclerProgressBar.setVisibility(View.VISIBLE);
         binding.natButton.setEnabled(false);
 
-        observeStatus();
+//        observeStatus();
         generateItem();
         initListeners();
     }
 
-    private void observeStatus() {
-        resultsViewModel.getIsOnPause().observe(getViewLifecycleOwner(), isOnPause -> {
-            Boolean isConnect = networkStateManager.getNetworkConnectivityStatus().getValue();
-            if (counter != 0 && !isOnPause && isConnect != null && isConnect) {
-                multiViewModel.loadData();
-            }else if (isOnPause){
-                multiViewModel.removeCollectionListener();
-            }
-            counter++;
-        });
-    }
+//    private void observeStatus() {
+//        resultsViewModel.getIsOnPause().observe(getViewLifecycleOwner(), isOnPause -> {
+//            Boolean isConnect = networkStateManager.getNetworkConnectivityStatus().getValue();
+//            if (counter != 0 && !isOnPause && isConnect != null && isConnect) {
+//                multiViewModel.loadData();
+//            }else if (isOnPause){
+//                multiViewModel.removeCollectionListener();
+//            }
+//            counter++;
+//        });
+//    }
 
     private void generateItem() {
         multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {

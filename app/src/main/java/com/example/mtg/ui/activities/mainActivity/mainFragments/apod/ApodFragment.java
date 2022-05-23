@@ -56,7 +56,6 @@ public class ApodFragment extends Fragment implements ApodRecyclerOnItemClickInt
             public boolean onQueryTextSubmit(String s) {
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String s) {
                 sortApodLists(s.trim());

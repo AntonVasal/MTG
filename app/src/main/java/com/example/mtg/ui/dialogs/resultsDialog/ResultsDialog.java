@@ -39,7 +39,9 @@ public class ResultsDialog extends BottomSheetDialog {
         setContentView(binding.getRoot());
 
         binding.exitButtonBottomDialog.setOnClickListener(view -> dismiss());
-
+        binding.nicknameTextDialog.setSelected(true);
+        binding.infoNicknameDialog.setSelected(true);
+        binding.infoNameDialog.setSelected(true);
         setDataInViews();
     }
 

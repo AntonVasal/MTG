@@ -7,13 +7,12 @@ import com.example.mtg.R
 import com.example.mtg.ui.activities.logActivity.LogActivity
 import com.example.mtg.utility.sharedPreferences.SharedPreferencesHolder
 import com.github.appintro.AppIntro
-import com.github.appintro.AppIntro2
 import com.github.appintro.AppIntroFragment
 import com.github.appintro.AppIntroPageTransformerType
 
 class AppIntroActivity : AppIntro() {
 
-    val sharedPreferencesHolder: SharedPreferencesHolder = SharedPreferencesHolder.getInstance(this)
+    private val sharedPreferencesHolder: SharedPreferencesHolder = SharedPreferencesHolder.getInstance(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +33,7 @@ class AppIntroActivity : AppIntro() {
                 descriptionColorRes = R.color.white
         ))
         addSlide(AppIntroFragment.createInstance(title = "Have a rest!",
-                description = "For you we specially made page with beautiful astronomy picture and interesting facts about it which had provided by NASA! Make breaks between counting) ",
+                description = "For you we specially made page with beautiful astronomy pictures and interesting facts about them which had been provided by NASA! Make breaks between counting) ",
                 imageDrawable = R.drawable.ic_milky_way_svgrepo_com,
                 backgroundColorRes = R.color.orange_dark,
                 titleColorRes = R.color.white,

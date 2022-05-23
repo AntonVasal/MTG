@@ -63,6 +63,7 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
 
     @Override
     public void onBindViewHolder(@NonNull ResultsRecyclerViewHolder holder, int position) {
+        holder.userName.setSelected(true);
         switch (typeTask) {
             case 1:
                 Glide.with(mContext)

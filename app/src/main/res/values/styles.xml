@@ -26,6 +26,9 @@
     <style name="UserDataTextViews" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">@dimen/for_user_data_text_18</item>
         <item name="android:textColor">@color/black</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
     </style>
     
     <style name="KindOfUserDataTextViews" parent="Widget.MaterialComponents.TextView">

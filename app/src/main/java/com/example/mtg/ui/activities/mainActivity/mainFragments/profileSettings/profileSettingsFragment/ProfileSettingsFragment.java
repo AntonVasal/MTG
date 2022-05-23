@@ -64,6 +64,10 @@ public class ProfileSettingsFragment extends Fragment {
                 getResources().getString(R.string.updating_failed),
                 errorOccurBinding);
         binding.setViewModel(profileSettingsViewModel);
+        binding.infoNickname.setSelected(true);
+        binding.infoName.setSelected(true);
+        binding.infoSurname.setSelected(true);
+        binding.infoEmail.setSelected(true);
         detectConnection();
         initListeners();
         getUserData();

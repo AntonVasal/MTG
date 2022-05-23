@@ -90,6 +90,12 @@ public class ProfileFragment extends Fragment {
         binding.setViewModel(profileViewModel);
         mAuth = FirebaseAuth.getInstance();
         binding.profileProgressBar.setVisibility(View.VISIBLE);
+        binding.infoName.setSelected(true);
+        binding.infoNickname.setSelected(true);
+        binding.infoSurname.setSelected(true);
+        binding.infoEmail.setSelected(true);
+        binding.userEmail.setSelected(true);
+        binding.userNickname.setSelected(true);
         detectConnection();
         setData();
         initListeners();

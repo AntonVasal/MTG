@@ -10,6 +10,7 @@
     <dimen name="large_text_25">25sp</dimen>
     <dimen name="large_text_40">40sp</dimen>
     <dimen name="small_text_12">12sp</dimen>
+    <dimen name="small_text_14">14sp</dimen>
 
     <dimen name="normal_elevation_15">15dp</dimen>
     <dimen name="normal_elevation_20">20dp</dimen>

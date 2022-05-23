@@ -60,22 +60,22 @@ public class SubFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
         binding.recyclerProgressBar.setVisibility(View.VISIBLE);
         binding.natButton.setEnabled(false);
 
-        observeStatus();
+//        observeStatus();
         generateItem();
         initListeners();
     }
 
-    private void observeStatus() {
-        resultsViewModel.getIsOnPause().observe(getViewLifecycleOwner(), isOnPause -> {
-            Boolean isConnect = networkStateManager.getNetworkConnectivityStatus().getValue();
-            if (counter != 0 && !isOnPause && isConnect != null && isConnect) {
-                subViewModel.loadData();
-            }else if (isOnPause){
-                subViewModel.removeCollectionListener();
-            }
-            counter++;
-        });
-    }
+//    private void observeStatus() {
+//        resultsViewModel.getIsOnPause().observe(getViewLifecycleOwner(), isOnPause -> {
+//            Boolean isConnect = networkStateManager.getNetworkConnectivityStatus().getValue();
+//            if (counter != 0 && !isOnPause && isConnect != null && isConnect) {
+//                subViewModel.loadData();
+//            }else if (isOnPause){
+//                subViewModel.removeCollectionListener();
+//            }
+//            counter++;
+//        });
+//    }
 
     private void generateItem() {
         subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {

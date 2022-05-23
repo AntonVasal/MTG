@@ -54,6 +54,10 @@
                 android:id="@+id/nickname_text_dialog"
                 style="@style/MainUserNicknameText"
                 android:layout_marginTop="@dimen/margin_15"
+                android:layout_marginHorizontal="@dimen/margin_40"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
                 android:textSize="@dimen/large_text_40"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -108,7 +112,10 @@
 
             <TextView
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textAlignment="viewStart"
+                android:layout_marginEnd="50dp"
                 android:id="@+id/info_nickname_dialog"
                 style="@style/UserDataTextViews"
                 android:layout_marginStart="@dimen/margin_20"
@@ -155,7 +162,10 @@
 
             <TextView
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textAlignment="viewStart"
+                android:layout_marginEnd="50dp"
                 android:id="@+id/info_name_dialog"
                 style="@style/UserDataTextViews"
                 android:layout_marginStart="@dimen/margin_20"
