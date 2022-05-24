@@ -21,13 +21,13 @@ import com.example.mtg.ui.dialogs.resultsDialog.ResultsDialog;
 import com.example.mtg.utility.listsSorters.MainListsSorter;
 import com.example.mtg.utility.networkDetection.NetworkStateManager;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
 
 public class SubFragment extends BaseBindingFragment<FragmentResultsRecyclerBinding> implements OnItemResultsRecyclerClickInterface {
 
     private static final String USERS = "users";
-    private ResultsRecyclerViewAdapter adapter;
     private ResultsDialog resultsDialog;
     private String name;
     private String country;
@@ -40,7 +40,7 @@ public class SubFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
     private ArrayList<SubResultsModel> subResultsNaturalsModels;
     private ArrayList<SubResultsModel> subResultsIntegersModels;
     private ArrayList<SubResultsModel> subResultsDecimalsModels;
-    private static int counter=0;
+    private static int counter = 0;
     private NetworkStateManager networkStateManager;
     private SubViewModel subViewModel;
     private ResultsViewModel resultsViewModel;
@@ -56,41 +56,69 @@ public class SubFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
         subViewModel = new ViewModelProvider(requireActivity()).get(SubViewModel.class);
         resultsViewModel = new ViewModelProvider(requireActivity()).get(ResultsViewModel.class);
         mainListsSorter = new MainListsSorter();
+        resultsDialog = new ResultsDialog(requireContext(), null, "", "", "", "", 0, 0);
 
         binding.recyclerProgressBar.setVisibility(View.VISIBLE);
         binding.natButton.setEnabled(false);
 
-//        observeStatus();
+        observeStatus();
         generateItem();
         initListeners();
     }
 
-//    private void observeStatus() {
-//        resultsViewModel.getIsOnPause().observe(getViewLifecycleOwner(), isOnPause -> {
-//            Boolean isConnect = networkStateManager.getNetworkConnectivityStatus().getValue();
-//            if (counter != 0 && !isOnPause && isConnect != null && isConnect) {
-//                subViewModel.loadData();
-//            }else if (isOnPause){
-//                subViewModel.removeCollectionListener();
-//            }
-//            counter++;
-//        });
-//    }
+    private void observeStatus() {
+        resultsViewModel.getIsOnPause().observe(getViewLifecycleOwner(), isOnPause -> {
+            Boolean isConnect = networkStateManager.getNetworkConnectivityStatus().getValue();
+            if (counter != 0 && !isOnPause && isConnect != null && isConnect) {
+                subViewModel.loadData();
+            } else if (isOnPause) {
+                subViewModel.removeCollectionListener();
+                subViewModel.getMutableLiveData().removeObservers(getViewLifecycleOwner());
+            }
+            counter++;
+        });
+    }
 
     private void generateItem() {
         subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
-            if (subResultsModels != null) {
-                assert subResultsModels.data != null;
-                if (subResultsModels.data.size() != 0) {
-                    mainListsSorter.setSubList(subResultsModels.data);
-                    subResultsNaturalsModels = mainListsSorter.sortSubNaturalsModels();
-                    adapter = new ResultsRecyclerViewAdapter(getContext(), 3, 1, this);
-                    adapter.setSubItemList(subResultsNaturalsModels);
-                    binding.resultRecycler.setAdapter(adapter);
-                    binding.recyclerProgressBar.setVisibility(View.GONE);
+                if (subResultsModels != null) {
+                    assert subResultsModels.data != null;
+                    if (subResultsModels.data.size() != 0) {
+                        sortNat(subResultsModels.data);
+                        sortInt(subResultsModels.data);
+                        sortDec(subResultsModels.data);
+                        makeAdapter();
+                    }
                 }
-            }
         });
+    }
+
+    private void makeAdapter() {
+        ResultsRecyclerViewAdapter adapter = new ResultsRecyclerViewAdapter(getContext(), this);
+        if (!binding.natButton.isEnabled()){
+            adapter.setSubItemList(subResultsNaturalsModels,1,3);
+        }else if (!binding.intButton.isEnabled()){
+            adapter.setSubItemList(subResultsIntegersModels,2,3);
+        }else if (!binding.decButton.isEnabled()){
+            adapter.setSubItemList(subResultsDecimalsModels,3,3);
+        }
+        binding.resultRecycler.setAdapter(adapter);
+        binding.recyclerProgressBar.setVisibility(View.GONE);
+    }
+
+    private void sortNat(ArrayList<SubResultsModel> subResultsModels) {
+        mainListsSorter.setSubList(subResultsModels);
+        subResultsNaturalsModels = mainListsSorter.sortSubNaturalsModels();
+    }
+
+    private void sortInt(ArrayList<SubResultsModel> subResultsModels) {
+        mainListsSorter.setSubList(subResultsModels);
+        subResultsIntegersModels = mainListsSorter.sortSubIntegersModels();
+    }
+
+    private void sortDec(ArrayList<SubResultsModel> subResultsModels) {
+        mainListsSorter.setSubList(subResultsModels);
+        subResultsDecimalsModels = mainListsSorter.sortSubDecimalsModels();
     }
 
     private void initListeners() {
@@ -98,41 +126,19 @@ public class SubFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
             binding.natButton.setEnabled(false);
             binding.intButton.setEnabled(true);
             binding.decButton.setEnabled(true);
-            generateItem();
+            makeAdapter();
         });
         binding.intButton.setOnClickListener(view -> {
             binding.natButton.setEnabled(true);
             binding.intButton.setEnabled(false);
             binding.decButton.setEnabled(true);
-            subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
-                if (subResultsModels != null) {
-                    assert subResultsModels.data != null;
-                    if (subResultsModels.data.size() != 0) {
-                        mainListsSorter.setSubList(subResultsModels.data);
-                        subResultsIntegersModels = mainListsSorter.sortSubIntegersModels();
-                        adapter = new ResultsRecyclerViewAdapter(getContext(), 3, 2, this);
-                        adapter.setSubItemList(subResultsIntegersModels);
-                        binding.resultRecycler.setAdapter(adapter);
-                    }
-                }
-            });
+            makeAdapter();
         });
         binding.decButton.setOnClickListener(view -> {
             binding.natButton.setEnabled(true);
             binding.intButton.setEnabled(true);
             binding.decButton.setEnabled(false);
-            subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
-                if (subResultsModels != null) {
-                    assert subResultsModels.data != null;
-                    if (subResultsModels.data.size() != 0) {
-                        mainListsSorter.setSubList(subResultsModels.data);
-                        subResultsDecimalsModels = mainListsSorter.sortSubDecimalsModels();
-                        adapter = new ResultsRecyclerViewAdapter(getContext(), 3, 3, this);
-                        adapter.setSubItemList(subResultsDecimalsModels);
-                        binding.resultRecycler.setAdapter(adapter);
-                    }
-                }
-            });
+            makeAdapter();
         });
     }
 
@@ -208,7 +214,7 @@ public class SubFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
     }
 
     private void loadDataFromFirestoreAndMakeDialogMethod() {
-        firebaseFirestore.collection(USERS).document(id)
+        ListenerRegistration listenerRegistration = firebaseFirestore.collection(USERS).document(id)
                 .addSnapshotListener((value, error) -> {
                     if (error != null) {
                         return;
@@ -232,6 +238,12 @@ public class SubFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
                         }
                     }
                 });
+        resultsDialog.setOnDismissListener(dialogInterface -> listenerRegistration.remove());
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_results_recycler;
     }
 
     @Override
@@ -240,8 +252,4 @@ public class SubFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
         binding = null;
     }
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.fragment_results_recycler;
-    }
 }

@@ -21,6 +21,7 @@ import com.example.mtg.ui.dialogs.resultsDialog.ResultsDialog;
 import com.example.mtg.utility.listsSorters.MainListsSorter;
 import com.example.mtg.utility.networkDetection.NetworkStateManager;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,6 @@ public class MultiFragment extends BaseBindingFragment<FragmentResultsRecyclerBi
 
     private static final String USERS = "users";
 
-    private ResultsRecyclerViewAdapter adapter;
     private ResultsDialog resultsDialog;
     private MainListsSorter mainListsSorter;
     private String name;
@@ -55,46 +55,70 @@ public class MultiFragment extends BaseBindingFragment<FragmentResultsRecyclerBi
         super.onViewCreated(view, savedInstanceState);
         networkStateManager = NetworkStateManager.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
-
         multiViewModel = new ViewModelProvider(requireActivity()).get(MultiViewModel.class);
         resultsViewModel = new ViewModelProvider(requireActivity()).get(ResultsViewModel.class);
-
+        resultsDialog = new ResultsDialog(requireContext(), null, "", "", "", "", 0, 0);
         mainListsSorter = new MainListsSorter();
-
         binding.recyclerProgressBar.setVisibility(View.VISIBLE);
         binding.natButton.setEnabled(false);
-
-//        observeStatus();
+        observeStatus();
         generateItem();
         initListeners();
     }
 
-//    private void observeStatus() {
-//        resultsViewModel.getIsOnPause().observe(getViewLifecycleOwner(), isOnPause -> {
-//            Boolean isConnect = networkStateManager.getNetworkConnectivityStatus().getValue();
-//            if (counter != 0 && !isOnPause && isConnect != null && isConnect) {
-//                multiViewModel.loadData();
-//            }else if (isOnPause){
-//                multiViewModel.removeCollectionListener();
-//            }
-//            counter++;
-//        });
-//    }
+    private void observeStatus() {
+        resultsViewModel.getIsOnPause().observe(getViewLifecycleOwner(), isOnPause -> {
+            Boolean isConnect = networkStateManager.getNetworkConnectivityStatus().getValue();
+            if (counter != 0 && !isOnPause && isConnect != null && isConnect) {
+                multiViewModel.loadData();
+            } else if (isOnPause) {
+                multiViewModel.removeCollectionListener();
+                multiViewModel.getMutableLiveData().removeObservers(getViewLifecycleOwner());
+            }
+            counter++;
+        });
+    }
 
     private void generateItem() {
         multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
             if (multiResultsModels != null) {
                 assert multiResultsModels.data != null;
                 if (multiResultsModels.data.size() != 0) {
-                    mainListsSorter.setMultiList(multiResultsModels.data);
-                    multiResultsNaturalsModels = mainListsSorter.sortMultiNaturalsModels();
-                    adapter = new ResultsRecyclerViewAdapter(getContext(), 2, 1, this);
-                    adapter.setMultiItemList(multiResultsNaturalsModels);
-                    binding.resultRecycler.setAdapter(adapter);
-                    binding.recyclerProgressBar.setVisibility(View.GONE);
+                    sortNat(multiResultsModels.data);
+                    sortInt(multiResultsModels.data);
+                    sortDec(multiResultsModels.data);
+                    makeAdapter();
                 }
             }
         });
+    }
+
+    private void makeAdapter() {
+        ResultsRecyclerViewAdapter adapter = new ResultsRecyclerViewAdapter(getContext(), this);
+        if (!binding.natButton.isEnabled()) {
+            adapter.setMultiItemList(multiResultsNaturalsModels, 1, 2);
+        } else if (!binding.intButton.isEnabled()) {
+            adapter.setMultiItemList(multiResultsIntegersModels, 2, 2);
+        } else if (!binding.decButton.isEnabled()) {
+            adapter.setMultiItemList(multiResultsDecimalsModels, 3, 2);
+        }
+        binding.resultRecycler.setAdapter(adapter);
+        binding.recyclerProgressBar.setVisibility(View.GONE);
+    }
+
+    private void sortNat(ArrayList<MultiResultsModel> multiResultsModels) {
+        mainListsSorter.setMultiList(multiResultsModels);
+        multiResultsNaturalsModels = mainListsSorter.sortMultiNaturalsModels();
+    }
+
+    private void sortInt(ArrayList<MultiResultsModel> multiResultsModels) {
+        mainListsSorter.setMultiList(multiResultsModels);
+        multiResultsIntegersModels = mainListsSorter.sortMultiIntegersModels();
+    }
+
+    private void sortDec(ArrayList<MultiResultsModel> multiResultsModels) {
+        mainListsSorter.setMultiList(multiResultsModels);
+        multiResultsDecimalsModels = mainListsSorter.sortMultiDecimalsModels();
     }
 
     private void initListeners() {
@@ -102,42 +126,19 @@ public class MultiFragment extends BaseBindingFragment<FragmentResultsRecyclerBi
             binding.natButton.setEnabled(false);
             binding.intButton.setEnabled(true);
             binding.decButton.setEnabled(true);
-            generateItem();
+            makeAdapter();
         });
         binding.intButton.setOnClickListener(view -> {
             binding.natButton.setEnabled(true);
             binding.intButton.setEnabled(false);
             binding.decButton.setEnabled(true);
-            multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
-                if (multiResultsModels != null) {
-                    assert multiResultsModels.data != null;
-                    if (multiResultsModels.data.size() != 0) {
-                        mainListsSorter.setMultiList(multiResultsModels.data);
-                        multiResultsIntegersModels = mainListsSorter.sortMultiIntegersModels();
-                        adapter = new ResultsRecyclerViewAdapter(getContext(), 2, 2, this);
-                        adapter.setMultiItemList(multiResultsIntegersModels);
-                        binding.resultRecycler.setAdapter(adapter);
-                    }
-                }
-            });
-
+            makeAdapter();
         });
         binding.decButton.setOnClickListener(view -> {
             binding.natButton.setEnabled(true);
             binding.intButton.setEnabled(true);
             binding.decButton.setEnabled(false);
-            multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
-                if (multiResultsModels != null) {
-                    assert multiResultsModels.data != null;
-                    if (multiResultsModels.data.size() != 0) {
-                        mainListsSorter.setMultiList(multiResultsModels.data);
-                        multiResultsDecimalsModels = mainListsSorter.sortMultiDecimalsModels();
-                        adapter = new ResultsRecyclerViewAdapter(getContext(), 2, 3, this);
-                        adapter.setMultiItemList(multiResultsDecimalsModels);
-                        binding.resultRecycler.setAdapter(adapter);
-                    }
-                }
-            });
+            makeAdapter();
         });
     }
 
@@ -213,7 +214,7 @@ public class MultiFragment extends BaseBindingFragment<FragmentResultsRecyclerBi
     }
 
     private void loadDataFromFirestoreAndMakeDialogMethod() {
-        firebaseFirestore.collection(USERS).document(id)
+        ListenerRegistration listenerRegistration = firebaseFirestore.collection(USERS).document(id)
                 .addSnapshotListener((value, error) -> {
                     if (error != null) {
                         return;
@@ -237,6 +238,12 @@ public class MultiFragment extends BaseBindingFragment<FragmentResultsRecyclerBi
                         }
                     }
                 });
+        resultsDialog.setOnDismissListener(dialogInterface -> listenerRegistration.remove());
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_results_recycler;
     }
 
     @Override
@@ -245,8 +252,4 @@ public class MultiFragment extends BaseBindingFragment<FragmentResultsRecyclerBi
         binding = null;
     }
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.fragment_results_recycler;
-    }
 }

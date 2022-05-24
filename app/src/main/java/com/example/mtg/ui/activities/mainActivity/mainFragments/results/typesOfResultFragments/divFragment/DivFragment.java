@@ -12,6 +12,7 @@ import com.example.mtg.core.baseFragments.BaseBindingFragment;
 import com.example.mtg.databinding.DialogBottomSheetResultsBinding;
 import com.example.mtg.databinding.FragmentResultsRecyclerBinding;
 import com.example.mtg.models.countModels.DivResultsModel;
+import com.example.mtg.models.countModels.MultiResultsModel;
 import com.example.mtg.models.profileModel.UserRegisterProfileModel;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.OnItemResultsRecyclerClickInterface;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
@@ -21,13 +22,13 @@ import com.example.mtg.ui.dialogs.resultsDialog.ResultsDialog;
 import com.example.mtg.utility.listsSorters.MainListsSorter;
 import com.example.mtg.utility.networkDetection.NetworkStateManager;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
 
 public class DivFragment extends BaseBindingFragment<FragmentResultsRecyclerBinding> implements OnItemResultsRecyclerClickInterface {
 
     private static final String USERS = "users";
-    private ResultsRecyclerViewAdapter adapter;
     private ResultsDialog resultsDialog;
     private MainListsSorter mainListsSorter;
     private ArrayList<DivResultsModel> divResultsNaturalsModels;
@@ -59,41 +60,69 @@ public class DivFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
         resultsViewModel = new ViewModelProvider(requireActivity()).get(ResultsViewModel.class);
 
         mainListsSorter = new MainListsSorter();
+        resultsDialog = new ResultsDialog(requireContext(), null, "", "", "", "", 0, 0);
 
         binding.recyclerProgressBar.setVisibility(View.VISIBLE);
         binding.natButton.setEnabled(false);
 
-//        observeStatus();
+        observeStatus();
         generateItem();
         initListeners();
     }
 
-//    private void observeStatus() {
-//        resultsViewModel.getIsOnPause().observe(getViewLifecycleOwner(), isOnPause -> {
-//            Boolean isConnect = networkStateManager.getNetworkConnectivityStatus().getValue();
-//            if (counter != 0 && !isOnPause && isConnect != null && isConnect) {
-//                divViewModel.loadData();
-//            }else if (isOnPause){
-//                divViewModel.removeCollectionListener();
-//            }
-//            counter++;
-//        });
-//    }
+    private void observeStatus() {
+        resultsViewModel.getIsOnPause().observe(getViewLifecycleOwner(), isOnPause -> {
+            Boolean isConnect = networkStateManager.getNetworkConnectivityStatus().getValue();
+            if (counter != 0 && !isOnPause && isConnect != null && isConnect) {
+                divViewModel.loadData();
+            }else if (isOnPause){
+                divViewModel.removeCollectionListener();
+                divViewModel.getMutableLiveData().removeObservers(getViewLifecycleOwner());
+            }
+            counter++;
+        });
+    }
 
     private void generateItem() {
         divViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), divResultsModels -> {
             if (divResultsModels != null) {
                 assert divResultsModels.data != null;
                 if (divResultsModels.data.size() != 0) {
-                    mainListsSorter.setDivList(divResultsModels.data);
-                    divResultsNaturalsModels = mainListsSorter.sortDivNaturalsModels();
-                    adapter = new ResultsRecyclerViewAdapter(getContext(), 4, 1, this);
-                    adapter.setDivItemList(divResultsNaturalsModels);
-                    binding.resultRecycler.setAdapter(adapter);
-                    binding.recyclerProgressBar.setVisibility(View.GONE);
+                    sortNat(divResultsModels.data);
+                    sortInt(divResultsModels.data);
+                    sortDec(divResultsModels.data);
+                    makeAdapter();
                 }
             }
         });
+    }
+
+    private void makeAdapter() {
+        ResultsRecyclerViewAdapter adapter = new ResultsRecyclerViewAdapter(getContext(), this);
+        if (!binding.natButton.isEnabled()) {
+            adapter.setDivItemList(divResultsNaturalsModels, 1, 4);
+        } else if (!binding.intButton.isEnabled()) {
+            adapter.setDivItemList(divResultsIntegersModels, 2, 4);
+        } else if (!binding.decButton.isEnabled()) {
+            adapter.setDivItemList(divResultsDecimalsModels, 3, 4);
+        }
+        binding.resultRecycler.setAdapter(adapter);
+        binding.recyclerProgressBar.setVisibility(View.GONE);
+    }
+
+    private void sortNat(ArrayList<DivResultsModel> divResultsModels) {
+        mainListsSorter.setDivList(divResultsModels);
+        divResultsNaturalsModels = mainListsSorter.sortDivNaturalsModels();
+    }
+
+    private void sortInt(ArrayList<DivResultsModel> divResultsModels) {
+        mainListsSorter.setDivList(divResultsModels);
+        divResultsIntegersModels = mainListsSorter.sortDivIntegersModels();
+    }
+
+    private void sortDec(ArrayList<DivResultsModel> divResultsModels) {
+        mainListsSorter.setDivList(divResultsModels);
+        divResultsDecimalsModels = mainListsSorter.sortDivDecimalsModels();
     }
 
     private void initListeners() {
@@ -101,41 +130,19 @@ public class DivFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
             binding.natButton.setEnabled(false);
             binding.intButton.setEnabled(true);
             binding.decButton.setEnabled(true);
-            generateItem();
+            makeAdapter();
         });
         binding.intButton.setOnClickListener(view -> {
             binding.natButton.setEnabled(true);
             binding.intButton.setEnabled(false);
             binding.decButton.setEnabled(true);
-            divViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), divResultsModels -> {
-                if (divResultsModels != null) {
-                    assert divResultsModels.data != null;
-                    if (divResultsModels.data.size() != 0) {
-                        mainListsSorter.setDivList(divResultsModels.data);
-                        divResultsIntegersModels = mainListsSorter.sortDivIntegersModels();
-                        adapter = new ResultsRecyclerViewAdapter(getContext(), 4, 2, this);
-                        adapter.setDivItemList(divResultsIntegersModels);
-                        binding.resultRecycler.setAdapter(adapter);
-                    }
-                }
-            });
+            makeAdapter();
         });
         binding.decButton.setOnClickListener(view -> {
             binding.natButton.setEnabled(true);
             binding.intButton.setEnabled(true);
             binding.decButton.setEnabled(false);
-            divViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), divResultsModels -> {
-                if (divResultsModels != null) {
-                    assert divResultsModels.data != null;
-                    if (divResultsModels.data.size() != 0) {
-                        mainListsSorter.setDivList(divResultsModels.data);
-                        divResultsDecimalsModels = mainListsSorter.sortDivDecimalsModels();
-                        adapter = new ResultsRecyclerViewAdapter(getContext(), 4, 3, this);
-                        adapter.setDivItemList(divResultsDecimalsModels);
-                        binding.resultRecycler.setAdapter(adapter);
-                    }
-                }
-            });
+            makeAdapter();
         });
     }
 
@@ -211,7 +218,7 @@ public class DivFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
     }
 
     private void loadDataFromFirestoreAndMakeDialogMethod() {
-        firebaseFirestore.collection(USERS).document(id)
+        ListenerRegistration listenerRegistration = firebaseFirestore.collection(USERS).document(id)
                 .addSnapshotListener((value, error) -> {
                     if (error != null) {
                         return;
@@ -235,6 +242,7 @@ public class DivFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
                         }
                     }
                 });
+        resultsDialog.setOnDismissListener(dialogInterface -> listenerRegistration.remove());
     }
 
     @Override

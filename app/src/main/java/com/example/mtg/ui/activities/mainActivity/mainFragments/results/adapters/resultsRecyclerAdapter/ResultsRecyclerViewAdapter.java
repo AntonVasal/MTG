@@ -25,32 +25,37 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
     private ArrayList<SubResultsModel> subItemList;
     private ArrayList<DivResultsModel> divItemList;
     private final Context mContext;
-    private final int typeTask;
-    private final int typeNumber;
+    private int typeTask;
+    private int typeNumber;
 
-    public void setAddItemList(ArrayList<AddResultsModel> addItemList) {
+    public void setAddItemList(ArrayList<AddResultsModel> addItemList,int typeNumber,int typeTask) {
         this.addItemList = addItemList;
-    }
-
-    public void setMultiItemList(ArrayList<MultiResultsModel> multiItemList) {
-        this.multiItemList = multiItemList;
-    }
-
-    public void setSubItemList(ArrayList<SubResultsModel> subItemList) {
-        this.subItemList = subItemList;
-    }
-
-    public void setDivItemList(ArrayList<DivResultsModel> divItemList) {
-        this.divItemList = divItemList;
-    }
-
-    public ResultsRecyclerViewAdapter (Context mContext, int typeTask, int typeNumber, OnItemResultsRecyclerClickInterface onItemResultsRecyclerClickInterface) {
-        this.mContext = mContext;
-        this.typeTask = typeTask;
         this.typeNumber = typeNumber;
+        this.typeTask = typeTask;
+    }
+
+    public void setMultiItemList(ArrayList<MultiResultsModel> multiItemList, int typeNumber,int typeTask) {
+        this.multiItemList = multiItemList;
+        this.typeNumber = typeNumber;
+        this.typeTask = typeTask;
+    }
+
+    public void setSubItemList(ArrayList<SubResultsModel> subItemList, int typeNumber,int typeTask) {
+        this.subItemList = subItemList;
+        this.typeNumber = typeNumber;
+        this.typeTask = typeTask;
+    }
+
+    public void setDivItemList(ArrayList<DivResultsModel> divItemList, int typeNumber,int typeTask) {
+        this.divItemList = divItemList;
+        this.typeNumber = typeNumber;
+        this.typeTask = typeTask;
+    }
+
+    public ResultsRecyclerViewAdapter (Context mContext, OnItemResultsRecyclerClickInterface onItemResultsRecyclerClickInterface) {
+        this.mContext = mContext;
         this.onItemResultsRecyclerClickInterface = onItemResultsRecyclerClickInterface;
     }
-
 
 
     @NonNull
