@@ -97,6 +97,8 @@ public class ChangeNameFragment extends Fragment {
             }
 
             binding.changeDataProgressBar.setVisibility(View.VISIBLE);
+            binding.changeButton.setEnabled(false);
+            binding.changeBackButton.setEnabled(false);
             String name = binding.forChange.getText().toString().trim();
 
             profileSettingsViewModel.updateUserName(name, status -> {
@@ -112,6 +114,8 @@ public class ChangeNameFragment extends Fragment {
                         errorDialog.show();
                         break;
                 }
+                binding.changeButton.setEnabled(true);
+                binding.changeBackButton.setEnabled(true);
             });
         });
     }

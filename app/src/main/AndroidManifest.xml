@@ -17,6 +17,7 @@
         <activity
             android:name=".ui.activities.splashActivity.SplashActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,12 +27,15 @@
         </activity>
         <activity
             android:name=".ui.activities.logActivity.LogActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".ui.activities.appIntroActivity.AppIntroActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name=".ui.activities.mainActivity.MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
     </application>
 

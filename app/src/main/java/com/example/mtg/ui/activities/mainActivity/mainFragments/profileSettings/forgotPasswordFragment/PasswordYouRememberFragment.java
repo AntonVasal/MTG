@@ -92,6 +92,8 @@ public class PasswordYouRememberFragment extends Fragment {
 
     private void sendEmail() {
         binding.changeDataProgressBar.setVisibility(View.VISIBLE);
+        binding.changeBackButton.setEnabled(false);
+        binding.changeButton.setEnabled(false);
         forgotPasswordViewModel.sendResetPasswordEmail(status -> {
             Snackbar snackbar;
             switch (status) {
@@ -106,6 +108,8 @@ public class PasswordYouRememberFragment extends Fragment {
                     snackbar.show();
                     break;
             }
+            binding.changeBackButton.setEnabled(true);
+            binding.changeButton.setEnabled(true);
         });
     }
 

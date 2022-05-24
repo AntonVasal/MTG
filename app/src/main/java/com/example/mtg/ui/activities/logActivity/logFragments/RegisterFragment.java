@@ -117,6 +117,8 @@ public class RegisterFragment extends Fragment {
         }
 
         binding.registerProgressBar.setVisibility(View.VISIBLE);
+        binding.registerButton.setEnabled(false);
+        binding.backRegisterButton.setEnabled(false);
 
         UserRegisterProfileModel user = new UserRegisterProfileModel(name, surname, nickname, email, country, NO_IMAGE);
 
@@ -130,12 +132,13 @@ public class RegisterFragment extends Fragment {
                     assert userField.message != null;
                     if (userField.message.equals(DATA_NOT_PUSHED)){
                         binding.registerProgressBar.setVisibility(View.GONE);
-
                     } else {
                         binding.registerProgressBar.setVisibility(View.GONE);
                         Snackbar snackbar = Snackbar.make(binding.getRoot(),R.string.authentication_failed,Snackbar.LENGTH_LONG);
                         snackbar.show();
                     }
+                    binding.registerButton.setEnabled(true);
+                    binding.backRegisterButton.setEnabled(true);
             }
         });
     }

@@ -1,18 +1,15 @@
 package com.example.mtg.ui.activities.logActivity.logFragments;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -21,13 +18,9 @@ import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentSignInBinding;
 import com.example.mtg.ui.activities.logActivity.logViewModel.LogViewModel;
 import com.example.mtg.ui.activities.mainActivity.MainActivity;
-import com.example.mtg.utility.sharedPreferences.SharedPreferencesHolder;
 import com.example.mtg.utility.textwatchers.ValidationTextWatcher;
 import com.google.android.material.snackbar.Snackbar;
-import com.ramotion.paperonboarding.PaperOnboardingFragment;
-import com.ramotion.paperonboarding.PaperOnboardingPage;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 
@@ -137,6 +130,9 @@ public class SignInFragment extends Fragment {
             return;
         }
         binding.signInProgressBar.setVisibility(View.VISIBLE);
+        binding.resetPassword.setEnabled(false);
+        binding.signInButton.setEnabled(false);
+        binding.registerTextView.setEnabled(false);
         logViewModel.authUser(email, password, status -> {
             switch (status) {
                 case SUCCESS:
@@ -150,6 +146,9 @@ public class SignInFragment extends Fragment {
                     Snackbar snackbar = Snackbar.make(binding.getRoot(), R.string.confirmation_failed, Snackbar.LENGTH_LONG);
                     snackbar.show();
             }
+            binding.resetPassword.setEnabled(true);
+            binding.signInButton.setEnabled(true);
+            binding.registerTextView.setEnabled(true);
         });
     }
 

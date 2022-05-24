@@ -94,6 +94,8 @@ public class ChangeNicknameFragment extends Fragment {
                 return;
             }
             binding.changeDataProgressBar.setVisibility(View.VISIBLE);
+            binding.changeButton.setEnabled(false);
+            binding.changeBackButton.setEnabled(false);
             String nickname = binding.forChange.getText().toString().trim();
             sendNicknameToFirestore(nickname);
         });
@@ -118,6 +120,8 @@ public class ChangeNicknameFragment extends Fragment {
                    errorDialog.show();
                    break;
            }
+            binding.changeButton.setEnabled(true);
+            binding.changeBackButton.setEnabled(true);
         });
     }
 

@@ -100,6 +100,9 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
 
     private void confirmPassword() {
         binding.confirmPasswordProgressBar.setVisibility(View.VISIBLE);
+        binding.confirmPasswordButton.setEnabled(false);
+        binding.forgetPassword.setEnabled(false);
+        binding.confirmPasswordBackButton.setEnabled(false);
         confirmPasswordViewModel.reAuthCurrentUser(password, status -> {
             switch (status) {
                 case SUCCESS:
@@ -117,6 +120,9 @@ public class ProfileSettingsPasswordConfirmationFragment extends Fragment {
                     snackbar.show();
                     break;
             }
+            binding.confirmPasswordButton.setEnabled(true);
+            binding.forgetPassword.setEnabled(true);
+            binding.confirmPasswordBackButton.setEnabled(true);
         });
     }
 

@@ -47,6 +47,7 @@ public class SubFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
     private FirebaseFirestore firebaseFirestore;
     private DialogBottomSheetResultsBinding dialogBinding;
     private int pos;
+    private ListenerRegistration listenerRegistration;
     private int number;
 
     @Override
@@ -58,8 +59,6 @@ public class SubFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
         subViewModel = new ViewModelProvider(requireActivity()).get(SubViewModel.class);
         resultsViewModel = new ViewModelProvider(requireActivity()).get(ResultsViewModel.class);
         mainListsSorter = new MainListsSorter();
-        resultsDialog = new ResultsDialog(requireContext(), null, "", "", "", "", 0, 0);
-
         binding.recyclerProgressBar.setVisibility(View.VISIBLE);
         binding.natButton.setEnabled(false);
 
@@ -89,7 +88,7 @@ public class SubFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
                         sortInt(subResultsModels.data);
                         sortDec(subResultsModels.data);
                         makeAdapter();
-                        if (resultsDialog.isShowing()){
+                        if (resultsDialog!= null && resultsDialog.isShowing()){
                             loadOrUpdateDialog(pos,number);
                         }
                     }
@@ -170,15 +169,15 @@ public class SubFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
 
     private void decDialog(int position) {
         if (resultsDialog != null && resultsDialog.isShowing()) {
-            for (int i = 0; i < subResultsNaturalsModels.size(); i++) {
-                if (subResultsNaturalsModels.get(i).getId().equals(id)) {
-                    loadDataNaturalMethod(i);
+            for (int i = 0; i < subResultsDecimalsModels.size(); i++) {
+                if (subResultsDecimalsModels.get(i).getId().equals(id)) {
+                    loadDataDecimalMethod(i);
                     loadDataFromFirestoreAndMakeDialogMethod();
                 }
             }
         } else {
-            loadDataNaturalMethod(position);
-            id = subResultsNaturalsModels.get(position).getId();
+            loadDataDecimalMethod(position);
+            id = subResultsDecimalsModels.get(position).getId();
             loadDataFromFirestoreAndMakeDialogMethod();
         }
     }
@@ -200,15 +199,15 @@ public class SubFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
 
     private void natDialog(int position) {
         if (resultsDialog != null && resultsDialog.isShowing()) {
-            for (int i = 0; i < subResultsDecimalsModels.size(); i++) {
-                if (subResultsDecimalsModels.get(i).getId().equals(id)) {
-                    loadDataDecimalMethod(i);
+            for (int i = 0; i < subResultsNaturalsModels.size(); i++) {
+                if (subResultsNaturalsModels.get(i).getId().equals(id)) {
+                    loadDataNaturalMethod(i);
                     loadDataFromFirestoreAndMakeDialogMethod();
                 }
             }
         } else {
-            loadDataDecimalMethod(position);
-            id = subResultsDecimalsModels.get(position).getId();
+            loadDataNaturalMethod(position);
+            id = subResultsNaturalsModels.get(position).getId();
             loadDataFromFirestoreAndMakeDialogMethod();
         }
     }
@@ -235,7 +234,8 @@ public class SubFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
     }
 
     private void loadDataFromFirestoreAndMakeDialogMethod() {
-        ListenerRegistration listenerRegistration = firebaseFirestore.collection(USERS).document(id)
+        resultsDialog = new ResultsDialog(requireContext(), null, "", "", "", "", 0, 0);
+        listenerRegistration = firebaseFirestore.collection(USERS).document(id)
                 .addSnapshotListener((value, error) -> {
                     if (error != null) {
                         return;
@@ -256,6 +256,7 @@ public class SubFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
                                 resultsDialog = new ResultsDialog(requireContext(), dialogBinding, name, nickname, imageUrl, country, score, tasks);
                                 resultsDialog.show();
                             });
+                            resultsDialog.setOnDismissListener(dialogInterface -> listenerRegistration.remove());
                         }
                     }
                 });

@@ -76,6 +76,8 @@ public class ResetPasswordFragment extends Fragment {
             return;
         }
         binding.resetPasswordProgressBar.setVisibility(View.VISIBLE);
+        binding.resetBackButton.setEnabled(false);
+        binding.resetPasswordButton.setEnabled(false);
 
         logViewModel.sendResetPasswordEmail(email, status -> {
             switch (status) {
@@ -89,6 +91,8 @@ public class ResetPasswordFragment extends Fragment {
                     Snackbar.make(binding.getRoot(),R.string.can_not_reset_password,Snackbar.LENGTH_LONG).show();
                     break;
             }
+            binding.resetBackButton.setEnabled(true);
+            binding.resetPasswordButton.setEnabled(true);
         });
     }
 

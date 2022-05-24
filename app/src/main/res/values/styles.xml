@@ -28,6 +28,7 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">marquee</item>
+        <item name="android:scrollHorizontally">true</item>
         <item name="android:marqueeRepeatLimit">marquee_forever</item>
     </style>
     
@@ -127,10 +128,18 @@
     <style name="MainUserNicknameText" parent="BasicMainDataText">
         <item name="android:textSize">@dimen/large_title_text_36</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
     </style>
 
     <style name="MainUserEmailText" parent="BasicMainDataText">
         <item name="android:textSize">@dimen/main_elements_text_20</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
     </style>
 
     <style name="BasicTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">

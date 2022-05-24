@@ -43,6 +43,7 @@ public class MultiFragment extends BaseBindingFragment<FragmentResultsRecyclerBi
     private ArrayList<MultiResultsModel> multiResultsNaturalsModels;
     private ArrayList<MultiResultsModel> multiResultsIntegersModels;
     private ArrayList<MultiResultsModel> multiResultsDecimalsModels;
+    private ListenerRegistration listenerRegistration;
 
     private ResultsViewModel resultsViewModel;
     private MultiViewModel multiViewModel;
@@ -88,7 +89,7 @@ public class MultiFragment extends BaseBindingFragment<FragmentResultsRecyclerBi
                     sortInt(multiResultsModels.data);
                     sortDec(multiResultsModels.data);
                     makeAdapter();
-                    if (resultsDialog.isShowing()){
+                    if (resultsDialog!= null && resultsDialog.isShowing()){
                         loadOrUpdateDialog(pos,number);
                     }
                 }
@@ -234,7 +235,8 @@ public class MultiFragment extends BaseBindingFragment<FragmentResultsRecyclerBi
     }
 
     private void loadDataFromFirestoreAndMakeDialogMethod() {
-        ListenerRegistration listenerRegistration = firebaseFirestore.collection(USERS).document(id)
+        resultsDialog = new ResultsDialog(requireContext(),null,"","","","",0,0);
+        listenerRegistration = firebaseFirestore.collection(USERS).document(id)
                 .addSnapshotListener((value, error) -> {
                     if (error != null) {
                         return;
@@ -244,7 +246,7 @@ public class MultiFragment extends BaseBindingFragment<FragmentResultsRecyclerBi
                         assert userRegisterProfileModel != null;
                         name = userRegisterProfileModel.getName();
                         country = userRegisterProfileModel.getCountry();
-                        if (resultsDialog.isShowing() && this.isVisible()) {
+                        if (resultsDialog!=null && resultsDialog.isShowing() && this.isVisible()) {
                             requireActivity().runOnUiThread(() -> {
                                 resultsDialog.loadData(name, nickname, imageUrl, country, score, tasks);
                                 resultsDialog.setDataInViews();
@@ -255,6 +257,7 @@ public class MultiFragment extends BaseBindingFragment<FragmentResultsRecyclerBi
                                 resultsDialog = new ResultsDialog(requireContext(), dialogBinding, name, nickname, imageUrl, country, score, tasks);
                                 resultsDialog.show();
                             });
+                            resultsDialog.setOnDismissListener(dialogInterface -> listenerRegistration.remove());
                         }
                     }
                 });

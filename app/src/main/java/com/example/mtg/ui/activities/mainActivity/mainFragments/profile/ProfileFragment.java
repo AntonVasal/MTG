@@ -78,7 +78,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
-        binding.setLifecycleOwner(requireActivity());
+        binding.setLifecycleOwner(getViewLifecycleOwner());
         return binding.getRoot();
     }
 

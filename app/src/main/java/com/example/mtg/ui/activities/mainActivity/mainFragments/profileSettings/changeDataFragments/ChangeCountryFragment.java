@@ -84,7 +84,8 @@ public class ChangeCountryFragment extends Fragment {
 
         binding.changeButton.setOnClickListener(view -> {
             binding.changeDataProgressBar.setVisibility(View.VISIBLE);
-
+            binding.changeButton.setEnabled(false);
+            binding.changeBackButton.setEnabled(false);
             String country = binding.countryPickerForChange.getSelectedCountryName();
 
             profileSettingsViewModel.updateUserCountry(country, status -> {
@@ -100,6 +101,8 @@ public class ChangeCountryFragment extends Fragment {
                         errorDialog.show();
                         break;
                 }
+                binding.changeButton.setEnabled(true);
+                binding.changeBackButton.setEnabled(true);
             });
         });
     }

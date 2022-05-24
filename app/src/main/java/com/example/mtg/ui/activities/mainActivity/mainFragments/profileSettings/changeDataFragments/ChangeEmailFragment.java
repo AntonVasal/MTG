@@ -105,7 +105,8 @@ public class ChangeEmailFragment extends Fragment {
                 return;
             }
             binding.changeDataProgressBar.setVisibility(View.VISIBLE);
-
+            binding.changeButton.setEnabled(false);
+            binding.changeBackButton.setEnabled(false);
             profileSettingsViewModel.updateEmail(email, userField -> {
                 switch (Objects.requireNonNull(userField.status)){
                     case SUCCESS:
@@ -123,6 +124,8 @@ public class ChangeEmailFragment extends Fragment {
                         errorDialog.show();
                         break;
                 }
+                binding.changeButton.setEnabled(true);
+                binding.changeBackButton.setEnabled(true);
             });
         });
     }

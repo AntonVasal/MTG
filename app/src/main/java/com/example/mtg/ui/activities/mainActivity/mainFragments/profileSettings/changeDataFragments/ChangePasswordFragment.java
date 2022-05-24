@@ -105,6 +105,8 @@ public class ChangePasswordFragment extends Fragment {
                 return;
             }
             binding.changeDataProgressBar.setVisibility(View.VISIBLE);
+            binding.changeButton.setEnabled(false);
+            binding.changeBackButton.setEnabled(false);
 
             profileSettingsViewModel.updatePassword(password, status -> {
                 switch (status) {
@@ -119,6 +121,8 @@ public class ChangePasswordFragment extends Fragment {
                         errorDialog.show();
                         break;
                 }
+                binding.changeButton.setEnabled(true);
+                binding.changeBackButton.setEnabled(true);
             });
         });
     }

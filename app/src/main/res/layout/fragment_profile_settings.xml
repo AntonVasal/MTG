@@ -75,37 +75,37 @@
 
                     <ImageView
                         android:id="@+id/user_nickname_image"
-                        android:src="@drawable/ic_baseline_star_24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:contentDescription="@string/user_nickname_image"
+                        android:src="@drawable/ic_baseline_star_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:layout_marginStart="20dp"
                         android:id="@+id/info_nickname"
                         style="@style/UserDataTextViews"
-                        android:layout_marginEnd="50dp"
-                        android:textAlignment="viewStart"
                         android:layout_width="0dp"
-                        app:layout_constraintEnd_toStartOf="@+id/change_nickname_button"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="10dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="50dp"
                         android:text="@={viewModel.user.data.nickname}"
+                        android:textAlignment="viewStart"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/change_nickname_button"
                         app:layout_constraintStart_toEndOf="@id/user_nickname_image"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="@string/nickname" />
 
                     <ImageView
                         android:id="@+id/change_nickname_button"
-                        android:src="@drawable/ic_baseline_create_24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/change_nickname"
+                        android:src="@drawable/ic_baseline_create_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -135,37 +135,37 @@
 
                     <ImageView
                         android:id="@+id/user_name_image"
-                        android:src="@drawable/ic_baseline_person_24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:contentDescription="@string/user_name_image"
+                        android:src="@drawable/ic_baseline_person_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:layout_marginStart="20dp"
                         android:id="@+id/info_name"
                         style="@style/UserDataTextViews"
-                        android:layout_marginEnd="50dp"
-                        android:textAlignment="viewStart"
                         android:layout_width="0dp"
-                        app:layout_constraintEnd_toStartOf="@+id/change_name_button"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="10dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="50dp"
                         android:text="@={viewModel.user.data.name}"
+                        android:textAlignment="viewStart"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/change_name_button"
                         app:layout_constraintStart_toEndOf="@id/user_name_image"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="@string/name" />
 
                     <ImageView
                         android:id="@+id/change_name_button"
-                        android:src="@drawable/ic_baseline_create_24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/change_name"
+                        android:src="@drawable/ic_baseline_create_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -196,37 +196,37 @@
 
                     <ImageView
                         android:id="@+id/user_surname_image"
-                        android:src="@drawable/ic_baseline_group_24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:contentDescription="@string/user_surname_image"
+                        android:src="@drawable/ic_baseline_group_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:layout_marginStart="20dp"
                         android:id="@+id/info_surname"
                         style="@style/UserDataTextViews"
-                        android:layout_marginEnd="50dp"
-                        android:textAlignment="viewStart"
-                        app:layout_constraintEnd_toStartOf="@+id/change_surname_button"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="10dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="50dp"
                         android:text="@={viewModel.user.data.surname}"
+                        android:textAlignment="viewStart"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/change_surname_button"
                         app:layout_constraintStart_toEndOf="@id/user_surname_image"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="@string/surname" />
 
                     <ImageView
                         android:id="@+id/change_surname_button"
-                        android:src="@drawable/ic_baseline_create_24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/change_surname"
+                        android:src="@drawable/ic_baseline_create_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -257,37 +257,37 @@
 
                     <ImageView
                         android:id="@+id/user_email_image"
-                        android:src="@drawable/ic_baseline_email_24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:contentDescription="@string/user_email_image"
+                        android:src="@drawable/ic_baseline_email_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:layout_marginStart="20dp"
                         android:id="@+id/info_email"
                         style="@style/UserDataTextViews"
-                        android:layout_marginEnd="50dp"
-                        android:textAlignment="viewStart"
-                        app:layout_constraintEnd_toStartOf="@+id/change_email_button"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="10dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="50dp"
                         android:text="@={viewModel.user.data.email}"
+                        android:textAlignment="viewStart"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/change_email_button"
                         app:layout_constraintStart_toEndOf="@id/user_email_image"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="@string/email" />
 
                     <ImageView
                         android:id="@+id/change_email_button"
-                        android:src="@drawable/ic_baseline_create_24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/change_email"
+                        android:src="@drawable/ic_baseline_create_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -317,22 +317,22 @@
 
                     <ImageView
                         android:id="@+id/user_country_image"
-                        android:src="@drawable/ic_baseline_location_on_24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:contentDescription="@string/user_country_image"
+                        android:src="@drawable/ic_baseline_location_on_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:layout_marginStart="20dp"
                         android:id="@+id/info_country"
                         style="@style/UserDataTextViews"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="10dp"
+                        android:layout_marginStart="20dp"
                         android:text="@={viewModel.user.data.country}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/user_country_image"
@@ -341,10 +341,10 @@
 
                     <ImageView
                         android:id="@+id/change_country_button"
-                        android:src="@drawable/ic_baseline_create_24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/change_country"
+                        android:src="@drawable/ic_baseline_create_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -374,22 +374,22 @@
 
                     <ImageView
                         android:id="@+id/user_password_image"
-                        android:src="@drawable/ic_baseline_security_24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:contentDescription="@string/user_password_image"
+                        android:src="@drawable/ic_baseline_security_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:layout_marginStart="20dp"
                         android:id="@+id/password_text"
                         style="@style/UserDataTextViews"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="10dp"
+                        android:layout_marginStart="20dp"
                         android:text="@string/password_starts"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/user_password_image"
@@ -397,10 +397,10 @@
 
                     <ImageView
                         android:id="@+id/change_password_button"
-                        android:src="@drawable/ic_baseline_create_24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/change_password"
+                        android:src="@drawable/ic_baseline_create_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />

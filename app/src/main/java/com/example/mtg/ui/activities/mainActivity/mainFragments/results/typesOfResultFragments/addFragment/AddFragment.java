@@ -24,7 +24,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class AddFragment extends BaseBindingFragment<FragmentResultsRecyclerBinding> implements OnItemResultsRecyclerClickInterface {
 
@@ -47,6 +46,7 @@ public class AddFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
     private int number;
     private int score;
     private int tasks;
+    private ListenerRegistration listenerRegistration;
     private DialogBottomSheetResultsBinding dialogBinding;
     private static int counter = 0;
 
@@ -60,7 +60,6 @@ public class AddFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
         mainListsSorter = new MainListsSorter();
         binding.recyclerProgressBar.setVisibility(View.VISIBLE);
         binding.natButton.setEnabled(false);
-        resultsDialog = new ResultsDialog(requireContext(), dialogBinding, name, nickname, imageUrl, country, score, tasks);
         observeStatus();
         generateItem();
         initListeners();
@@ -80,16 +79,15 @@ public class AddFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
 
     private void generateItem() {
         addViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), userResultsModels -> {
-            if (userResultsModels != null) {
-                if (Objects.requireNonNull(userResultsModels.data).size() != 0) {
+            assert userResultsModels.data != null;
+            if (userResultsModels.data.size() != 0) {
                     sortNat(userResultsModels.data);
                     sortInt(userResultsModels.data);
                     sortDec(userResultsModels.data);
                     makeAdapter();
-                    if (resultsDialog.isShowing()) {
+                    if (resultsDialog!= null && resultsDialog.isShowing()) {
                         loadOrUpdateDialog(pos,number);
                     }
-                }
             }
         });
     }
@@ -226,7 +224,8 @@ public class AddFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
     }
 
     private void loadDataFromFirestoreAndMakeDialogMethod() {
-        firebaseFirestore.collection(USERS).document(id)
+        resultsDialog = new ResultsDialog(requireContext(),null,"","","","",0,0);
+        listenerRegistration = firebaseFirestore.collection(USERS).document(id)
                 .addSnapshotListener((value, error) -> {
                     if (error != null) {
                         return;
@@ -236,7 +235,7 @@ public class AddFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
                         assert userRegisterProfileModel != null;
                         name = userRegisterProfileModel.getName();
                         country = userRegisterProfileModel.getCountry();
-                        if (this.isVisible() && resultsDialog.isShowing()) {
+                        if ( this.isVisible() && resultsDialog!=null && resultsDialog.isShowing()) {
                             requireActivity().runOnUiThread(() -> {
                                 resultsDialog.loadData(name, nickname, imageUrl, country, score, tasks);
                                 resultsDialog.setDataInViews();
@@ -246,6 +245,7 @@ public class AddFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
                             resultsDialog = new ResultsDialog(requireContext(), dialogBinding, name, nickname, imageUrl, country, score, tasks);
                             resultsDialog.show();
                         }
+                        resultsDialog.setOnDismissListener(dialogInterface -> listenerRegistration.remove());
                     }
                 });
     }

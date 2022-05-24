@@ -33,7 +33,7 @@ public class DivFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
     private ArrayList<DivResultsModel> divResultsNaturalsModels;
     private ArrayList<DivResultsModel> divResultsIntegersModels;
     private ArrayList<DivResultsModel> divResultsDecimalsModels;
-
+    private ListenerRegistration listenerRegistration;
     private DivViewModel divViewModel;
     private ResultsViewModel resultsViewModel;
     private static int counter = 0;
@@ -58,7 +58,6 @@ public class DivFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
 
         divViewModel = new ViewModelProvider(requireActivity()).get(DivViewModel.class);
         resultsViewModel = new ViewModelProvider(requireActivity()).get(ResultsViewModel.class);
-
         mainListsSorter = new MainListsSorter();
 
         binding.recyclerProgressBar.setVisibility(View.VISIBLE);
@@ -90,7 +89,7 @@ public class DivFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
                     sortInt(divResultsModels.data);
                     sortDec(divResultsModels.data);
                     makeAdapter();
-                    if (resultsDialog.isShowing()) {
+                    if (resultsDialog!= null && resultsDialog.isShowing()) {
                         loadOrUpdateDialog(pos, number);
                     }
                 }
@@ -236,7 +235,8 @@ public class DivFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
     }
 
     private void loadDataFromFirestoreAndMakeDialogMethod() {
-        ListenerRegistration listenerRegistration = firebaseFirestore.collection(USERS).document(id)
+        resultsDialog = new ResultsDialog(requireContext(),null,"","","","",0,0);
+        listenerRegistration = firebaseFirestore.collection(USERS).document(id)
                 .addSnapshotListener((value, error) -> {
                     if (error != null) {
                         return;
@@ -246,7 +246,7 @@ public class DivFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
                         assert userRegisterProfileModel != null;
                         name = userRegisterProfileModel.getName();
                         country = userRegisterProfileModel.getCountry();
-                        if (resultsDialog.isShowing() && this.isVisible()) {
+                        if (resultsDialog!=null && resultsDialog.isShowing() && this.isVisible()) {
                             requireActivity().runOnUiThread(() -> {
                                 resultsDialog.loadData(name, nickname, imageUrl, country, score, tasks);
                                 resultsDialog.setDataInViews();
@@ -258,6 +258,7 @@ public class DivFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
                                 resultsDialog.show();
                             });
                         }
+                        resultsDialog.setOnDismissListener(dialogInterface -> listenerRegistration.remove());
                     }
                 });
     }

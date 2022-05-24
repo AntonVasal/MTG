@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -21,7 +22,7 @@ public class ResultsDialog extends BottomSheetDialog {
     private int score;
     private int tasks;
 
-    public ResultsDialog(@NonNull Context context,DialogBottomSheetResultsBinding binding, String name, String nickname, String imageUrl, String country, int score, int tasks ) {
+    public ResultsDialog(@NonNull Context context, DialogBottomSheetResultsBinding binding, String name, String nickname, String imageUrl, String country, int score, int tasks ) {
         super(context);
         this.context = context;
         this.binding = binding;

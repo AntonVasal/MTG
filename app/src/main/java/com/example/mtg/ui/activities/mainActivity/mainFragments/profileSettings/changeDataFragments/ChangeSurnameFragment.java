@@ -95,6 +95,8 @@ public class ChangeSurnameFragment extends Fragment {
                 return;
             }
             binding.changeDataProgressBar.setVisibility(View.VISIBLE);
+            binding.changeButton.setEnabled(false);
+            binding.changeBackButton.setEnabled(false);
             String surname = binding.forChange.getText().toString().trim();
             profileSettingsViewModel.updateUserSurname(surname, status -> {
                 switch (status) {
@@ -109,6 +111,8 @@ public class ChangeSurnameFragment extends Fragment {
                         errorDialog.show();
                         break;
                 }
+                binding.changeButton.setEnabled(true);
+                binding.changeBackButton.setEnabled(true);
             });
         });
     }
