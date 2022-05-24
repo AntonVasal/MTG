@@ -12,7 +12,6 @@ import com.example.mtg.core.baseFragments.BaseBindingFragment;
 import com.example.mtg.databinding.DialogBottomSheetResultsBinding;
 import com.example.mtg.databinding.FragmentResultsRecyclerBinding;
 import com.example.mtg.models.countModels.DivResultsModel;
-import com.example.mtg.models.countModels.MultiResultsModel;
 import com.example.mtg.models.profileModel.UserRegisterProfileModel;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.OnItemResultsRecyclerClickInterface;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.results.adapters.resultsRecyclerAdapter.ResultsRecyclerViewAdapter;
@@ -41,7 +40,8 @@ public class DivFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
     private NetworkStateManager networkStateManager;
     private FirebaseFirestore firebaseFirestore;
     private DialogBottomSheetResultsBinding dialogBinding;
-
+    private int pos;
+    private int number;
     private String name;
     private String country;
     private String nickname;
@@ -60,7 +60,6 @@ public class DivFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
         resultsViewModel = new ViewModelProvider(requireActivity()).get(ResultsViewModel.class);
 
         mainListsSorter = new MainListsSorter();
-        resultsDialog = new ResultsDialog(requireContext(), null, "", "", "", "", 0, 0);
 
         binding.recyclerProgressBar.setVisibility(View.VISIBLE);
         binding.natButton.setEnabled(false);
@@ -75,9 +74,8 @@ public class DivFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
             Boolean isConnect = networkStateManager.getNetworkConnectivityStatus().getValue();
             if (counter != 0 && !isOnPause && isConnect != null && isConnect) {
                 divViewModel.loadData();
-            }else if (isOnPause){
+            } else if (isOnPause) {
                 divViewModel.removeCollectionListener();
-                divViewModel.getMutableLiveData().removeObservers(getViewLifecycleOwner());
             }
             counter++;
         });
@@ -92,6 +90,9 @@ public class DivFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
                     sortInt(divResultsModels.data);
                     sortDec(divResultsModels.data);
                     makeAdapter();
+                    if (resultsDialog.isShowing()) {
+                        loadOrUpdateDialog(pos, number);
+                    }
                 }
             }
         });
@@ -148,52 +149,69 @@ public class DivFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
 
     @Override
     public void onItemClick(int position, int typeNumber) {
-        divViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), divResultsModels -> {
-            switch (typeNumber) {
-                case 1:
-                    if (resultsDialog != null && resultsDialog.isShowing()) {
-                        for (int i = 0; i < divResultsNaturalsModels.size(); i++) {
-                            if (divResultsNaturalsModels.get(i).getId().equals(id)) {
-                                loadDataNaturalMethod(i);
-                                loadDataFromFirestoreAndMakeDialogMethod();
-                            }
-                        }
-                    } else {
-                        loadDataNaturalMethod(position);
-                        id = divResultsNaturalsModels.get(position).getId();
-                        loadDataFromFirestoreAndMakeDialogMethod();
-                    }
-                    break;
-                case 2:
-                    if (resultsDialog != null && resultsDialog.isShowing()) {
-                        for (int i = 0; i < divResultsIntegersModels.size(); i++) {
-                            if (divResultsIntegersModels.get(i).getId().equals(id)) {
-                                loadDataIntegerMethod(i);
-                                loadDataFromFirestoreAndMakeDialogMethod();
-                            }
-                        }
-                    } else {
-                        loadDataIntegerMethod(position);
-                        id = divResultsIntegersModels.get(position).getId();
-                        loadDataFromFirestoreAndMakeDialogMethod();
-                    }
-                    break;
-                case 3:
-                    if (resultsDialog != null && resultsDialog.isShowing()) {
-                        for (int i = 0; i < divResultsDecimalsModels.size(); i++) {
-                            if (divResultsDecimalsModels.get(i).getId().equals(id)) {
-                                loadDataDecimalMethod(i);
-                                loadDataFromFirestoreAndMakeDialogMethod();
-                            }
-                        }
-                    } else {
-                        loadDataDecimalMethod(position);
-                        id = divResultsDecimalsModels.get(position).getId();
-                        loadDataFromFirestoreAndMakeDialogMethod();
-                    }
-                    break;
+        number = typeNumber;
+        pos = position;
+        loadOrUpdateDialog(position, typeNumber);
+    }
+
+    private void loadOrUpdateDialog(int position, int typeNumber) {
+        switch (typeNumber) {
+            case 1:
+                natDialog(position);
+                break;
+            case 2:
+                intDialog(position);
+                break;
+            case 3:
+                decDialog(position);
+                break;
+        }
+        loadDataFromFirestoreAndMakeDialogMethod();
+    }
+
+    private void intDialog(int position) {
+        if (resultsDialog != null && resultsDialog.isShowing()) {
+            for (int i = 0; i < divResultsIntegersModels.size(); i++) {
+                if (divResultsIntegersModels.get(i).getId().equals(id)) {
+                    loadDataIntegerMethod(i);
+                    loadDataFromFirestoreAndMakeDialogMethod();
+                }
             }
-        });
+        } else {
+            loadDataIntegerMethod(position);
+            id = divResultsIntegersModels.get(position).getId();
+            loadDataFromFirestoreAndMakeDialogMethod();
+        }
+    }
+
+    private void decDialog(int position) {
+        if (resultsDialog != null && resultsDialog.isShowing()) {
+            for (int i = 0; i < divResultsDecimalsModels.size(); i++) {
+                if (divResultsDecimalsModels.get(i).getId().equals(id)) {
+                    loadDataDecimalMethod(i);
+                    loadDataFromFirestoreAndMakeDialogMethod();
+                }
+            }
+        } else {
+            loadDataDecimalMethod(position);
+            id = divResultsDecimalsModels.get(position).getId();
+            loadDataFromFirestoreAndMakeDialogMethod();
+        }
+    }
+
+    private void natDialog(int position) {
+        if (resultsDialog != null && resultsDialog.isShowing()) {
+            for (int i = 0; i < divResultsNaturalsModels.size(); i++) {
+                if (divResultsNaturalsModels.get(i).getId().equals(id)) {
+                    loadDataNaturalMethod(i);
+                    loadDataFromFirestoreAndMakeDialogMethod();
+                }
+            }
+        } else {
+            loadDataNaturalMethod(position);
+            id = divResultsNaturalsModels.get(position).getId();
+            loadDataFromFirestoreAndMakeDialogMethod();
+        }
     }
 
     private void loadDataNaturalMethod(int position) {
@@ -228,21 +246,20 @@ public class DivFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
                         assert userRegisterProfileModel != null;
                         name = userRegisterProfileModel.getName();
                         country = userRegisterProfileModel.getCountry();
-                        if ((resultsDialog == null || !resultsDialog.isShowing()) && this.isVisible()) {
+                        if (resultsDialog.isShowing() && this.isVisible()) {
+                            requireActivity().runOnUiThread(() -> {
+                                resultsDialog.loadData(name, nickname, imageUrl, country, score, tasks);
+                                resultsDialog.setDataInViews();
+                            });
+                        } else if (this.isVisible() && !resultsDialog.isShowing()) {
                             requireActivity().runOnUiThread(() -> {
                                 dialogBinding = DialogBottomSheetResultsBinding.inflate(getLayoutInflater());
                                 resultsDialog = new ResultsDialog(requireContext(), dialogBinding, name, nickname, imageUrl, country, score, tasks);
                                 resultsDialog.show();
                             });
-                        } else if (this.isVisible()) {
-                            requireActivity().runOnUiThread(() -> {
-                                resultsDialog.loadData(name, nickname, imageUrl, country, score, tasks);
-                                resultsDialog.setDataInViews();
-                            });
                         }
                     }
                 });
-        resultsDialog.setOnDismissListener(dialogInterface -> listenerRegistration.remove());
     }
 
     @Override

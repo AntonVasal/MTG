@@ -37,7 +37,6 @@ public class ResultsDialog extends BottomSheetDialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(binding.getRoot());
-
         binding.exitButtonBottomDialog.setOnClickListener(view -> dismiss());
         binding.nicknameTextDialog.setSelected(true);
         binding.infoNicknameDialog.setSelected(true);

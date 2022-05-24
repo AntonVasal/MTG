@@ -46,6 +46,8 @@ public class SubFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
     private ResultsViewModel resultsViewModel;
     private FirebaseFirestore firebaseFirestore;
     private DialogBottomSheetResultsBinding dialogBinding;
+    private int pos;
+    private int number;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -73,7 +75,6 @@ public class SubFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
                 subViewModel.loadData();
             } else if (isOnPause) {
                 subViewModel.removeCollectionListener();
-                subViewModel.getMutableLiveData().removeObservers(getViewLifecycleOwner());
             }
             counter++;
         });
@@ -88,6 +89,9 @@ public class SubFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
                         sortInt(subResultsModels.data);
                         sortDec(subResultsModels.data);
                         makeAdapter();
+                        if (resultsDialog.isShowing()){
+                            loadOrUpdateDialog(pos,number);
+                        }
                     }
                 }
         });
@@ -144,52 +148,69 @@ public class SubFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
 
     @Override
     public void onItemClick(int position, int typeNumber) {
-        subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
-            switch (typeNumber) {
-                case 1:
-                    if (resultsDialog != null && resultsDialog.isShowing()) {
-                        for (int i = 0; i < subResultsNaturalsModels.size(); i++) {
-                            if (subResultsNaturalsModels.get(i).getId().equals(id)) {
-                                loadDataNaturalMethod(i);
-                                loadDataFromFirestoreAndMakeDialogMethod();
-                            }
-                        }
-                    } else {
-                        loadDataNaturalMethod(position);
-                        id = subResultsNaturalsModels.get(position).getId();
-                        loadDataFromFirestoreAndMakeDialogMethod();
-                    }
-                    break;
-                case 2:
-                    if (resultsDialog != null && resultsDialog.isShowing()) {
-                        for (int i = 0; i < subResultsIntegersModels.size(); i++) {
-                            if (subResultsIntegersModels.get(i).getId().equals(id)) {
-                                loadDataIntegerMethod(i);
-                                loadDataFromFirestoreAndMakeDialogMethod();
-                            }
-                        }
-                    } else {
-                        loadDataIntegerMethod(position);
-                        id = subResultsIntegersModels.get(position).getId();
-                        loadDataFromFirestoreAndMakeDialogMethod();
-                    }
-                    break;
-                case 3:
-                    if (resultsDialog != null && resultsDialog.isShowing()) {
-                        for (int i = 0; i < subResultsDecimalsModels.size(); i++) {
-                            if (subResultsDecimalsModels.get(i).getId().equals(id)) {
-                                loadDataDecimalMethod(i);
-                                loadDataFromFirestoreAndMakeDialogMethod();
-                            }
-                        }
-                    } else {
-                        loadDataDecimalMethod(position);
-                        id = subResultsDecimalsModels.get(position).getId();
-                        loadDataFromFirestoreAndMakeDialogMethod();
-                    }
-                    break;
+        number = typeNumber;
+        pos = position;
+        loadOrUpdateDialog(position, typeNumber);
+    }
+
+    private void loadOrUpdateDialog(int position, int typeNumber) {
+        switch (typeNumber) {
+            case 1:
+                natDialog(position);
+                break;
+            case 2:
+                intDialog(position);
+                break;
+            case 3:
+                decDialog(position);
+                break;
+        }
+        loadDataFromFirestoreAndMakeDialogMethod();
+    }
+
+    private void decDialog(int position) {
+        if (resultsDialog != null && resultsDialog.isShowing()) {
+            for (int i = 0; i < subResultsNaturalsModels.size(); i++) {
+                if (subResultsNaturalsModels.get(i).getId().equals(id)) {
+                    loadDataNaturalMethod(i);
+                    loadDataFromFirestoreAndMakeDialogMethod();
+                }
             }
-        });
+        } else {
+            loadDataNaturalMethod(position);
+            id = subResultsNaturalsModels.get(position).getId();
+            loadDataFromFirestoreAndMakeDialogMethod();
+        }
+    }
+
+    private void intDialog(int position) {
+        if (resultsDialog != null && resultsDialog.isShowing()) {
+            for (int i = 0; i < subResultsIntegersModels.size(); i++) {
+                if (subResultsIntegersModels.get(i).getId().equals(id)) {
+                    loadDataIntegerMethod(i);
+                    loadDataFromFirestoreAndMakeDialogMethod();
+                }
+            }
+        } else {
+            loadDataIntegerMethod(position);
+            id = subResultsIntegersModels.get(position).getId();
+            loadDataFromFirestoreAndMakeDialogMethod();
+        }
+    }
+
+    private void natDialog(int position) {
+        if (resultsDialog != null && resultsDialog.isShowing()) {
+            for (int i = 0; i < subResultsDecimalsModels.size(); i++) {
+                if (subResultsDecimalsModels.get(i).getId().equals(id)) {
+                    loadDataDecimalMethod(i);
+                    loadDataFromFirestoreAndMakeDialogMethod();
+                }
+            }
+        } else {
+            loadDataDecimalMethod(position);
+            id = subResultsDecimalsModels.get(position).getId();
+            loadDataFromFirestoreAndMakeDialogMethod();
+        }
     }
 
     private void loadDataNaturalMethod(int position) {
@@ -224,21 +245,20 @@ public class SubFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
                         assert userRegisterProfileModel != null;
                         name = userRegisterProfileModel.getName();
                         country = userRegisterProfileModel.getCountry();
-                        if ((resultsDialog == null || !resultsDialog.isShowing()) && this.isVisible()) {
+                        if (resultsDialog.isShowing() && this.isVisible()) {
+                            requireActivity().runOnUiThread(() -> {
+                                resultsDialog.loadData(name, nickname, imageUrl, country, score, tasks);
+                                resultsDialog.setDataInViews();
+                            });
+                        } else if (this.isVisible() && !resultsDialog.isShowing()) {
                             requireActivity().runOnUiThread(() -> {
                                 dialogBinding = DialogBottomSheetResultsBinding.inflate(getLayoutInflater());
                                 resultsDialog = new ResultsDialog(requireContext(), dialogBinding, name, nickname, imageUrl, country, score, tasks);
                                 resultsDialog.show();
                             });
-                        } else if (this.isVisible()) {
-                            requireActivity().runOnUiThread(() -> {
-                                resultsDialog.loadData(name, nickname, imageUrl, country, score, tasks);
-                                resultsDialog.setDataInViews();
-                            });
                         }
                     }
                 });
-        resultsDialog.setOnDismissListener(dialogInterface -> listenerRegistration.remove());
     }
 
     @Override
