@@ -79,15 +79,23 @@ public class AddFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
 
     private void generateItem() {
         addViewModel.getUserResultsModel().observe(getViewLifecycleOwner(), userResultsModels -> {
-            assert userResultsModels.data != null;
-            if (userResultsModels.data.size() != 0) {
-                    sortNat(userResultsModels.data);
-                    sortInt(userResultsModels.data);
-                    sortDec(userResultsModels.data);
-                    makeAdapter();
-                    if (resultsDialog!= null && resultsDialog.isShowing()) {
-                        loadOrUpdateDialog(pos,number);
+            switch (userResultsModels.status){
+                case SUCCESS:
+                    assert userResultsModels.data != null;
+                    if (userResultsModels.data.size() != 0) {
+                        sortNat(userResultsModels.data);
+                        sortInt(userResultsModels.data);
+                        sortDec(userResultsModels.data);
+                        binding.resultsError.setVisibility(View.GONE);
+                        makeAdapter();
+                        if (resultsDialog!= null && resultsDialog.isShowing()) {
+                            loadOrUpdateDialog(pos,number);
+                        }
                     }
+                    break;
+                case ERROR:
+                    binding.resultsError.setVisibility(View.VISIBLE);
+                    break;
             }
         });
     }
@@ -160,7 +168,6 @@ public class AddFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
                 decDialog(position);
                 break;
         }
-        loadDataFromFirestoreAndMakeDialogMethod();
     }
 
     private void natDialog(int position) {

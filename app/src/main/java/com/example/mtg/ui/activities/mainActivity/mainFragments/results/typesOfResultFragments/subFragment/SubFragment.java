@@ -81,18 +81,25 @@ public class SubFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
 
     private void generateItem() {
         subViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), subResultsModels -> {
-                if (subResultsModels != null) {
-                    assert subResultsModels.data != null;
-                    if (subResultsModels.data.size() != 0) {
-                        sortNat(subResultsModels.data);
-                        sortInt(subResultsModels.data);
-                        sortDec(subResultsModels.data);
-                        makeAdapter();
-                        if (resultsDialog!= null && resultsDialog.isShowing()){
-                            loadOrUpdateDialog(pos,number);
-                        }
-                    }
-                }
+              switch (subResultsModels.status){
+                  case SUCCESS:
+                      assert subResultsModels.data != null;
+                      if (subResultsModels.data.size() != 0) {
+                          sortNat(subResultsModels.data);
+                          sortInt(subResultsModels.data);
+                          sortDec(subResultsModels.data);
+                          binding.resultsError.setVisibility(View.GONE);
+                          makeAdapter();
+                          if (resultsDialog!= null && resultsDialog.isShowing()){
+                              loadOrUpdateDialog(pos,number);
+                          }
+                      }
+                      break;
+                  case ERROR:
+                      binding.resultsError.setVisibility(View.VISIBLE);
+                      break;
+              }
+
         });
     }
 

@@ -106,10 +106,14 @@ public class ProfileFragment extends Fragment {
                 aBoolean -> {
                     if (!aBoolean){
                         Log.e(TAG,"LOST Internet");
+                        binding.userProfileImage.setEnabled(false);
+                        binding.changeProfileImgImage.setEnabled(false);
                         binding.settingsButton.setEnabled(false);
                     }else{
                         Log.e(TAG,"Have Internet");
                         binding.settingsButton.setEnabled(true);
+                        binding.userProfileImage.setEnabled(true);
+                        binding.changeProfileImgImage.setEnabled(true);
                     }
                 });
     }

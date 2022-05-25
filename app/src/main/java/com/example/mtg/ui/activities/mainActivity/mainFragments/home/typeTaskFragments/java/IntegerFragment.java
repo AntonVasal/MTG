@@ -37,12 +37,12 @@ public class IntegerFragment extends BaseBindingFragment<FragmentTypeTaskBinding
     }
 
     private void setImages() {
-        binding.helloCard.setCardBackgroundColor(requireActivity().getResources().getColor(R.color.count_green,requireActivity().getTheme()));
-        binding.addText.setImageResource(R.drawable.ic_plus_green);
-        binding.subText.setImageResource(R.drawable.ic_minus_green);
-        binding.divText.setImageResource(R.drawable.ic_div_green);
-        binding.countLayout.setBackgroundColor(requireActivity().getResources().getColor(R.color.count_green,requireActivity().getTheme()));
-        binding.multiText.setImageResource(R.drawable.ic_multi_green);
+//        binding.helloCard.setCardBackgroundColor(requireActivity().getResources().getColor(R.color.count_green,requireActivity().getTheme()));
+//        binding.addText.setImageResource(R.drawable.ic_plus_green);
+//        binding.subText.setImageResource(R.drawable.ic_minus_green);
+//        binding.divText.setImageResource(R.drawable.ic_div_green);
+//        binding.countLayout.setBackgroundColor(requireActivity().getResources().getColor(R.color.count_green,requireActivity().getTheme()));
+//        binding.multiText.setImageResource(R.drawable.ic_multi_green);
     }
 
     private void initListeners() {

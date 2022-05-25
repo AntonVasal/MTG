@@ -31,6 +31,19 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible" />
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="wrap_content"
+            android:id="@+id/apod_error"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/apod_search"
+            app:lottie_rawRes="@raw/error_bot"
+            android:visibility="gone"/>
+
         <!--    <TextView-->
         <!--        android:layout_width="match_parent"-->
         <!--        android:elevation="@dimen/normal_elevation_15"-->

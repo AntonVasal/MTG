@@ -11,7 +11,6 @@ import com.example.mtg.R;
 import com.example.mtg.core.baseFragments.BaseBindingFragment;
 import com.example.mtg.databinding.FragmentHomeBinding;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.home.adapters.MainAdapter;
-import com.example.mtg.ui.activities.mainActivity.mainFragments.home.typeTaskFragments.java.DecimalFragment;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.home.typeTaskFragments.kotlin.DecimalsFragment;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.home.typeTaskFragments.kotlin.IntegersFragment;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.home.typeTaskFragments.kotlin.NaturalsFragment;

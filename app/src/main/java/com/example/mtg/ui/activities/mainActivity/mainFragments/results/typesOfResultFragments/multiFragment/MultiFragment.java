@@ -82,17 +82,23 @@ public class MultiFragment extends BaseBindingFragment<FragmentResultsRecyclerBi
 
     private void generateItem() {
         multiViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), multiResultsModels -> {
-            if (multiResultsModels != null) {
-                assert multiResultsModels.data != null;
-                if (multiResultsModels.data.size() != 0) {
-                    sortNat(multiResultsModels.data);
-                    sortInt(multiResultsModels.data);
-                    sortDec(multiResultsModels.data);
-                    makeAdapter();
-                    if (resultsDialog!= null && resultsDialog.isShowing()){
-                        loadOrUpdateDialog(pos,number);
-                    }
-                }
+            switch (multiResultsModels.status){
+                case SUCCESS:
+                        assert multiResultsModels.data != null;
+                        if (multiResultsModels.data.size() != 0) {
+                            sortNat(multiResultsModels.data);
+                            sortInt(multiResultsModels.data);
+                            sortDec(multiResultsModels.data);
+                            binding.resultsError.setVisibility(View.GONE);
+                            makeAdapter();
+                            if (resultsDialog!= null && resultsDialog.isShowing()){
+                                loadOrUpdateDialog(pos,number);
+                            }
+                        }
+                    break;
+                case ERROR:
+                    binding.resultsError.setVisibility(View.VISIBLE);
+                    break;
             }
         });
     }

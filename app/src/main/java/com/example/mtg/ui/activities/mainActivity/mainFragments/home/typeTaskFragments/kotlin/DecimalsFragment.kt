@@ -14,11 +14,11 @@ class DecimalsFragment(override val typeNumber: Int = 3) : BaseTypeTaskFragment(
 
     private fun setViewData() {
         binding.apply {
-            helloCard.setCardBackgroundColor(resources.getColor(R.color.count_yellow, context?.theme))
-            addText.setImageResource(R.drawable.plus_yellow)
-            subText.setImageResource(R.drawable.minus_yellow)
-            divText.setImageResource(R.drawable.division_yellow)
-            multiText.setImageResource(R.drawable.multiply_yellow)
+//            helloCard.setCardBackgroundColor(resources.getColor(R.color.count_yellow, context?.theme))
+//            addText.setImageResource(R.drawable.plus_yellow)
+//            subText.setImageResource(R.drawable.minus_yellow)
+//            divText.setImageResource(R.drawable.division_yellow)
+//            multiText.setImageResource(R.drawable.multiply_yellow)
         }
     }
 

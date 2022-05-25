@@ -22,7 +22,7 @@ public class ApodViewModel extends ViewModel {
         return apodList;
     }
 
-    private void loadData() {
+    public void loadData() {
         apodRepository.getApodLists(data -> apodList.postValue(data));
     }
 }

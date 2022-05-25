@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -28,31 +29,31 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
     private int typeTask;
     private int typeNumber;
 
-    public void setAddItemList(ArrayList<AddResultsModel> addItemList,int typeNumber,int typeTask) {
+    public void setAddItemList(ArrayList<AddResultsModel> addItemList, int typeNumber, int typeTask) {
         this.addItemList = addItemList;
         this.typeNumber = typeNumber;
         this.typeTask = typeTask;
     }
 
-    public void setMultiItemList(ArrayList<MultiResultsModel> multiItemList, int typeNumber,int typeTask) {
+    public void setMultiItemList(ArrayList<MultiResultsModel> multiItemList, int typeNumber, int typeTask) {
         this.multiItemList = multiItemList;
         this.typeNumber = typeNumber;
         this.typeTask = typeTask;
     }
 
-    public void setSubItemList(ArrayList<SubResultsModel> subItemList, int typeNumber,int typeTask) {
+    public void setSubItemList(ArrayList<SubResultsModel> subItemList, int typeNumber, int typeTask) {
         this.subItemList = subItemList;
         this.typeNumber = typeNumber;
         this.typeTask = typeTask;
     }
 
-    public void setDivItemList(ArrayList<DivResultsModel> divItemList, int typeNumber,int typeTask) {
+    public void setDivItemList(ArrayList<DivResultsModel> divItemList, int typeNumber, int typeTask) {
         this.divItemList = divItemList;
         this.typeNumber = typeNumber;
         this.typeTask = typeTask;
     }
 
-    public ResultsRecyclerViewAdapter (Context mContext, OnItemResultsRecyclerClickInterface onItemResultsRecyclerClickInterface) {
+    public ResultsRecyclerViewAdapter(Context mContext, OnItemResultsRecyclerClickInterface onItemResultsRecyclerClickInterface) {
         this.mContext = mContext;
         this.onItemResultsRecyclerClickInterface = onItemResultsRecyclerClickInterface;
     }
@@ -63,7 +64,7 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
     public ResultsRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(mContext)
                 .inflate(R.layout.item_for_results, parent, false);
-        return new ResultsRecyclerViewHolder(itemView,onItemResultsRecyclerClickInterface,typeNumber);
+        return new ResultsRecyclerViewHolder(itemView, onItemResultsRecyclerClickInterface, typeNumber);
     }
 
     @Override
@@ -73,7 +74,7 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
             case 1:
                 Glide.with(mContext)
                         .load(addItemList.get(position).getImageUrl())
-                        .apply(new RequestOptions().override(50,50))
+                        .apply(new RequestOptions().override(50, 50))
                         .into(holder.userImg);
                 holder.userName.setText(addItemList.get(position).getNickname());
                 switch (typeNumber) {
@@ -91,10 +92,10 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
             case 2:
                 Glide.with(mContext)
                         .load(multiItemList.get(position).getImageUrl())
-                        .apply(new RequestOptions().override(50,50))
+                        .apply(new RequestOptions().override(50, 50))
                         .into(holder.userImg);
                 holder.userName.setText(multiItemList.get(position).getNickname());
-                switch (typeNumber){
+                switch (typeNumber) {
                     case 1:
                         holder.userScore.setText(String.valueOf(multiItemList.get(position).getMultiNaturalScore()));
                         break;
@@ -109,10 +110,10 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
             case 3:
                 Glide.with(mContext)
                         .load(subItemList.get(position).getImageUrl())
-                        .apply(new RequestOptions().override(50,50))
+                        .apply(new RequestOptions().override(50, 50))
                         .into(holder.userImg);
                 holder.userName.setText(subItemList.get(position).getNickname());
-                switch (typeNumber){
+                switch (typeNumber) {
                     case 1:
                         holder.userScore.setText(String.valueOf(subItemList.get(position).getSubNaturalScore()));
                         break;
@@ -127,10 +128,10 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
             case 4:
                 Glide.with(mContext)
                         .load(divItemList.get(position).getImageUrl())
-                        .apply(new RequestOptions().override(50,50))
+                        .apply(new RequestOptions().override(50, 50))
                         .into(holder.userImg);
                 holder.userName.setText(divItemList.get(position).getNickname());
-                switch (typeNumber){
+                switch (typeNumber) {
                     case 1:
                         holder.userScore.setText(String.valueOf(divItemList.get(position).getDivNaturalScore()));
                         break;
@@ -147,7 +148,7 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
 
     @Override
     public int getItemCount() {
-        switch (typeTask){
+        switch (typeTask) {
             case 1:
                 return addItemList.size();
             case 2:
@@ -156,7 +157,8 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
                 return subItemList.size();
             case 4:
                 return divItemList.size();
-            default: return 0;
+            default:
+                return 0;
         }
     }
 }

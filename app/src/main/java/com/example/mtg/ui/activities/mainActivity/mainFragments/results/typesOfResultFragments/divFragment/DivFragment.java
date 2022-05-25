@@ -82,17 +82,23 @@ public class DivFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
 
     private void generateItem() {
         divViewModel.getMutableLiveData().observe(getViewLifecycleOwner(), divResultsModels -> {
-            if (divResultsModels != null) {
-                assert divResultsModels.data != null;
-                if (divResultsModels.data.size() != 0) {
-                    sortNat(divResultsModels.data);
-                    sortInt(divResultsModels.data);
-                    sortDec(divResultsModels.data);
-                    makeAdapter();
-                    if (resultsDialog!= null && resultsDialog.isShowing()) {
-                        loadOrUpdateDialog(pos, number);
+            switch (divResultsModels.status){
+                case SUCCESS:
+                    assert divResultsModels.data != null;
+                    if (divResultsModels.data.size() != 0) {
+                        sortNat(divResultsModels.data);
+                        sortInt(divResultsModels.data);
+                        sortDec(divResultsModels.data);
+                        binding.resultsError.setVisibility(View.GONE);
+                        makeAdapter();
+                        if (resultsDialog!= null && resultsDialog.isShowing()) {
+                            loadOrUpdateDialog(pos, number);
+                        }
                     }
-                }
+                    break;
+                case ERROR:
+                    binding.resultsError.setVisibility(View.VISIBLE);
+                    break;
             }
         });
     }

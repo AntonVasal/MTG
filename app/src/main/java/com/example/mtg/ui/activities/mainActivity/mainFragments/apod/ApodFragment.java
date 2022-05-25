@@ -48,6 +48,7 @@ public class ApodFragment extends Fragment implements ApodRecyclerOnItemClickInt
         binding.apodRecycler.setAdapter(adapter);
         binding.apodRecyclerProgressBar.setVisibility(View.VISIBLE);
         setData();
+//        detectConnection();
     }
 
     private void setSearch() {
@@ -56,6 +57,7 @@ public class ApodFragment extends Fragment implements ApodRecyclerOnItemClickInt
             public boolean onQueryTextSubmit(String s) {
                 return false;
             }
+
             @Override
             public boolean onQueryTextChange(String s) {
                 sortApodLists(s.trim());
@@ -63,6 +65,15 @@ public class ApodFragment extends Fragment implements ApodRecyclerOnItemClickInt
             }
         });
     }
+
+//    private void detectConnection() {
+//        NetworkStateManager.getInstance().getNetworkConnectivityStatus().observe(getViewLifecycleOwner(),
+//                aBoolean -> {
+//                    if ((binding.apodError.getVisibility() == View.VISIBLE) && aBoolean ) {
+//                        apodViewModel.loadData();
+//                    }
+//                });
+//    }
 
     private void sortApodLists(String s) {
         ArrayList<ApodModel> sortedList = new ArrayList<>();
@@ -93,10 +104,12 @@ public class ApodFragment extends Fragment implements ApodRecyclerOnItemClickInt
                     listForItemClick = apodModels;
                     adapter.setArrayList(apodModels);
                     binding.apodRecyclerProgressBar.setVisibility(View.GONE);
+                    binding.apodError.setVisibility(View.GONE);
                     setSearch();
                     break;
                 case ERROR:
                     binding.apodRecyclerProgressBar.setVisibility(View.GONE);
+                    binding.apodError.setVisibility(View.VISIBLE);
                     break;
             }
         });

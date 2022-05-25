@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D0E5F6"
+    android:background="#FFFFFF"
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,7 +30,7 @@
             android:padding="5dp"
             android:text="@string/time"
             android:textColor="@color/white"
-            android:textSize="30sp" />
+            android:textSize="28sp" />
 
         <Chronometer
             android:id="@+id/count_timer"
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:textColor="@color/white"
-            android:textSize="30sp" />
+            android:textSize="28sp" />
     </LinearLayout>
 
 
@@ -53,7 +53,7 @@
         android:padding="5dp"
         android:text="@string/score_0"
         android:textColor="@color/white"
-        android:textSize="30sp"
+        android:textSize="28sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

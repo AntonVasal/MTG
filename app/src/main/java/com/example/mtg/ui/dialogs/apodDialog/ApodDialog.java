@@ -2,6 +2,7 @@ package com.example.mtg.ui.dialogs.apodDialog;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Html;
 
 import androidx.annotation.NonNull;
 
@@ -30,10 +31,10 @@ public class ApodDialog extends BottomSheetDialog {
     }
 
     public void loadData() {
-        binding.apodDialogTitle.setText(model.getTitle());
-        binding.apodDialogText.setText(model.getExplanation());
+        binding.apodDialogTitle.setText(Html.fromHtml(model.getTitle(),Html.FROM_HTML_MODE_LEGACY).toString());
+        binding.apodDialogText.setText(Html.fromHtml(model.getExplanation(),Html.FROM_HTML_MODE_LEGACY).toString());
         if (model.getCopyright()!=null){
-            binding.apodDialogAuthor.setText(model.getCopyright());
+            binding.apodDialogAuthor.setText(Html.fromHtml(model.getCopyright(),Html.FROM_HTML_MODE_LEGACY).toString());
         }else{
             binding.apodDialogAuthor.setText("");
         }

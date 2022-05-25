@@ -1,6 +1,7 @@
 package com.example.mtg.ui.activities.mainActivity.mainFragments.apod.apodAdapter;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
@@ -74,7 +75,12 @@ public class ApodRecyclerAdapter extends RecyclerView.Adapter<ApodRecyclerViewHo
         holder.binding.apodItemCard.setAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_for_recycler));
         holder.binding.apodItemAuthor.setSelected(true);
         holder.binding.apodItemTitle.setSelected(true);
-        holder.binding.setApodModel(arrayList.get(position));
+        ApodModel apodModel = arrayList.get(position);
+        apodModel.setTitle(Html.fromHtml(apodModel.getTitle(),Html.FROM_HTML_MODE_LEGACY).toString());
+        if (apodModel.getCopyright() != null && apodModel.getCopyright().isEmpty()){
+            apodModel.setCopyright(Html.fromHtml(apodModel.getCopyright(),Html.FROM_HTML_MODE_LEGACY).toString());
+        }
+        holder.binding.setApodModel(apodModel);
     }
 
     @Override
