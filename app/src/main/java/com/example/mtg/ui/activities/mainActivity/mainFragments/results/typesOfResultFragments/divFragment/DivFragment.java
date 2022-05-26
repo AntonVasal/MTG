@@ -171,7 +171,10 @@ public class DivFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
                 decDialog(position);
                 break;
         }
-        loadDataFromFirestoreAndMakeDialogMethod();
+        Boolean isConnect =  networkStateManager.getNetworkConnectivityStatus().getValue();
+        if (isConnect!=null && isConnect){
+            loadDataFromFirestoreAndMakeDialogMethod();
+        }
     }
 
     private void intDialog(int position) {
@@ -179,13 +182,11 @@ public class DivFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
             for (int i = 0; i < divResultsIntegersModels.size(); i++) {
                 if (divResultsIntegersModels.get(i).getId().equals(id)) {
                     loadDataIntegerMethod(i);
-                    loadDataFromFirestoreAndMakeDialogMethod();
                 }
             }
         } else {
             loadDataIntegerMethod(position);
             id = divResultsIntegersModels.get(position).getId();
-            loadDataFromFirestoreAndMakeDialogMethod();
         }
     }
 
@@ -194,13 +195,11 @@ public class DivFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
             for (int i = 0; i < divResultsDecimalsModels.size(); i++) {
                 if (divResultsDecimalsModels.get(i).getId().equals(id)) {
                     loadDataDecimalMethod(i);
-                    loadDataFromFirestoreAndMakeDialogMethod();
                 }
             }
         } else {
             loadDataDecimalMethod(position);
             id = divResultsDecimalsModels.get(position).getId();
-            loadDataFromFirestoreAndMakeDialogMethod();
         }
     }
 
@@ -209,13 +208,11 @@ public class DivFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
             for (int i = 0; i < divResultsNaturalsModels.size(); i++) {
                 if (divResultsNaturalsModels.get(i).getId().equals(id)) {
                     loadDataNaturalMethod(i);
-                    loadDataFromFirestoreAndMakeDialogMethod();
                 }
             }
         } else {
             loadDataNaturalMethod(position);
             id = divResultsNaturalsModels.get(position).getId();
-            loadDataFromFirestoreAndMakeDialogMethod();
         }
     }
 

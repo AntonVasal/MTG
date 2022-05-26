@@ -168,6 +168,10 @@ public class AddFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
                 decDialog(position);
                 break;
         }
+        Boolean isConnect =  networkStateManager.getNetworkConnectivityStatus().getValue();
+        if (isConnect!=null && isConnect){
+            loadDataFromFirestoreAndMakeDialogMethod();
+        }
     }
 
     private void natDialog(int position) {

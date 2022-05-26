@@ -27,8 +27,8 @@ public class ProfileViewModel extends ViewModel {
         profileRepository.getUserData(userRepoData -> user.postValue(userRepoData));
     }
 
-    public void updateUserImage(Uri uri, String imageName, UserFieldFromRepositoryCallback callback){
-        profileRepository.updateUserProfileImage(uri, imageName, callback);
+    public void updateUserImage(Uri uri,String oldImageName, String imageName, UserFieldFromRepositoryCallback callback){
+        profileRepository.updateUserProfileImage(uri,oldImageName, imageName, callback);
     }
 
     public void removeListenerRegistration(){

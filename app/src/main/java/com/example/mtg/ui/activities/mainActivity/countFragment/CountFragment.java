@@ -4,17 +4,14 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.example.mtg.R;
+import com.example.mtg.core.baseFragments.BaseBindingFragment;
 import com.example.mtg.databinding.FragmentCountBinding;
 import com.example.mtg.ui.activities.mainActivity.countFragment.countResultsToFirestoreSetters.CountResultsToFirestoreSettersOperator;
 import com.example.mtg.utility.tasksGenerators.AdvantageTasksGenerator;
@@ -27,9 +24,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class CountFragment extends Fragment {
+public class CountFragment extends BaseBindingFragment<FragmentCountBinding> {
 
-    private FragmentCountBinding binding;
     private int taskType;
     private int typeNumber;
     FirebaseFirestore mFirebaseFirestore;
@@ -57,11 +53,10 @@ public class CountFragment extends Fragment {
         taskType = getArguments().getInt(TASK_TYPE);
     }
 
-    @Nullable
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentCountBinding.inflate(inflater, container, false);
-        View view = binding.getRoot();
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         mFirebaseFirestore = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         countViewsOperator = new CountViewsOperator(binding);
@@ -70,12 +65,6 @@ public class CountFragment extends Fragment {
         mediumTasksGenerator = new MediumTasksGenerator(binding);
         primaryTasksGenerator = new PrimaryTasksGenerator(binding);
         countResultsToFirestoreSettersOperator = new CountResultsToFirestoreSettersOperator(mFirebaseFirestore,mAuth,typeNumber,taskType);
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         initListeners();
         if(typeNumber == 2){
             binding.buttonMinus.setVisibility(View.VISIBLE);
@@ -289,9 +278,6 @@ public class CountFragment extends Fragment {
         String tasksForText = getResources().getString(R.string.tasks) + " " + amountForDialog;
         tasks.setText(tasksForText);
 
-        ImageButton closeDialogButton = dialog.findViewById(R.id.close_dialog_button);
-        closeDialogButton.setOnClickListener(view -> dialog.dismiss());
-
         dialog.show();
     }
 
@@ -301,4 +287,8 @@ public class CountFragment extends Fragment {
         binding = null;
     }
 
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_count;
+    }
 }

@@ -53,7 +53,7 @@ public class ProfileFragment extends Fragment {
     private ProfileViewModel profileViewModel;
     private NavController navController;
     private NetworkStateManager networkStateManager;
-    private String img;
+    private String img ="";
     private static int counter=0;
     private static final String TAG = "MainActivity";
     private static final String FAILED = "Failed";
@@ -136,11 +136,16 @@ public class ProfileFragment extends Fragment {
             binding.profileProgressBar.setVisibility(View.GONE);
             switch (data.status){
                 case SUCCESS:
-//                    assert data.data != null;
-//                    img = data.data.getImageUrl();
+                    assert data.data != null;
+                    img = data.data.getImageUrl();
+                    if (!img.isEmpty() && !img.equals("no image")) {
+                        String[] strings = img.split("\\?");
+                        strings = strings[0].split("/o/");
+                        img = strings[1];
+                    }
                     break;
                 case ERROR:
-//                    img = "no image";
+                    img = "";
                     Log.e(TAG,FAILED);
             }
         });
@@ -197,17 +202,7 @@ public class ProfileFragment extends Fragment {
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
-//              if (!img.isEmpty() && !img.equals("no image")) {
-//        String[] strings = img.split("\\?");
-//        strings = strings[0].split("/o/");
-//        storageReference.child(strings[1]).delete().addOnCompleteListener(task16 -> {
-//            if (task16.isSuccessful()) {
-//                Log.i(TAG, SUCCESS);
-//            } else {
-//                Log.i(TAG, FAILED);
-//            }
-//        });
-//    }
+
 
     private void uploadFile(Uri imageUri) {
         if (imageUri != null) {
@@ -224,7 +219,7 @@ public class ProfileFragment extends Fragment {
 
     private void updateImage(Uri imageUri, String nameImg) {
         binding.profileProgressBar.setVisibility(View.VISIBLE);
-        profileViewModel.updateUserImage(imageUri, nameImg, userField -> {
+        profileViewModel.updateUserImage(imageUri, img, nameImg, userField -> {
             switch (userField.status){
                 case SUCCESS:
                     binding.profileProgressBar.setVisibility(View.GONE);

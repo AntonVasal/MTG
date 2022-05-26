@@ -1,6 +1,7 @@
 package com.example.mtg.repositories.userRepositories;
 
 import android.net.Uri;
+import android.util.Log;
 
 import com.example.mtg.App;
 import com.example.mtg.models.profileModel.UserRegisterProfileModel;
@@ -70,12 +71,12 @@ public class ProfileRepository {
                     if (value != null && value.exists()) {
                         userRegisterProfileModel = value.toObject(UserRegisterProfileModel.class);
                         assert userRegisterProfileModel != null;
-                        preferencesHolder.setData(NAME,userRegisterProfileModel.getName());
-                        preferencesHolder.setData(NICKNAME,userRegisterProfileModel.getNickname());
-                        preferencesHolder.setData(EMAIL,userRegisterProfileModel.getEmail());
-                        preferencesHolder.setData(SURNAME,userRegisterProfileModel.getSurname());
-                        preferencesHolder.setData(COUNTRY,userRegisterProfileModel.getCountry());
-                        preferencesHolder.setData(IMAGE_URL,userRegisterProfileModel.getImageUrl());
+                        preferencesHolder.setData(NAME, userRegisterProfileModel.getName());
+                        preferencesHolder.setData(NICKNAME, userRegisterProfileModel.getNickname());
+                        preferencesHolder.setData(EMAIL, userRegisterProfileModel.getEmail());
+                        preferencesHolder.setData(SURNAME, userRegisterProfileModel.getSurname());
+                        preferencesHolder.setData(COUNTRY, userRegisterProfileModel.getCountry());
+                        preferencesHolder.setData(IMAGE_URL, userRegisterProfileModel.getImageUrl());
                         userRepositoryCallback.userRepoCallback(ErrorHandlingRepositoryData.success(userRegisterProfileModel));
                     }
                 })).start();
@@ -251,7 +252,7 @@ public class ProfileRepository {
         }).start();
     }
 
-    public void updateUserProfileImage(Uri imageUri, String imageName, UserFieldFromRepositoryCallback callback) {
+    public void updateUserProfileImage(Uri imageUri, String oldImageName, String imageName, UserFieldFromRepositoryCallback callback) {
         new Thread(() -> {
             StorageReference reference = storageReference.child(imageName);
             UploadTask uploadTask = reference.putFile(imageUri);
@@ -263,7 +264,7 @@ public class ProfileRepository {
                 return reference.getDownloadUrl();
             }).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    updateUserImageInMainCollection(task.getResult().toString(), userField -> {
+                    updateUserImageInMainCollection(task.getResult().toString(), oldImageName, userField -> {
                         switch (userField.status) {
                             case SUCCESS:
                                 callback.userFieldCallback(ErrorHandlingRepositoryData.success(SUCCESS));
@@ -280,7 +281,7 @@ public class ProfileRepository {
         }).start();
     }
 
-    private void updateUserImageInMainCollection(String imageUrl, UserFieldFromRepositoryCallback callback) {
+    private void updateUserImageInMainCollection(String imageUrl, String oldImageName, UserFieldFromRepositoryCallback callback) {
         new Thread(() -> firebaseFirestore.collection(USERS).document(id).update(IMAGE_URL, imageUrl).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 preferencesHolder.setData(IMAGE_URL, imageUrl);
@@ -288,9 +289,17 @@ public class ProfileRepository {
                     switch (userField.status) {
                         case SUCCESS:
                             callback.userFieldCallback(ErrorHandlingRepositoryData.success(SUCCESS));
+                            storageReference.child(oldImageName).delete().addOnCompleteListener(task16 -> {
+                                if (task16.isSuccessful()) {
+                                    Log.i("repo", SUCCESS);
+                                } else {
+                                    Log.i("repo", FAILED);
+                                }
+                            });
                             break;
                         case ERROR:
                             callback.userFieldCallback(ErrorHandlingRepositoryData.error(FAILED, userField.data));
+                            break;
                     }
                 });
             } else {
@@ -312,30 +321,30 @@ public class ProfileRepository {
         }).addOnFailureListener(e -> counter.getAndIncrement())
 
                 .continueWithTask(task -> uploadTaskSub).addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                counter.getAndIncrement();
-            }
-        }).addOnFailureListener(e -> counter.getAndIncrement())
+                    if (!task.isSuccessful()) {
+                        counter.getAndIncrement();
+                    }
+                }).addOnFailureListener(e -> counter.getAndIncrement())
 
                 .continueWithTask(task -> uploadTaskMulti).addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                counter.getAndIncrement();
-            }
-        }).addOnFailureListener(e -> counter.getAndIncrement())
+                    if (!task.isSuccessful()) {
+                        counter.getAndIncrement();
+                    }
+                }).addOnFailureListener(e -> counter.getAndIncrement())
 
                 .continueWithTask(task -> uploadTaskDiv).addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                counter.getAndIncrement();
-            }
-            if (counter.get() == 0) {
-                callback.userFieldCallback(ErrorHandlingRepositoryData.success(SUCCESS));
-            } else {
-                callback.userFieldCallback(ErrorHandlingRepositoryData.error(FAILED, counter.toString()));
-            }
-        }).addOnFailureListener(e -> {
-            counter.getAndIncrement();
-            callback.userFieldCallback(ErrorHandlingRepositoryData.error(FAILED, counter.toString()));
-        })).start();
+                    if (!task.isSuccessful()) {
+                        counter.getAndIncrement();
+                    }
+                    if (counter.get() == 0) {
+                        callback.userFieldCallback(ErrorHandlingRepositoryData.success(SUCCESS));
+                    } else {
+                        callback.userFieldCallback(ErrorHandlingRepositoryData.error(FAILED, counter.toString()));
+                    }
+                }).addOnFailureListener(e -> {
+                    counter.getAndIncrement();
+                    callback.userFieldCallback(ErrorHandlingRepositoryData.error(FAILED, counter.toString()));
+                })).start();
     }
 
 }

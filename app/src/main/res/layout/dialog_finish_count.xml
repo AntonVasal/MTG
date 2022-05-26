@@ -1,88 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    app:cardCornerRadius="@dimen/corner_radius_20"
-    android:layout_height="wrap_content">
+    android:layout_width="400dp"
+    android:paddingBottom="40dp"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="300dp"
-        android:background="#E8E8E8"
-        android:layout_height="300dp">
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/close_dialog_button"
-            android:src="@drawable/ic_baseline_close_40"
-            android:backgroundTint="@color/transparent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:contentDescription="@string/exit" />
+    <!--        <com.google.android.material.card.MaterialCardView-->
+    <!--            android:id="@+id/score_card"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            app:strokeColor="@color/material_on_background_emphasis_medium"-->
+    <!--            app:strokeWidth="@dimen/normal_stroke_width_2"-->
+    <!--            android:layout_marginTop="50dp"-->
+    <!--            android:backgroundTint="@color/white"-->
+    <!--            app:cardCornerRadius="@dimen/corner_radius_20"-->
+    <!--            app:cardElevation="@dimen/normal_elevation_20"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toTopOf="parent">-->
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/score_card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:strokeColor="@color/material_on_background_emphasis_medium"
-            app:strokeWidth="@dimen/normal_stroke_width_2"
-            android:layout_marginTop="50dp"
-            android:backgroundTint="@color/white"
-            app:cardCornerRadius="@dimen/corner_radius_20"
-            app:cardElevation="@dimen/normal_elevation_20"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+    <!--            <TextView-->
+    <!--                android:id="@+id/your_results"-->
+    <!--                android:padding="3dp"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_margin="@dimen/margin_7"-->
+    <!--                android:text="@string/your_results"-->
+    <!--                android:textColor="@color/blue_dirty"-->
+    <!--                android:textSize="28sp" />-->
+    <!--        </com.google.android.material.card.MaterialCardView>-->
 
-            <TextView
-                android:id="@+id/your_results"
-                android:padding="3dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_7"
-                android:text="@string/your_results"
-                android:textColor="@color/blue_dirty"
-                android:textSize="28sp" />
-        </com.google.android.material.card.MaterialCardView>
+    <com.airbnb.lottie.LottieAnimationView
+        android:paddingTop="20dp"
+        android:id="@+id/congrats_anim"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/trophy_shake" />
 
-        <TextView
-            android:id="@+id/score_in_dialog"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_marginStart="20dp"
-            android:text="@string/score"
-            android:textColor="@color/blue_dirty"
-            android:textSize="28sp"
-            android:elevation="10dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/score_card" />
-        <TextView
-            android:id="@+id/amount_in_dialog"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:elevation="10dp"
-            android:layout_marginStart="20dp"
-            android:text="@string/tasks"
-            android:textColor="@color/blue_dirty"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/score_in_dialog" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="20dp"
-            android:text="@string/congratulations"
-            android:elevation="10dp"
-            android:textSize="28sp"
-            android:textColor="@color/blue_dirty"
-            android:textStyle="bold"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</com.google.android.material.card.MaterialCardView>
+    <TextView
+        android:id="@+id/score_in_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:elevation="10dp"
+        android:layout_marginStart="@dimen/margin_20"
+        android:text="@string/score"
+        android:textColor="@color/black"
+        android:textSize="32sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/congrats_anim" />
+
+    <TextView
+        android:id="@+id/amount_in_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="@dimen/margin_20"
+        android:elevation="10dp"
+        android:text="@string/tasks"
+        android:textColor="@color/black"
+        android:textSize="32sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/score_in_dialog" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

@@ -31,7 +31,9 @@ public class HomeFragment extends BaseBindingFragment<FragmentHomeBinding> {
     public void onStart() {
         super.onStart();
         meowBottomNavigation = requireActivity().findViewById(R.id.main_bottom_navigation);
-        meowBottomNavigation.setBackgroundColor(getResources().getColor(R.color.lottie_calculator_blue_dark, requireContext().getTheme()));
+        if (meowBottomNavigation != null){
+            meowBottomNavigation.setBackgroundColor(getResources().getColor(R.color.lottie_calculator_blue_dark, requireContext().getTheme()));
+        }
     }
 
     @Override

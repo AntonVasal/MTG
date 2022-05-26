@@ -22,6 +22,7 @@ import com.example.mtg.ui.activities.mainActivity.mainFragments.apod.apodAdapter
 import com.example.mtg.ui.activities.mainActivity.mainFragments.apod.apodAdapter.ApodRecyclerOnItemClickInterface;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.apod.apodViewModel.ApodViewModel;
 import com.example.mtg.ui.dialogs.apodDialog.ApodDialog;
+import com.example.mtg.utility.networkDetection.NetworkStateManager;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -34,6 +35,7 @@ public class ApodFragment extends Fragment implements ApodRecyclerOnItemClickInt
     private DialogBottomSheetApodBinding bottomSheetApodBinding;
     private ApodDialog apodDialog;
     private ArrayList<ApodModel> listForItemClick;
+//    private static boolean isLoadingNow = false;
 
     @Override
     public void onStart() {
@@ -85,6 +87,7 @@ public class ApodFragment extends Fragment implements ApodRecyclerOnItemClickInt
 //                aBoolean -> {
 //                    if ((binding.apodError.getVisibility() == View.VISIBLE) && aBoolean ) {
 //                        apodViewModel.loadData();
+//                        isLoadingNow = true;
 //                    }
 //                });
 //    }
