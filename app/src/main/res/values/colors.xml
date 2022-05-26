@@ -26,4 +26,7 @@
     <color name="count_green">#6DC82A</color>
     <color name="count_yellow">#FFCD00</color>
     <color name="spotlight_background">#8C000000</color>
+    <color name="lottie_calculator_orange">#FFBD08</color>
+    <color name="lottie_calculator_blue_bright">#2BE1D4</color>
+    <color name="lottie_calculator_blue_dark">#150AA2</color>
 </resources>

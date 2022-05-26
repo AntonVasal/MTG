@@ -1,5 +1,6 @@
 package com.example.mtg.ui.activities.mainActivity.mainFragments.results;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,10 +8,12 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.example.mtg.R;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.results.adapters.resultsTabLayoutAdapter.ResultsAdapter;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.results.resultsViewModel.ResultsViewModel;
@@ -26,6 +29,16 @@ import java.util.ArrayList;
 public class ResultFragment extends Fragment {
 
     private ResultsViewModel resultsViewModel;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        MeowBottomNavigation meowBottomNavigation = requireActivity().findViewById(R.id.main_bottom_navigation);
+        if(meowBottomNavigation.getDefaultIconColor() != R.color.blue){
+            meowBottomNavigation.setBackground(AppCompatResources.getDrawable(requireContext(),R.drawable.gradient_for_bottom_navigation));
+            meowBottomNavigation.setDefaultIconColor(Color.parseColor("#112CBF"));
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

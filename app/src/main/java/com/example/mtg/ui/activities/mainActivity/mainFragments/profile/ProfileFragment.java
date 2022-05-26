@@ -5,6 +5,7 @@ import static android.app.Activity.RESULT_OK;
 import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +19,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -25,6 +27,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.example.mtg.R;
 import com.example.mtg.databinding.FragmentProfileBinding;
 import com.example.mtg.ui.activities.logActivity.LogActivity;
@@ -57,6 +60,16 @@ public class ProfileFragment extends Fragment {
     private static final String UPLOADING_FAILED = "uploading failed";
     private ActivityResultLauncher<Intent> launcher;
     private static final String UPLOADING_FAILED_EVERYWHERE = "uploading failed everywhere";
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        MeowBottomNavigation meowBottomNavigation = requireActivity().findViewById(R.id.main_bottom_navigation);
+        if(meowBottomNavigation.getDefaultIconColor() != R.color.blue){
+            meowBottomNavigation.setBackground(AppCompatResources.getDrawable(requireContext(),R.drawable.gradient_for_bottom_navigation));
+            meowBottomNavigation.setDefaultIconColor(Color.parseColor("#112CBF"));
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

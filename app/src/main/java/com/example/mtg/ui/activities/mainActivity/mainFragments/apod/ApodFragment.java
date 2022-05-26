@@ -1,5 +1,6 @@
 package com.example.mtg.ui.activities.mainActivity.mainFragments.apod;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,9 +9,12 @@ import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
+import com.example.mtg.R;
 import com.example.mtg.databinding.DialogBottomSheetApodBinding;
 import com.example.mtg.databinding.FragmentApodBinding;
 import com.example.mtg.models.apodModel.ApodModel;
@@ -30,6 +34,16 @@ public class ApodFragment extends Fragment implements ApodRecyclerOnItemClickInt
     private DialogBottomSheetApodBinding bottomSheetApodBinding;
     private ApodDialog apodDialog;
     private ArrayList<ApodModel> listForItemClick;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        MeowBottomNavigation meowBottomNavigation = requireActivity().findViewById(R.id.main_bottom_navigation);
+        if(meowBottomNavigation.getDefaultIconColor() != R.color.blue){
+            meowBottomNavigation.setBackground(AppCompatResources.getDrawable(requireContext(),R.drawable.gradient_for_bottom_navigation));
+            meowBottomNavigation.setDefaultIconColor(Color.parseColor("#112CBF"));
+        }
+    }
 
     @Nullable
     @Override

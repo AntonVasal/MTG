@@ -88,7 +88,7 @@
                     android:visibility="gone"
                     android:id="@+id/results_error"
                     app:lottie_autoPlay="true"
-                    app:lottie_rawRes="@raw/results_error"/>
+                    app:lottie_rawRes="@raw/error_bot"/>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
