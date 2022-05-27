@@ -30,9 +30,9 @@ public class DivFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
     private static final String USERS = "users";
     private ResultsDialog resultsDialog;
     private MainListsSorter mainListsSorter;
-    private ArrayList<DivResultsModel> divResultsNaturalsModels;
-    private ArrayList<DivResultsModel> divResultsIntegersModels;
-    private ArrayList<DivResultsModel> divResultsDecimalsModels;
+    private ArrayList<DivResultsModel> divResultsNaturalsModels = new ArrayList<>();
+    private ArrayList<DivResultsModel> divResultsIntegersModels = new ArrayList<>();
+    private ArrayList<DivResultsModel> divResultsDecimalsModels = new ArrayList<>();
     private ListenerRegistration listenerRegistration;
     private DivViewModel divViewModel;
     private ResultsViewModel resultsViewModel;
@@ -62,7 +62,9 @@ public class DivFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
 
         binding.recyclerProgressBar.setVisibility(View.VISIBLE);
         binding.natButton.setEnabled(false);
-
+        ResultsRecyclerViewAdapter adapter = new ResultsRecyclerViewAdapter(getContext(), this,4);
+        adapter.setDivItemList(new ArrayList<>(),1);
+        binding.resultRecycler.setAdapter(adapter);
         observeStatus();
         generateItem();
         initListeners();
@@ -94,26 +96,27 @@ public class DivFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
                         if (resultsDialog!= null && resultsDialog.isShowing()) {
                             loadOrUpdateDialog(pos, number);
                         }
+                        binding.recyclerProgressBar.setVisibility(View.GONE);
                     }
                     break;
                 case ERROR:
                     binding.resultsError.setVisibility(View.VISIBLE);
+                    binding.recyclerProgressBar.setVisibility(View.GONE);
                     break;
             }
         });
     }
 
     private void makeAdapter() {
-        ResultsRecyclerViewAdapter adapter = new ResultsRecyclerViewAdapter(getContext(), this);
+        ResultsRecyclerViewAdapter adapter = new ResultsRecyclerViewAdapter(getContext(), this,4);
         if (!binding.natButton.isEnabled()) {
-            adapter.setDivItemList(divResultsNaturalsModels, 1, 4);
+            adapter.setDivItemList(divResultsNaturalsModels, 1);
         } else if (!binding.intButton.isEnabled()) {
-            adapter.setDivItemList(divResultsIntegersModels, 2, 4);
+            adapter.setDivItemList(divResultsIntegersModels, 2);
         } else if (!binding.decButton.isEnabled()) {
-            adapter.setDivItemList(divResultsDecimalsModels, 3, 4);
+            adapter.setDivItemList(divResultsDecimalsModels, 3);
         }
         binding.resultRecycler.setAdapter(adapter);
-        binding.recyclerProgressBar.setVisibility(View.GONE);
     }
 
     private void sortNat(ArrayList<DivResultsModel> divResultsModels) {

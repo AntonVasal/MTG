@@ -14,7 +14,7 @@
     </style>
 
     <style name="CountButtonStyle" parent="Widget.MaterialComponents.Button">
-        <item name="android:backgroundTint">@color/blue_dirty</item>
+        <item name="android:backgroundTint">@color/lottie_calculator_blue_dark</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:elevation">@dimen/normal_elevation_15</item>
         <item name="cornerRadius">@dimen/corner_radius_15</item>

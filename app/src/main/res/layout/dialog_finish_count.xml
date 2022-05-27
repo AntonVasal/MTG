@@ -32,6 +32,17 @@
     <!--                android:textSize="28sp" />-->
     <!--        </com.google.android.material.card.MaterialCardView>-->
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/close_finish_count_dialog_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:contentDescription="@string/back_button"
+        android:src="@drawable/ic_baseline_close_40_red"/>
+
     <com.airbnb.lottie.LottieAnimationView
         android:paddingTop="20dp"
         android:id="@+id/congrats_anim"
@@ -53,9 +64,9 @@
         android:elevation="10dp"
         android:layout_marginStart="@dimen/margin_20"
         android:text="@string/score"
+        android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="32sp"
-        android:textStyle="bold|italic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/congrats_anim" />
 
@@ -64,27 +75,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:textStyle="bold"
         android:layout_marginStart="@dimen/margin_20"
         android:elevation="10dp"
         android:text="@string/tasks"
         android:textColor="@color/black"
         android:textSize="32sp"
-        android:textStyle="bold|italic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/score_in_dialog" />
 
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/amount_in_dialog"-->
-<!--        android:text="@string/congratulations"-->
-<!--        android:textColor="@color/blue_dirty"-->
-<!--        android:textStyle="bold|italic"-->
-<!--        android:layout_marginTop="@dimen/margin_20"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        android:textSize="@dimen/large_title_text_36"/>-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/amount_in_dialog"
+        android:text="@string/congratulations"
+        android:textColor="@color/black"
+        android:textStyle="italic|bold"
+        android:layout_marginTop="@dimen/margin_20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="@dimen/large_title_text_36"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

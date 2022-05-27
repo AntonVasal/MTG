@@ -27,25 +27,22 @@
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintTop_toBottomOf="@+id/tabs"
         android:layout_height="0dp">
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/hello_card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="30dp"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="40dp"
+            android:layout_marginBottom="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/count_card"
+            app:cardElevation="20dp"
             android:visibility="invisible"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="20dp"
-                android:text="@string/hello_user_naturals_fragment_text"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/material_on_surface_emphasis_medium"
+            app:strokeWidth="2dp">
         </com.google.android.material.card.MaterialCardView>
-
 
         <TextView
             android:layout_width="wrap_content"
@@ -56,7 +53,7 @@
             android:textAlignment="center"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginBottom="30dp"
-            app:layout_constraintBottom_toTopOf="@id/choose_card"
+            app:layout_constraintBottom_toTopOf="@id/count_card"
             android:text="@string/addition_training_ground"
             android:textColor="@color/white"
             android:id="@+id/add_tutorial_text"
@@ -69,85 +66,90 @@
             android:layout_marginVertical="10dp"
             android:layout_height="70dp"
             app:layout_constraintTop_toBottomOf="@id/add_tutorial_text"
-            app:layout_constraintBottom_toTopOf="@+id/choose_card"/>
+            app:layout_constraintBottom_toTopOf="@+id/count_card"
+            android:contentDescription="@string/arrow" />
 
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/count_card"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="40dp"
-            android:background="@color/spotlight_background"
             app:cardCornerRadius="40dp"
             app:cardBackgroundColor="@color/transparent"
-            app:cardElevation="@dimen/enormous_elevation_1000"
-            android:id="@+id/choose_card"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hello_card"
-            >
+            app:layout_constraintTop_toBottomOf="@+id/hello_card">
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/count_layout"
-                android:backgroundTint="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
+                <LinearLayout
                     android:id="@+id/add_text"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:background="@color/blue_dirty"
-                    android:contentDescription="@string/addition"
+                    android:background="@color/lottie_calculator_blue_dark"
+                    android:orientation="horizontal"
                     android:padding="20dp"
-                    android:src="@drawable/ic_plus"
                     app:layout_constraintBottom_toTopOf="@+id/multi_text"
                     app:layout_constraintEnd_toStartOf="@+id/sub_text"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_rawRes="@raw/plus_sky_theme" />
+                </LinearLayout>
+
+                <View
                     android:id="@+id/sub_text"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:background="@color/white"
-                    android:contentDescription="@string/subtraction"
+                    android:orientation="horizontal"
                     android:padding="20dp"
                     android:visibility="invisible"
-                    android:src="@drawable/ic_minus"
                     app:layout_constraintBottom_toTopOf="@id/div_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/add_text"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent">
+                </View>
 
 
-                <ImageView
+                <View
                     android:id="@+id/multi_text"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:contentDescription="@string/multiplication"
-                    android:padding="20dp"
-                    android:src="@drawable/ic_multiply"
                     android:visibility="invisible"
+                    android:background="@color/transparent"
+                    android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/div_text"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/add_text" />
+                    app:layout_constraintTop_toBottomOf="@id/add_text">
+                </View>
 
-                <ImageView
+                <View
                     android:id="@+id/div_text"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:contentDescription="@string/division"
-                    android:padding="20dp"
+                    android:background="@color/transparent"
                     android:visibility="invisible"
-                    android:src="@drawable/ic_division"
+                    android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/multi_text"
-                    app:layout_constraintTop_toBottomOf="@id/sub_text" />
+                    app:layout_constraintTop_toBottomOf="@id/sub_text">
+                </View>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>

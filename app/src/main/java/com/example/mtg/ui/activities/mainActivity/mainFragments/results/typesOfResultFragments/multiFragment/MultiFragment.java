@@ -40,9 +40,9 @@ public class MultiFragment extends BaseBindingFragment<FragmentResultsRecyclerBi
     private int tasks;
     private static int counter = 0;
     private NetworkStateManager networkStateManager;
-    private ArrayList<MultiResultsModel> multiResultsNaturalsModels;
-    private ArrayList<MultiResultsModel> multiResultsIntegersModels;
-    private ArrayList<MultiResultsModel> multiResultsDecimalsModels;
+    private ArrayList<MultiResultsModel> multiResultsNaturalsModels = new ArrayList<>();
+    private ArrayList<MultiResultsModel> multiResultsIntegersModels = new ArrayList<>();
+    private ArrayList<MultiResultsModel> multiResultsDecimalsModels = new ArrayList<>();
     private ListenerRegistration listenerRegistration;
 
     private ResultsViewModel resultsViewModel;
@@ -62,6 +62,9 @@ public class MultiFragment extends BaseBindingFragment<FragmentResultsRecyclerBi
         resultsViewModel = new ViewModelProvider(requireActivity()).get(ResultsViewModel.class);
         mainListsSorter = new MainListsSorter();
         binding.recyclerProgressBar.setVisibility(View.VISIBLE);
+        ResultsRecyclerViewAdapter adapter = new ResultsRecyclerViewAdapter(getContext(), this,2);
+        adapter.setMultiItemList(new ArrayList<>(),1);
+        binding.resultRecycler.setAdapter(adapter);
         binding.natButton.setEnabled(false);
         observeStatus();
         generateItem();
@@ -94,26 +97,27 @@ public class MultiFragment extends BaseBindingFragment<FragmentResultsRecyclerBi
                             if (resultsDialog!= null && resultsDialog.isShowing()){
                                 loadOrUpdateDialog(pos,number);
                             }
+                            binding.recyclerProgressBar.setVisibility(View.GONE);
                         }
                     break;
                 case ERROR:
                     binding.resultsError.setVisibility(View.VISIBLE);
+                    binding.recyclerProgressBar.setVisibility(View.GONE);
                     break;
             }
         });
     }
 
     private void makeAdapter() {
-        ResultsRecyclerViewAdapter adapter = new ResultsRecyclerViewAdapter(getContext(), this);
+        ResultsRecyclerViewAdapter adapter = new ResultsRecyclerViewAdapter(getContext(), this,2);
         if (!binding.natButton.isEnabled()) {
-            adapter.setMultiItemList(multiResultsNaturalsModels, 1, 2);
+            adapter.setMultiItemList(multiResultsNaturalsModels, 1);
         } else if (!binding.intButton.isEnabled()) {
-            adapter.setMultiItemList(multiResultsIntegersModels, 2, 2);
+            adapter.setMultiItemList(multiResultsIntegersModels, 2);
         } else if (!binding.decButton.isEnabled()) {
-            adapter.setMultiItemList(multiResultsDecimalsModels, 3, 2);
+            adapter.setMultiItemList(multiResultsDecimalsModels, 3);
         }
         binding.resultRecycler.setAdapter(adapter);
-        binding.recyclerProgressBar.setVisibility(View.GONE);
     }
 
     private void sortNat(ArrayList<MultiResultsModel> multiResultsModels) {

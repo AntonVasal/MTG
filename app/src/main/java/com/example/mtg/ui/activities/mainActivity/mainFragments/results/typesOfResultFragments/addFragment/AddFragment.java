@@ -31,9 +31,9 @@ public class AddFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
     private ResultsDialog resultsDialog;
     private ResultsViewModel resultsViewModel;
     private FirebaseFirestore firebaseFirestore;
-    private ArrayList<AddResultsModel> addResultsNaturalsModels;
-    private ArrayList<AddResultsModel> addResultsIntegersModels;
-    private ArrayList<AddResultsModel> addResultsDecimalsModels;
+    private ArrayList<AddResultsModel> addResultsNaturalsModels = new ArrayList<>();
+    private ArrayList<AddResultsModel> addResultsIntegersModels = new ArrayList<>();
+    private ArrayList<AddResultsModel> addResultsDecimalsModels = new ArrayList<>();
     private static final String USERS = "users";
     private MainListsSorter mainListsSorter;
     private String name;
@@ -59,6 +59,9 @@ public class AddFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
         resultsViewModel = new ViewModelProvider(requireActivity()).get(ResultsViewModel.class);
         mainListsSorter = new MainListsSorter();
         binding.recyclerProgressBar.setVisibility(View.VISIBLE);
+        ResultsRecyclerViewAdapter adapter = new ResultsRecyclerViewAdapter(getContext(), this,1);
+        adapter.setAddItemList(new ArrayList<>(),1);
+        binding.resultRecycler.setAdapter(adapter);
         binding.natButton.setEnabled(false);
         observeStatus();
         generateItem();
@@ -91,26 +94,27 @@ public class AddFragment extends BaseBindingFragment<FragmentResultsRecyclerBind
                         if (resultsDialog!= null && resultsDialog.isShowing()) {
                             loadOrUpdateDialog(pos,number);
                         }
+                        binding.recyclerProgressBar.setVisibility(View.GONE);
                     }
                     break;
                 case ERROR:
                     binding.resultsError.setVisibility(View.VISIBLE);
+                    binding.recyclerProgressBar.setVisibility(View.GONE);
                     break;
             }
         });
     }
 
     private void makeAdapter() {
-        ResultsRecyclerViewAdapter adapter = new ResultsRecyclerViewAdapter(getContext(), this);
+        ResultsRecyclerViewAdapter adapter = new ResultsRecyclerViewAdapter(getContext(), this,1);
         if (!binding.natButton.isEnabled()) {
-            adapter.setAddItemList(addResultsNaturalsModels, 1, 1);
+            adapter.setAddItemList(addResultsNaturalsModels, 1);
         } else if (!binding.intButton.isEnabled()) {
-            adapter.setAddItemList(addResultsIntegersModels, 2, 1);
+            adapter.setAddItemList(addResultsIntegersModels, 2);
         } else if (!binding.decButton.isEnabled()) {
-            adapter.setAddItemList(addResultsDecimalsModels, 3, 1);
+            adapter.setAddItemList(addResultsDecimalsModels, 3);
         }
         binding.resultRecycler.setAdapter(adapter);
-        binding.recyclerProgressBar.setVisibility(View.GONE);
     }
 
     private void sortNat(ArrayList<AddResultsModel> addResultsModels) {

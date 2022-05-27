@@ -159,10 +159,14 @@ public class ProfileFragment extends Fragment {
                 case SUCCESS:
                     assert data.data != null;
                     img = data.data.getImageUrl();
-                    if (!img.isEmpty() && !img.equals("no image")) {
+                    if (img != null && !img.equals("") && !img.equals("no image")) {
                         String[] strings = img.split("\\?");
                         strings = strings[0].split("/o/");
-                        img = strings[1];
+                        try {
+                            img = strings[1];
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
                     }
                     break;
                 case ERROR:

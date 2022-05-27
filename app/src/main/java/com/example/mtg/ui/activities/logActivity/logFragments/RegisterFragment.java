@@ -31,7 +31,6 @@ public class RegisterFragment extends Fragment {
     private FragmentRegisterBinding binding;
     private NavController navController;
     private LogViewModel logViewModel;
-    private static final String NO_IMAGE = "users";
     private static final String DATA_NOT_PUSHED = "Data was not pushed to database";
     private ErrorDialog errorDialog;
     private DialogErrorOccurBinding errorOccurBinding;
@@ -120,7 +119,7 @@ public class RegisterFragment extends Fragment {
         binding.registerButton.setEnabled(false);
         binding.backRegisterButton.setEnabled(false);
 
-        UserRegisterProfileModel user = new UserRegisterProfileModel(name, surname, nickname, email, country, NO_IMAGE);
+        UserRegisterProfileModel user = new UserRegisterProfileModel(name, surname, nickname, email, country, "");
 
         logViewModel.createNewUser(user, password, userField -> {
             switch (userField.status){
@@ -134,7 +133,7 @@ public class RegisterFragment extends Fragment {
                         binding.registerProgressBar.setVisibility(View.GONE);
                     } else {
                         binding.registerProgressBar.setVisibility(View.GONE);
-                        Snackbar snackbar = Snackbar.make(binding.getRoot(),R.string.authentication_failed,Snackbar.LENGTH_LONG);
+                        Snackbar snackbar = Snackbar.make(binding.getRoot(),R.string.registration_failed,Snackbar.LENGTH_LONG);
                         snackbar.show();
                     }
                     binding.registerButton.setEnabled(true);

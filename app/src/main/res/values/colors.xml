@@ -29,4 +29,5 @@
     <color name="lottie_calculator_orange">#FFBD08</color>
     <color name="lottie_calculator_blue_bright">#2BE1D4</color>
     <color name="lottie_calculator_blue_dark">#150AA2</color>
+    <color name="lottie_calculator_blue_dark_70">#E6150AA2</color>
 </resources>

@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -269,6 +270,9 @@ public class CountFragment extends BaseBindingFragment<FragmentCountBinding> {
 
         TextView score = dialog.findViewById(R.id.score_in_dialog);
         TextView tasks = dialog.findViewById(R.id.amount_in_dialog);
+
+        ImageView imageView = dialog.findViewById(R.id.close_finish_count_dialog_button);
+        imageView.setOnClickListener(view -> dialog.dismiss());
 
         if (scoreForDialog < 0){
             scoreForDialog = 0;

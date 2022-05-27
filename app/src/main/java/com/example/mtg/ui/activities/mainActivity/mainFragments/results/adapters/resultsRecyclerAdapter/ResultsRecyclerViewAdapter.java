@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -26,38 +25,34 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
     private ArrayList<SubResultsModel> subItemList;
     private ArrayList<DivResultsModel> divItemList;
     private final Context mContext;
-    private int typeTask;
+    private final int typeTask;
     private int typeNumber;
 
-    public void setAddItemList(ArrayList<AddResultsModel> addItemList, int typeNumber, int typeTask) {
+    public void setAddItemList(ArrayList<AddResultsModel> addItemList, int typeNumber) {
         this.addItemList = addItemList;
         this.typeNumber = typeNumber;
-        this.typeTask = typeTask;
     }
 
-    public void setMultiItemList(ArrayList<MultiResultsModel> multiItemList, int typeNumber, int typeTask) {
+    public void setMultiItemList(ArrayList<MultiResultsModel> multiItemList, int typeNumber) {
         this.multiItemList = multiItemList;
         this.typeNumber = typeNumber;
-        this.typeTask = typeTask;
     }
 
-    public void setSubItemList(ArrayList<SubResultsModel> subItemList, int typeNumber, int typeTask) {
+    public void setSubItemList(ArrayList<SubResultsModel> subItemList, int typeNumber) {
         this.subItemList = subItemList;
         this.typeNumber = typeNumber;
-        this.typeTask = typeTask;
     }
 
-    public void setDivItemList(ArrayList<DivResultsModel> divItemList, int typeNumber, int typeTask) {
+    public void setDivItemList(ArrayList<DivResultsModel> divItemList, int typeNumber) {
         this.divItemList = divItemList;
         this.typeNumber = typeNumber;
-        this.typeTask = typeTask;
     }
 
-    public ResultsRecyclerViewAdapter(Context mContext, OnItemResultsRecyclerClickInterface onItemResultsRecyclerClickInterface) {
+    public ResultsRecyclerViewAdapter(Context mContext, OnItemResultsRecyclerClickInterface onItemResultsRecyclerClickInterface,int typeTask) {
         this.mContext = mContext;
+        this.typeTask = typeTask;
         this.onItemResultsRecyclerClickInterface = onItemResultsRecyclerClickInterface;
     }
-
 
     @NonNull
     @Override
