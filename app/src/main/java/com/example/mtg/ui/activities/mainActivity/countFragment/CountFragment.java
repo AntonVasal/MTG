@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.mtg.R;
 import com.example.mtg.core.baseFragments.BaseBindingFragment;
@@ -279,6 +281,8 @@ public class CountFragment extends BaseBindingFragment<FragmentCountBinding> {
         tasks.setText(tasksForText);
 
         dialog.show();
+        Window window = dialog.getWindow();
+        window.setLayout(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
     }
 
     @Override

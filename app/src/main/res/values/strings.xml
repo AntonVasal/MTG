@@ -144,6 +144,9 @@
     <string name="multiplication_training_ground">Multiplication training ground</string>
     <string name="division_training_ground">Division training ground</string>
     <string name="swipe_horizontally_or_click_on_tabs_to_change_type_of_numbers">Swipe horizontally or click on tabs to change type of numbers</string>
+    <string name="lost_connection">lost connection</string>
+    <string name="connection_lost">Connection lost!</string>
+    <string name="connection_lost_in_main">You still can train, but you can not update your personal best or profile information. Also some online function will not be available, e.g. : live results sheets or astronomy picture of day.</string>
 
     <string-array name="types_of_number">
         <item>Natural numbers</item>

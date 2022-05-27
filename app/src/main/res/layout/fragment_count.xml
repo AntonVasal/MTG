@@ -150,6 +150,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_4"
+                android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/button1"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -160,6 +161,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_5"
+                android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toTopOf="@id/button2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -167,6 +169,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button6"
                 style="@style/CountButtonStyle"
+                android:layout_marginBottom="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_6"
@@ -178,6 +181,7 @@
                 style="@style/CountButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:text="@string/_7"
                 app:layout_constraintBottom_toTopOf="@id/button4"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -187,6 +191,7 @@
                 style="@style/CountButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:text="@string/_8"
                 app:layout_constraintBottom_toTopOf="@id/button5"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -195,6 +200,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button9"
                 style="@style/CountButtonStyle"
+                android:layout_marginBottom="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_9"

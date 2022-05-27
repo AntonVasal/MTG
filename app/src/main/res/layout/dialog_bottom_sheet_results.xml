@@ -43,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/dialog_image"
-                    android:src="@drawable/ic_baseline_person_150"
+                    android:src="@drawable/ic_user_main"
                     android:scaleType="centerCrop"
                     android:contentDescription="@string/user_image" />
             </androidx.cardview.widget.CardView>

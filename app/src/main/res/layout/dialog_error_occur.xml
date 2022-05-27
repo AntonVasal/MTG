@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="350dp"
     android:layout_height="wrap_content"
-    android:background="@drawable/gradient_for_app">
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/error_dialog_title"
@@ -11,22 +11,33 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_40"
         android:text="@string/updating_failed"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="@dimen/large_title_text_30"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/error_dialog_image"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
         android:layout_marginTop="@dimen/margin_20"
-        android:contentDescription="@string/error_image"
-        android:src="@drawable/ic_browser_error"
+        app:lottie_rawRes="@raw/error_bot"
+        android:id="@+id/error_dialog_image"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/error_dialog_title" />
+        app:layout_constraintTop_toBottomOf="@+id/error_dialog_title"
+        />
+
+<!--    <ImageView-->
+<!--        android:id="@+id/error_dialog_image"-->
+<!--        android:layout_width="120dp"-->
+<!--        android:layout_height="120dp"-->
+<!--        android:layout_marginTop="@dimen/margin_20"-->
+<!--        android:contentDescription="@string/error_image"-->
+<!--        android:src="@drawable/ic_browser_error"-->
+<!--       />-->
 
     <TextView
         android:id="@+id/error_dialog_text"
@@ -37,7 +48,7 @@
         android:paddingHorizontal="@dimen/padding_20"
         android:text="@string/update_error_text"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="@dimen/for_user_data_text_18"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

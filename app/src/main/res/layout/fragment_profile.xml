@@ -80,7 +80,7 @@
 
                     <ImageView
                         android:id="@+id/user_profile_image"
-                        android:src="@drawable/ic_baseline_person_150"
+                        android:src="@drawable/ic_user_main"
                         android:scaleType="centerCrop"
                         loadImage="@{viewModel.user.data.imageUrl}"
                         android:layout_width="160dp"

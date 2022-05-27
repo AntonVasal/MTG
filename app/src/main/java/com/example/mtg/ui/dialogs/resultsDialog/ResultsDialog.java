@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.mtg.R;
 import com.example.mtg.databinding.DialogBottomSheetResultsBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -62,7 +63,10 @@ public class ResultsDialog extends BottomSheetDialog {
         binding.infoNicknameDialog.setText(nickname);
         binding.infoNameDialog.setText(name);
         binding.infoCountryDialog.setText(country);
-        Glide.with(context).load(imageUrl).apply(new RequestOptions().centerCrop()).into(binding.dialogImage);
+        Glide.with(context).load(imageUrl)
+                .placeholder(R.drawable.ic_user_main)
+                .error(R.drawable.ic_user_main)
+                .apply(new RequestOptions().centerCrop()).into(binding.dialogImage);
     }
 
 

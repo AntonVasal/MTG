@@ -74,6 +74,8 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
             case 1:
                 Glide.with(mContext)
                         .load(addItemList.get(position).getImageUrl())
+                        .placeholder(R.drawable.ic_user_main)
+                        .error(R.drawable.ic_user_main)
                         .apply(new RequestOptions().override(50, 50))
                         .into(holder.userImg);
                 holder.userName.setText(addItemList.get(position).getNickname());
@@ -92,6 +94,8 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
             case 2:
                 Glide.with(mContext)
                         .load(multiItemList.get(position).getImageUrl())
+                        .placeholder(R.drawable.ic_user_main)
+                        .error(R.drawable.ic_user_main)
                         .apply(new RequestOptions().override(50, 50))
                         .into(holder.userImg);
                 holder.userName.setText(multiItemList.get(position).getNickname());
@@ -110,6 +114,8 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
             case 3:
                 Glide.with(mContext)
                         .load(subItemList.get(position).getImageUrl())
+                        .placeholder(R.drawable.ic_user_main)
+                        .error(R.drawable.ic_user_main)
                         .apply(new RequestOptions().override(50, 50))
                         .into(holder.userImg);
                 holder.userName.setText(subItemList.get(position).getNickname());
@@ -128,6 +134,8 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<ResultsRecy
             case 4:
                 Glide.with(mContext)
                         .load(divItemList.get(position).getImageUrl())
+                        .placeholder(R.drawable.ic_user_main)
+                        .error(R.drawable.ic_user_main)
                         .apply(new RequestOptions().override(50, 50))
                         .into(holder.userImg);
                 holder.userName.setText(divItemList.get(position).getNickname());

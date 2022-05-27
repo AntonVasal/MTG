@@ -10,12 +10,15 @@ import com.bumptech.glide.Glide;
 import com.example.mtg.App;
 import com.example.mtg.databinding.DialogBottomSheetApodBinding;
 import com.example.mtg.models.apodModel.ApodModel;
+import com.facebook.shimmer.Shimmer;
+import com.facebook.shimmer.ShimmerDrawable;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class ApodDialog extends BottomSheetDialog {
 
     private final DialogBottomSheetApodBinding binding;
     private ApodModel model;
+    private ShimmerDrawable shimmerDrawable;
 
     public ApodDialog(@NonNull Context context, DialogBottomSheetApodBinding binding) {
         super(context);
@@ -28,6 +31,18 @@ public class ApodDialog extends BottomSheetDialog {
         setContentView(binding.getRoot());
         binding.apodDialogAuthor.setSelected(true);
         binding.apodDialogTitle.setSelected(true);
+
+        Shimmer shimmer = new Shimmer.AlphaHighlightBuilder()// The attributes for a ShimmerDrawable is set by this builder
+                .setDuration(1800) // how long the shimmering animation takes to do one full sweep
+                .setBaseAlpha(0.9f) //the alpha of the underlying children
+                .setHighlightAlpha(0.8f) // the shimmer alpha amount
+                .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
+                .setAutoStart(true)
+                .build();
+
+        // This is the placeholder for the imageView
+        shimmerDrawable = new ShimmerDrawable();
+        shimmerDrawable.setShimmer(shimmer);
     }
 
     public void loadData() {
@@ -39,7 +54,9 @@ public class ApodDialog extends BottomSheetDialog {
             binding.apodDialogAuthor.setText("");
         }
         binding.apodDialogDate.setText(model.getDate());
-        Glide.with(App.instance).load(model.getHdUrl()).centerCrop().into(binding.apodDialogImage);
+        Glide.with(App.instance).load(model.getHdUrl())
+                .placeholder(shimmerDrawable)
+                .centerCrop().into(binding.apodDialogImage);
     }
 
     public void setModel(ApodModel model) {

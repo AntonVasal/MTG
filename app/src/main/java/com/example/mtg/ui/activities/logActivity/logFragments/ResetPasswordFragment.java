@@ -5,7 +5,6 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,9 +14,9 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mtg.R;
-import com.example.mtg.utility.textwatchers.ValidationTextWatcher;
 import com.example.mtg.databinding.FragmentResetPasswordBinding;
 import com.example.mtg.ui.activities.logActivity.logViewModel.LogViewModel;
+import com.example.mtg.utility.textwatchers.ValidationTextWatcher;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Objects;

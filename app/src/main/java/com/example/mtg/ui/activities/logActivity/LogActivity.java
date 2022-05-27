@@ -7,18 +7,18 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
-import androidx.navigation.NavGraph;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mtg.R;
 import com.example.mtg.ui.activities.mainActivity.MainActivity;
+import com.example.mtg.utility.networkDetection.NetworkStateManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
 public class LogActivity extends AppCompatActivity {
-
+    private NavController navController;
     @Override
     protected void onStart() {
         super.onStart();
@@ -27,12 +27,6 @@ public class LogActivity extends AppCompatActivity {
         if (user != null){
             startActivity(new Intent(LogActivity.this, MainActivity.class));
             finish();
-        }else{
-            NavHostFragment navHostFragment = (NavHostFragment)getSupportFragmentManager().findFragmentById(R.id.log_fragment_container_view);
-            NavController navController = Objects.requireNonNull(navHostFragment).getNavController();
-            NavGraph navGraph = navController.getNavInflater().inflate(R.navigation.main_navigation_graph);
-            navGraph.setStartDestination(R.id.signInFragment);
-            navController.setGraph(navGraph);
         }
     }
 
@@ -42,5 +36,26 @@ public class LogActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_log);
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.log_fragment_container_view);
+        navController = Objects.requireNonNull(navHostFragment).getNavController();
+
+        NetworkStateManager.getInstance().getNetworkConnectivityStatus().observe(this, aBoolean -> {
+            if (!aBoolean){
+               navController.navigate(R.id.connectionFragment);
+            }else if (navController.getCurrentDestination() != null && navController.getCurrentDestination().getId() == R.id.connectionFragment){
+                navController.popBackStack();
+            }
+        });
     }
+
+
+    @Override
+    public void onBackPressed() {
+        if (navController.getCurrentDestination() != null && navController.getCurrentDestination().getId() == R.id.connectionFragment){
+            finish();
+        }else {
+            super.onBackPressed();
+        }
+    }
+
 }

@@ -28,15 +28,15 @@
         <activity
             android:name=".ui.activities.logActivity.LogActivity"
             android:screenOrientation="portrait"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ui.activities.appIntroActivity.AppIntroActivity"
             android:screenOrientation="portrait"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ui.activities.mainActivity.MainActivity"
             android:screenOrientation="portrait"
-            android:exported="true" />
+            android:exported="false" />
     </application>
 
 </manifest>
