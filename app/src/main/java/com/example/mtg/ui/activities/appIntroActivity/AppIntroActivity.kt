@@ -17,30 +17,30 @@ class AppIntroActivity : AppIntro() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         addSlide(AppIntroFragment.createInstance(
-                title = "Welcome in MTG!",
-                description = "We are happy to see you in our first math app! Hope that you will become a part of our math family! Enjoy!)",
+                title = getString(R.string.welcome_in_mtg),
+                description = getString(R.string.we_are_happy_to_see_you),
                 imageDrawable = R.drawable.ic_star,
                 backgroundDrawable = R.drawable.gradient_for_app,
                 titleColorRes = R.color.white,
                 descriptionColorRes = R.color.white
         ))
         addSlide(AppIntroFragment.createInstance(
-                title = "Train your math skills!",
-                description = "We provide you opportunity to train your counting skills by using 12 grounds which generate 48 types of task! 24/7 and absolutely free!",
+                title = getString(R.string.train),
+                description = getString(R.string.we_provide_opportunity),
                 imageDrawable = R.drawable.ic_mathematical,
                 backgroundColorRes = R.color.blue_bright,
                 titleColorRes = R.color.white,
                 descriptionColorRes = R.color.white
         ))
-        addSlide(AppIntroFragment.createInstance(title = "Have a rest!",
-                description = "For you we specially made page with beautiful astronomy pictures and interesting facts about them which had been provided by NASA! Make breaks between counting) ",
+        addSlide(AppIntroFragment.createInstance(title = getString(R.string.have_a_rest),
+                description = getString(R.string.for_you_we_made),
                 imageDrawable = R.drawable.ic_milky_way_svgrepo_com,
                 backgroundColorRes = R.color.orange_dark,
                 titleColorRes = R.color.white,
                 descriptionColorRes = R.color.white))
         addSlide(AppIntroFragment.createInstance(
-                title = "Compete!",
-                description = "You can compete with people all over the world! Become the best counter! What are you waiting?)",
+                title = getString(R.string.compete),
+                description = getString(R.string.you_can_compete),
                 imageDrawable = R.drawable.ic_trophy_pixel,
                 backgroundDrawable = R.drawable.gradient_for_app,
                 titleColorRes = R.color.white,
@@ -58,19 +58,19 @@ class AppIntroActivity : AppIntro() {
 
     override fun onSkipPressed(currentFragment: Fragment?) {
         super.onSkipPressed(currentFragment)
-        sharedPreferencesHolder.setIsFirstOpening("isFirstOpening",false)
+        sharedPreferencesHolder.setIsFirstOpening("isFirstOpening", false)
         toLogActivity()
         finish()
     }
 
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
-        sharedPreferencesHolder.setIsFirstOpening("isFirstOpening",false)
+        sharedPreferencesHolder.setIsFirstOpening("isFirstOpening", false)
         toLogActivity()
         finish()
     }
 
     private fun toLogActivity() {
-        startActivity(Intent(this,LogActivity::class.java))
+        startActivity(Intent(this, LogActivity::class.java))
     }
 }

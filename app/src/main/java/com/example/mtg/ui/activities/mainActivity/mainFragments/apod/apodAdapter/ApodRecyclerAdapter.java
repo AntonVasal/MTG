@@ -51,9 +51,9 @@ public class ApodRecyclerAdapter extends RecyclerView.Adapter<ApodRecyclerViewHo
 
                 @Override
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                    ApodModel newApods = ApodRecyclerAdapter.this.arrayList.get(oldItemPosition);
+                    ApodModel oldApods = ApodRecyclerAdapter.this.arrayList.get(oldItemPosition);
 
-                    ApodModel oldApods = arrayList.get(newItemPosition);
+                    ApodModel newApods = arrayList.get(newItemPosition);
 
                     return newApods.getDate().equals(oldApods.getDate());
                 }

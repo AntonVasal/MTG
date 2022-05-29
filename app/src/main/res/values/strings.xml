@@ -1,36 +1,28 @@
 <resources>
     <string name="app_name">MTG</string>
-    <string name="main">Main</string>
-    <string name="results">Results</string>
-    <string name="profile">Profile</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="natural">Natural</string>
-    <string name="integers">Integers</string>
-    <string name="decimals">Decimals</string>
-    <string name="division">Division</string>
-    <string name="multi">Multi</string>
-    <string name="div">Div</string>
-    <string name="sub">Sub</string>
-    <string name="add">Add</string>
+    <string name="main" translatable="false">Main</string>
+    <string name="results" translatable="false">Results</string>
+    <string name="profile" translatable="false">Profile</string>
+    <string name="natural" translatable="false">Natural</string>
+    <string name="integers" translatable="false">Integers</string>
+    <string name="decimals" translatable="false">Decimals</string>
+    <string name="multi" translatable="false">Multi</string>
+    <string name="div" translatable="false">Div</string>
+    <string name="sub" translatable="false">Sub</string>
+    <string name="add" translatable="false">Add</string>
     <string name="user_photo">user_photo</string>
-    <string name="more_results">More results</string>
-    <string name="_1">1</string>
-    <string name="_2">2</string>
-    <string name="_3">3</string>
-    <string name="_4">4</string>
-    <string name="_5">5</string>
-    <string name="_6">6</string>
-    <string name="_7">7</string>
-    <string name="_8">8</string>
-    <string name="_9">9</string>
+    <string name="_1" translatable="false">1</string>
+    <string name="_2" translatable="false">2</string>
+    <string name="_3" translatable="false">3</string>
+    <string name="_4" translatable="false">4</string>
+    <string name="_5" translatable="false">5</string>
+    <string name="_6" translatable="false">6</string>
+    <string name="_7" translatable="false">7</string>
+    <string name="_8" translatable="false">8</string>
+    <string name="_9" translatable="false">9</string>
     <string name="task">Task</string>
     <string name="user_answer">User answer</string>
-    <string name="multiplication">Multiplication</string>
-    <string name="subtraction">Subtraction</string>
-    <string name="addition">Addition</string>
     <string name="user_image">User image</string>
-    <string name="vai">VAI</string>
-    <string name="avasalatij_gmail_com">avasalatij@gmail.com</string>
     <string name="account_info">Account Info</string>
     <string name="user_name_image">user name image</string>
     <string name="name">Name</string>
@@ -39,20 +31,16 @@
     <string name="anton">Anton</string>
     <string name="user_surname_image">user surname image</string>
     <string name="surname">Surname</string>
-    <string name="vasalatii">Vasalatii</string>
     <string name="user_country_image">user country image</string>
     <string name="country">Country</string>
-    <string name="ukraine">Ukraine</string>
-    <string name="_0">0</string>
+    <string name="_0" translatable="false">0</string>
     <string name="ok">OK</string>
     <string name="delete">delete</string>
     <string name="user_nickname_image">user nickname image</string>
     <string name="nickname">Nickname</string>
     <string name="settings">settings</string>
-    <string name="log_out">log out</string>
-    <string name="mtg">MTG</string>
+    <string name="mtg" translatable="false">MTG</string>
     <string name="password">Password</string>
-    <string name="made_by_vai">Made by VAI</string>
     <string name="sign_in">Sign in</string>
     <string name="reset_password">Reset password</string>
     <string name="forget_password">Forgot password?</string>
@@ -61,38 +49,33 @@
     <string name="back_button">back button</string>
     <string name="reset_your_password">Reset your password</string>
     <string name="log_out_button">log out button</string>
-    <string name="_10000">10000</string>
+    <string name="_10000" translatable="false">10000</string>
     <string name="dialog_image">dialog_image</string>
     <string name="cancel">Cancel</string>
     <string name="exit">Exit</string>
     <string name="are_you_sure">Are you sure?</string>
-    <string name="naturals">naturals</string>
+    <string name="naturals" translatable="false">naturals</string>
     <string name="start">Start</string>
     <string name="finish">Finish</string>
     <string name="score">Score:</string>
     <string name="not_right">not right</string>
-    <string name="minus">-</string>
-    <string name="for_decimals">,</string>
+    <string name="minus" translatable="false">-</string>
     <string name="time">Time:</string>
     <string name="score_0">Score: 0</string>
-    <string name="dot">.</string>
-    <string name="your_results">Your results</string>
+    <string name="dot" translatable="false">.</string>
     <string name="tasks">Tasks:</string>
     <string name="congratulations">Congratulations!</string>
-    <string name="made_by_vay">Made by VAY</string>
+    <string name="made_by_vay" translatable="false">Made by VAY</string>
     <string name="change_profile_image">change profile image</string>
     <string name="count_info">Count Info</string>
     <string name="score_upper">Score</string>
     <string name="tasks_upper">Tasks</string>
-    <string name="change_image">Change</string>
-    <string name="do_you_wanna_change_image">Change image?</string>
     <string name="change_nickname">change nickname</string>
     <string name="change_name">change name</string>
     <string name="change_surname">change surname</string>
     <string name="change_email">change email</string>
     <string name="change_country">change country</string>
     <string name="confirm_password">confirm password</string>
-    <string name="logo">logo</string>
     <string name="pls_provide_valid_email">Please, provide valid email!</string>
     <string name="email_is_required">Email is required!</string>
     <string name="password_is_required">Password is required!</string>
@@ -101,7 +84,7 @@
     <string name="nickname_is_required">Nickname is required!</string>
     <string name="surname_is_required">Surname is required!</string>
     <string name="user_password_image">user password image</string>
-    <string name="password_starts">********</string>
+    <string name="password_starts" translatable="false">********</string>
     <string name="new_password">New password</string>
     <string name="change_password">change password</string>
     <string name="confirm">confirm</string>
@@ -111,24 +94,16 @@
     <string name="register_image">register image</string>
     <string name="password_confirm_image">password confirm image</string>
     <string name="change_data_image">change data image</string>
-    <string name="public_info">Public Info</string>
-    <string name="private_info">Private Info</string>
-    <string name="hello_user_naturals_fragment_text">Hello! 😀 You are on the natural numbers training ground where you can do addition, subtraction, division, multiplication tasks with different complexity. 💻 Let\'s start your training!</string>
-    <string name="error_image">error image</string>
     <string name="update_error_text">Error occurred when we were updating your profile. Please, try to do it again. If error appear a few times, contact us - avasalatij@gmail.com.</string>
     <string name="update_password_error_text">Error occurred when we were updating your password. Please, try to do it again. If error appear a few times, contact us - avasalatij@gmail.com.</string>
     <string name="update_email_error_text">Error occurred when we were updating your email. Please, try to do it again. If error appear a few times, contact us - avasalatij@gmail.com.</string>
     <string name="updating_failed">Updating failed!</string>
     <string name="loading_failed">Loading failed!</string>
-    <string name="hello_user_integers_fragment_text">Hello! 😀 You are on the integer numbers training ground where you can do addition, subtraction, division, multiplication tasks with different complexity. 💻 Let\'s start your training! Choose type of the tasks and become the best counter! 🏆</string>
-    <string name="hello_user_decimals_fragment_text">Hello! 😀 You are on the decimal numbers training ground where you can do addition, subtraction, division, multiplication tasks with different complexity. 💻 Let\'s start your training! Choose type of the tasks and become the best counter! 🏆</string>
     <string name="uploading_email_error_text">Email was updated successfully but error occurred when we were uploading your email to our database. Please, try to update it again to prevent some errors. If this error appear a few times, contact us - avasalatij@gmail.com.</string>
     <string name="uploading_nickname_error_text">Nickname was updated successfully in your profile but error occurred when we were uploading your email to other database collection. Please, try to update it again to prevent some errors. If this error appear a few times, contact us - avasalatij@gmail.com.</string>
     <string name="loading_data_error_text">Some errors occurred when we try to load your profile data. If you see it a few times, contact us - avasalatij@gmail.com.</string>
     <string name="astronomy_picture_of_day">Astronomy Picture Of Day</string>
-    <string name="search">Search</string>
-    <string name="type_to_search">Type something to start searching…</string>
-    <string name="mtg_apod"><![CDATA[MTG & APOD]]></string>
+    <string name="search">Search...</string>
     <string name="astronomy_image">Astronomy image</string>
     <string name="confirmation_failed">Confirmation failed!</string>
     <string name="check_password">Check your password, please!</string>
@@ -146,15 +121,9 @@
     <string name="swipe_horizontally_or_click_on_tabs_to_change_type_of_numbers">Swipe horizontally or click on tabs to change type of numbers</string>
     <string name="lost_connection">lost connection</string>
     <string name="connection_lost">Connection lost!</string>
-    <string name="connection_lost_in_main">You still can train, but you can not update your personal best or profile information. Also some online function will not be available, e.g. : live results sheets or astronomy picture of day.</string>
+    <string name="connection_lost_in_main">You still can train, but you can not update your personal best or profile information. Also some others online function will not be available, e.g. : live results sheets or astronomy picture of day.</string>
     <string name="arrow">arrow</string>
-    <string name="registration_failed">Registraion failed!</string>
-
-    <string-array name="types_of_number">
-        <item>Natural numbers</item>
-        <item>Integer numbers</item>
-        <item>Decimal numbers</item>
-    </string-array>
+    <string name="registration_failed">Registration failed!</string>
 
     <string-array name="types_of_number_for_tab">
         <item>Naturals</item>
@@ -169,11 +138,40 @@
         <item>Div</item>
     </string-array>
 
-    <string-array name="types_of_task">
-        <item>Addition</item>
-        <item>Subtraction</item>
-        <item>Multiplication</item>
-        <item>Division</item>
-    </string-array>
+    <string name="title_choose_image_provider">Choose</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="title_gallery">Gallery</string>
+    <string name="title_camera">Camera</string>
 
+    <string name="permission_camera_denied">
+        <![CDATA[Camera permission is needed to take a picture. Please allow permission from Settings > Permissions.]]></string>
+
+    <string name="error_failed_to_create_camera_image_file">Failed to create Camera image file</string>
+    <string name="error_failed_pick_gallery_image">Failed to pick Gallery image</string>
+    <string name="error_failed_to_crop_image">Failed to crop image</string>
+    <string name="error_failed_to_compress_image">Failed to compress image</string>
+    <string name="error_task_cancelled">Task Cancelled</string>
+    <string name="error_camera_app_not_found">Camera app not found</string>
+
+    <!-- uCrop string resource start -->
+    <string name="ucrop_label_original">Original</string>
+    <string name="ucrop_label_edit_photo">Edit Photo</string>
+    <string name="ucrop_menu_crop">Crop</string>
+    <string name="ucrop_rotate">Rotate</string>
+    <string name="ucrop_scale">Scale</string>
+    <string name="ucrop_crop">Crop</string>
+    <!-- uCrop string resource end -->
+
+    <string name="welcome_in_mtg">Welcome in MTG!</string>
+    <string name="we_are_happy_to_see_you">We are happy to see you in our first math app! Hope that you will become a part of our math family! Enjoy!)</string>
+
+    <string name="train">Train your math skills!</string>
+    <string name="we_provide_opportunity">We provide you opportunity to train your counting skills by using 12 grounds which generate 48 types of task! 24/7 and absolutely free!</string>
+
+    <string name="have_a_rest">Have a rest!</string>
+    <string name="for_you_we_made">For you we specially made page with beautiful astronomy pictures and interesting facts about them which had been provided by NASA! Make breaks between counting)</string>
+
+    <string name="compete">Compete!</string>
+    <string name="you_can_compete">You can compete with people all over the world! Become the best counter! What are you waiting?)</string>
+    <string name="delete_x">Х</string>
 </resources>

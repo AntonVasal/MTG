@@ -5,7 +5,6 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,11 +15,11 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.mtg.R;
 import com.example.mtg.databinding.DialogErrorOccurBinding;
-import com.example.mtg.ui.dialogs.serviceDialogs.ErrorDialog;
-import com.example.mtg.utility.textwatchers.ValidationTextWatcher;
 import com.example.mtg.databinding.FragmentRegisterBinding;
 import com.example.mtg.models.profileModel.UserRegisterProfileModel;
 import com.example.mtg.ui.activities.logActivity.logViewModel.LogViewModel;
+import com.example.mtg.ui.dialogs.serviceDialogs.ErrorDialog;
+import com.example.mtg.utility.textwatchers.ValidationTextWatcher;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Objects;

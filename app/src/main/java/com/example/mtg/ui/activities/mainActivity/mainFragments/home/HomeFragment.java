@@ -31,8 +31,12 @@ public class HomeFragment extends BaseBindingFragment<FragmentHomeBinding> {
     public void onStart() {
         super.onStart();
         meowBottomNavigation = requireActivity().findViewById(R.id.main_bottom_navigation);
-        if (meowBottomNavigation != null){
+        if (meowBottomNavigation != null && binding.mainTabs.getSelectedTabPosition() ==0 ){
             meowBottomNavigation.setBackgroundColor(getResources().getColor(R.color.lottie_calculator_blue_dark, requireContext().getTheme()));
+        } if (binding.mainTabs.getSelectedTabPosition() ==1){
+            meowBottomNavigation.setBackgroundColor(getResources().getColor(R.color.lottie_calculator_blue_bright, requireContext().getTheme()));
+        }else if (binding.mainTabs.getSelectedTabPosition() == 2){
+            meowBottomNavigation.setBackgroundColor(getResources().getColor(R.color.lottie_calculator_orange, requireContext().getTheme()));
         }
     }
 

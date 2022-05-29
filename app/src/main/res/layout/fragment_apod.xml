@@ -14,7 +14,7 @@
             android:background="@drawable/gradient_for_app"
             android:closeIcon="@drawable/ic_baseline_close_white_24"
             android:elevation="@dimen/normal_elevation_15"
-            android:queryHint="@string/search_hint"
+            android:queryHint="@string/search"
             android:searchHintIcon="@drawable/ic_baseline_search_24"
             android:searchIcon="@drawable/ic_baseline_search_24"
             app:layout_constraintTop_toTopOf="parent" />

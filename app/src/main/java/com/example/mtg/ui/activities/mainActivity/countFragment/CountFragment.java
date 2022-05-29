@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -79,6 +81,22 @@ public class CountFragment extends BaseBindingFragment<FragmentCountBinding> {
           if (SystemClock.elapsedRealtime() - binding.countTimer.getBase() > 0 ){
               finishCount();
           }
+        });
+        setTextWatcher();
+    }
+
+    private void setTextWatcher() {
+        binding.userAnswerText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (binding.userAnswerText.getText().toString().length() > 8 ){
+                    String delete = binding.userAnswerText.getText().toString();
+                    binding.userAnswerText.setText(delete.substring(0,delete.length()-1)); }
+            }
+            @Override
+            public void afterTextChanged(Editable editable) { }
         });
     }
 
