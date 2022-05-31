@@ -289,13 +289,15 @@ public class ProfileRepository {
                     switch (userField.status) {
                         case SUCCESS:
                             callback.userFieldCallback(ErrorHandlingRepositoryData.success(SUCCESS));
-                            storageReference.child(oldImageName).delete().addOnCompleteListener(task16 -> {
-                                if (task16.isSuccessful()) {
-                                    Log.i("repo", SUCCESS);
-                                } else {
-                                    Log.i("repo", FAILED);
-                                }
-                            });
+                            if (oldImageName!= null && !oldImageName.isEmpty()){
+                                storageReference.child(oldImageName).delete().addOnCompleteListener(task16 -> {
+                                    if (task16.isSuccessful()) {
+                                        Log.i("repo", SUCCESS);
+                                    } else {
+                                        Log.i("repo", FAILED);
+                                    }
+                                });
+                            }
                             break;
                         case ERROR:
                             callback.userFieldCallback(ErrorHandlingRepositoryData.error(FAILED, userField.data));
