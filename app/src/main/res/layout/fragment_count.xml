@@ -91,9 +91,14 @@
                 android:layout_weight="58"
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="5dp"
+                android:maxLines="1"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:scrollHorizontally="true"
                 android:textAlignment="textEnd"
                 android:textColor="@color/black"
-                android:textSize="28sp"
+                android:textSize="26sp"
                 tools:text="Task" />
 
             <TextView
@@ -105,7 +110,7 @@
                 android:paddingVertical="5dp"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
-                android:textSize="28sp" />
+                android:textSize="26sp" />
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

@@ -2,6 +2,7 @@ package com.example.mtg.utility.tasksGenerators;
 
 import com.example.mtg.databinding.FragmentCountBinding;
 
+import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.Random;
 
@@ -148,7 +149,7 @@ public class MediumTasksGenerator {
             doubleForTask = String.valueOf(c);
             doubles = doubleForTask.split("\\.");
         } while (doubles.length ==1 || doubles[1].length() != 1);
-        String task = a + " : " + b + " = ";
+        String task = BigDecimal.valueOf(a).stripTrailingZeros() + " : " +BigDecimal.valueOf(b).stripTrailingZeros()+ " = ";
         binding.taskText.setText(task);
     }
 
@@ -161,9 +162,9 @@ public class MediumTasksGenerator {
         b = Double.parseDouble(String.format(Locale.US, "%.1f", b));
         String task;
         if (a > b) {
-            task = a + " - " + b + " = ";
+            task =BigDecimal.valueOf(a).stripTrailingZeros() + " - " + BigDecimal.valueOf(b).stripTrailingZeros() + " = ";
         } else {
-            task = b + " - " + a + " = ";
+            task = BigDecimal.valueOf(b).stripTrailingZeros() + " - " + BigDecimal.valueOf(a).stripTrailingZeros() + " = ";
         }
         binding.taskText.setText(task);
     }
@@ -175,7 +176,7 @@ public class MediumTasksGenerator {
         double random2 = new Random().nextDouble();
         double b = 0.0 + (random2 * (2.0 - 0.0));
         b = Double.parseDouble(String.format(Locale.US, "%.1f", b));
-        String task = a + " * " + b + " = ";
+        String task = BigDecimal.valueOf(a).stripTrailingZeros() + " * " + BigDecimal.valueOf(b).stripTrailingZeros() + " = ";
         binding.taskText.setText(task);
     }
 
@@ -186,7 +187,7 @@ public class MediumTasksGenerator {
         double random2 = new Random().nextDouble();
         double b = 0.0 + (random2 * (250.0 - 0.0));
         b = Double.parseDouble(String.format(Locale.US, "%.1f", b));
-        String task = a + " + " + b + " = ";
+        String task = BigDecimal.valueOf(a).stripTrailingZeros() + " + " + BigDecimal.valueOf(b).stripTrailingZeros() + " = ";
         binding.taskText.setText(task);
     }
 

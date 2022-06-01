@@ -46,10 +46,10 @@ public class ApodDialog extends BottomSheetDialog {
     }
 
     public void loadData() {
-        binding.apodDialogTitle.setText(Html.fromHtml(model.getTitle(),Html.FROM_HTML_MODE_LEGACY).toString());
-        binding.apodDialogText.setText(Html.fromHtml(model.getExplanation(),Html.FROM_HTML_MODE_LEGACY).toString());
+        binding.apodDialogTitle.setText(model.getTitle().replaceAll("[^a-zA-Z0-9]", " "));
+        binding.apodDialogText.setText(model.getExplanation().replaceAll("[^a-zA-Z0-9]", " "));
         if (model.getCopyright()!=null){
-            binding.apodDialogAuthor.setText(Html.fromHtml(model.getCopyright(),Html.FROM_HTML_MODE_LEGACY).toString());
+            binding.apodDialogAuthor.setText(model.getCopyright().replaceAll("[^a-zA-Z0-9]", " "));
         }else{
             binding.apodDialogAuthor.setText("");
         }

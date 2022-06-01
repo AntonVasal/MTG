@@ -15,7 +15,7 @@
     <string name="password_you_remember">Пароль, що ви пам\'ятаєте</string>
     <string name="search">Пошук…</string>
     <string name="confirmation_failed">Не вдалося авторизувати вас!</string>
-    <string name="check_password">Перевірти свій пароль, будь ласка!</string>
+    <string name="check_password">Перевірте свій пароль, будь ласка!</string>
     <string name="can_not_send_letter">Не вдалося надіслати лист, спробуйте знову!</string>
     <string name="check_your_email">Перевірте вашу електронну пошту, будь ласка!</string>
     <string name="authentication_failed">Аутентифікація провалена!</string>
@@ -129,7 +129,7 @@
     <string name="for_you_we_made">Спеціально для вас ми зробили сторінку з  прекрасними астрономічними фото і цікавими фактами про них, що були надані NASA! Робіть перерви між тренуваннями!)</string>
     <string name="compete">Змагайтеся!</string>
     <string name="you_can_compete">Ви можете позмагатися з людьми зі всього світу! Ставайте найкращим рахівником! Чого ви чекаєте?)</string>
-    <string name="delete_x">Х</string>
+    <string name="delete_x">X</string>
     <string name="integers">Цілі</string>
     <string name="decimals">Десяткові</string>
     <string name="naturals">Натуральні</string>

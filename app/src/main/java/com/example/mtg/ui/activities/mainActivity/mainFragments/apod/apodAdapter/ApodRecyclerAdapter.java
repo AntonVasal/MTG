@@ -76,9 +76,9 @@ public class ApodRecyclerAdapter extends RecyclerView.Adapter<ApodRecyclerViewHo
         holder.binding.apodItemAuthor.setSelected(true);
         holder.binding.apodItemTitle.setSelected(true);
         ApodModel apodModel = arrayList.get(position);
-        apodModel.setTitle(Html.fromHtml(apodModel.getTitle(),Html.FROM_HTML_MODE_LEGACY).toString());
-        if (apodModel.getCopyright() != null && apodModel.getCopyright().isEmpty()){
-            apodModel.setCopyright(Html.fromHtml(apodModel.getCopyright(),Html.FROM_HTML_MODE_LEGACY).toString());
+        apodModel.setTitle(apodModel.getTitle().replaceAll("[^a-zA-Z0-9]", " "));
+        if (apodModel.getCopyright() != null && !apodModel.getCopyright().isEmpty()) {
+            apodModel.setCopyright(apodModel.getCopyright().replaceAll("[^a-zA-Z0-9]", " "));
         }
         holder.binding.setApodModel(apodModel);
     }
