@@ -25,6 +25,9 @@ import com.example.mtg.utility.networkDetection.NetworkStateManager;
 
 import java.util.ArrayList;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class MainFragment extends Fragment {
     private FragmentMainBinding binding;
     private FragmentManager fragmentManager;

@@ -8,6 +8,9 @@ import com.example.mtg.retrofit.RetrofitClient;
 import com.example.mtg.utility.networkDetection.NetworkMonitorUtil;
 import com.example.mtg.utility.sharedPreferences.SharedPreferencesHolder;
 
+import dagger.hilt.android.HiltAndroidApp;
+
+@HiltAndroidApp
 public class App extends Application {
 
     public static App instance;

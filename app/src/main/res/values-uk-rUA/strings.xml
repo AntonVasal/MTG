@@ -130,4 +130,13 @@
     <string name="compete">Змагайтеся!</string>
     <string name="you_can_compete">Ви можете позмагатися з людьми зі всього світу! Ставайте найкращим рахівником! Чого ви чекаєте?)</string>
     <string name="delete_x">Х</string>
+    <string name="integers">Цілі</string>
+    <string name="decimals">Десяткові</string>
+    <string name="naturals">Натуральні</string>
+
+    <string-array name="types_of_number_for_tab">
+        <item>Натуральні</item>
+        <item>Цілі</item>
+        <item>Десяткові</item>
+    </string-array>
 </resources>

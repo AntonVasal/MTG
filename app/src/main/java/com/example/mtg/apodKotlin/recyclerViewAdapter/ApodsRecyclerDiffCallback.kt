@@ -1,7 +1,7 @@
-package com.example.mtg.apodKotlin.old
+package com.example.mtg.apodKotlin.recyclerViewAdapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.mtg.apodKotlin.ApodsModel
+import com.example.mtg.apodKotlin.model.ApodsModel
 
 class ApodsRecyclerDiffCallback : DiffUtil.ItemCallback<ApodsModel>() {
     override fun areItemsTheSame(oldItem: ApodsModel, newItem: ApodsModel): Boolean {

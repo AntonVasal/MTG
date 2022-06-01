@@ -7,18 +7,20 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mtg.apodKotlin.recyclerViewAdapter.ApodsRecyclerAdapter
 
-abstract class BaseRecyclerViewAdapter<Binding : ViewDataBinding>
-    : RecyclerView.Adapter<BaseRecyclerViewAdapter.BaseViewHolder<Binding>>(){
+abstract class BaseRecyclerViewAdapter<Binding : ViewDataBinding, DATA>
+    : RecyclerView.Adapter<BaseRecyclerViewAdapter.BaseViewHolder<Binding>>() {
 
     protected lateinit var binding: Binding
+    abstract var arrayList: ArrayList<DATA>
     abstract val context: Context
-    abstract val layoutId:Int
+    abstract val layoutId: Int
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<Binding> {
-        binding = DataBindingUtil.inflate(LayoutInflater.from(context),layoutId,parent,false)
+   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<Binding> {
+        binding = DataBindingUtil.inflate(LayoutInflater.from(context), layoutId, parent, false)
         return BaseViewHolder(binding)
-    }
+   }
 
     fun <T> autoNotify(oldList: ArrayList<T>, newList: ArrayList<T>, compare: (T, T) -> Boolean) {
         val diff = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
@@ -37,6 +39,9 @@ abstract class BaseRecyclerViewAdapter<Binding : ViewDataBinding>
         })
         diff.dispatchUpdatesTo(this)
     }
+
+
+    override fun getItemCount(): Int = arrayList.size
 
 
     class BaseViewHolder<Binding : ViewDataBinding>(val binding: Binding) : RecyclerView.ViewHolder(binding.root)

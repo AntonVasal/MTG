@@ -4,8 +4,8 @@
     <string name="results" translatable="false">Results</string>
     <string name="profile" translatable="false">Profile</string>
     <string name="natural" translatable="false">Natural</string>
-    <string name="integers" translatable="false">Integers</string>
-    <string name="decimals" translatable="false">Decimals</string>
+    <string name="integers">Integers</string>
+    <string name="decimals">Decimals</string>
     <string name="multi" translatable="false">Multi</string>
     <string name="div" translatable="false">Div</string>
     <string name="sub" translatable="false">Sub</string>
@@ -54,7 +54,7 @@
     <string name="cancel">Cancel</string>
     <string name="exit">Exit</string>
     <string name="are_you_sure">Are you sure?</string>
-    <string name="naturals" translatable="false">naturals</string>
+    <string name="naturals">naturals</string>
     <string name="start">Start</string>
     <string name="finish">Finish</string>
     <string name="score">Score:</string>
@@ -103,7 +103,7 @@
     <string name="uploading_nickname_error_text">Nickname was updated successfully in your profile but error occurred when we were uploading your email to other database collection. Please, try to update it again to prevent some errors. If this error appear a few times, contact us - avasalatij@gmail.com.</string>
     <string name="loading_data_error_text">Some errors occurred when we try to load your profile data. If you see it a few times, contact us - avasalatij@gmail.com.</string>
     <string name="astronomy_picture_of_day">Astronomy Picture Of Day</string>
-    <string name="search">Search...</string>
+    <string name="search">Search…</string>
     <string name="astronomy_image">Astronomy image</string>
     <string name="confirmation_failed">Confirmation failed!</string>
     <string name="check_password">Check your password, please!</string>

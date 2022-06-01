@@ -1,4 +1,4 @@
-package com.example.mtg.apodKotlin
+package com.example.mtg.apodKotlin.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
