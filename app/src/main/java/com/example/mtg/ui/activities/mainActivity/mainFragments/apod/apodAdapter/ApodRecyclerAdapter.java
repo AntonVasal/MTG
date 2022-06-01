@@ -1,7 +1,6 @@
 package com.example.mtg.ui.activities.mainActivity.mainFragments.apod.apodAdapter;
 
 import android.content.Context;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
@@ -10,11 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.mtg.R;
 import com.example.mtg.databinding.ItemApodRecyclerBinding;
 import com.example.mtg.models.apodModel.ApodModel;
 
+import java.nio.charset.StandardCharsets;
+import java.text.Normalizer;
 import java.util.ArrayList;
 
 public class ApodRecyclerAdapter extends RecyclerView.Adapter<ApodRecyclerViewHolder> {
@@ -76,10 +76,19 @@ public class ApodRecyclerAdapter extends RecyclerView.Adapter<ApodRecyclerViewHo
         holder.binding.apodItemAuthor.setSelected(true);
         holder.binding.apodItemTitle.setSelected(true);
         ApodModel apodModel = arrayList.get(position);
-        apodModel.setTitle(apodModel.getTitle().replaceAll("[^a-zA-Z0-9]", " "));
+
+        String regex = "[\\p{InCombiningDiacriticalMarks}]+";
+
+        String title = Normalizer.normalize(apodModel.getTitle(), Normalizer.Form.NFKD);
+        String s2 = new String(title.replaceAll(regex, "").getBytes(StandardCharsets.US_ASCII), StandardCharsets.US_ASCII);
+        apodModel.setTitle(s2);
+
         if (apodModel.getCopyright() != null && !apodModel.getCopyright().isEmpty()) {
-            apodModel.setCopyright(apodModel.getCopyright().replaceAll("[^a-zA-Z0-9]", " "));
+            String copyright = Normalizer.normalize(apodModel.getCopyright(), Normalizer.Form.NFKD);
+            String a2 = new String(copyright.replaceAll(regex, "").getBytes(StandardCharsets.US_ASCII), StandardCharsets.US_ASCII);
+            apodModel.setCopyright(a2);
         }
+
         holder.binding.setApodModel(apodModel);
     }
 

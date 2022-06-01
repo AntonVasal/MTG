@@ -19,6 +19,7 @@ import com.example.mtg.databinding.FragmentChangeDataBinding;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.profileSettingsFragment.profileSettingsFragmentViewModel.ProfileSettingsViewModel;
 import com.example.mtg.ui.dialogs.serviceDialogs.ErrorDialog;
 import com.example.mtg.utility.networkDetection.NetworkStateManager;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Objects;
 
@@ -93,6 +94,8 @@ public class ChangeCountryFragment extends Fragment {
                     case SUCCESS:
                         if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.changeCountryFragment) {
                             binding.changeDataProgressBar.setVisibility(View.GONE);
+                            Snackbar snackbar = Snackbar.make(binding.getRoot(),R.string.country_updated,Snackbar.LENGTH_LONG);
+                            snackbar.show();
                             navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment, true);
                         }
                         break;

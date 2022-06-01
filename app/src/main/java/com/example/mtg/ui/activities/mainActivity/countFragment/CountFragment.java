@@ -155,8 +155,10 @@ public class CountFragment extends BaseBindingFragment<FragmentCountBinding> {
                 binding.notRightImg.setVisibility(View.GONE);
                 binding.userAnswerText.setVisibility(View.VISIBLE);
                 binding.taskText.setVisibility(View.VISIBLE);
-                countViewsOperator.buttonEnabledTrue(typeNumber);
-                tasksComplexity();
+                if (binding.finishButton.getVisibility() == View.VISIBLE){
+                    countViewsOperator.buttonEnabledTrue(typeNumber);
+                    tasksComplexity();
+                }
             }catch (Exception e){
                 e.printStackTrace();
             }

@@ -121,18 +121,22 @@ public class RegisterFragment extends Fragment {
         UserRegisterProfileModel user = new UserRegisterProfileModel(name, surname, nickname, email, country, "");
 
         logViewModel.createNewUser(user, password, userField -> {
+            Snackbar snackbar;
             switch (userField.status){
                 case SUCCESS:
                     binding.registerProgressBar.setVisibility(View.GONE);
+                    snackbar = Snackbar.make(binding.getRoot(),R.string.registration_success,Snackbar.LENGTH_LONG);
+                    snackbar.show();
                     navController.popBackStack();
                     break;
                 case ERROR:
                     assert userField.message != null;
                     if (userField.message.equals(DATA_NOT_PUSHED)){
                         binding.registerProgressBar.setVisibility(View.GONE);
+                        errorDialog.show();
                     } else {
                         binding.registerProgressBar.setVisibility(View.GONE);
-                        Snackbar snackbar = Snackbar.make(binding.getRoot(),R.string.registration_failed,Snackbar.LENGTH_LONG);
+                        snackbar = Snackbar.make(binding.getRoot(),R.string.registration_failed,Snackbar.LENGTH_LONG);
                         snackbar.show();
                     }
                     binding.registerButton.setEnabled(true);

@@ -124,6 +124,13 @@
     <string name="connection_lost_in_main">You still can train, but you can not update your personal best or profile information. Also some others online function will not be available, e.g. : live results sheets or astronomy picture of day.</string>
     <string name="arrow">arrow</string>
     <string name="registration_failed">Registration failed!</string>
+    <string name="registration_success">Your account created successfully!</string>
+    <string name="country_updated">Country was updated successfully!</string>
+    <string name="password_updated">Password was updated successfully!</string>
+    <string name="nickname_updated">Nickname was updated successfully!</string>
+    <string name="name_updated">Name was updated successfully!</string>
+    <string name="email_updated">Email was updated successfully!</string>
+    <string name="surname_updated">Surname was updated successfully!</string>
 
     <string-array name="types_of_number_for_tab">
         <item>Naturals</item>

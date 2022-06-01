@@ -14,6 +14,9 @@ import com.facebook.shimmer.Shimmer;
 import com.facebook.shimmer.ShimmerDrawable;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.nio.charset.StandardCharsets;
+import java.text.Normalizer;
+
 public class ApodDialog extends BottomSheetDialog {
 
     private final DialogBottomSheetApodBinding binding;
@@ -46,10 +49,20 @@ public class ApodDialog extends BottomSheetDialog {
     }
 
     public void loadData() {
-        binding.apodDialogTitle.setText(model.getTitle().replaceAll("[^a-zA-Z0-9]", " "));
-        binding.apodDialogText.setText(model.getExplanation().replaceAll("[^a-zA-Z0-9]", " "));
+        String regex = "[\\p{InCombiningDiacriticalMarks}]+";
+
+        String title = Normalizer.normalize(model.getTitle(), Normalizer.Form.NFKD);
+        String s2 = new String(title.replaceAll(regex, "").getBytes(StandardCharsets.US_ASCII), StandardCharsets.US_ASCII);
+        binding.apodDialogTitle.setText(s2);
+
+        String explanation = Normalizer.normalize(model.getExplanation(), Normalizer.Form.NFKD);
+        String a2 = new String(explanation.replaceAll(regex, "").getBytes(StandardCharsets.US_ASCII), StandardCharsets.US_ASCII);
+        binding.apodDialogText.setText(a2);
+
         if (model.getCopyright()!=null){
-            binding.apodDialogAuthor.setText(model.getCopyright().replaceAll("[^a-zA-Z0-9]", " "));
+            String copyright = Normalizer.normalize(model.getCopyright(), Normalizer.Form.NFKD);
+            String b2 = new String(copyright.replaceAll(regex, "").getBytes(StandardCharsets.US_ASCII), StandardCharsets.US_ASCII);
+            binding.apodDialogAuthor.setText(b2);
         }else{
             binding.apodDialogAuthor.setText("");
         }

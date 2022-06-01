@@ -22,6 +22,7 @@ import com.example.mtg.databinding.FragmentChangeDataBinding;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.profileSettings.profileSettingsFragment.profileSettingsFragmentViewModel.ProfileSettingsViewModel;
 import com.example.mtg.ui.dialogs.serviceDialogs.ErrorDialog;
 import com.example.mtg.utility.networkDetection.NetworkStateManager;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Objects;
 
@@ -111,6 +112,8 @@ public class ChangeEmailFragment extends Fragment {
                 switch (Objects.requireNonNull(userField.status)){
                     case SUCCESS:
                         binding.changeDataProgressBar.setVisibility(View.GONE);
+                        Snackbar snackbar = Snackbar.make(binding.getRoot(),R.string.email_updated,Snackbar.LENGTH_LONG);
+                        snackbar.show();
                         navController.popBackStack(R.id.profileSettingsPasswordConfirmationFragment, true);
                         break;
                     case ERROR:

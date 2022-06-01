@@ -177,5 +177,8 @@
         <item name="android:hint">@string/surname</item>
     </style>
 
+<!--    <style name="MineCustomTabText" parent="TextAppearance.Design.Tab">-->
+<!--        <item name="android:textSize">@dimen/user_help_text_15</item>-->
+<!--    </style>-->
 
 </resources>

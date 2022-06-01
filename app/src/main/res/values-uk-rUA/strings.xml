@@ -139,4 +139,19 @@
         <item>Цілі</item>
         <item>Десяткові</item>
     </string-array>
+
+<!--    <string-array name="types_of_task_for_tab">-->
+<!--        <item>Додавання</item>-->
+<!--        <item>Віднімання</item>-->
+<!--        <item>Множення</item>-->
+<!--        <item>Ділення</item>-->
+<!--    </string-array>-->
+
+    <string name="registration_success">Обліковий запис створено успішно!</string>
+    <string name="country_updated">Країну успішно оновлено!</string>
+    <string name="password_updated">Пароль успішно оновлено!</string>
+    <string name="nickname_updated">Нікнейм успішно оновлено!</string>
+    <string name="name_updated">Ім\'я успішно оновлено!</string>
+    <string name="email_updated">"Електронну адресу успішно оновлено! "</string>
+    <string name="surname_updated">Прізвище успішно оновлено!</string>
 </resources>
