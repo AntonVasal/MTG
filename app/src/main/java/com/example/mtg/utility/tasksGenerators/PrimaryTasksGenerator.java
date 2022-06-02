@@ -149,7 +149,7 @@ public class PrimaryTasksGenerator {
             doubleForTask = String.valueOf(c);
             doubles = doubleForTask.split("\\.");
         } while (doubles.length ==1 || doubles[1].length() != 1);
-        String task = BigDecimal.valueOf(a).stripTrailingZeros() + " : " + BigDecimal.valueOf(b).stripTrailingZeros() + " = ";
+        String task = BigDecimal.valueOf(a).stripTrailingZeros().toPlainString() + " : " + BigDecimal.valueOf(b).stripTrailingZeros().toPlainString() + " = ";
         binding.taskText.setText(task);
     }
 
@@ -161,10 +161,12 @@ public class PrimaryTasksGenerator {
         double b = 0.0 + (random2 * (50.0 - 0.0));
         b = Double.parseDouble(String.format(Locale.US, "%.1f", b));
         String task;
+        String s = BigDecimal.valueOf(a).stripTrailingZeros().toPlainString();
+        String s1 = BigDecimal.valueOf(b).stripTrailingZeros().toPlainString();
         if (a > b) {
-            task =BigDecimal.valueOf(a).stripTrailingZeros() + " - " + BigDecimal.valueOf(b).stripTrailingZeros() + " = ";
+            task = s + " - " + s1 + " = ";
         } else {
-            task = BigDecimal.valueOf(b).stripTrailingZeros() + " - " + BigDecimal.valueOf(a).stripTrailingZeros() + " = ";
+            task = s1 + " - " + s + " = ";
         }
         binding.taskText.setText(task);
     }
@@ -176,7 +178,7 @@ public class PrimaryTasksGenerator {
         double random2 = new Random().nextDouble();
         double b = 0.0 + (random2);
         b = Double.parseDouble(String.format(Locale.US, "%.1f", b));
-        String task = BigDecimal.valueOf(a).stripTrailingZeros() + " * " + BigDecimal.valueOf(b).stripTrailingZeros() + " = ";
+        String task = BigDecimal.valueOf(a).stripTrailingZeros().toPlainString() + " * " + BigDecimal.valueOf(b).stripTrailingZeros().toPlainString() + " = ";
         binding.taskText.setText(task);
     }
 
@@ -187,7 +189,7 @@ public class PrimaryTasksGenerator {
         double random2 = new Random().nextDouble();
         double b = 0.0 + (random2 * (50.0 - 0.0));
         b = Double.parseDouble(String.format(Locale.US, "%.1f", b));
-        String task = BigDecimal.valueOf(a).stripTrailingZeros() + " + " + BigDecimal.valueOf(b).stripTrailingZeros() + " = ";
+        String task = BigDecimal.valueOf(a).stripTrailingZeros().toPlainString() + " + " + BigDecimal.valueOf(b).stripTrailingZeros().toPlainString() + " = ";
         binding.taskText.setText(task);
     }
 
