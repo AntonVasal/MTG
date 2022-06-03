@@ -16,7 +16,7 @@ import javax.inject.Inject
 import kotlin.reflect.KClass
 
 @AndroidEntryPoint
-class ApodsFragment(override val layoutId: Int = R.layout.fragment_apod,
+class  ApodsFragment(override val layoutId: Int = R.layout.fragment_apod,
                              override val viewModelClass: KClass<ApodsViewModel> = ApodsViewModel::class)
     : BaseStateVMFragment<ApodsViewModel, FragmentApodBinding, BaseStates>() {
 

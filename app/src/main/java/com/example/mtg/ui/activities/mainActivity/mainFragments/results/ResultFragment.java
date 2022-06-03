@@ -34,7 +34,7 @@ public class ResultFragment extends Fragment {
     public void onStart() {
         super.onStart();
         MeowBottomNavigation meowBottomNavigation = requireActivity().findViewById(R.id.main_bottom_navigation);
-        if(meowBottomNavigation.getDefaultIconColor() != R.color.blue){
+        if(meowBottomNavigation != null && meowBottomNavigation.getDefaultIconColor() != R.color.blue){
             meowBottomNavigation.setBackground(AppCompatResources.getDrawable(requireContext(),R.drawable.gradient_for_bottom_navigation));
             meowBottomNavigation.setDefaultIconColor(Color.parseColor("#112CBF"));
         }
