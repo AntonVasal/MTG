@@ -110,10 +110,11 @@
                         app:lottie_rawRes="@raw/plus_sky_theme" />
                 </LinearLayout>
 
-                <View
+                <ImageView
                     android:id="@+id/sub_text"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:contentDescription="@string/dialog_image"
                     android:background="@color/white"
                     android:orientation="horizontal"
                     android:padding="20dp"
@@ -122,13 +123,14 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/add_text"
                     app:layout_constraintTop_toTopOf="parent">
-                </View>
+                </ImageView>
 
 
-                <View
+                <ImageView
                     android:id="@+id/multi_text"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:contentDescription="@string/dialog_image"
                     android:visibility="invisible"
                     android:background="@color/transparent"
                     android:orientation="horizontal"
@@ -136,10 +138,11 @@
                     app:layout_constraintEnd_toStartOf="@+id/div_text"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/add_text">
-                </View>
+                </ImageView>
 
-                <View
+                <ImageView
                     android:id="@+id/div_text"
+                    android:contentDescription="@string/dialog_image"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:background="@color/transparent"
@@ -149,7 +152,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/multi_text"
                     app:layout_constraintTop_toBottomOf="@id/sub_text">
-                </View>
+                </ImageView>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
