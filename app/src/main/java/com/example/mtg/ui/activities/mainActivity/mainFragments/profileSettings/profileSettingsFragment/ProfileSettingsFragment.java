@@ -5,9 +5,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -31,11 +33,11 @@ public class ProfileSettingsFragment extends Fragment {
     private static final String TYPE_FRAGMENTS = "typeFragments";
     private static final String DATA = "DATA";
     private static final String LOADED = "loaded";
-    private ErrorDialog errorDialog;
     private static int counter = 0;
     private Bundle bundle;
     private ProfileSettingsViewModel profileSettingsViewModel;
     private DialogErrorOccurBinding errorOccurBinding;
+    private ErrorDialog errorDialog;
     private NetworkStateManager networkStateManager;
 
     @Override
@@ -90,6 +92,8 @@ public class ProfileSettingsFragment extends Fragment {
                     break;
                 case ERROR:
                     errorDialog.show();
+                    Window window = errorDialog.getWindow();
+                    window.setLayout(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
                     break;
             }
         });

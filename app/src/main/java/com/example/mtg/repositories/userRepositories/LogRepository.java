@@ -74,6 +74,7 @@ public class LogRepository {
                             callback.userFieldCallback(ErrorHandlingRepositoryData.error(DATA_NOT_PUSHED,null));
                             break;
                     }
+                    firebaseAuth.signOut();
                 });
             }else{
                 callback.userFieldCallback(ErrorHandlingRepositoryData.error(FAILED_TO_MAKE_USER,null));

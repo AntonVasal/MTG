@@ -33,11 +33,13 @@ import com.bumptech.glide.Glide;
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.example.mtg.R;
 import com.example.mtg.databinding.DialogConnectionBinding;
+import com.example.mtg.databinding.DialogErrorOccurBinding;
 import com.example.mtg.databinding.FragmentProfileBinding;
 import com.example.mtg.ui.activities.logActivity.LogActivity;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.MainFragmentDirections;
 import com.example.mtg.ui.activities.mainActivity.mainFragments.profile.viewModel.ProfileViewModel;
 import com.example.mtg.ui.dialogs.connectionDialog.ConnectionDialog;
+import com.example.mtg.ui.dialogs.serviceDialogs.ErrorDialog;
 import com.example.mtg.utility.networkDetection.NetworkStateManager;
 import com.github.drjacky.imagepicker.ImagePicker;
 import com.google.android.material.button.MaterialButton;
@@ -62,6 +64,8 @@ public class ProfileFragment extends Fragment {
     private String img = "";
     private ConnectionDialog connectionDialog;
     private static int counter = 0;
+    private DialogErrorOccurBinding errorOccurBinding;
+    private ErrorDialog errorDialog;
     private Dialog dialog;
     private static final String TAG = "MainActivity";
     private static final String FAILED = "Failed";
@@ -111,6 +115,11 @@ public class ProfileFragment extends Fragment {
         networkStateManager = NetworkStateManager.getInstance();
         binding.setViewModel(profileViewModel);
         mAuth = FirebaseAuth.getInstance();
+        errorOccurBinding = DialogErrorOccurBinding.inflate(getLayoutInflater());
+        errorDialog = new ErrorDialog(requireActivity(),
+                getResources().getString(R.string.loading_data_error_text),
+                getResources().getString(R.string.updating_failed),
+                errorOccurBinding);
         binding.profileProgressBar.setVisibility(View.VISIBLE);
         binding.infoName.setSelected(true);
         binding.infoNickname.setSelected(true);
@@ -171,7 +180,9 @@ public class ProfileFragment extends Fragment {
                     break;
                 case ERROR:
                     img = "";
-                    Log.e(TAG, FAILED);
+                    errorDialog.show();
+                    Window window = errorDialog.getWindow();
+                    window.setLayout(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
             }
         });
     }
@@ -245,24 +256,28 @@ public class ProfileFragment extends Fragment {
     private void updateImage(Uri imageUri, String nameImg) {
         binding.profileProgressBar.setVisibility(View.VISIBLE);
         profileViewModel.updateUserImage(imageUri, img, nameImg, userField -> {
-            switch (userField.status) {
-                case SUCCESS:
-                    binding.profileProgressBar.setVisibility(View.GONE);
-                    Glide.with(requireContext()).load(imageUri).placeholder(R.drawable.ic_user_main)
-                            .error(R.drawable.ic_user_main).into(binding.userProfileImage);
-                    break;
-                case ERROR:
-                    if (userField.message != null) {
-                        if (userField.message.equals(UPLOADING_FAILED_EVERYWHERE) || userField.message.equals(UPLOADING_FAILED)) {
-                            Log.e(TAG, UPLOADING_FAILED_EVERYWHERE);
+            try {
+                switch (userField.status) {
+                    case SUCCESS:
+                        binding.profileProgressBar.setVisibility(View.GONE);
+                        Glide.with(requireContext()).load(imageUri).placeholder(R.drawable.ic_user_main)
+                                .error(R.drawable.ic_user_main).into(binding.userProfileImage);
+                        break;
+                    case ERROR:
+                        if (userField.message != null) {
+                            if (userField.message.equals(UPLOADING_FAILED_EVERYWHERE) || userField.message.equals(UPLOADING_FAILED)) {
+                                Log.e(TAG, UPLOADING_FAILED_EVERYWHERE);
 
-                        } else {
-                            Log.e(TAG, FAILED);
-                            Glide.with(requireContext()).load(imageUri).placeholder(R.drawable.ic_user_main)
-                                    .error(R.drawable.ic_user_main).into(binding.userProfileImage);
+                            } else {
+                                Log.e(TAG, FAILED);
+                                Glide.with(requireContext()).load(imageUri).placeholder(R.drawable.ic_user_main)
+                                        .error(R.drawable.ic_user_main).into(binding.userProfileImage);
+                            }
                         }
-                    }
-                    binding.profileProgressBar.setVisibility(View.GONE);
+                        binding.profileProgressBar.setVisibility(View.GONE);
+                }
+            }catch (Exception e){
+                e.printStackTrace();
             }
         });
     }
@@ -296,6 +311,7 @@ public class ProfileFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         connectionBinding = null;
+        errorOccurBinding = null;
         binding = null;
     }
 

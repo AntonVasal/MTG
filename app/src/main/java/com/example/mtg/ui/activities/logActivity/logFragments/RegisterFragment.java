@@ -5,9 +5,11 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -54,8 +56,8 @@ public class RegisterFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         logViewModel = new ViewModelProvider(requireActivity()).get(LogViewModel.class);
         errorDialog = new ErrorDialog(requireActivity(),
-                getResources().getString(R.string.loading_failed),
                 getResources().getString(R.string.failed_to_upload_data),
+                getResources().getString(R.string.loading_failed),
                 errorOccurBinding);
         initListeners();
         textSelected();
@@ -134,6 +136,8 @@ public class RegisterFragment extends Fragment {
                     if (userField.message.equals(DATA_NOT_PUSHED)){
                         binding.registerProgressBar.setVisibility(View.GONE);
                         errorDialog.show();
+                        Window window = errorDialog.getWindow();
+                        window.setLayout(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
                     } else {
                         binding.registerProgressBar.setVisibility(View.GONE);
                         snackbar = Snackbar.make(binding.getRoot(),R.string.registration_failed,Snackbar.LENGTH_LONG);

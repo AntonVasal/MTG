@@ -27,7 +27,7 @@ public class ProfileRepository {
     FirebaseFirestore firebaseFirestore;
     FirebaseAuth firebaseAuth;
     String id;
-    UserRegisterProfileModel userRegisterProfileModel;
+    UserRegisterProfileModel userRegisterProfileModel = new UserRegisterProfileModel();
     ListenerRegistration listenerRegistration;
     SharedPreferencesHolder preferencesHolder;
     StorageReference storageReference;

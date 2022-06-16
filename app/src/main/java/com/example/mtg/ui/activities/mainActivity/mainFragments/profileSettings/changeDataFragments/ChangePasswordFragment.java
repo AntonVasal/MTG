@@ -5,9 +5,11 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -122,6 +124,8 @@ public class ChangePasswordFragment extends Fragment {
                     case ERROR:
                         binding.changeDataProgressBar.setVisibility(View.GONE);
                         errorDialog.show();
+                        Window window = errorDialog.getWindow();
+                        window.setLayout(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
                         break;
                 }
                 binding.changeButton.setEnabled(true);
